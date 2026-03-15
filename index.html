@@ -1,29 +1,115 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Ayetler ile Canlıları Öğreniyorum</title>
-  <link rel="stylesheet" href="style.css" />
+  <meta charset="UTF-8">
+  <title>True Kinetic Üyelik Sistemi</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div id="overlay">
-    <div id="overlay-content">
-      <img id="game-logo" src="https://copilot.microsoft.com/th/id/BCO.8e4dac03-f0e8-48a3-984d-f1a5ff0b8b00.png" alt="Ayetler ile Canlıları Öğreniyorum" />
-      <button id="start-btn" onclick="startGame()">Oyuna Başla</button>
-    </div>
-  </div>
+  <header>
+    <div class="logo">True<span>Kinetic</span></div>
+  </header>
 
-  <div id="game" class="hidden">
-    <div id="status" class="glass">
-      <span id="level">Seviye: 1</span>
-      <span id="lives">Can: 3</span>
-      <span id="points">Puan: 0</span>
+  <main id="hero">
+    <h1>True Kinetic Membership System</h1>
+    <p>Official information center for supporter ranks, Robux payment system, and community policies.</p>
+  </main>
+
+  <section id="supporter" class="panel">
+    <h2>Supporter Ranks</h2>
+    <ul>
+      <li><strong>Recruit 💚</strong> $2.99 – $5.99</li>
+      <li><strong>Guardian 🔵</strong> $5.99 – $19.99</li>
+      <li><strong>Commander 🟣</strong> $19.99 – $49.99</li>
+      <li><strong>Legend 🔴</strong> $49.99+</li>
+      <li><strong>Server Booster ✨</strong> Special advantages with Nitro Boost</li>
+    </ul>
+  </section>
+
+  <section id="plans" class="plans">
+  <h2>Membership Benefits Comparison</h2>
+  <div class="plan-grid">
+
+    <div class="plan-card recruit">
+      <h3>Recruit 💚</h3>
+      <p class="price">$2.99 – $5.99</p>
+      <table>
+        <tr><td>Main supporting role</td><td>✔️</td></tr>
+        <tr><td>Discord tag</td><td>✔️</td></tr>
+        <tr><td>Startup benefits</td><td>✔️</td></tr>
+      </table>
     </div>
-    <div id="question-box" class="glass">Soru buraya gelecek</div>
-    <div id="options"></div>
-    <div id="feedback" class="glass"></div>
+
+    <div class="plan-card guardian recommended">
+      <h3>Guardian 🔵</h3>
+      <p class="price">$5.99 – $19.99</p>
+      <table>
+        <tr><td>Blue Role</td><td>✔️</td></tr>
+        <tr><td>Private chat channel</td><td>✔️</td></tr>
+        <tr><td>Mini event invitations</td><td>✔️</td></tr>
+      </table>
+    </div>
+
+    <div class="plan-card commander">
+      <h3>Commander 🟣</h3>
+      <p class="price">$19.99 – $49.99</p>
+      <table>
+        <tr><td>Purple Role</td><td>✔️</td></tr>
+        <tr><td>Use of special emoji</td><td>✔️</td></tr>
+        <tr><td>Beta content access</td><td>✔️</td></tr>
+      </table>
+    </div>
+
+    <div class="plan-card legend">
+      <h3>Legend 🔴</h3>
+      <p class="price">$49.99+</p>
+      <table>
+        <tr><td>Red Role</td><td>✔️</td></tr>
+        <tr><td>All benefits</td><td>✔️</td></tr>
+        <tr><td>Custom badge</td><td>✔️</td></tr>
+      </table>
+      
+    </div>
+
+    <div class="plan-card booster">
+      <h3>Server Booster ✨</h3>
+      <p class="price">Discord Nitro Server Boost</p>
+      <table>
+        <tr><td>Booster Role</td><td>✔️</td></tr>
+        <tr><td>More emojis</td><td>✔️</td></tr>
+        <tr><td>Sound quality increase</td><td>✔️</td></tr>
+        <tr><td>Booster badge + Thank you list</td><td>✔️</td></tr>
+      </table>
+      
+    </div>
+
   </div>
+</section>
+
+
+  <section id="payment" class="panel">
+    <h2>Payment Information</h2>
+    <p>Payment methods: Robux, Roblox Dollar Credits</p>
+    <p>PayTR uses a secure payment infrastructure.</p>
+  </section>
+
+  <section id="policies" class="panel">
+    <h2>Policies</h2>
+    <p><strong>Security:</strong> All transactions are protected by encrypted and secure infrastructure.</p>
+    <p><strong>Cashback:</strong> Return policies for digital products are limited.</p>
+    <p><strong>Lisance:</strong> All content is licensed by True Kinetic Studios.</p>
+  </section>
+
+
+  <section id="about" class="panel">
+    <h2>Server Information</h2>
+    <p>Version 1.3</p>
+    <p>Lisans: © 2026 True Kinetic Studios. Tüm hakları saklıdır.</p>
+  </section>
+
+  <footer>
+    <p>© 2026 True Kinetic Studios</p>
+  </footer>
 
   <script src="script.js"></script>
 </body>
