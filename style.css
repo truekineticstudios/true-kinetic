@@ -140,7 +140,27 @@ nav a:hover{color:var(--accent);}
   transition:0.3s;
   font-family:'Orbitron',sans-serif;
 }
+.discord-btn {
+  display:inline-block;
+  margin-top:20px;
+  padding:12px 24px;
+  font-family:'Orbitron',sans-serif;
+  font-size:1rem;
+  font-weight:700;
+  color:white;
+  text-decoration:none;
+  border-radius:50px;
+  background:linear-gradient(135deg,#5865F2,#3a45a0); /* Discord rengi */
+  box-shadow:0 0 15px #5865F2;
+  transition:0.3s;
+}
+.discord-btn:hover {
+  transform:scale(1.08);
+  box-shadow:0 0 30px #5865F2;
+
 .plan-card button:hover {opacity:0.85;transform:scale(1.05);}
 
 footer{text-align:center;padding:40px;background:rgba(2,6,23,0.5);border-top:1px solid var(--border);}
 footer p{margin:6px 0;color:var(--text-muted);}
+
+}
