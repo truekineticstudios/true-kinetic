@@ -1,7 +1,6 @@
-# True Kinetic Membership System
+# True Kinetic Hub
 
-This project is a modern neon-styled website that presents the membership tiers and benefits of the True Kinetic community.  
-It includes sections for supporter ranks, payment information, policies, FAQs, and server details.
+This project is under construction right now please follow this page for updates!
 
 ## License
 © 2026 True Kinetic Studios. All rights reserved.
