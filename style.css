@@ -1,63 +1,194 @@
-/* Reset & base */
-* {
-  box-sizing: border-box;
-  -webkit-tap-highlight-color: transparent;
-}
+/* Genel ayarlar */
 body {
+  font-family: 'Segoe UI', Arial, sans-serif;
   margin: 0;
-  padding: 0;
-  height: 100vh;
+  background: linear-gradient(135deg, #1f1c2c, #928dab);
+  background-attachment: fixed;
+  color: #eee;
+}
+
+/* Dashboard düzeni */
+#dashboard {
   display: flex;
-  justify-content: center;
-  align-items: center;
-  background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
-  font-family: 'Open Sans', Arial, sans-serif;
+  min-height: 100vh;
+}
+
+/* Yan panel */
+.sidebar {
+  width: 220px;
+  background: rgba(0,0,0,0.7);
+  color: #fff;
+  padding: 20px;
+  backdrop-filter: blur(6px);
+}
+
+.sidebar h3 {
+  margin-top: 0;
+  font-weight: 600;
+  letter-spacing: 1px;
+}
+
+.sidebar button {
+  display: block;
+  width: 100%;
+  margin: 10px 0;
+  padding: 12px;
+  background: linear-gradient(90deg, #444, #666);
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  border-radius: 6px;
+  transition: all 0.3s ease;
+}
+
+.sidebar button:hover {
+  background: linear-gradient(90deg, #5865F2, #4752C4);
+  transform: scale(1.05);
+}
+
+/* Ana içerik */
+.main {
+  flex: 1;
+  padding: 30px;
+}
+
+/* Kartlar */
+.card {
+  background: rgba(255,255,255,0.1);
+  padding: 25px;
+  margin-bottom: 25px;
+  border-radius: 12px;
+  box-shadow: 0 6px 15px rgba(0,0,0,0.3);
+  backdrop-filter: blur(10px);
+  transition: transform 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+}
+
+.card h2 {
+  font-size: 1.6em;
+  margin-bottom: 12px;
   color: #fff;
 }
 
-/* Container */
-.fit-wide {
-  position: relative;
-  max-width: 800px;
-  margin: 0 auto;
-  padding: 60px 20px;
-  text-align: center;
-  background: rgba(0,0,0,0.5);
-  border-radius: 12px;
-  box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+.card p {
+  line-height: 1.6;
+  color: #ddd;
+  white-space: pre-line;
 }
 
-/* Titles */
-.title {
-  margin: 20px auto 10px;
+/* Discord butonu */
+.discord-btn {
+  display: inline-block;
+  padding: 12px 18px;
+  background: #5865F2;
+  color: #fff;
+  border-radius: 6px;
+  text-decoration: none;
+  transition: background 0.3s ease;
 }
-.title--regular {
-  font-family: 'Roboto', Arial, sans-serif;
+
+.discord-btn:hover {
+  background: #4752C4;
 }
-.title--size-large {
-  font-size: 36px;
-  line-height: 46px;
+
+/* Input ve butonlar */
+input, button {
+  padding: 10px;
+  margin-top: 8px;
+  border-radius: 6px;
+  border: none;
 }
-.title--size-semimedium {
-  font-size: 20px;
-  line-height: 28px;
+
+button {
+  cursor: pointer;
 }
-.title--weight-bold {
-  font-weight: 700;
+
+/* Store (Mağaza) */
+.store {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
 }
-.title--subtitle {
-  padding-top: 20px;
-  font-family: 'Open Sans', Arial, sans-serif;
+
+.product {
+  flex: 1 1 220px;
+  background: rgba(255,255,255,0.15);
+  border: 1px solid rgba(255,255,255,0.2);
+  border-radius: 8px;
+  padding: 20px;
+  text-align: center;
+  transition: transform 0.3s ease;
+}
+
+.product:hover {
+  transform: scale(1.05);
+}
+
+.product h3 {
+  margin-top: 0;
+  color: #fff;
+}
+
+.product p {
+  color: #ccc;
+}
+
+.product button {
+  margin-top: 12px;
+  padding: 10px 14px;
+  background: linear-gradient(90deg, #28a745, #218838);
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.product button:hover {
+  background: linear-gradient(90deg, #34d058, #28a745);
+}
+
+/* Dark Theme */
+body.dark {
+  background: linear-gradient(135deg, #1f1c2c, #928dab);
+  color: #eee;
+}
+
+body.dark .card {
+  background: rgba(255,255,255,0.1);
   color: #ddd;
 }
 
-/* Responsive */
-@media screen and (max-width: 767px) {
-  .fit-wide {
-    padding: 40px 15px;
-  }
-  .title--size-large {
-    font-size: 28px;
-    line-height: 36px;
-  }
+body.dark .card h2 {
+  color: #fff;
+}
+
+body.dark p,
+body.dark li,
+body.dark a {
+  color: #ddd;
+}
+
+/* Light Theme */
+body.light {
+  background: #f4f4f4;
+  color: #222;
+}
+
+body.light .card {
+  background: #fff;
+  color: #333;
+}
+
+body.light .card h2 {
+  color: #222;
+}
+
+body.light p,
+body.light li,
+body.light a {
+  color: #333;
 }
