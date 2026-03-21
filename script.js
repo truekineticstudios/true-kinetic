@@ -47,8 +47,8 @@ function clearComments() {
 // Admin key kontrolü
 function checkAdminKey() {
   const key = document.getElementById("adminKey").value;
-  if (key === "admin123") { // burayı kendi key’inle değiştir
-    document.getElementById("adminMessage").textContent = "Access granted!";
+  if (key === "123Ee123.") {
+    document.getElementById("adminMessage").textContent = "Access granted![DEMO YOU CANT USE WEBHOOKS]";
     document.getElementById("adminContent").style.display = "block";
   } else {
     document.getElementById("adminMessage").textContent = "Access denied!";
