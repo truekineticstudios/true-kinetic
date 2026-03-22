@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>True Kinetic Studios Dashboard</title>
+  <title>True Kinetic Studios</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -10,7 +10,7 @@
     <!-- Yan Panel -->
     <div class="sidebar">
       <h3>True Kinetic Studios Offical Website <v1 class="0"></v1></h3>
-      <button id="themeToggle">🌗 Toggle Theme</button>
+      <button id="themeToggle">Toggle Theme</button>
       <button onclick="showPage('mainContent')">Main Content</button>
       <button onclick="showPage('admin')">Admin Panel</button>
     </div>
@@ -20,7 +20,7 @@
       <!-- Normal içerikler -->
       <div id="mainContent" class="page">
         <div class="card">
-          <h2>👨‍💻 About Founder</h2>
+          <h2>About Founder</h2>
           <p>My name is Salih, a digital entrepreneur and community architect whose journey began on Roblox. What started as playful creativity in virtual worlds grew into a passion for building structured, professional, and empowering online communities.
 
           From experimenting with game mechanics and social interactions on Roblox, I discovered my drive to design systems that balance fun, professionalism, and innovation. Today, I specialize in web infrastructure optimization, Discord community management, and creative digital solutions that empower users and foster collaboration.
@@ -86,7 +86,7 @@
           <button onclick="checkAdminKey()">Submit</button>
           <p id="adminMessage"></p>
           <div id="adminContent" style="display:none;">
-            <p>✅ Welcome to the Admin Panel!</p>
+            <p>✅ Welcome neural_forge.</p>
             <button onclick="clearComments()">Clear All Comments</button>
             <button onclick="addAnnouncement()">Add Announcement</button>
             <button onclick="addUser()">Add User</button>
@@ -94,7 +94,7 @@
             
             <!-- Discord Mesaj Gönderme -->
             <h3>Send Message by Webhook</h3>
-            <input type="text" id="messageInput" placeholder="Discord’a mesaj yaz">
+            <input type="text" id="messageInput" placeholder="Send Message to Discord Channel">
             <button id="sendMessageBtn">Send Message</button>
             
             <div id="announcementBoard"></div>
