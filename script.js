@@ -47,7 +47,7 @@ function clearComments() {
 // Admin key kontrolü
 function checkAdminKey() {
   const key = document.getElementById("adminKey").value;
-  if (key === "123Ee123.") {
+  if (key === "eeXrx4UGICJqci9TnQDfTUhP8/WvkiO7/C4PVe+ct5o=") {
     document.getElementById("adminMessage").textContent = "Access granted![DEMO YOU CANT USE WEBHOOKS]";
     document.getElementById("adminContent").style.display = "block";
   } else {
@@ -59,21 +59,21 @@ function checkAdminKey() {
 function addAnnouncement() {
   const board = document.getElementById("announcementBoard");
   const div = document.createElement("div");
-  div.textContent = "📢 Yeni duyuru eklendi!";
+  div.textContent = "📢 New announcement added";
   board.appendChild(div);
 }
 
 function addUser() {
   const board = document.getElementById("userBoard");
   const div = document.createElement("div");
-  div.textContent = "👤 Yeni kullanıcı eklendi!";
+  div.textContent = "👤 New user added!";
   board.appendChild(div);
 }
 
 function addContent() {
   const board = document.getElementById("specialContentBoard");
   const div = document.createElement("div");
-  div.textContent = "⭐ Yeni özel içerik eklendi!";
+  div.textContent = "⭐ New exclusive content added!";
   board.appendChild(div);
 }
 
@@ -81,11 +81,11 @@ function addContent() {
 function buyProduct(product) {
   let url = "";
   if (product === "whitepaper") {
-    url = "https://example.com/whitepaper"; // kendi linkini koy
+    url = "https://example.com/whitepaper"; // 1
   } else if (product === "documentary") {
-    url = "https://example.com/documentary"; // kendi linkini koy
+    url = "https://example.com/documentary"; // 2 
   } else if (product === "tools") {
-    url = "https://example.com/tools"; // kendi linkini koy
+    url = "https://example.com/tools"; // 3
   }
   if (url) {
     window.location.href = url;
@@ -104,18 +104,18 @@ document.getElementById("sendMessageBtn").addEventListener("click", () => {
     .then(res => res.json())
     .then(data => {
       if (data.status === 200) {
-        alert("Mesaj Discord’a gönderildi!");
+        alert("Message Delivered");
         document.getElementById("messageInput").value = "";
       } else {
-        alert("Gönderim başarısız. Kod: " + data.status);
+        alert("Submission failed. Code: " + data.status);
       }
     })
     .catch(err => {
       console.error(err);
-      alert("Bir hata oluştu.");
+      alert("An error has occurred.");
     });
   } else {
-    alert("Lütfen bir mesaj yaz.");
+    alert("Please write a message.");
   }
 });
 
