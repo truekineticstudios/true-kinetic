@@ -1,143 +1,87 @@
-// Sayfa geçişi
-function showPage(pageId) {
-  document.querySelectorAll('.page').forEach(p => p.style.display = 'none');
-  document.getElementById(pageId).style.display = 'block';
-}
-
-// Yorumları yükle
-function loadComments() {
-  const saved = localStorage.getItem("comments");
-  if (saved) {
-    const comments = JSON.parse(saved);
-    const list = document.getElementById("commentList");
-    list.innerHTML = "";
-    comments.forEach(c => {
-      const li = document.createElement("li");
-      li.textContent = c;
-      list.appendChild(li);
-    });
+// Çeviri sözlüğü
+const translations = {
+  en: {
+    discord: "Discord",
+    status: "● Systems Operational v1.0",
+    heroTitle: "Empowering Communities<br>Building Creativity",
+    heroSubtitle: "Connect with creators, explore exclusive tools, and shape the future of collaboration.",
+    exploreStore: "Explore Store →",
+    joinCommunity: "Join Community",
+    item1Title: "Premium Script",
+    item1Desc: "Secure Roblox script with anti-cheat protection.",
+    item2Title: "Utility Pack",
+    item2Desc: "Exclusive utilities for professional developers.",
+    item3Title: "Design Template",
+    item3Desc: "Modern UI templates for Roblox projects.",
+    item4Title: "Innovation Pack",
+    item4Desc: "Cutting-edge scripts with cloud integration.",
+    item5Title: "Community Tools",
+    item5Desc: "Enhance collaboration with custom utilities.",
+    item6Title: "Starter Bundle",
+    item6Desc: "Perfect for beginners entering the creative hub.",
+    buy: "Buy",
+    aboutTitle: "About Us",
+    aboutText: "True Kinetic Studios is a creative hub empowering digital communities worldwide.",
+    footer: "© 2026 True Kinetic Studios. All rights reserved."
+  },
+  tr: {
+    discord: "Discord",
+    status: "● Sistemler Çalışıyor v1.0",
+    heroTitle: "Toplulukları Güçlendir<br>Yaratıcılığı İnşa Et",
+    heroSubtitle: "Yaratıcılarla bağlan, özel araçları keşfet ve işbirliğinin geleceğini şekillendir.",
+    exploreStore: "Mağazayı Keşfet →",
+    joinCommunity: "Topluluğa Katıl",
+    item1Title: "Premium Script",
+    item1Desc: "Anti-hile korumalı güvenli Roblox scripti.",
+    item2Title: "Utility Pack",
+    item2Desc: "Profesyonel geliştiriciler için özel araçlar.",
+    item3Title: "Design Template",
+    item3Desc: "Roblox projeleri için modern UI şablonları.",
+    item4Title: "Innovation Pack",
+    item4Desc: "Bulut entegrasyonlu ileri seviye scriptler.",
+    item5Title: "Community Tools",
+    item5Desc: "Özel araçlarla işbirliğini geliştirin.",
+    item6Title: "Starter Bundle",
+    item6Desc: "Yeni başlayanlar için mükemmel paket.",
+    buy: "Satın Al",
+    aboutTitle: "Hakkımızda",
+    aboutText: "True Kinetic Studios dijital toplulukları güçlendiren bir yaratıcı merkezdir.",
+    footer: "© 2026 True Kinetic Studios. Tüm hakları saklıdır."
+  },
+  de: {
+    discord: "Discord",
+    status: "● Systeme laufen v1.0",
+    heroTitle: "Gemeinschaften stärken<br>Kreativität fördern",
+    heroSubtitle: "Verbinde dich mit Kreativen, entdecke exklusive Tools und gestalte die Zukunft der Zusammenarbeit.",
+    exploreStore: "Shop entdecken →",
+    joinCommunity: "Community beitreten",
+    item1Title: "Premium Script",
+    item1Desc: "Sicheres Roblox-Skript mit Anti-Cheat-Schutz.",
+    item2Title: "Utility Pack",
+    item2Desc: "Exklusive Werkzeuge für professionelle Entwickler.",
+    item3Title: "Design Template",
+    item3Desc: "Moderne UI-Vorlagen für Roblox-Projekte.",
+    item4Title: "Innovation Pack",
+    item4Desc: "Fortschrittliche Skripte mit Cloud-Integration.",
+    item5Title: "Community Tools",
+    item5Desc: "Verbessere die Zusammenarbeit mit benutzerdefinierten Tools.",
+    item6Title: "Starter Bundle",
+    item6Desc: "Perfekt für Anfänger im kreativen Hub.",
+    buy: "Kaufen",
+    aboutTitle: "Über uns",
+    aboutText: "True Kinetic Studios ist ein kreatives Zentrum, das digitale Gemeinschaften weltweit stärkt.",
+    footer: "© 2026 True Kinetic Studios. Alle Rechte vorbehalten."
   }
-}
-
-// Yorum ekle
-function addComment() {
-  const input = document.getElementById("commentInput");
-  const comment = input.value.trim();
-  if (comment) {
-    const list = document.getElementById("commentList");
-    const li = document.createElement("li");
-    li.textContent = comment;
-    list.appendChild(li);
-
-    // LocalStorage’a kaydet
-    let comments = JSON.parse(localStorage.getItem("comments")) || [];
-    comments.push(comment);
-    localStorage.setItem("comments", JSON.stringify(comments));
-
-    input.value = "";
-  }
-}
-
-// Yorumları temizle
-function clearComments() {
-  document.getElementById("commentList").innerHTML = "";
-  localStorage.removeItem("comments");
-}
-
-// Admin key kontrolü
-function checkAdminKey() {
-  const key = document.getElementById("adminKey").value;
-  if (key === "eeXrx4UGICJqci9TnQDfTUhP8/WvkiO7/C4PVe+ct5o=") {
-    document.getElementById("adminMessage").textContent = "Access granted![DEMO YOU CANT USE WEBHOOKS]";
-    document.getElementById("adminContent").style.display = "block";
-  } else {
-    document.getElementById("adminMessage").textContent = "Access denied!";
-  }
-}
-
-// Admin fonksiyonları
-function addAnnouncement() {
-  const board = document.getElementById("announcementBoard");
-  const div = document.createElement("div");
-  div.textContent = "📢 New announcement added";
-  board.appendChild(div);
-}
-
-function addUser() {
-  const board = document.getElementById("userBoard");
-  const div = document.createElement("div");
-  div.textContent = "👤 New user added!";
-  board.appendChild(div);
-}
-
-function addContent() {
-  const board = document.getElementById("specialContentBoard");
-  const div = document.createElement("div");
-  div.textContent = "⭐ New exclusive content added!";
-  board.appendChild(div);
-}
-
-// Mağaza yönlendirme
-function buyProduct(product) {
-  let url = "";
-  if (product === "whitepaper") {
-    url = "https://example.com/whitepaper"; // 1
-  } else if (product === "documentary") {
-    url = "https://example.com/documentary"; // 2 
-  } else if (product === "tools") {
-    url = "https://example.com/tools"; // 3
-  }
-  if (url) {
-    window.location.href = url;
-  }
-}
-
-// Discord mesaj gönderme
-document.getElementById("sendMessageBtn").addEventListener("click", () => {
-  const message = document.getElementById("messageInput").value.trim();
-  if (message) {
-    fetch("https://truekineticpy-production.up.railway.app/send_webhook", {
-      method: "POST",
-      headers: {"Content-Type": "application/json"},
-      body: JSON.stringify({message: message})
-    })
-    .then(res => res.json())
-    .then(data => {
-      if (data.status === 200) {
-        alert("Message Delivered");
-        document.getElementById("messageInput").value = "";
-      } else {
-        alert("Submission failed. Code: " + data.status);
-      }
-    })
-    .catch(err => {
-      console.error(err);
-      alert("An error has occurred.");
-    });
-  } else {
-    alert("Please write a message.");
-  }
-});
-
-// Sayfa açıldığında yorumları yükle
-window.onload = loadComments;
-
-// Tema toggle
-document.getElementById("themeToggle").addEventListener("click", () => {
-  if (document.body.classList.contains("dark")) {
-    document.body.classList.remove("dark");
-    document.body.classList.add("light");
-    localStorage.setItem("theme", "light");
-  } else {
-    document.body.classList.remove("light");
-    document.body.classList.add("dark");
-    localStorage.setItem("theme", "dark");
-  }
-});
-
-// Sayfa açıldığında kaydedilen tema yükle
-window.onload = () => {
-  const savedTheme = localStorage.getItem("theme") || "dark";
-  document.body.classList.add(savedTheme);
-  loadComments(); // yorumları da yüklemeyi unutma
 };
+
+// Dil değiştirme
+const langSelect = document.getElementById("lang-select");
+langSelect.addEventListener("change", e => {
+  const lang = e.target.value;
+  document.querySelectorAll("[data-i18n]").forEach(el => {
+    const key = el.getAttribute("data-i18n");
+    if (translations[lang][key]) {
+      el.innerHTML = translations[lang][key];
+    }
+  });
+});
