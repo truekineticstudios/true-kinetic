@@ -1,111 +1,97 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en"> <!-- Ana dil İngilizce -->
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>True Kinetic Studios</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div id="dashboard">
-    <!-- Yan Panel -->
-    <div class="sidebar">
-      <h3>True Kinetic Studios Offical Website <v1 class="0"></v1></h3>
-      <button id="themeToggle">Toggle Theme</button>
-      <button onclick="showPage('mainContent')">Main Content</button>
-      <button onclick="showPage('admin')">Admin Panel</button>
+  <div class="grid-bg"></div>
+  <div class="glow-spot"></div>
+
+  <!-- Navbar -->
+  <nav>
+    <a href="/" class="logo">True<span>Kinetic</span></a>
+    <div class="nav-actions">
+      <select id="lang-select">
+        <option value="en" selected>English</option>
+        <option value="tr">Türkçe</option>
+        <option value="de">Deutsch</option>
+      </select>
+      <a href="https://discord.gg/yourlink" class="nav-link" data-i18n="discord">Discord</a>
     </div>
+  </nav>
 
-    <!-- İçerik Alanı -->
-    <div class="main">
-      <!-- Normal içerikler -->
-      <div id="mainContent" class="page">
-        <div class="card">
-          <h2>About Founder</h2>
-          <p>My name is Salih, a digital entrepreneur and community architect whose journey began on Roblox. What started as playful creativity in virtual worlds grew into a passion for building structured, professional, and empowering online communities.
-
-          From experimenting with game mechanics and social interactions on Roblox, I discovered my drive to design systems that balance fun, professionalism, and innovation. Today, I specialize in web infrastructure optimization, Discord community management, and creative digital solutions that empower users and foster collaboration.
-
-          Through True Kinetic Studios, my vision is to merge Gen Z energy with professional standards, creating spaces where creativity thrives and communities feel both safe and inspired. Looking ahead, I am investing in language learning, technical mastery, and global relevance, with the goal of studying abroad and expanding my impact worldwide.
-
-          For me, every project is more than just work—it’s an opportunity to express originality, strengthen community spirit, and empower people in the digital age.</p>
-        </div>
-
-        <div class="card">
-          <h2>🌐 Community</h2>
-          <p>Join our vibrant community and connect with others!</p>
-          <div class="discord-container">
-            <a href="https://discord.gg/87xhqeDwE8" target="_blank" class="discord-btn">Join Discord Community</a>
-          </div>
-        </div>
-
-        <!-- Mağaza -->
-        <div class="card">
-          <h2>🛒 Store</h2>
-          <div class="store">
-            <div class="product">
-              <h3>Product 1</h3>
-              <p>Future of Digital Communities</p>
-              <button onclick="buyProduct('whitepaper')">Purcase</button>
-            </div>
-            <div class="product">
-              <h3>Product 2</h3>
-              <p>Behind the Scenes</p>
-              <button onclick="buyProduct('documentary')">Purcase</button>
-            </div>
-            <div class="product">
-              <h3>Product 3</h3>
-              <p>Exclusive Templates & Utilities</p>
-              <button onclick="buyProduct('tools')">Purcase</button>
-            </div>
-          </div>
-        </div>
-
-        <div class="card">
-          <h2>💬 Comments</h2>
-          <input type="text" id="commentInput" placeholder="Write your comment">
-          <button onclick="addComment()">Submit</button>
-          <ul id="commentList"></ul>
-        </div>
-
-        <div class="card">
-          <h2>🏢 About True Kinetic</h2>
-          <p>True Kinetic Studios is a digital‑first creative hub built to empower the next generation of creators. Founded with the vision of blending professionalism and Gen Z creativity, we focus on innovation, community building, and authentic collaboration.
-
-          Our mission is to design spaces where creativity thrives, ideas are shared freely, and communities feel both safe and inspired. From developing tools and templates to producing exclusive content and fostering vibrant online communities, True Kinetic Studios is committed to redefining how people connect and create in the digital age.
-
-          Looking ahead, we aim to expand globally, offering creators not just resources but also opportunities to grow, collaborate, and make a lasting impact. For us, every project is more than just content—it’s a step toward building a future where digital communities are stronger, smarter, and more inclusive.</p>
-        </div>
-      </div>
-
-      <!-- Admin Panel -->
-      <div id="admin" class="page" style="display:none;">
-        <div class="card">
-          <h2>🔑 Admin Panel</h2>
-          <p>Restricted area. Please enter your admin key:</p>
-          <input type="password" id="adminKey" placeholder="Enter Admin Key">
-          <button onclick="checkAdminKey()">Submit</button>
-          <p id="adminMessage"></p>
-          <div id="adminContent" style="display:none;">
-            <p>✅ Welcome neural_forge.</p>
-            <button onclick="clearComments()">Clear All Comments</button>
-            <button onclick="addAnnouncement()">Add Announcement</button>
-            <button onclick="addUser()">Add User</button>
-            <button onclick="addContent()">Add Special Content</button>
-            
-            <!-- Discord Mesaj Gönderme -->
-            <h3>Send Message by Webhook</h3>
-            <input type="text" id="messageInput" placeholder="Send Message to Discord Channel">
-            <button id="sendMessageBtn">Send Message</button>
-            
-            <div id="announcementBoard"></div>
-            <div id="userBoard"></div>
-            <div id="specialContentBoard"></div>
-          </div>
-        </div>
-      </div>
+  <!-- Hero -->
+  <section class="hero">
+    <div class="status-badge" data-i18n="status">● Systems Operational v1.0</div>
+    <h1 class="gradient-text" data-i18n="heroTitle">Empowering Communities<br>Building Creativity</h1>
+    <p class="subtitle" data-i18n="heroSubtitle">
+      Connect with creators, explore exclusive tools, and shape the future of collaboration.
+    </p>
+    <div class="cta-container">
+      <a href="#store" class="btn-primary" data-i18n="exploreStore">Explore Store →</a>
+      <a href="https://discord.gg/yourlink" class="btn-secondary" data-i18n="joinCommunity">Join Community</a>
     </div>
-  </div>
+  </section>
 
+  <!-- Store -->
+  <section id="store" class="store-grid">
+    <div class="store-card">
+      <img src="https://source.unsplash.com/random/400x300?technology" alt="Item 1">
+      <h3 data-i18n="item1Title">Premium Script</h3>
+      <p data-i18n="item1Desc">Secure Roblox script with anti-cheat protection.</p>
+      <span class="price">$19.99</span>
+      <a href="https://payhip.com/link1" class="buy-btn" data-i18n="buy">Buy</a>
+    </div>
+    <div class="store-card">
+      <img src="https://source.unsplash.com/random/400x300?code" alt="Item 2">
+      <h3 data-i18n="item2Title">Utility Pack</h3>
+      <p data-i18n="item2Desc">Exclusive utilities for professional developers.</p>
+      <span class="price">$29.99</span>
+      <a href="https://payhip.com/link2" class="buy-btn" data-i18n="buy">Buy</a>
+    </div>
+    <div class="store-card">
+      <img src="https://source.unsplash.com/random/400x300?design" alt="Item 3">
+      <h3 data-i18n="item3Title">Design Template</h3>
+      <p data-i18n="item3Desc">Modern UI templates for Roblox projects.</p>
+      <span class="price">$14.99</span>
+      <a href="https://payhip.com/link3" class="buy-btn" data-i18n="buy">Buy</a>
+    </div>
+    <div class="store-card">
+      <img src="https://source.unsplash.com/random/400x300?innovation" alt="Item 4">
+      <h3 data-i18n="item4Title">Innovation Pack</h3>
+      <p data-i18n="item4Desc">Cutting-edge scripts with cloud integration.</p>
+      <span class="price">$39.99</span>
+      <a href="https://payhip.com/link4" class="buy-btn" data-i18n="buy">Buy</a>
+    </div>
+    <div class="store-card">
+      <img src="https://source.unsplash.com/random/400x300?community" alt="Item 5">
+      <h3 data-i18n="item5Title">Community Tools</h3>
+      <p data-i18n="item5Desc">Enhance collaboration with custom utilities.</p>
+      <span class="price">$24.99</span>
+      <a href="https://payhip.com/link5" class="buy-btn" data-i18n="buy">Buy</a>
+    </div>
+    <div class="store-card">
+      <img src="https://source.unsplash.com/random/400x300?starter" alt="Item 6">
+      <h3 data-i18n="item6Title">Starter Bundle</h3>
+      <p data-i18n="item6Desc">Perfect for beginners entering the creative hub.</p>
+      <span class="price">$9.99</span>
+      <a href="https://payhip.com/link6" class="buy-btn" data-i18n="buy">Buy</a>
+    </div>
+  </section>
+
+  <!-- About Us -->
+  <section id="about">
+    <h2 data-i18n="aboutTitle">About Us</h2>
+    <p data-i18n="aboutText">True Kinetic Studios is a creative hub empowering digital communities worldwide.</p>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <p data-i18n="footer">© 2026 True Kinetic Studios. All rights reserved.</p>
+  </footer>
 
   <script src="script.js"></script>
 </body>
