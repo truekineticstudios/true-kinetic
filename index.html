@@ -1,98 +1,130 @@
 <!DOCTYPE html>
-<html lang="en"> <!-- Ana dil İngilizce -->
+<html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>True Kinetic Studios</title>
-  <link rel="stylesheet" href="style.css">
+  <title>True Kinetic Studios - Preparing Update</title>
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      background: #0d0d0d;
+      font-family: 'Segoe UI', sans-serif;
+      overflow: hidden;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    canvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+    }
+
+    .glass {
+      position: relative;
+      z-index: 2;
+      padding: 2em 3em;
+      border-radius: 20px;
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(10px);
+      box-shadow: 0 0 20px rgba(0, 255, 255, 0.3);
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 2.5em;
+      margin-bottom: 0.5em;
+      background: linear-gradient(90deg, #ff0066, #00ffff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: glow 2s infinite alternate;
+    }
+
+    p {
+      font-size: 1.2em;
+      color: #ccc;
+    }
+
+    @keyframes glow {
+      from { text-shadow: 0 0 10px #ff0066; }
+      to { text-shadow: 0 0 20px #00ffff; }
+    }
+  </style>
 </head>
 <body>
-  <div class="grid-bg"></div>
-  <div class="glow-spot"></div>
+  <canvas id="particles"></canvas>
+  <div class="glass">
+    <h1>True Kinetic Studios</h1>
+    <p>Preparing Update 2.0... Stay tuned!</p>
+  </div>
 
-  <!-- Navbar -->
-  <nav>
-    <a href="/" class="logo">True<span>Kinetic</span></a>
-    <div class="nav-actions">
-      <select id="lang-select">
-        <option value="en" selected>English</option>
-        <option value="tr">Türkçe</option>
-        <option value="de">Deutsch</option>
-      </select>
-      <a href="https://discord.gg/8g445js3y" class="nav-link" data-i18n="discord">Discord</a>
-    </div>
-  </nav>
+  <script>
+    const canvas = document.getElementById('particles');
+    const ctx = canvas.getContext('2d');
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
 
-  <!-- Hero -->
-  <section class="hero">
-    <div class="status-badge" data-i18n="status">Beta Version</div>
-    <h1 class="gradient-text" data-i18n="heroTitle">True Kinetic<br>Studios</h1>
-    <p class="subtitle" data-i18n="heroSubtitle">
-      Connect with creators, explore exclusive tools, and shape the future of collaboration.
-    </p>
-    <div class="cta-container">
-      <a href="#store" class="btn-primary" data-i18n="exploreStore">Explore Store →</a>
-      <a href="https://discord.gg/yourlink" class="btn-secondary" data-i18n="joinCommunity">Join Community</a>
-    </div>
-  </section>
+    const particlesArray = [];
+    const colors = ['#ff0066', '#00ffff', '#ffcc00', '#66ff00'];
 
-  <!-- Store -->
-  <section id="store" class="store-grid">
-    <div class="store-card">
-      <img src="https://source.unsplash.com/random/400x300?technology" alt="Item 1">
-      <h3 data-i18n="item1Title">Premium Script</h3>
-      <p data-i18n="item1Desc">Secure Roblox script with anti-cheat protection.</p>
-      <span class="price">$19.99</span>
-      <a href="https://payhip.com/link1" class="buy-btn" data-i18n="buy">Buy</a>
-    </div>
-    <div class="store-card">
-      <img src="https://source.unsplash.com/random/400x300?code" alt="Item 2">
-      <h3 data-i18n="item2Title">Utility Pack</h3>
-      <p data-i18n="item2Desc">Exclusive utilities for professional developers.</p>
-      <span class="price">$29.99</span>
-      <a href="https://payhip.com/link2" class="buy-btn" data-i18n="buy">Buy</a>
-    </div>
-    <div class="store-card">
-      <img src="https://source.unsplash.com/random/400x300?design" alt="Item 3">
-      <h3 data-i18n="item3Title">Design Template</h3>
-      <p data-i18n="item3Desc">Modern UI templates for Roblox projects.</p>
-      <span class="price">$14.99</span>
-      <a href="https://payhip.com/link3" class="buy-btn" data-i18n="buy">Buy</a>
-    </div>
-    <div class="store-card">
-      <img src="https://source.unsplash.com/random/400x300?innovation" alt="Item 4">
-      <h3 data-i18n="item4Title">Innovation Pack</h3>
-      <p data-i18n="item4Desc">Cutting-edge scripts with cloud integration.</p>
-      <span class="price">$39.99</span>
-      <a href="https://payhip.com/link4" class="buy-btn" data-i18n="buy">Buy</a>
-    </div>
-    <div class="store-card">
-      <img src="https://source.unsplash.com/random/400x300?community" alt="Item 5">
-      <h3 data-i18n="item5Title">Community Tools</h3>
-      <p data-i18n="item5Desc">Enhance collaboration with custom utilities.</p>
-      <span class="price">$24.99</span>
-      <a href="https://payhip.com/link5" class="buy-btn" data-i18n="buy">Buy</a>
-    </div>
-    <div class="store-card">
-      <img src="https://source.unsplash.com/random/400x300?starter" alt="Item 6">
-      <h3 data-i18n="item6Title">Starter Bundle</h3>
-      <p data-i18n="item6Desc">Perfect for beginners entering the creative hub.</p>
-      <span class="price">$9.99</span>
-      <a href="https://payhip.com/link6" class="buy-btn" data-i18n="buy">Buy</a>
-    </div>
-  </section>
+    class Particle {
+      constructor(x, y, size, color, speedX, speedY) {
+        this.x = x;
+        this.y = y;
+        this.size = size;
+        this.color = color;
+        this.speedX = speedX;
+        this.speedY = speedY;
+      }
+      update() {
+        this.x += this.speedX;
+        this.y += this.speedY;
+        if (this.size > 0.2) this.size -= 0.01;
+      }
+      draw() {
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+        ctx.fillStyle = this.color;
+        ctx.shadowColor = this.color;
+        ctx.shadowBlur = 20;
+        ctx.fill();
+      }
+    }
 
-  <!-- About Us -->
-  <section id="about">
-    <h2 data-i18n="aboutTitle">About Us</h2>
-    <p data-i18n="aboutText">True Kinetic Studios is a creative hub empowering digital communities worldwide.</p>
-  </section>
+    function init() {
+      for (let i = 0; i < 120; i++) {
+        const size = Math.random() * 4 + 2;
+        const x = Math.random() * canvas.width;
+        const y = Math.random() * canvas.height;
+        const color = colors[Math.floor(Math.random() * colors.length)];
+        const speedX = (Math.random() - 0.5) * 1.2;
+        const speedY = (Math.random() - 0.5) * 1.2;
+        particlesArray.push(new Particle(x, y, size, color, speedX, speedY));
+      }
+    }
 
-  <!-- Footer -->
-  <footer>
-    <p data-i18n="footer">© 2026 True Kinetic Studios. All rights reserved.</p>
-  </footer>
+    function animate() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      for (let i = 0; i < particlesArray.length; i++) {
+        particlesArray[i].update();
+        particlesArray[i].draw();
+        if (particlesArray[i].size <= 0.2) {
+          particlesArray[i].x = Math.random() * canvas.width;
+          particlesArray[i].y = Math.random() * canvas.height;
+          particlesArray[i].size = Math.random() * 4 + 2;
+        }
+      }
+      requestAnimationFrame(animate);
+    }
 
-  <script src="script.js"></script>
+    init();
+    animate();
+
+    window.addEventListener('resize', () => {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    });
+  </script>
 </body>
 </html>
