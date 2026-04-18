@@ -1,130 +1,82 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>True Kinetic Studios - Preparing Update</title>
-  <style>
-    body {
-      margin: 0;
-      height: 100vh;
-      background: #0d0d0d;
-      font-family: 'Segoe UI', sans-serif;
-      overflow: hidden;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>True Kinetic</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <header>
+      <img src="https://www.image2url.com/r2/default/images/1776534168351-819eb0c4-14d8-4b20-976b-514ffcee965e.png" alt="image" />
+      <div class="buttons">
+        <a href="https://shop.parcelroblox.com/store/truekinetic" class="btn"
+          >Parcel Store</a
+        >
+        <a href="https://discord.gg/dzQDwAjEsr" class="btn">Join Discord</a>
+      </div>
+    </header>
 
-    canvas {
-      position: absolute;
-      top: 0;
-      left: 0;
-    }
+    <section class="products">
+      <h2>Products</h2>
+      <div class="product-container">
+        <div class="product-card">
+          <img
+            src="https://www.image2url.com/r2/default/images/1776533683304-f44617b7-0d25-4669-9a74-22935665802b.png"
+            alt="image"
+          />
+          <h3>AntiCheatSystem V2</h3>
+          <p>Price: $10.00 (R$1715)</p>
+          <p>Stock: Unlimited Stock</p>
+          <a
+            href="https://shop.parcelroblox.com/store/truekinetic/product1"
+            class="btn"
+            >Buy Now</a
+          >
+        </div>
+        <div class="product-card">
+          <img
+            src="https://www.image2url.com/r2/default/images/1776533683304-f44617b7-0d25-4669-9a74-22935665802b.png"
+            alt="image"
+          />
+          <h3>Roblox Head & Body Tracking Script</h3>
+          <p>Price: $3.00 (R$225)</p>
+          <p>Stock: Unlimited Stock</p>
+          <a
+            href="https://shop.parcelroblox.com/store/truekinetic/product2"
+            class="btn"
+            >Buy Now</a
+          >
+        </div>
+      </div>
+    </section>
 
-    .glass {
-      position: relative;
-      z-index: 2;
-      padding: 2em 3em;
-      border-radius: 20px;
-      background: rgba(255, 255, 255, 0.05);
-      backdrop-filter: blur(10px);
-      box-shadow: 0 0 20px rgba(0, 255, 255, 0.3);
-      text-align: center;
-    }
+    <section class="updates">
+      <h2>Updates</h2>
+      <div class="update-card">
+        <img
+          src="https://www.image2url.com/r2/default/images/1776533830532-0839abf3-418d-4b81-9a9f-bbfad81c4f50.png"
+          alt="image"
+        />
+        <div class="update-info">
+          <h3>Version 2.0</h3>
+          <p>Details about the update go here...</p>
+        </div>
+      </div>
+    </section>
 
-    h1 {
-      font-size: 2.5em;
-      margin-bottom: 0.5em;
-      background: linear-gradient(90deg, #ff0066, #00ffff);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      animation: glow 2s infinite alternate;
-    }
+    <section class="about">
+      <h2>About Us</h2>
+      <p>
+        True Kinetic is a Roblox e-commerce platform offering unique products
+        and experiences.
+      </p>
+    </section>
 
-    p {
-      font-size: 1.2em;
-      color: #ccc;
-    }
+    <footer>
+      <p>&copy; 2026 True Kinetic. All rights reserved.</p>
+    </footer>
 
-    @keyframes glow {
-      from { text-shadow: 0 0 10px #ff0066; }
-      to { text-shadow: 0 0 20px #00ffff; }
-    }
-  </style>
-</head>
-<body>
-  <canvas id="particles"></canvas>
-  <div class="glass">
-    <h1>True Kinetic Studios</h1>
-    <p>Preparing Update 2.0... Stay tuned!</p>
-  </div>
-
-  <script>
-    const canvas = document.getElementById('particles');
-    const ctx = canvas.getContext('2d');
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-
-    const particlesArray = [];
-    const colors = ['#ff0066', '#00ffff', '#ffcc00', '#66ff00'];
-
-    class Particle {
-      constructor(x, y, size, color, speedX, speedY) {
-        this.x = x;
-        this.y = y;
-        this.size = size;
-        this.color = color;
-        this.speedX = speedX;
-        this.speedY = speedY;
-      }
-      update() {
-        this.x += this.speedX;
-        this.y += this.speedY;
-        if (this.size > 0.2) this.size -= 0.01;
-      }
-      draw() {
-        ctx.beginPath();
-        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-        ctx.fillStyle = this.color;
-        ctx.shadowColor = this.color;
-        ctx.shadowBlur = 20;
-        ctx.fill();
-      }
-    }
-
-    function init() {
-      for (let i = 0; i < 120; i++) {
-        const size = Math.random() * 4 + 2;
-        const x = Math.random() * canvas.width;
-        const y = Math.random() * canvas.height;
-        const color = colors[Math.floor(Math.random() * colors.length)];
-        const speedX = (Math.random() - 0.5) * 1.2;
-        const speedY = (Math.random() - 0.5) * 1.2;
-        particlesArray.push(new Particle(x, y, size, color, speedX, speedY));
-      }
-    }
-
-    function animate() {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      for (let i = 0; i < particlesArray.length; i++) {
-        particlesArray[i].update();
-        particlesArray[i].draw();
-        if (particlesArray[i].size <= 0.2) {
-          particlesArray[i].x = Math.random() * canvas.width;
-          particlesArray[i].y = Math.random() * canvas.height;
-          particlesArray[i].size = Math.random() * 4 + 2;
-        }
-      }
-      requestAnimationFrame(animate);
-    }
-
-    init();
-    animate();
-
-    window.addEventListener('resize', () => {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-    });
-  </script>
-</body>
+    <script src="script.js"></script>
+  </body>
 </html>
