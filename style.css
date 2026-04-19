@@ -130,3 +130,50 @@ header img {
   margin: 0 auto; /* ortalasın */
 }
 
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@600&family=Roboto:wght@400;500&display=swap');
+
+.product-card h3 {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 600;
+  color: #fff;
+}
+
+.product-card p {
+  font-family: 'Roboto', sans-serif;
+  font-weight: 400;
+  color: #ddd;
+}
+
+
+/* Neon glow efekti */
+.product-card {
+  background: rgba(20, 20, 20, 0.8);
+  border-radius: 12px;
+  padding: 20px;
+  text-align: center;
+  box-shadow: 0 0 20px rgba(255, 0, 0, 0.7); /* kırmızı neon glow */
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.product-card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 30px rgba(255, 0, 0, 1); /* hover’da daha güçlü glow */
+}
+
+/* Butonlara neon efekti */
+.btn {
+  font-family: 'Orbitron', sans-serif;
+  background: linear-gradient(90deg, #ff0000, #aa0000);
+  color: #fff;
+  padding: 10px 20px;
+  border-radius: 8px;
+  text-decoration: none;
+  display: inline-block;
+  transition: 0.3s;
+  box-shadow: 0 0 15px rgba(255, 0, 0, 0.8);
+}
+
+.btn:hover {
+  box-shadow: 0 0 25px rgba(255, 0, 0, 1);
+  transform: scale(1.1);
+}
