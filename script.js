@@ -2,13 +2,16 @@
 document.querySelectorAll('.btn').forEach(button => {
   button.addEventListener('mouseover', () => {
     button.style.boxShadow = '0 0 15px #ff0000';
+    button.style.transform = 'scale(1.05)';
+    button.style.transition = 'all 0.2s ease';
   });
   button.addEventListener('mouseout', () => {
     button.style.boxShadow = 'none';
+    button.style.transform = 'scale(1)';
   });
 });
 
-// Kod–link eşleştirmesi (codes.js ayrı dosyada)
+// Kod doğrulama sistemi
 document.addEventListener("DOMContentLoaded", () => {
   const btn = document.getElementById("verifyBtn");
   if (btn) {
@@ -26,4 +29,3 @@ function checkCode() {
     resultDiv.innerHTML = "❌ Invalid code, please try again!";
   }
 }
-
