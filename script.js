@@ -8,9 +8,12 @@ document.querySelectorAll('.btn').forEach(button => {
   });
 });
 
+// Kod–link eşleştirmesi (codes.js ayrı dosyada)
 document.addEventListener("DOMContentLoaded", () => {
   const btn = document.getElementById("verifyBtn");
-  btn.addEventListener("click", checkCode);
+  if (btn) {
+    btn.addEventListener("click", checkCode);
+  }
 });
 
 function checkCode() {
@@ -23,4 +26,3 @@ function checkCode() {
     resultDiv.innerHTML = "❌ Invalid code, please try again!";
   }
 }
-
