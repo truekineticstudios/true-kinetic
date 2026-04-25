@@ -12,7 +12,7 @@ const codes = {
   "TKRCC957944024111X": "https://dosya.co/eeojynlceyrh/ACSBETA.rbxm.html",
   "TKRCC544654681222X": "https://dosya.co/eeojynlceyrh/ACSBETA.rbxm.html",
   "TKRCC814603146665X": "https://dosya.co/eeojynlceyrh/ACSBETA.rbxm.html",
-  "TKRCC261333327942X": "https://dosya.co/eeojynlceyrh/ACSBETA.rbxm.html",
+  "TKRCC261333327942X": "https://www.shutterstock.com/image-vector/error-500-page-empty-symbol-600w-1711106146.jpg",
   "TKRCC060262066451X": "https://dosya.co/eeojynlceyrh/ACSBETA.rbxm.html",
   "TKRCC344845127226X": "https://dosya.co/eeojynlceyrh/ACSBETA.rbxm.html",
   "TKRCC210029585381X": "https://dosya.co/eeojynlceyrh/ACSBETA.rbxm.html",
