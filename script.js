@@ -21,8 +21,9 @@ function checkCode() {
   const resultDiv = document.getElementById("result");
 
   if (codes[code]) {
-    resultDiv.innerHTML = `✅ VERIFIED! <a href="${codes[code]}" target="_blank">Download File</a>`;
+    resultDiv.innerHTML = `✅ Verified! <a href="${codes[code]}" target="_blank">Download file</a>`;
   } else {
     resultDiv.innerHTML = "❌ Invalid code, please try again!";
   }
 }
+
