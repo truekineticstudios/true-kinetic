@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&family=Montserrat:wght@600&family=Roboto:wght@400;500&display=swap');
 
 body {
   margin: 0;
@@ -7,9 +7,17 @@ body {
   color: #fff;
 }
 
+/* Header */
 header {
   text-align: center;
   padding: 50px 20px;
+}
+
+header img {
+  width: 500px;
+  height: auto;
+  display: block;
+  margin: 0 auto;
 }
 
 .main-title {
@@ -25,6 +33,7 @@ header {
   to { text-shadow: 0 0 20px #ff3333; }
 }
 
+/* Buttons */
 .buttons {
   margin-top: 20px;
 }
@@ -33,20 +42,24 @@ header {
   display: inline-block;
   margin: 10px;
   padding: 12px 25px;
-  background: rgba(255, 0, 0, 0.2);
-  border: 1px solid #ff0000;
+  font-family: 'Orbitron', sans-serif;
+  background: linear-gradient(90deg, #ff0000, #aa0000);
+  border: none;
   border-radius: 8px;
   color: #fff;
   text-decoration: none;
   transition: 0.3s;
   backdrop-filter: blur(5px);
+  box-shadow: 0 0 15px rgba(255, 0, 0, 0.8);
 }
 
 .btn:hover {
   background: #ff0000;
-  transform: scale(1.05);
+  transform: scale(1.1);
+  box-shadow: 0 0 25px rgba(255, 0, 0, 1);
 }
 
+/* Products */
 .products {
   padding: 40px 20px;
   text-align: center;
@@ -62,14 +75,17 @@ header {
 .product-card {
   width: 250px;
   padding: 20px;
-  background: rgba(255,255,255,0.05);
+  background: rgba(20, 20, 20, 0.8);
   border-radius: 12px;
   backdrop-filter: blur(10px);
-  transition: 0.3s;
+  text-align: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 0 20px rgba(255, 0, 0, 0.7);
 }
 
 .product-card:hover {
-  transform: translateY(-5px);
+  transform: scale(1.05);
+  box-shadow: 0 0 30px rgba(255, 0, 0, 1);
 }
 
 .product-card img {
@@ -77,60 +93,6 @@ header {
   height: auto;
   border-radius: 8px;
 }
-
-.updates {
-  padding: 40px 20px;
-  text-align: center;
-}
-
-.update-card {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 20px;
-  margin: 20px auto;
-  max-width: 600px;
-  padding: 20px;
-  background: rgba(255,255,255,0.08);
-  border-radius: 15px;
-  backdrop-filter: blur(12px);
-  transition: 0.3s;
-}
-
-.update-card:hover {
-  transform: scale(1.02);
-}
-
-.update-card img {
-  width: 150px;
-  border-radius: 10px;
-}
-
-.update-info {
-  text-align: left;
-}
-
-footer {
-  text-align: center;
-  padding: 20px;
-  background: #111;
-}
-
-.about {
-  padding: 40px 20px;
-  text-align: center; /* Ortaladı */
-  max-width: 800px;
-  margin: 0 auto;     /* Ortada sabitlenmesi için */
-}
-
-header img {
-  width: 500px;   /* istediğin genişliği ayarla */
-  height: auto;   /* orantılı küçültsün */
-  display: block;
-  margin: 0 auto; /* ortalasın */
-}
-
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@600&family=Roboto:wght@400;500&display=swap');
 
 .product-card h3 {
   font-family: 'Montserrat', sans-serif;
@@ -144,40 +106,7 @@ header img {
   color: #ddd;
 }
 
-
-/* Neon glow efekti */
-.product-card {
-  background: rgba(20, 20, 20, 0.8);
-  border-radius: 12px;
-  padding: 20px;
-  text-align: center;
-  box-shadow: 0 0 20px rgba(255, 0, 0, 0.7); /* kırmızı neon glow */
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.product-card:hover {
-  transform: scale(1.05);
-  box-shadow: 0 0 30px rgba(255, 0, 0, 1); /* hover’da daha güçlü glow */
-}
-
-/* Butonlara neon efekti */
-.btn {
-  font-family: 'Orbitron', sans-serif;
-  background: linear-gradient(90deg, #ff0000, #aa0000);
-  color: #fff;
-  padding: 10px 20px;
-  border-radius: 8px;
-  text-decoration: none;
-  display: inline-block;
-  transition: 0.3s;
-  box-shadow: 0 0 15px rgba(255, 0, 0, 0.8);
-}
-
-.btn:hover {
-  box-shadow: 0 0 25px rgba(255, 0, 0, 1);
-  transform: scale(1.1);
-}
-
+/* Redeem Code Section */
 .verify {
   padding: 40px 20px;
   text-align: center;
@@ -231,4 +160,52 @@ header img {
   font-family: 'Roboto', sans-serif;
   font-size: 1.1em;
   color: #fff;
+}
+
+/* Updates */
+.updates {
+  padding: 40px 20px;
+  text-align: center;
+}
+
+.update-card {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  margin: 20px auto;
+  max-width: 600px;
+  padding: 20px;
+  background: rgba(255,255,255,0.08);
+  border-radius: 15px;
+  backdrop-filter: blur(12px);
+  transition: 0.3s;
+}
+
+.update-card:hover {
+  transform: scale(1.02);
+}
+
+.update-card img {
+  width: 150px;
+  border-radius: 10px;
+}
+
+.update-info {
+  text-align: left;
+}
+
+/* About */
+.about {
+  padding: 40px 20px;
+  text-align: center;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+/* Footer */
+footer {
+  text-align: center;
+  padding: 20px;
+  background: #111;
 }
