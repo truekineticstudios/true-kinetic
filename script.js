@@ -14,10 +14,11 @@ const codes = {
 
 function checkCode() {
   const code = document.getElementById("codeInput").value.trim();
+  const resultDiv = document.getElementById("result");
+
   if(codes[code]) {
-    document.getElementById("result").innerHTML = 
-      `✅ VERIFED! <a href="${codes[code]}" target="_blank">Dosyayı indir</a>`;
+    resultDiv.innerHTML = `✅ VERIFED! <a href="${codes[code]}" target="_blank">Dosyayı indir</a>`;
   } else {
-    document.getElementById("result").innerText = "❌ Your Code is Wrong, Please Try Again!";
+    resultDiv.innerHTML = "❌ Your Code is Wrong, Please Try Again!";
   }
 }
