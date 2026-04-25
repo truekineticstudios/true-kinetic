@@ -8,17 +8,19 @@ document.querySelectorAll('.btn').forEach(button => {
   });
 });
 
-const codes = {
-  "ANTICHEAT-001": "https://dosya.co/93ydztbsok23/Copilot_20260418_203654.png.html"
-};
+document.addEventListener("DOMContentLoaded", () => {
+  const btn = document.getElementById("verifyBtn");
+  btn.addEventListener("click", checkCode);
+});
 
 function checkCode() {
   const code = document.getElementById("codeInput").value.trim();
   const resultDiv = document.getElementById("result");
 
-  if(codes[code]) {
-    resultDiv.innerHTML = `✅ VERIFED! <a href="${codes[code]}" target="_blank">Dosyayı indir</a>`;
+  if (codes[code]) {
+    resultDiv.innerHTML = `✅ VERIFIED! <a href="${codes[code]}" target="_blank">Download File</a>`;
   } else {
-    resultDiv.innerHTML = "❌ Your Code is Wrong, Please Try Again!";
+    resultDiv.innerHTML = "❌ Invalid code, please try again!";
   }
 }
+
