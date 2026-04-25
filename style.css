@@ -14,7 +14,7 @@ header {
 }
 
 header img {
-  width: 500px;
+  width: 400px;
   height: auto;
   display: block;
   margin: 0 auto;
@@ -30,7 +30,7 @@ header img {
 
 @keyframes glow {
   from { text-shadow: 0 0 10px #ff0000; }
-  to { text-shadow: 0 0 20px #ff3333; }
+  to { text-shadow: 0 0 25px #ff3333; }
 }
 
 /* Buttons */
@@ -48,15 +48,15 @@ header img {
   border-radius: 8px;
   color: #fff;
   text-decoration: none;
-  transition: 0.3s;
+  transition: all 0.3s ease;
   backdrop-filter: blur(5px);
-  box-shadow: 0 0 15px rgba(255, 0, 0, 0.8);
+  box-shadow: 0 0 15px rgba(255, 0, 0, 0.7);
 }
 
 .btn:hover {
   background: #ff0000;
   transform: scale(1.1);
-  box-shadow: 0 0 25px rgba(255, 0, 0, 1);
+  box-shadow: 0 0 30px rgba(255, 0, 0, 1);
 }
 
 /* Products */
@@ -75,17 +75,17 @@ header img {
 .product-card {
   width: 250px;
   padding: 20px;
-  background: rgba(20, 20, 20, 0.8);
+  background: rgba(20, 20, 20, 0.85);
   border-radius: 12px;
   backdrop-filter: blur(10px);
   text-align: center;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
-  box-shadow: 0 0 20px rgba(255, 0, 0, 0.7);
+  box-shadow: 0 0 20px rgba(255, 0, 0, 0.6);
 }
 
 .product-card:hover {
   transform: scale(1.05);
-  box-shadow: 0 0 30px rgba(255, 0, 0, 1);
+  box-shadow: 0 0 35px rgba(255, 0, 0, 1);
 }
 
 .product-card img {
@@ -123,7 +123,7 @@ header img {
   font-size: 2em;
   margin-bottom: 20px;
   color: #ff3333;
-  text-shadow: 0 0 10px #ff0000;
+  text-shadow: 0 0 12px #ff0000;
 }
 
 .verify input {
@@ -131,11 +131,11 @@ header img {
   padding: 12px;
   border: 1px solid #ff0000;
   border-radius: 8px;
-  background: rgba(20, 20, 20, 0.8);
+  background: rgba(20, 20, 20, 0.9);
   color: #fff;
   font-family: 'Roboto', sans-serif;
   margin-bottom: 15px;
-  box-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
+  box-shadow: 0 0 12px rgba(255, 0, 0, 0.5);
 }
 
 .verify button {
@@ -146,13 +146,13 @@ header img {
   color: #fff;
   font-family: 'Orbitron', sans-serif;
   cursor: pointer;
-  transition: 0.3s;
-  box-shadow: 0 0 15px rgba(255, 0, 0, 0.8);
+  transition: all 0.3s ease;
+  box-shadow: 0 0 15px rgba(255, 0, 0, 0.7);
 }
 
 .verify button:hover {
   transform: scale(1.05);
-  box-shadow: 0 0 25px rgba(255, 0, 0, 1);
+  box-shadow: 0 0 30px rgba(255, 0, 0, 1);
 }
 
 #result {
@@ -179,7 +179,7 @@ header img {
   background: rgba(255,255,255,0.08);
   border-radius: 15px;
   backdrop-filter: blur(12px);
-  transition: 0.3s;
+  transition: transform 0.3s ease;
 }
 
 .update-card:hover {
