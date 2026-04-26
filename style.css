@@ -118,6 +118,7 @@ header img {
   box-shadow: 0 0 20px rgba(255, 0, 0, 0.7);
 }
 
+/* Başlık */
 .verify h2 {
   font-family: 'Montserrat', sans-serif;
   font-size: 2em;
@@ -125,7 +126,18 @@ header img {
   color: #ff3333;
   text-shadow: 0 0 12px #ff0000;
 }
+.verify h2::after {
+  content: '';
+  display: block;
+  width: 60px;
+  height: 3px;
+  background: #ff0000;
+  margin: 10px auto 0;
+  border-radius: 2px;
+  box-shadow: 0 0 8px #ff0000;
+}
 
+/* Input */
 .verify input {
   width: 70%;
   padding: 12px;
@@ -136,8 +148,15 @@ header img {
   font-family: 'Roboto', sans-serif;
   margin-bottom: 15px;
   box-shadow: 0 0 12px rgba(255, 0, 0, 0.5);
+  transition: 0.3s;
+}
+.verify input:focus {
+  border-color: #ff4d4d;
+  box-shadow: 0 0 15px #ff4d4d;
+  transform: scale(1.02);
 }
 
+/* Redeem Butonu */
 .verify button {
   padding: 12px 25px;
   background: linear-gradient(90deg, #ff0000, #aa0000);
@@ -149,17 +168,42 @@ header img {
   transition: all 0.3s ease;
   box-shadow: 0 0 15px rgba(255, 0, 0, 0.7);
 }
-
+@keyframes glow {
+  0% { box-shadow: 0 0 10px #ff0000; }
+  50% { box-shadow: 0 0 20px #ff3333; }
+  100% { box-shadow: 0 0 10px #ff0000; }
+}
 .verify button:hover {
+  animation: glow 1s infinite;
   transform: scale(1.05);
-  box-shadow: 0 0 30px rgba(255, 0, 0, 1);
 }
 
+/* Sonuç Mesajı */
 #result {
   margin-top: 20px;
   font-family: 'Roboto', sans-serif;
   font-size: 1.1em;
   color: #fff;
+  text-shadow: 0 0 8px #ff0000;
+}
+
+/* İndirme Bağlantısı */
+.download-link {
+  display: inline-block;
+  margin-top: 25px;
+  padding: 12px 30px;
+  background: linear-gradient(90deg, #00ff88, #00cc66);
+  color: #000;
+  font-weight: bold;
+  border-radius: 10px;
+  text-decoration: none;
+  font-family: 'Orbitron', sans-serif;
+  box-shadow: 0 0 20px rgba(0, 255, 100, 0.7);
+  transition: all 0.3s ease;
+}
+.download-link:hover {
+  transform: scale(1.08);
+  box-shadow: 0 0 30px rgba(0, 255, 100, 1);
 }
 
 /* Updates */
