@@ -178,13 +178,65 @@ header img {
   transform: scale(1.05);
 }
 
-/* Sonuç Mesajı */
+/* Sonuç Mesajı Genel */
 #result {
   margin-top: 20px;
   font-family: 'Roboto', sans-serif;
   font-size: 1.1em;
   color: #fff;
   text-shadow: 0 0 8px #ff0000;
+}
+
+/* Hata Mesajı */
+.error-box {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 20px;
+  margin-top: 20px;
+  background: rgba(50, 0, 0, 0.8);
+  border: 2px solid #ff0000;
+  border-radius: 10px;
+  color: #fff;
+  font-family: 'Roboto', sans-serif;
+  font-size: 1.1em;
+  text-shadow: 0 0 8px #ff0000;
+  box-shadow: 0 0 20px rgba(255, 0, 0, 0.7);
+  animation: shake 0.4s ease;
+}
+.error-box i {
+  color: #ff3333;
+  font-size: 1.5em;
+  text-shadow: 0 0 12px #ff0000;
+}
+@keyframes shake {
+  0% { transform: translateX(0); }
+  25% { transform: translateX(-5px); }
+  50% { transform: translateX(5px); }
+  75% { transform: translateX(-5px); }
+  100% { transform: translateX(0); }
+}
+
+/* Başarılı Mesaj */
+.success-box {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 20px;
+  margin-top: 20px;
+  background: rgba(0, 50, 0, 0.8);
+  border: 2px solid #00ff88;
+  border-radius: 10px;
+  color: #fff;
+  font-family: 'Roboto', sans-serif;
+  font-size: 1.1em;
+  text-shadow: 0 0 8px #00ff88;
+  box-shadow: 0 0 20px rgba(0, 255, 100, 0.7);
+}
+.success-box i {
+  color: #00ff88;
+  font-size: 1.5em;
+  text-shadow: 0 0 12px #00ff88;
 }
 
 /* İndirme Bağlantısı */
@@ -205,6 +257,7 @@ header img {
   transform: scale(1.08);
   box-shadow: 0 0 30px rgba(0, 255, 100, 1);
 }
+
 
 /* Updates */
 .updates {
