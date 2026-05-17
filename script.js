@@ -1,31 +1,39 @@
-// Efektli buton animasyonu
-document.querySelectorAll('.btn').forEach(button => {
-  button.addEventListener('mouseover', () => {
-    button.style.boxShadow = '0 0 15px #ff0000';
-    button.style.transform = 'scale(1.05)';
-    button.style.transition = 'all 0.2s ease';
+// Canvas particle background
+const canvas = document.getElementById("bgCanvas");
+const ctx = canvas.getContext("2d");
+
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+
+let particles = [];
+for (let i = 0; i < 120; i++) {
+  particles.push({
+    x: Math.random() * canvas.width,
+    y: Math.random() * canvas.height,
+    r: Math.random() * 2 + 1,
+    dx: (Math.random() - 0.5) * 1.2,
+    dy: (Math.random() - 0.5) * 1.2,
+    color: Math.random() > 0.5 ? "#00c8ff" : "#bb86fc"
   });
-  button.addEventListener('mouseout', () => {
-    button.style.boxShadow = 'none';
-    button.style.transform = 'scale(1)';
-  });
-});
-
-// Kod doğrulama sistemi
-document.addEventListener("DOMContentLoaded", () => {
-  const btn = document.getElementById("verifyBtn");
-  if (btn) {
-    btn.addEventListener("click", checkCode);
-  }
-});
-
-function checkCode() {
-  const code = document.getElementById("codeInput").value.trim();
-  const resultDiv = document.getElementById("result");
-
-  if (codes[code]) {
-    resultDiv.innerHTML = `✅ Verified! <a href="${codes[code]}" target="_blank">Download file</a>`;
-  } else {
-    resultDiv.innerHTML = "❌ Invalid code, please try again!";
-  }
 }
+
+function draw() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  particles.forEach(p => {
+    ctx.beginPath();
+    ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+    ctx.fillStyle = p.color;
+    ctx.fill();
+    p.x += p.dx;
+    p.y += p.dy;
+    if (p.x < 0 || p.x > canvas.width) p.dx *= -1;
+    if (p.y < 0 || p.y > canvas.height) p.dy *= -1;
+  });
+  requestAnimationFrame(draw);
+}
+draw();
+
+window.addEventListener("resize", () => {
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+});
