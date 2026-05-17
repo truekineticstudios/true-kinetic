@@ -37,3 +37,11 @@ window.addEventListener("resize", () => {
   canvas.width = window.innerWidth;
   canvas.height = window.innerHeight;
 });
+
+fetch("https://discord.com/api/guilds/1482670220765298800/widget.json")
+  .then(res => res.json())
+  .then(data => {
+    console.log("Sunucu adı:", data.name);
+    console.log("Online üye sayısı:", data.presence_count);
+    console.log("Davet linki:", data.instant_invite);
+  });
