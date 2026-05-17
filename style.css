@@ -4,7 +4,6 @@ body {
   font-family: 'Segoe UI', sans-serif;
   height: 100vh;
   display: flex;
-  flex-direction: column;
   justify-content: center;
   align-items: center;
   background: #121212;
@@ -18,7 +17,7 @@ body {
   left: 0;
   width: 100%;
   height: 100%;
-  z-index: -1;
+  z-index: -1; /* içerik üstte kalsın */
 }
 
 .container {
@@ -48,6 +47,12 @@ body {
   line-height: 1.6;
 }
 
+.footer {
+  margin-top: 30px;
+  font-size: 0.9rem;
+  color: #999;
+}
+
 .discord-btn {
   display: inline-block;
   padding: 12px 25px;
@@ -63,8 +68,18 @@ body {
   background: #404EED;
 }
 
-footer {
-  margin-top: 30px;
-  font-size: 0.9rem;
-  color: #999;
+
+.discord-widget {
+  display: flex;
+  justify-content: center;
+  margin-top: 40px;
+  width: 100%;
+}
+
+.discord-widget iframe {
+  width: 100%;          /* widget kutuya tam otursun */
+  max-width: 700px;     /* çok geniş olmasın */
+  height: 250px;        /* sabit yükseklik */
+  border-radius: 8px;
+  box-shadow: 0 0 15px rgba(88, 101, 242, 0.5);
 }
