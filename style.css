@@ -79,7 +79,37 @@ body {
 .discord-widget iframe {
   width: 100%;          /* widget kutuya tam otursun */
   max-width: 700px;     /* çok geniş olmasın */
-  height: 250px;        /* sabit yükseklik */
+  height: 150px;        /* sabit yükseklik */
   border-radius: 8px;
   box-shadow: 0 0 15px rgba(88, 101, 242, 0.5);
+}
+
+/* Timer kutusu */
+.timer-box {
+  margin: 20px auto;
+  padding: 15px;
+  max-width: 300px;
+  text-align: center;
+  background: rgba(0, 0, 0, 0.6);
+  border: 2px solid #00ffcc;
+  border-radius: 10px;
+  color: #fff;
+  font-family: 'Arial', sans-serif;
+  box-shadow: 0 0 15px rgba(0, 255, 204, 0.7);
+}
+
+/* Timer başlığı */
+.timer-box h3 {
+  margin-bottom: 10px;
+  font-size: 1.2em;
+  color: #00ffcc;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+/* Timer yazısı */
+#timer {
+  font-size: 1.5em;
+  font-weight: bold;
+  color: #ffcc00;
 }
