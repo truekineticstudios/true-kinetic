@@ -45,3 +45,33 @@ fetch("https://discord.com/api/guilds/1482670220765298800/widget.json")
     console.log("Online üye sayısı:", data.presence_count);
     console.log("Davet linki:", data.instant_invite);
   });
+
+
+// 1 ay = 30 gün = 30 * 24 * 60 * 60 saniye
+let totalTime = 30 * 24 * 60 * 60; 
+
+// Daha önce kayıtlı bitiş zamanı var mı?
+let endTime = localStorage.getItem("endTime");
+if (!endTime) {
+  endTime = Date.now() + totalTime * 1000;
+  localStorage.setItem("endTime", endTime);
+}
+
+function updateTimer() {
+  let remaining = Math.floor((endTime - Date.now()) / 1000);
+  if (remaining <= 0) {
+    document.getElementById("timer").innerText = "Transformation complete!";
+    localStorage.removeItem("endTime");
+    clearInterval(interval);
+  } else {
+    let days = Math.floor(remaining / (60 * 60 * 24));
+    let hours = Math.floor((remaining % (60 * 60 * 24)) / (60 * 60));
+    let minutes = Math.floor((remaining % (60 * 60)) / 60);
+    let seconds = remaining % 60;
+    document.getElementById("timer").innerText =
+      days + "d " + hours + "h " + minutes + "m " + seconds + "s remaining";
+  }
+}
+
+let interval = setInterval(updateTimer, 1000);
+updateTimer();
