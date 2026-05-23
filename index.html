@@ -1,64 +1,204 @@
 <!doctype html>
 <html lang="en">
   <head>
-    <meta name="google-adsense-account" content="ca-pub-6884932807385231">
     <meta charset="UTF-8" />
-    <title>True Kinetic - We Are Changing</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>True Kinetic | Innovation & Community</title>
+    <!-- CSS & Fonts -->
     <link rel="stylesheet" href="style.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&display=swap"
+      rel="stylesheet"
+    />
+    <!-- FontAwesome Icons -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    />
   </head>
+
+<!-- Özel İmleç -->
+<div class="cursor"></div>
+<div class="cursor-follower"></div>
+
+<!-- Ekstra Arka Plan Işıkları (JS ile hareket edecekler) -->
+<div class="orb orb-1"></div>
+<div class="orb orb-2"></div>
+
   <body>
-    <!-- Background Canvas -->
-    <canvas id="bgCanvas"></canvas>
+    <!-- Background Effects -->
+    <div class="stars"></div>
+    <div class="glow-orb"></div>
 
+    <header>
+      <div class="container nav-wrapper">
+        <div class="logo">
+          <span>TRUE <span class="accent">KINETIC</span></span>
+        </div>
+        <nav>
+          <a href="#hero">Home</a>
+          <a href="#projects">Projects</a>
+          <a href="#partners">Partners</a>
+          <a href="#team">Team</a>
+          <a href="#contact">Contact</a>
+        </nav>
+      </div>
+    </header>
+
+    <section id="hero">
+      <div class="container hero-content">
+        <h1 class="reveal">
+          THE FUTURE IS <span class="glow-text">KINETIC</span>
+        </h1>
+        <p class="reveal">
+          We focus on Roblox game mechanics, logo and freelance design, experimental systems, and software services using Python, Lua, HTML and CSS.
+        </p>
+        <div class="hero-btns reveal">
+          <a href="#projects" class="btn primary">View Projects</a>
+          <a href="#contact" class="btn secondary">Join Community</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- PROJECTS SECTION -->
+    <section id="projects">
+      <div class="container">
+        <h2 class="section-title">Active Projects</h2>
+        <div class="project-list">
+          <!-- Project 1 -->
+          <div class="project-card reveal">
+            <div class="project-info">
+              <h3>Roblox E‑Commerce Whit Parcel Hub</h3>
+              <p class="project-desc">
+                A next‑gen physics script engine for Roblox. Optimized for
+                smooth performance across all devices, fully modular and
+                adaptable to any game environment.
+              </p>
+              <div class="project-tags">
+                <span class="tag">LuaU</span>
+                <span class="tag">Project Management</span>
+                <span class="tag">Optimization</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Project 2 -->
+          <div class="project-card reverse reveal">
+            <div class="project-info">
+              <h3>True Kinetic Hub</h3>
+              <p class="project-desc">
+                A comprehensive web platform for community management. Features
+                include: Contact, Team Introduction, Collaborative Studios,
+                Project Information, News, and a sleek user interface designed
+                to meet modern community needs.
+              </p>
+              <div class="project-tags">
+                <span>React</span> <span>Node.js</span> <span>Firebase</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+<section id="partners">
     <div class="container">
-      <h1 class="title">True Kinetic</h1>
-      <h2 class="subtitle">We Are Changing</h2>
-      <p class="text">
-        True Kinetic is evolving. What started as a simple project has now grown
-        into something bigger. We are not ending, we are transforming. This
-        change will bring a new identity, new energy, and new goals.
-      </p>
-      <p class="text">
-        Soon, you will see our new face. Until then, stay connected and be part
-        of this transformation.
-      </p>
+        <h2 class="section-title center">Partnered Studios</h2>
+        <div class="partner-wrapper reveal">
+            
+            <!-- Partner 1 -->
+            <div class="partner-card">
+                <div class="partner-glow"></div>
+                <div class="partner-inner">
+                    <div class="partner-logo-box"><i class="fas fa-shield-alt"></i></div>
+                    <h4>AuthBridge Studios</h4>
+                    <p>We develop authentication systems, backend infrastructure, and custom software solutions. Alongside that, we explore game development and digital tools that enhance user experience and performance.</p>
+                </div>
+            </div>
 
-      <!-- Discord Button -->
-      <a
-        href="https://discord.gg/KbyHHW4s2Q"
-        target="_blank"
-        class="discord-btn"
-      >
-        Join Discord
-      </a>
+            <!-- Partner 2 -->
+            <div class="partner-card">
+                <div class="partner-glow"></div>
+                <div class="partner-inner">
+                    <div class="partner-logo-box"><i class="fas fa-gamepad"></i></div>
+                    <h4>Design Studio</h4>
+                    <p>Game Development & Creative Tools. Focusing on immersive experiences and high-quality asset creation for digital platforms.</p>
+                </div>
+            </div>
 
-      <!-- Timer -->
-      <div class="timer-box">
-        <h3>New Update</h3>
-        <p id="timer"></p>
-      </div>
+            <!-- Partner 3 -->
+            <div class="partner-card">
+                <div class="partner-glow"></div>
+                <div class="partner-inner">
+                    <div class="partner-logo-box"><i class="fas fa-code"></i></div>
+                    <h4>Bremen Studio</h4>
+                    <p>Game Development & Web Systems. Specializing in robust infrastructure and scalable web solutions for gaming communities.</p>
+                </div>
+            </div>
 
-      <footer>
-        <p>&copy; 2026 True Kinetic. All rights reserved.</p>
-      </footer>
-
-      <!-- Discord Widget -->
-      <div class="discord-widget">
-        <iframe
-          src="https://discord.com/widget?id=1482670220765298800&theme=dark"
-          width="100%"
-          height="500"
-          allowtransparency="true"
-          frameborder="0"
-          sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts"
-        >
-        </iframe>
-      </div>
+        </div>
     </div>
+</section>
 
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6884932807385231"
-     crossorigin="anonymous"></script>
-    
+    <!-- TEAM SECTION -->
+    <section id="team">
+      <div class="container">
+        <h2 class="section-title center">Our Creative Team</h2>
+        <div class="team-grid">
+          <div class="team-card reveal">
+            <h3>Salih G.</h3>
+            <p>Founder & Lead Dev</p>
+            <p>Front-End Developer</p>
+          </div>
+          <div class="team-card reveal">
+            <h3>C. </h3>
+            <p>Offical Partner, Co-Leader, Project Management</p>
+            <p>Back-End Developer</p>
+          </div>
+          <div class="team-card reveal">
+            <h3>Melih Ö.</h3>
+            <p>Offical Partner, Co-Owner</p>
+            <p>Team Member</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT SECTION -->
+    <section id="contact">
+      <div class="container">
+        <div class="contact-center reveal">
+          <div class="discord-card glass">
+            <div class="discord-icon">
+              <i class="fab fa-discord"></i>
+            </div>
+            <h3>Join Our Community</h3>
+            <p>
+              Looking for support, collaboration, or wanting to join our
+              development team? Join our official Discord server.
+            </p>
+            <a href="https://" class="discord-btn">Join Discord Server</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      <div class="container">
+        <div class="footer-content">
+          <p>
+            © 2026 <span class="accent">True Kinetic</span>. Design for the
+            Future.
+          </p>
+          <div class="footer-socials">
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-github"></i></a>
+            <a href="#"><i class="fab fa-discord"></i></a>
+          </div>
+        </div>
+      </div>
+    </footer>
+
     <script src="script.js"></script>
   </body>
 </html>
