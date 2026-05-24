@@ -68,7 +68,7 @@ h1 { font-size: 5.5rem; font-weight: 900; line-height: 1; margin-bottom: 25px; }
 .partner-wrapper {
     display: flex;
     justify-content: center;
-    align-items: stretch; /* Kartları aynı yüksekliğe zorlar */
+    align-items: stretch; 
     gap: 30px;
     flex-wrap: wrap;
     margin-top: 50px;
@@ -76,14 +76,14 @@ h1 { font-size: 5.5rem; font-weight: 900; line-height: 1; margin-bottom: 25px; }
 
 .partner-card {
     position: relative;
-    flex: 1; /* Kartların genişliğini eşit böler */
-    min-width: 300px; /* Mobilde çok daralmasın */
+    flex: 1; 
+    min-width: 300px; 
     max-width: 380px;
-    padding: 2px; /* Dış çerçeve kalınlığı */
+    padding: 2px; 
     border-radius: 25px;
-    overflow: hidden; /* Dışarı taşmaları engeller */
-    background: var(--border); /* Hafif çerçeve rengi */
-    display: flex; /* İçeriğin de flex olmasını sağlar */
+    overflow: hidden; 
+    background: var(--border); 
+    display: flex; 
 }
 
 .partner-inner {
@@ -97,7 +97,7 @@ h1 { font-size: 5.5rem; font-weight: 900; line-height: 1; margin-bottom: 25px; }
     flex-direction: column;
     align-items: center;
     width: 100%;
-    /* İçerik ne kadar kısa olursa olsun kartı doldurur */
+    /* İçerik ne kadar kısa olursa ona göre ayarla bi zahmet dedirten komut */
     flex-grow: 1; 
 }
 
@@ -123,11 +123,11 @@ h1 { font-size: 5.5rem; font-weight: 900; line-height: 1; margin-bottom: 25px; }
     font-size: 0.95rem;
     color: #aaa;
     line-height: 1.6;
-    /* Metinleri yukarı yaslar ve denge sağlar */
+    /* Metinleri yukarı sabitlemesi için emir verdiğim kod */
     flex-grow: 1; 
 }
 
-/* Arka plandaki o kayan renk efektini sabitleyelim */
+/* Arka plandaki o kayan renk efektini sabitleyen şey */
 .partner-glow {
     position: absolute;
     top: 50%; left: 50%;
@@ -143,7 +143,7 @@ h1 { font-size: 5.5rem; font-weight: 900; line-height: 1; margin-bottom: 25px; }
     opacity: 1;
 }
 
-/* Mobilde kartlar alt alta gelince genişlesin */
+/* Mobilde kartlar alt alta gelince genişlemesini yapan şey */
 @media (max-width: 768px) {
     .partner-card {
         flex: 1 1 100%;
@@ -170,7 +170,7 @@ footer { padding: 30px 0; border-top: 1px solid var(--border); margin-top: 50px;
 .footer-socials a { color: #666; font-size: 1.4rem; transition: 0.3s; }
 .footer-socials a:hover { color: var(--primary); }
 
-/* Reveal Animation */
+/* Reveal Anim */
 .reveal { opacity: 0; transform: translateY(40px); transition: 1.2s cubic-bezier(0.17, 0.67, 0.83, 0.67); }
 .reveal.active { opacity: 1; transform: translateY(0); }
 
@@ -181,7 +181,7 @@ footer { padding: 30px 0; border-top: 1px solid var(--border); margin-top: 50px;
 }
 
 
-/* Hareketli Orblar */
+/* Hareketli Şeyler işte */
 .orb {
     position: fixed; border-radius: 50%;
     filter: blur(100px); z-index: -1; opacity: 0.3;
@@ -224,35 +224,39 @@ footer { padding: 30px 0; border-top: 1px solid var(--border); margin-top: 50px;
 }
 
  /* Team Members Studio Button or smt idk */
-.team-action {
-    margin-top: 20px;
-}
-
 .studio-btn {
     text-decoration: none;
-    background: linear-gradient(45deg, var(--primary), var(--secondary));
-    color: #fff;
-    padding: 10px 25px;
+    background: transparent;
+    color: var(--secondary); 
+    border: 1.5px solid var(--secondary); 
+    padding: 8px 20px;
     border-radius: 50px;
-    font-weight: 700;
-    font-size: 0.85rem;
+    font-weight: 600;
+    font-size: 0.8rem;
     display: inline-flex;
     align-items: center;
-    gap: 10px;
-    transition: 0.4s;
-    box-shadow: 0 4px 15px rgba(187, 134, 252, 0.2);
+    gap: 8px;
+    transition: 0.4s all ease;
+    margin-top: 15px;
 }
 
 .studio-btn:hover {
-    transform: scale(1.05);
-    box-shadow: 0 0 20px var(--primary);
-    filter: brightness(1.1);
+    background: rgba(0, 200, 255, 0.1); 
+    color: #fff;
+    border-color: var(--primary);
+    box-shadow: 0 0 15px rgba(0, 200, 255, 0.3); 
+    transform: translateY(-2px);
 }
 
-/* Kartların hizalanması için küçük bir düzeltme */
+.studio-btn i {
+    font-size: 0.7rem;
+    opacity: 0.8;
+}
+
+
 .team-card {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    min-height: 250px; /* Kartların boyunu eşitler */
+    min-height: 250px; 
 }
