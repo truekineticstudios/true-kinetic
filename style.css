@@ -190,8 +190,8 @@ footer { padding: 30px 0; border-top: 1px solid var(--border); margin-top: 50px;
 .orb-1 { width: 400px; height: 400px; background: var(--primary); top: 10%; left: 10%; }
 .orb-2 { width: 500px; height: 500px; background: var(--secondary); bottom: 10%; right: 10%; }
 
-/* 3D Tilt Kart Hazırlığı */
-.project-card, .team-card, .partner-card, .discord-card {
+
+.discord-card, .project-card, .team-card, .partner-card  {
     transition: transform 0.2s ease-out, box-shadow 0.2s ease-out;
     transform-style: preserve-3d;
 }
