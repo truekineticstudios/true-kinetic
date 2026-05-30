@@ -1,6 +1,6 @@
 # True Kinetic Hub
 
-This project is under construction right now please follow this page for updates!
+This is Offical Studio WebSite Created by True Kinetic Studios
 
 ## License
 © 2026 True Kinetic Studios. All rights reserved.
