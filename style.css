@@ -17,7 +17,7 @@ body {
 
 .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
 
-/* Effects */
+
 .stars {
     position: fixed; top: 0; left: 0; width: 100%; height: 100%;
     background: url('https://www.transparenttextures.com/patterns/stardust.png');
@@ -43,12 +43,12 @@ header {
 nav a { color: #ccc; text-decoration: none; margin-left: 25px; transition: 0.3s; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1px; }
 nav a:hover { color: var(--secondary); text-shadow: 0 0 10px var(--secondary); }
 
-/* Sections */
+
 section { padding: 120px 0; }
 .section-title { font-size: 2.5rem; margin-bottom: 60px; text-transform: uppercase; letter-spacing: 4px; border-left: 4px solid var(--primary); padding-left: 20px; }
 .section-title.center { text-align: center; border: none; padding: 0; }
 
-/* Hero */
+
 #hero { height: 100vh; display: flex; align-items: center; text-align: center; }
 h1 { font-size: 5.5rem; font-weight: 900; line-height: 1; margin-bottom: 25px; }
 .glow-text { color: var(--secondary); text-shadow: 0 0 30px var(--secondary); }
@@ -57,7 +57,7 @@ h1 { font-size: 5.5rem; font-weight: 900; line-height: 1; margin-bottom: 25px; }
 .btn.secondary { border: 2px solid var(--secondary); color: var(--secondary); }
 .btn:hover { transform: translateY(-5px); box-shadow: 0 10px 25px rgba(187, 134, 252, 0.3); }
 
-/* Projects */
+
 .project-card { display: flex; gap: 60px; align-items: center; margin-bottom: 120px; background: var(--glass); padding: 50px; border-radius: 40px; border: 1px solid var(--border); }
 .project-card.reverse { flex-direction: row-reverse; }
 .project-img img { width: 100%; max-width: 500px; border-radius: 25px; box-shadow: 0 20px 40px rgba(0,0,0,0.6); transition: 0.5s; }
@@ -97,7 +97,6 @@ h1 { font-size: 5.5rem; font-weight: 900; line-height: 1; margin-bottom: 25px; }
     flex-direction: column;
     align-items: center;
     width: 100%;
-    /* İçerik ne kadar kısa olursa ona göre ayarla bi zahmet dedirten komut */
     flex-grow: 1; 
 }
 
@@ -123,11 +122,10 @@ h1 { font-size: 5.5rem; font-weight: 900; line-height: 1; margin-bottom: 25px; }
     font-size: 0.95rem;
     color: #aaa;
     line-height: 1.6;
-    /* Metinleri yukarı sabitlemesi için emir verdiğim kod */
     flex-grow: 1; 
 }
 
-/* Arka plandaki o kayan renk efektini sabitleyen şey */
+
 .partner-glow {
     position: absolute;
     top: 50%; left: 50%;
@@ -143,34 +141,34 @@ h1 { font-size: 5.5rem; font-weight: 900; line-height: 1; margin-bottom: 25px; }
     opacity: 1;
 }
 
-/* Mobilde kartlar alt alta gelince genişlemesini yapan şey */
+
 @media (max-width: 768px) {
     .partner-card {
         flex: 1 1 100%;
     }
 }
 
-/* Team Grid */
+
 .team-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px; }
 .team-card { background: var(--glass); padding: 50px 30px; border-radius: 30px; text-align: center; border: 1px solid var(--border); transition: 0.3s; }
 .team-card:hover { border-color: var(--primary); transform: translateY(-5px); }
 .avatar-box img { width: 130px; height: 130px; border-radius: 50%; border: 3px solid var(--primary); margin-bottom: 25px; padding: 5px; }
 
-/* Contact */
+
 .contact-center { display: flex; justify-content: center; }
 .glass { background: var(--glass); border: 1px solid var(--border); padding: 60px 40px; border-radius: 30px; backdrop-filter: blur(20px); text-align: center; max-width: 700px; }
 .discord-icon { font-size: 4.5rem; color: #5865F2; margin-bottom: 25px; }
 .discord-btn { display: inline-block; margin-top: 30px; padding: 18px 50px; background: #5865F2; color: #fff; text-decoration: none; border-radius: 50px; font-weight: 800; transition: 0.3s; text-transform: uppercase; }
 .discord-btn:hover { background: #4752c4; box-shadow: 0 0 30px rgba(88, 101, 242, 0.5); }
 
-/* Footer */
+
 footer { padding: 30px 0; border-top: 1px solid var(--border); margin-top: 50px; }
 .footer-content { display: flex; justify-content: space-between; align-items: center; }
 .footer-socials { display: flex; gap: 25px; }
 .footer-socials a { color: #666; font-size: 1.4rem; transition: 0.3s; }
 .footer-socials a:hover { color: var(--primary); }
 
-/* Reveal Anim */
+
 .reveal { opacity: 0; transform: translateY(40px); transition: 1.2s cubic-bezier(0.17, 0.67, 0.83, 0.67); }
 .reveal.active { opacity: 1; transform: translateY(0); }
 
@@ -181,7 +179,7 @@ footer { padding: 30px 0; border-top: 1px solid var(--border); margin-top: 50px;
 }
 
 
-/* Hareketli Şeyler işte */
+
 .orb {
     position: fixed; border-radius: 50%;
     filter: blur(100px); z-index: -1; opacity: 0.3;
@@ -197,7 +195,7 @@ footer { padding: 30px 0; border-top: 1px solid var(--border); margin-top: 50px;
 }
 
 
-/* Proje Butonu Stili */
+
 .card-action {
     margin-top: 20px;
 }
@@ -223,7 +221,7 @@ footer { padding: 30px 0; border-top: 1px solid var(--border); margin-top: 50px;
     transform: translateY(-2px);
 }
 
- /* Team Members Studio Button or smt idk */
+
 .studio-btn {
     text-decoration: none;
     background: transparent;
