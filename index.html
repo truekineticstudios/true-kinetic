@@ -1,206 +1,293 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>FitGlow Coming Soon!</title>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>True Kinetic Hub | Services and Game Solutions</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
 
-    <link rel="stylesheet" href="style.css" />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&display=swap"
-      rel="stylesheet"
-    />
-
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
-    />
-  </head>
-
-  <body>
-
-    <div class="orb orb-1"></div>
-    <div class="orb orb-2"></div>
-
-    <div class="stars"></div>
-    <div class="glow-orb"></div>
-
-    <header>
-      <div class="container nav-wrapper">
-        <div class="logo">
-          <span>TRUE <span class="accent">KINETIC</span></span>
+    <!-- Header / Navbar -->
+    <header class="navbar">
+        <div class="logo-area">
+            <span class="logo-true">TRUE</span><span class="logo-kinetic"> KINETIC</span>
         </div>
-        <nav>
-          <a href="#hero">Home</a>
-          <a href="#projects">Projects</a>
-          <a href="#partners">Partners</a>
-          <a href="#team">Team</a>
-          <a href="#contact">Contact</a>
-        </nav>
-      </div>
+        
+        <div class="nav-container">
+            <nav>
+                <a href="#home" data-i18n="nav_home">Home</a>
+                <a href="#how-it-works" data-i18n="nav_how">How It Works</a>
+                <a href="#services" data-i18n="nav_services">Services</a>
+                <a href="#faq" data-i18n="nav_faq">FAQ</a>
+            </nav>
+
+            <div class="nav-actions">
+                <!-- Dil Seçici (Language Selector) -->
+                <div class="lang-selector">
+                    <select id="langSelect">
+                        <option value="en">EN</option>
+                        <option value="tr">TR</option>
+                    </select>
+                </div>
+
+                <!-- Giriş Butonu -->
+                <button id="loginBtn" class="nav-login-btn">
+                    <i class="far fa-user"></i> <span data-i18n="nav_login">Log In</span>
+                </button>
+
+                <a href="https://discord.gg/tqsKHt6qSS" target="_blank" rel="noopener noreferrer" class="nav-discord-btn">
+                    <i class="fab fa-discord"></i> Discord
+                </a>
+            </div>
+        </div>
     </header>
 
-    <section id="hero">
-      <div class="container hero-content">
-        <h1 class="reveal">
-          THE FUTURE IS <span class="glow-text">KINETIC</span>
-        </h1>
-        <div class="hero-btns reveal">
-          <a href="#projects" class="btn primary">View Projects</a>
-          <a href="#contact" class="btn secondary">Join Community</a>
-        </div>
-      </div>
-    </section>
-
-    <section id="projects">
-      <div class="container">
-        <h2 class="section-title">Active Projects</h2>
-        <div class="project-list">
-
-          <div class="project-card reveal">
-            <div class="project-info">
-              <h3>FitGlow Android App</h3>
-              <p class="project-desc">
-                Advanced GPS for distance analysis. Developed for sports users. Calorie burn tracking, AI Coach and more.
-              </p>
-              <div class="project-tags">
-                <span class="tag">Kotlin</span>
-                <span class="tag">XML</span>
-                <span class="tag">Android Development</span>
-                <span class="tag">Optimizing</span>
-              </div>
-
-              <div class="card-action">
-                <a href="https://sites.google.com/view/comingsoonpagefitglow" target="_blank" class="btn-card">
-                  View Project <i class="fas fa-external-link-alt"></i>
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <span class="badge">True Kinetic Hub</span>
+            <h1 data-i18n="hero_title">Reliable Digital Services & Game Solutions</h1>
+            <p data-i18n="hero_desc">Professional web design, Discord server configuration, and popular in-game currencies with secure delivery at one single hub.</p>
+            <div class="hero-buttons">
+                <a href="#services" class="primary-btn" data-i18n="hero_btn_explore">Explore Services</a>
+                <a href="https://discord.gg/tqsKHt6qSS" target="_blank" rel="noopener noreferrer" class="secondary-btn">
+                    <i class="fab fa-discord"></i> <span data-i18n="hero_btn_discord">Join Community</span>
                 </a>
-              </div>
             </div>
-          </div>
+        </div>
+    </section>
 
-          <div class="project-card reveal">
-            <div class="project-info">
-              <h3>Roblox E-Commerce With Parcel Hub</h3>
-              <p class="project-desc">
-                A Roblox Shop for Developers. Made by Parcel Systems
-              </p>
-              <div class="project-tags">
-                <span class="tag">LuaU</span>
-                <span class="tag">Project Management</span>
-                <span class="tag">Optimization</span>
-              </div>
+    <!-- How It Works Section -->
+    <section id="how-it-works" class="how-it-works">
+        <h2 class="section-title" data-i18n="how_title">How It Works?</h2>
+        <div class="steps-grid">
+            <div class="step-card">
+                <div class="step-num">01</div>
+                <h3 data-i18n="step1_title">Join Discord</h3>
+                <p data-i18n="step1_desc">Enter our official Discord server safely using any join button on our website.</p>
+            </div>
+            <div class="step-card">
+                <div class="step-num">02</div>
+                <h3 data-i18n="step2_title">Open a Ticket</h3>
+                <p data-i18n="step2_desc">Create an order or inquiry ticket through our dedicated support channels in the server.</p>
+            </div>
+            <div class="step-card">
+                <div class="step-num">03</div>
+                <h3 data-i18n="step3_title">Safe Delivery</h3>
+                <p data-i18n="step3_desc">Our team members will assist you shortly and deliver your order securely.</p>
+            </div>
+        </div>
+    </section>
 
-              <div class="card-action">
-                <a href="https://www.roblox.com/games/71703452570082/" target="_blank" class="btn-card">
-                  View Project <i class="fas fa-external-link-alt"></i>
+    <!-- Önemli Bilgilendirme / Trust Banner -->
+    <section class="trust-info-section">
+        <div class="trust-card">
+            <div class="trust-icon">
+                <i class="fas fa-certificate"></i>
+            </div>
+            <div class="trust-text">
+                <h3 data-i18n="trust_title">Our Background & Sales</h3>
+                <p data-i18n="trust_desc">Please note that while our Discord-based shop is a newly established hub, our primary developer operations and sales history are rooted in the official Roblox Creator Marketplace and other verified platforms.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="services-section">
+        <h2 class="section-title" data-i18n="services_title">Our Services & Products</h2>
+        <p class="section-subtitle" data-i18n="services_subtitle">You can filter our current catalogs using the quick tabs below.</p>
+        
+        <!-- Filter Buttons -->
+        <div class="filter-container">
+            <button class="filter-btn active" data-filter="all" data-i18n="filter_all">All</button>
+            <button class="filter-btn" data-filter="software" data-i18n="filter_software">Software & Server</button>
+            <button class="filter-btn" data-filter="games" data-i18n="filter_games">Game Currencies</button>
+        </div>
+
+        <!-- Cards Grid -->
+        <div class="services-grid">
+            
+            <!-- Yazılım / Geliştirme Hizmetleri -->
+            <div class="service-card" data-category="software">
+                <div class="card-icon"><i class="fas fa-code"></i></div>
+                <h3 data-i18n="srv_web_title">Web Site Design</h3>
+                <p data-i18n="srv_web_desc">We build modern, ultra-fast, responsive, and SEO-optimized web designs tailored to your needs.</p>
+                <button class="card-action-btn" data-service="web">
+                    <span data-i18n="btn_order">Order Now</span> <i class="fas fa-arrow-right"></i>
+                </button>
+            </div>
+
+            <div class="service-card" data-category="software">
+                <div class="card-icon"><i class="fab fa-discord"></i></div>
+                <h3 data-i18n="srv_discord_title">Discord Server Setup</h3>
+                <p data-i18n="srv_discord_desc">Advanced bot configurations, neat role hierarchy, and professional category structure.</p>
+                <button class="card-action-btn" data-service="discord">
+                    <span data-i18n="btn_order">Order Now</span> <i class="fas fa-arrow-right"></i>
+                </button>
+            </div>
+
+            <div class="service-card" data-category="software">
+                <div class="card-icon"><i class="fas fa-chart-line"></i></div>
+                <h3 data-i18n="srv_det_analysis_title">Detailed Server Analysis</h3>
+                <p data-i18n="srv_det_analysis_desc">Comprehensive auditing of your current server security, user activity, and technical setups.</p>
+                <button class="card-action-btn" data-service="detailed_analysis">
+                    <span data-i18n="btn_info">Get Info</span> <i class="fas fa-arrow-right"></i>
+                </button>
+            </div>
+
+            <div class="service-card" data-category="software">
+                <div class="card-icon"><i class="fas fa-poll"></i></div>
+                <h3 data-i18n="srv_bas_analysis_title">Basic Server Analysis</h3>
+                <p data-i18n="srv_bas_analysis_desc">A quick security and structural layout check-up for a better-performing server environment.</p>
+                <button class="card-action-btn" data-service="basic_analysis">
+                    <span data-i18n="btn_info">Get Info</span> <i class="fas fa-arrow-right"></i>
+                </button>
+            </div>
+
+            <!-- Oyun Paraları ve Kodlar -->
+            <div class="service-card" data-category="games">
+                <div class="card-icon"><i class="fas fa-ticket-alt"></i></div>
+                <h3 data-i18n="srv_roblox_title">Roblox Gift Cards</h3>
+                <p data-i18n="srv_roblox_desc">Roblox digital gift card codes to redeem Robux or Premium membership.</p>
+                <button class="card-action-btn" data-service="roblox_gift">
+                    <span data-i18n="btn_view_prices">View Prices</span> <i class="fas fa-arrow-right"></i>
+                </button>
+            </div>
+
+            <div class="service-card" data-category="games">
+                <div class="card-icon"><i class="fas fa-crosshairs"></i></div>
+                <h3 data-i18n="srv_uc_title">PUBG Mobile UC</h3>
+                <p data-i18n="srv_uc_desc">Fast and safe delivery on Unknown Cash packages to customize your in-game avatar.</p>
+                <button class="card-action-btn" data-service="pubg_uc">
+                    <span data-i18n="btn_view_prices">View Prices</span> <i class="fas fa-arrow-right"></i>
+                </button>
+            </div>
+
+            <div class="service-card" data-category="games">
+                <div class="card-icon"><i class="fas fa-gamepad"></i></div>
+                <h3 data-i18n="srv_vp_title">Valorant VP</h3>
+                <p data-i18n="srv_vp_desc">Don't miss out on weapon skins with our instantly delivered discounted Valorant Points.</p>
+                <button class="card-action-btn" data-service="valorant_vp">
+                    <span data-i18n="btn_view_prices">View Prices</span> <i class="fas fa-arrow-right"></i>
+                </button>
+            </div>
+
+            <div class="service-card" data-category="games">
+                <div class="card-icon"><i class="fab fa-steam"></i></div>
+                <h3 data-i18n="srv_steam_title">Steam Wallet Code</h3>
+                <p data-i18n="srv_steam_desc">Safe wallet codes that you can apply directly to expand your games library.</p>
+                <button class="card-action-btn" data-service="steam_wallet">
+                    <span data-i18n="btn_view_prices">View Prices</span> <i class="fas fa-arrow-right"></i>
+                </button>
+            </div>
+
+            <div class="service-card" data-category="games">
+                <div class="card-icon"><i class="fas fa-gem"></i></div>
+                <h3 data-i18n="srv_gem_title">Free Fire Gem</h3>
+                <p data-i18n="srv_gem_desc">Most cost-efficient and reliable diamond loading options for your Free Fire account.</p>
+                <button class="card-action-btn" data-service="freefire_gem">
+                    <span data-i18n="btn_view_prices">View Prices</span> <i class="fas fa-arrow-right"></i>
+                </button>
+            </div>
+
+            <!-- Özel İstekler -->
+            <div class="service-card" data-category="software">
+                <div class="card-icon"><i class="fas fa-wand-magic-sparkles"></i></div>
+                <h3 data-i18n="srv_custom_title">Special Requests</h3>
+                <p data-i18n="srv_custom_desc">Apply for a custom, tailored digital service or specialized script requests.</p>
+                <button class="card-action-btn" data-service="custom_requests">
+                    <span data-i18n="btn_info">Get Info</span> <i class="fas fa-arrow-right"></i>
+                </button>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Staff Verification (Güvenlik) -->
+    <section class="security-check">
+        <div class="security-container">
+            <h2><i class="fas fa-shield-halved"></i> Staff Verification Tool</h2>
+            <p data-i18n="sec_desc">Ensure you are talking to a real True Kinetic official. Enter their Discord Username below to verify them.</p>
+            
+            <div class="verify-box">
+                <input type="text" id="staffInput" placeholder="Username">
+                <button id="verifyBtn" class="primary-btn" data-i18n="sec_btn">Verify Staff</button>
+            </div>
+            <div id="verifyResult" class="verify-result"></div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section id="faq" class="faq-section">
+        <h2 class="section-title" data-i18n="faq_title">Frequently Asked Questions</h2>
+        <div class="faq-container">
+            <div class="faq-item">
+                <button class="faq-question"><span data-i18n="faq_q1_title">How can I make payments?</span> <i class="fas fa-chevron-down"></i></button>
+                <div class="faq-answer">
+                    <p data-i18n="faq_q1_desc">You can easily complete payments by opening a ticket on our Discord server. We support various secure options like Bank Transfer, Papara, and major secure local payment networks.</p>
+                </div>
+            <div class="faq-item">
+                <button class="faq-question"><span data-i18n="faq_q3_title">Why is everything based on Discord?</span> <i class="fas fa-chevron-down"></i></button>
+                <div class="faq-answer">
+                    <p data-i18n="faq_q3_desc">To offer personal assistance, address specific inquiries directly, and maintain direct secure support, we manage all purchases personally through our Discord ticket system.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FİYAT POP-UP MODAL (Dynamic Pricing Modal) -->
+    <div id="pricingModal" class="pricing-modal">
+        <div class="modal-content pricing-modal-content">
+            <span class="close-pricing-btn">&times;</span>
+            <div class="modal-header">
+                <h2 id="pricingTitle">Service Packages</h2>
+                <p id="pricingDesc">Our latest plans and pricing.</p>
+            </div>
+            
+            <!-- Dinamik Olarak Doldurulacak Paket Tablosu / Listesi -->
+            <div id="pricingTiers" class="pricing-tiers">
+                <!-- JS tarafından doldurulacaktır -->
+            </div>
+
+            <div class="pricing-footer">
+                <a href="https://discord.gg/tqsKHt6qSS" target="_blank" rel="noopener noreferrer" class="discord-order-btn">
+                    <i class="fab fa-discord"></i> <span data-i18n="btn_order_on_discord">Order via Discord</span>
                 </a>
-              </div>
             </div>
-          </div>
-
-          <div class="project-card reverse reveal">
-            <div class="project-info">
-              <h3>True Kinetic Hub</h3>
-              <p class="project-desc">
-                A comprehensive web platform for community management. Features include: Contact, Team Introduction, Collaborative Studios, Project Information, News, and a sleek user interface designed to meet modern community needs.
-              </p>
-              <div class="project-tags">
-                <span class="tag">HTML</span>
-                <span class="tag">CSS</span>
-                <span class="tag">JS</span>
-                <span class="tag">Firebase</span>
-              </div>
-            </div>
-          </div>
-
         </div>
-      </div>
-    </section>
+    </div>
 
-    <section id="partners">
-      <div class="container">
-        <h2 class="section-title center">Partnered Studios</h2>
-        <div class="partner-wrapper reveal">
-
-          <div class="partner-card">
-            <div class="partner-glow"></div>
-            <div class="partner-inner">
-              <div class="partner-logo-box"><i class="fas fa-shield-alt"></i></div>
-              <h4>AuthBridge Studios</h4>
-              <p>We develop authentication systems, backend infrastructure, and custom software solutions. Alongside that, we explore game development and digital tools that enhance user experience and performance.</p>
+    <!-- Giriş Yap (Account) Modal -->
+    <div id="loginModal" class="login-modal">
+        <div class="modal-content">
+            <span class="close-modal-btn">&times;</span>
+            <div class="modal-header">
+                <h2>TRUE KINETIC</h2>
+                <p data-i18n="modal_subtitle">Account Portal</p>
             </div>
-          </div>
-
-          <div class="partner-card">
-            <div class="partner-glow"></div>
-            <div class="partner-inner">
-              <div class="partner-logo-box"><i class="fas fa-gamepad"></i></div>
-              <h4>Design Studio</h4>
-              <p>Game Development & Creative Tools. Focusing on immersive experiences and high-quality asset creation for digital platforms.</p>
+            <div class="coming-soon-badge">
+                <i class="fas fa-tools"></i> <span data-i18n="modal_badge">Under Construction</span>
             </div>
-          </div>
-
+            <p class="modal-desc" data-i18n="modal_desc">We are currently developing our dashboard. Soon, you will be able to track your orders and manage services from here!</p>
+            
+            <div class="mock-form">
+                <input type="email" placeholder="Email Address" disabled>
+                <input type="password" placeholder="Password" disabled>
+                <button class="primary-btn mock-btn" disabled data-i18n="modal_btn">Coming Soon</button>
+            </div>
         </div>
-      </div>
-    </section>
+    </div>
 
-    <section id="team">
-      <div class="container">
-        <h2 class="section-title center">Our Creative Team</h2>
-        <div class="team-grid">
-
-          <div class="team-card reveal">
-            <h3>Salih</h3>
-            <p>Founder & Lead Dev</p>
-            <p>Front-End Developer</p>
-          </div>
-
-          <div class="team-card reveal">
-            <h3>Colin</h3>
-            <p>Official Partner, Co-Leader, Project Management</p>
-            <p>Back-End Developer</p>
-
-            <div class="team-action">
-              <a href="https://discord.gg/hD2pNpXAb5" target="_blank" class="studio-btn">
-                Join AuthBridge Studios Community <i class="fas fa-rocket"></i>
-              </a>
-            </div>
-          </div>
-
-        </div>
-      </div>
-    </section>
-
-    <section id="contact">
-      <div class="container">
-        <div class="contact-center reveal">
-          <div class="discord-card glass">
-            <div class="discord-icon">
-              <i class="fab fa-discord"></i>
-            </div>
-            <h3>Join Our Community</h3>
-            <p>
-              Looking for support, collaboration, or wanting to join our development team? Join our official Discord server.
-            </p>
-            <a href="https://discord.gg/jrFbFekbEr" class="discord-btn">Join Discord Server</a>
-          </div>
-        </div>
-      </div>
-    </section>
-
+    <!-- Footer -->
     <footer>
-      <div class="container">
         <div class="footer-content">
-          <p>
-            © 2026 <span class="accent">True Kinetic</span>. Design for the Future.
-          </p>
-          <div class="footer-socials">
-            <a href="https://discord.gg/jrFbFekbEr"><i class="fab fa-discord"></i></a>
-          </div>
+            <p>&copy; 2026 True Kinetic. Design for the Future.</p>
+            <p class="footer-sub" data-i18n="footer_sub">This website and provided services are independently operated by the True Kinetic Team.</p>
         </div>
-      </div>
     </footer>
 
     <script src="script.js"></script>
-  </body>
+</body>
 </html>
