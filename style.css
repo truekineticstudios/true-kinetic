@@ -825,3 +825,271 @@ footer {
         margin: 0 auto;
     }
 }
+
+/* Sunucu Rolleri Bölümü Geliştirilmiş Tasarımı */
+.roles-section {
+    padding: 6rem 8%;
+    /* Arka plana yukarıdan aşağıya yayılan çok hafif mor bir ışıma efekti veriyoruz */
+    background: radial-gradient(120% 120% at 50% 10%, rgba(159, 122, 234, 0.03) 0%, rgba(10, 9, 14, 0) 60%), var(--bg-main);
+    border-top: 1px solid rgba(159, 122, 234, 0.05);
+}
+
+.roles-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+    margin-top: 3.5rem;
+}
+
+.roles-column {
+    background-color: var(--bg-card);
+    border: 1px solid rgba(159, 122, 234, 0.08);
+    border-radius: 16px;
+    padding: 2.5rem 2rem;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+/* Üzerine gelindiğinde üstte parlayacak olan mor çizgi */
+.roles-column::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background: linear-gradient(90deg, transparent, var(--purple-glow), transparent);
+    opacity: 0;
+    transition: opacity 0.4s ease;
+}
+
+.roles-column:hover {
+    transform: translateY(-6px);
+    border-color: rgba(159, 122, 234, 0.25);
+    box-shadow: 0 15px 35px rgba(159, 122, 234, 0.04);
+}
+
+.roles-column:hover::before {
+    opacity: 1;
+}
+
+.column-title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin-bottom: 2rem;
+    color: var(--text-white);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+    padding-bottom: 12px;
+}
+
+.column-title i {
+    color: var(--purple-glow);
+    text-shadow: 0 0 10px rgba(159, 122, 234, 0.3);
+}
+
+.role-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+/* Her Bir Rol Satırı */
+.role-item {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+    padding: 12px;
+    border-radius: 8px;
+    background-color: rgba(255, 255, 255, 0.01);
+    border: 1px solid rgba(255, 255, 255, 0.01);
+    transition: all 0.25s ease;
+}
+
+.role-item:hover {
+    background-color: rgba(255, 255, 255, 0.025);
+    border-color: rgba(159, 122, 234, 0.1);
+    transform: translateX(4px);
+}
+
+.role-item p {
+    color: var(--text-muted);
+    font-size: 0.88rem;
+    line-height: 1.6;
+    padding-left: 4px;
+}
+
+/* Discord Rol Etiketleri (Glow & Dot Efektli Badges) */
+.role-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 4px 12px;
+    border-radius: 50px; /* Hap şeklinde tasarım */
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.4px;
+    transition: all 0.25s ease;
+    cursor: default;
+}
+
+/* Sol Taraftaki Discord Tarzı Renkli Nokta */
+.role-badge::before {
+    content: '';
+    display: inline-block;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background-color: currentColor;
+    box-shadow: 0 0 8px currentColor;
+}
+
+.role-badge:hover {
+    transform: scale(1.04);
+}
+
+/* --- DETAYLI ROL RENKLERİ VE DIŞ IŞIMALARI --- */
+
+/* Yönetim ve Ekip Rolleri */
+.r-founder { 
+    background-color: rgba(255, 77, 77, 0.06); 
+    color: #ff4d4d; 
+    border: 1px solid rgba(255, 77, 77, 0.25); 
+    box-shadow: 0 0 10px rgba(255, 77, 77, 0.05); 
+}
+.r-coleader { 
+    background-color: rgba(255, 77, 166, 0.06); 
+    color: #ff4da6; 
+    border: 1px solid rgba(255, 77, 166, 0.25); 
+    box-shadow: 0 0 10px rgba(255, 77, 166, 0.05); 
+}
+.r-headadmin { 
+    background-color: rgba(46, 204, 113, 0.06); 
+    color: #2ecc71; 
+    border: 1px solid rgba(46, 204, 113, 0.25); 
+    box-shadow: 0 0 10px rgba(46, 204, 113, 0.05); 
+}
+.r-highmod { 
+    background-color: rgba(255, 118, 117, 0.06); 
+    color: #ff7675; 
+    border: 1px solid rgba(255, 118, 117, 0.25); 
+    box-shadow: 0 0 10px rgba(255, 118, 117, 0.05); 
+}
+.r-helper { 
+    background-color: rgba(159, 122, 234, 0.06); 
+    color: #9f7aea; 
+    border: 1px solid rgba(159, 122, 234, 0.25); 
+    box-shadow: 0 0 10px rgba(159, 122, 234, 0.05); 
+}
+.r-mod { 
+    background-color: rgba(230, 126, 34, 0.06); 
+    color: #e67e22; 
+    border: 1px solid rgba(230, 126, 34, 0.25); 
+    box-shadow: 0 0 10px rgba(230, 126, 34, 0.05); 
+}
+.r-trialmod { 
+    background-color: rgba(241, 196, 15, 0.06); 
+    color: #f1c40f; 
+    border: 1px solid rgba(241, 196, 15, 0.25); 
+    box-shadow: 0 0 10px rgba(241, 196, 15, 0.05); 
+}
+
+/* Rütbe ve Üyelik Rolleri */
+.r-special { 
+    background-color: rgba(155, 89, 182, 0.06); 
+    color: #9b59b6; 
+    border: 1px solid rgba(155, 89, 182, 0.25); 
+    box-shadow: 0 0 10px rgba(155, 89, 182, 0.05); 
+}
+.r-legendary { 
+    background-color: rgba(241, 196, 15, 0.06); 
+    color: #f1c40f; 
+    border: 1px solid rgba(241, 196, 15, 0.25); 
+    box-shadow: 0 0 10px rgba(241, 196, 15, 0.05); 
+}
+.r-master { 
+    background-color: rgba(211, 84, 0, 0.06); 
+    color: #d35400; 
+    border: 1px solid rgba(211, 84, 0, 0.25); 
+    box-shadow: 0 0 10px rgba(211, 84, 0, 0.05); 
+}
+.r-diamond { 
+    background-color: rgba(52, 152, 219, 0.06); 
+    color: #3498db; 
+    border: 1px solid rgba(52, 152, 219, 0.25); 
+    box-shadow: 0 0 10px rgba(52, 152, 219, 0.05); 
+}
+.r-gold { 
+    background-color: rgba(243, 156, 18, 0.06); 
+    color: #f39c12; 
+    border: 1px solid rgba(243, 156, 18, 0.25); 
+    box-shadow: 0 0 10px rgba(243, 156, 18, 0.05); 
+}
+.r-bronze { 
+    background-color: rgba(189, 195, 199, 0.06); 
+    color: #bdc3c7; 
+    border: 1px solid rgba(189, 195, 199, 0.25); 
+    box-shadow: 0 0 10px rgba(189, 195, 199, 0.05); 
+}
+
+/* Özel ve Üye Rolleri */
+.r-partnerteam { 
+    background-color: rgba(26, 188, 156, 0.06); 
+    color: #1abc9c; 
+    border: 1px solid rgba(26, 188, 156, 0.25); 
+    box-shadow: 0 0 10px rgba(26, 188, 156, 0.05); 
+}
+.r-developer { 
+    background-color: rgba(52, 152, 219, 0.06); 
+    color: #3498db; 
+    border: 1px solid rgba(52, 152, 219, 0.25); 
+    box-shadow: 0 0 10px rgba(52, 152, 219, 0.05); 
+}
+.r-member { 
+    background-color: rgba(46, 204, 113, 0.06); 
+    color: #2ecc71; 
+    border: 1px solid rgba(46, 204, 113, 0.25); 
+    box-shadow: 0 0 10px rgba(46, 204, 113, 0.05); 
+}
+.r-partnerinvite { 
+    background-color: rgba(155, 89, 182, 0.06); 
+    color: #9b59b6; 
+    border: 1px solid rgba(155, 89, 182, 0.25); 
+    box-shadow: 0 0 10px rgba(155, 89, 182, 0.05); 
+}
+
+/* Google ile Giriş Butonu Tasarımı */
+.google-signin-btn {
+    width: 100%;
+    background-color: #ffffff;
+    color: #12101a;
+    border: none;
+    padding: 12px;
+    border-radius: 8px;
+    font-weight: 700;
+    font-size: 1rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 15px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 15px rgba(255, 255, 255, 0.1);
+    transition: all 0.3s ease;
+}
+
+.google-signin-btn i {
+    color: #4285F4; /* Google Mavi rengi */
+    font-size: 1.1rem;
+}
+
+.google-signin-btn:hover {
+    background-color: #f1f1f1;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(255, 255, 255, 0.2);
+}
