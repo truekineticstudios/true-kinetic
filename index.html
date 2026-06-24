@@ -205,6 +205,125 @@
         </div>
     </section>
 
+    <!-- Discord Sunucu Rolleri Bölümü -->
+    <section id="server-roles" class="roles-section">
+        <h2 class="section-title" data-i18n="roles_title">Discord Server Roles</h2>
+        <p class="section-subtitle" data-i18n="roles_subtitle">Information about the roles and ranks available on our Discord server.</p>
+
+        <div class="roles-grid">
+            
+            <!-- Sütun 1: Yönetim & Yetkililer -->
+            <div class="roles-column">
+                <h3 class="column-title"><i class="fas fa-user-shield"></i> <span data-i18n="role_col_staff">Management & Staff</span></h3>
+                <div class="role-list">
+                    
+                    <div class="role-item">
+                        <span class="role-badge r-founder">@Founder</span>
+                        <p data-i18n="r_founder_desc">Official server founder, owner.</p>
+                    </div>
+
+                    <div class="role-item">
+                        <span class="role-badge r-coleader">@Co-Leader</span>
+                        <p data-i18n="r_coleader_desc">Official server Co-Lead.</p>
+                    </div>
+
+                    <div class="role-item">
+                        <span class="role-badge r-headadmin">@Head Administration</span>
+                        <p data-i18n="r_headadmin_desc">Ban requests, partnership applications, staff recruitment, bot administrator.</p>
+                    </div>
+
+                    <div class="role-item">
+                        <span class="role-badge r-highmod">@High Moderator</span>
+                        <p data-i18n="r_highmod_desc">Ban request submission, log viewing, message management, server monitoring.</p>
+                    </div>
+
+                    <div class="role-item">
+                        <span class="role-badge r-helper">@True Kinetic Helper</span>
+                        <p data-i18n="r_helper_desc">Highly authorized management bots.</p>
+                    </div>
+
+                    <div class="role-item">
+                        <span class="role-badge r-mod">@Moderation Team</span>
+                        <p data-i18n="r_mod_desc">Moderation staff member, log viewing, report priority.</p>
+                    </div>
+
+                    <div class="role-item">
+                        <span class="role-badge r-trialmod">@Trial Moderation</span>
+                        <p data-i18n="r_trialmod_desc">New staff member under monitoring, testing phase, limited access.</p>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- Sütun 2: Aktif Rütbeler (Satın Alım) -->
+            <div class="roles-column">
+                <h3 class="column-title"><i class="fas fa-trophy"></i> <span data-i18n="role_col_ranks">Active Purchase Ranks</span></h3>
+                <div class="role-list">
+                    
+                    <div class="role-item">
+                        <span class="role-badge r-special">@Special Member</span>
+                        <p data-i18n="r_special_desc">Very special server role.</p>
+                    </div>
+
+                    <div class="role-item">
+                        <span class="role-badge r-legendary">@Legendary</span>
+                        <p data-i18n="r_legendary_desc">Requires making a total of 100+ purchases.</p>
+                    </div>
+
+                    <div class="role-item">
+                        <span class="role-badge r-master">@Master</span>
+                        <p data-i18n="r_master_desc">Requires making a total of 50+ purchases.</p>
+                    </div>
+
+                    <div class="role-item">
+                        <span class="role-badge r-diamond">@Diamond</span>
+                        <p data-i18n="r_diamond_desc">Requires making a total of 25+ purchases.</p>
+                    </div>
+
+                    <div class="role-item">
+                        <span class="role-badge r-gold">@Gold</span>
+                        <p data-i18n="r_gold_desc">Requires making a total of 5+ purchases.</p>
+                    </div>
+
+                    <div class="role-item">
+                        <span class="role-badge r-bronze">@Bronze</span>
+                        <p data-i18n="r_bronze_desc">Requires making a total of 1+ purchase.</p>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- Sütun 3: Ortaklar & Üyeler -->
+            <div class="roles-column">
+                <h3 class="column-title"><i class="fas fa-users"></i> <span data-i18n="role_col_members">Special & Member Roles</span></h3>
+                <div class="role-list">
+                    
+                    <div class="role-item">
+                        <span class="role-badge r-partnerteam">@Official Partner Team</span>
+                        <p data-i18n="r_partnerteam_desc">Partner, free advertising authority.</p>
+                    </div>
+
+                    <div class="role-item">
+                        <span class="role-badge r-developer">@Developer</span>
+                        <p data-i18n="r_developer_desc">Official development team members.</p>
+                    </div>
+
+                    <div class="role-item">
+                        <span class="role-badge r-member">@Member</span>
+                        <p data-i18n="r_member_desc">Official server member.</p>
+                    </div>
+
+                    <div class="role-item">
+                        <span class="role-badge r-partnerinvite">@Partner Invitation</span>
+                        <p data-i18n="r_partnerinvite_desc">Official server member who joined using a partner invitation link.</p>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </section>
+
     <!-- Staff Verification (Güvenlik) -->
     <section class="security-check">
         <div class="security-container">
@@ -228,6 +347,7 @@
                 <div class="faq-answer">
                     <p data-i18n="faq_q1_desc">You can easily complete payments by opening a ticket on our Discord server. We support various secure options like Bank Transfer, Papara, and major secure local payment networks.</p>
                 </div>
+            </div>
             <div class="faq-item">
                 <button class="faq-question"><span data-i18n="faq_q3_title">Why is everything based on Discord?</span> <i class="fas fa-chevron-down"></i></button>
                 <div class="faq-answer">
@@ -272,6 +392,11 @@
             </div>
             <p class="modal-desc" data-i18n="modal_desc">We are currently developing our dashboard. Soon, you will be able to track your orders and manage services from here!</p>
             
+            <!-- Google ile Giriş Butonu -->
+            <button id="googleSignInBtn" class="google-signin-btn">
+                <i class="fab fa-google"></i> <span data-i18n="modal_google_btn">Sign in with Google</span>
+            </button>
+
             <div class="mock-form">
                 <input type="email" placeholder="Email Address" disabled>
                 <input type="password" placeholder="Password" disabled>
@@ -288,6 +413,7 @@
         </div>
     </footer>
 
-    <script src="script.js"></script>
+    <!-- SCRIPT TÜRÜNÜ "MODULE" OLARAK AYARLIYORUZ -->
+    <script type="module" src="script.js"></script>
 </body>
 </html>
