@@ -1,3 +1,23 @@
+// FIREBASE MODÜL İTHALATLARI (IMPORTS)
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+import { getAuth, signInWithPopup, GoogleAuthProvider, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+
+// SİZİN ÖZEL BAĞLANTI ANAHTARLARINIZ (FIREBASE CONFIG)
+const firebaseConfig = {
+  apiKey: "AIzaSyANFT8CC8d7KwNHCk5-Tr5iTSrFhQyfyJQ",
+  authDomain: "truekineticlogin.firebaseapp.com",
+  projectId: "truekineticlogin",
+  storageBucket: "truekineticlogin.firebasestorage.app",
+  messagingSenderId: "942300265578",
+  appId: "1:942300265578:web:b408c4347d2807c271e13",
+  measurementId: "G-8M61D20VCP"
+};
+
+// Firebase Servislerini Başlatıyoruz
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const provider = new GoogleAuthProvider();
+
 // DİL SÖZLÜĞÜ (TRANSLATION DICTIONARY)
 const translations = {
   en: {
@@ -6,6 +26,7 @@ const translations = {
     nav_services: "Services",
     nav_faq: "FAQ",
     nav_login: "Log In",
+    nav_logout: "Log Out",
 
     hero_title: "Reliable Digital Services & Game Solutions",
     hero_desc:
@@ -89,9 +110,34 @@ const translations = {
     modal_desc:
       "We are currently developing our dashboard. Soon, you will be able to track your orders and manage services from here!",
     modal_btn: "Coming Soon",
+    modal_google_btn: "Sign in with Google",
 
     footer_sub:
       "This website and provided services are independently operated by the True Kinetic Team.",
+
+    roles_title: "Discord Server Roles",
+    roles_subtitle: "Information about the roles and ranks available on our Discord server.",
+    role_col_staff: "Management & Staff",
+    role_col_ranks: "Active Purchase Ranks",
+    role_col_members: "Special & Member Roles",
+    
+    r_founder_desc: "Official server founder and owner.",
+    r_coleader_desc: "Official server Co-Leader.",
+    r_headadmin_desc: "Handles ban requests, partnership applications, staff recruitment, and bot administration.",
+    r_highmod_desc: "Ban request submission, log auditing, message management, and server monitoring.",
+    r_helper_desc: "Highly authorized management bots.",
+    r_mod_desc: "Moderation staff member, log viewing, and report priority.",
+    r_trialmod_desc: "New staff member under monitoring, testing phase, and limited access.",
+    r_special_desc: "Very special server role.",
+    r_legendary_desc: "Requires making a total of 100+ purchases.",
+    r_master_desc: "Requires making a total of 50+ purchases.",
+    r_diamond_desc: "Requires making a total of 25+ purchases.",
+    r_gold_desc: "Requires making a total of 5+ purchases.",
+    r_bronze_desc: "Requires making a total of 1+ purchase.",
+    r_partnerteam_desc: "Partner, free advertising authority.",
+    r_developer_desc: "Official development team members.",
+    r_member_desc: "Official server member.",
+    r_partnerinvite_desc: "Official server member who joined using a partner invitation link."
   },
   tr: {
     nav_home: "Ana Sayfa",
@@ -99,6 +145,7 @@ const translations = {
     nav_services: "Hizmetler",
     nav_faq: "S.S.S.",
     nav_login: "Giriş Yap",
+    nav_logout: "Çıkış Yap",
 
     hero_title: "Güvenilir Dijital Hizmetler ve Oyun Çözümleri",
     hero_desc:
@@ -182,9 +229,34 @@ const translations = {
     modal_desc:
       "Şu anda kullanıcı kontrol panelimiz üzerinde çalışıyoruz. Çok yakında siparişlerinizi takip edebilecek ve hizmetlerinizi buradan yönetebileceksiniz!",
     modal_btn: "Çok Yakında",
+    modal_google_btn: "Google ile Giriş Yap",
 
     footer_sub:
       "Bu web sitesi ve sunulan hizmetler bağımsız olarak True Kinetic ekibi tarafından işletilmektedir.",
+
+    roles_title: "Sunucu Rolleri",
+    roles_subtitle: "Sunucumuzda mevcut olan roller ve rütbeler hakkında bilgi.",
+    role_col_staff: "Yönetim & Yetkililer",
+    role_col_ranks: "Aktif Roller & Rütbeler",
+    role_col_members: "Özel Roller & Üyeler",
+    
+    r_founder_desc: "Resmi sunucu kurucusu, sahibi.",
+    r_coleader_desc: "Resmi sunucu eş lideri.",
+    r_headadmin_desc: "Ban istekleri, ortaklık başvuruları, moderasyon ekibi üye alımı ve bot yöneticisi.",
+    r_highmod_desc: "Ban isteği gönderme, log görüntüleme, mesaj yönetimi ve sunucu izleme.",
+    r_helper_desc: "Yüksek yetkili yönetim botları.",
+    r_mod_desc: "Moderasyon ekibi üyesi, log görüntüleme ve rapor önceliği.",
+    r_trialmod_desc: "Yeni, gözetim altında, test aşamasında olan sınırlı erişimli yetkili.",
+    r_special_desc: "Çok özel sunucu rolü.",
+    r_legendary_desc: "Toplamda 100'den fazla satın alma işlemi gerçekleştirmiş üyeler.",
+    r_master_desc: "Toplamda 50'den fazla satın alma işlemi gerçekleştirmiş üyeler.",
+    r_diamond_desc: "Toplamda 25'den fazla satın alma işlemi gerçekleştirmiş üyeler.",
+    r_gold_desc: "Toplamda 5'den fazla satın alma işlemi gerçekleştirmiş üyeler.",
+    r_bronze_desc: "Toplamda 1'den fazla satın alma işlemi gerçekleştirmiş üyeler.",
+    r_partnerteam_desc: "İş ortağı, ücretsiz reklam yetkisi olan üye.",
+    r_developer_desc: "Resmi geliştirici ekip üyeleri.",
+    r_member_desc: "Resmi sunucu üyesi.",
+    r_partnerinvite_desc: "Resmi sunucu üyesi (İş ortağı davet bağlantısı kullanıldı)."
   },
 };
 
@@ -454,17 +526,18 @@ document.addEventListener("DOMContentLoaded", () => {
   const savedLanguage = localStorage.getItem("preferredLang") || "en";
   applyLanguage(savedLanguage);
 
-  langSelect.addEventListener("change", (e) => {
-    applyLanguage(e.target.value);
+  langSelect.addEventListener('change', (e) => {
+        applyLanguage(e.target.value);
   });
 
+
   // 2. DİNAMİK FİYAT POP-UP MODALI (PRICING MODAL)
-  const pricingModal = document.getElementById("pricingModal");
-  const closePricingBtn = document.querySelector(".close-pricing-btn");
-  const pricingTitle = document.getElementById("pricingTitle");
-  const pricingDesc = document.getElementById("pricingDesc");
-  const pricingTiers = document.getElementById("pricingTiers");
-  const actionButtons = document.querySelectorAll(".card-action-btn");
+  const pricingModal = document.getElementById('pricingModal');
+  const closePricingBtn = document.querySelector('.close-pricing-btn');
+  const pricingTitle = document.getElementById('pricingTitle');
+  const pricingDesc = document.getElementById('pricingDesc');
+  const pricingTiers = document.getElementById('pricingTiers');
+  const actionButtons = document.querySelectorAll('.card-action-btn');
 
   function populatePricingModal(serviceKey, lang) {
     const data = pricingData[serviceKey];
@@ -626,8 +699,8 @@ document.addEventListener("DOMContentLoaded", () => {
       });
 
       if (!isActive) {
-        item.classList.add("active");
-        answer.style.maxHeight = answer.scrollHeight + "px";
+                item.classList.add("active");
+                answer.style.maxHeight = answer.scrollHeight + "px";
       } else {
         item.classList.remove("active");
         answer.style.maxHeight = null;
