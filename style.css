@@ -100,11 +100,11 @@ nav a:hover {
     border-color: var(--purple-glow);
 }
 
-/* Giriş Butonu */
-.nav-login-btn {
+/* Admin Giriş Butonu */
+.nav-admin-btn {
     background-color: transparent;
     color: var(--text-white);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(159, 122, 234, 0.2);
     padding: 8px 16px;
     border-radius: 8px;
     font-weight: 600;
@@ -116,9 +116,10 @@ nav a:hover {
     transition: 0.3s ease;
 }
 
-.nav-login-btn:hover {
-    background-color: rgba(255, 255, 255, 0.05);
+.nav-admin-btn:hover {
+    background-color: rgba(159, 122, 234, 0.05);
     border-color: var(--purple-glow);
+    box-shadow: 0 0 10px rgba(159, 122, 234, 0.1);
 }
 
 .nav-discord-btn {
@@ -514,7 +515,7 @@ nav a:hover {
 }
 
 /* GENEL MODAL ALTYAPISI */
-.login-modal, .pricing-modal {
+.pricing-modal, .admin-dashboard-modal {
     display: none; 
     position: fixed;
     top: 0;
@@ -529,11 +530,11 @@ nav a:hover {
     padding: 1.5rem;
 }
 
-.login-modal.open, .pricing-modal.open {
+.pricing-modal.open, .admin-dashboard-modal.open {
     display: flex;
 }
 
-.modal-content {
+.modal-content, .dashboard-content {
     background-color: var(--bg-card);
     border: 1px solid rgba(159, 122, 234, 0.25);
     border-radius: 16px;
@@ -552,6 +553,14 @@ nav a:hover {
     padding: 2.5rem;
 }
 
+/* Admin Paneli Özel Genişlik */
+.dashboard-content {
+    max-width: 900px;
+    width: 100%;
+    text-align: left;
+    padding: 3rem;
+}
+
 @keyframes modalSlide {
     from {
         transform: translateY(30px);
@@ -563,7 +572,7 @@ nav a:hover {
     }
 }
 
-.close-modal-btn, .close-pricing-btn {
+.close-pricing-btn, .close-dashboard-btn {
     position: absolute;
     top: 20px;
     right: 25px;
@@ -573,18 +582,21 @@ nav a:hover {
     transition: 0.3s ease;
 }
 
-.close-modal-btn:hover, .close-pricing-btn:hover {
+.close-pricing-btn:hover, .close-dashboard-btn:hover {
     color: var(--purple-glow);
 }
 
-.modal-header h2 {
+.modal-header h2, .dashboard-header h2 {
     font-weight: 800;
     letter-spacing: 1.5px;
     color: var(--text-white);
     margin-bottom: 5px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
 }
 
-.modal-header p {
+.modal-header p, .dashboard-header p {
     color: var(--purple-glow);
     font-weight: 600;
     font-size: 0.9rem;
@@ -662,51 +674,171 @@ nav a:hover {
     transform: translateY(-2px);
 }
 
-/* Giriş (Giriş Yap) Modal Form Elemanları */
-.coming-soon-badge {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    background-color: rgba(159, 122, 234, 0.1);
-    color: var(--purple-glow);
-    padding: 8px 18px;
-    border-radius: 20px;
-    font-size: 0.85rem;
-    font-weight: 700;
-    margin-bottom: 1.5rem;
-    border: 1px dashed var(--purple-glow);
+/* ADMIN DASHBOARD (KONTROL PANELİ) DETAYLARI */
+.dashboard-body {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: 40px;
+    margin-top: 2rem;
 }
 
-.modal-desc {
-    color: var(--text-muted);
-    font-size: 0.95rem;
-    margin-bottom: 2rem;
+@media (max-width: 768px) {
+    .dashboard-body {
+        grid-template-columns: 1fr;
+    }
 }
 
-.mock-form {
+.dashboard-section {
+    background-color: var(--bg-main);
+    border: 1px solid rgba(159, 122, 234, 0.1);
+    border-radius: 12px;
+    padding: 1.8rem;
     display: flex;
     flex-direction: column;
-    gap: 12px;
 }
 
-.mock-form input {
-    background-color: var(--bg-main);
+.dashboard-section h3 {
+    font-size: 1.2rem;
+    margin-bottom: 6px;
+    color: var(--text-white);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.section-desc {
+    color: var(--text-muted);
+    font-size: 0.85rem;
+    margin-bottom: 1.5rem;
+}
+
+.dashboard-select {
+    width: 100%;
+    background-color: var(--bg-card);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: var(--text-white);
+    padding: 12px;
+    border-radius: 8px;
+    outline: none;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+.editor-tiers-container {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin: 1.5rem 0;
+    max-height: 250px;
+    overflow-y: auto;
+    padding-right: 8px;
+}
+
+.tier-edit-row {
+    background-color: var(--bg-card);
     border: 1px solid rgba(255, 255, 255, 0.05);
-    padding: 12px 16px;
+    border-radius: 8px;
+    padding: 12px;
+}
+
+.tier-edit-row label {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--purple-glow);
+    display: block;
+    margin-bottom: 6px;
+}
+
+.edit-inputs {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr;
+    gap: 10px;
+}
+
+.dashboard-input {
+    background-color: var(--bg-main);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 10px;
+    border-radius: 6px;
+    color: var(--text-white);
+    font-size: 0.88rem;
+    outline: none;
+    width: 100%;
+}
+
+.dashboard-input:focus {
+    border-color: var(--purple-glow);
+}
+
+.dashboard-action-btn {
+    width: 100%;
+    padding: 12px;
+    font-size: 0.95rem;
+    display: flex;
+    justify-content: center;
+}
+
+/* Staff Manager */
+.staff-manager-box {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.staff-add-row {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 10px;
+}
+
+.staff-add-row input {
+    background-color: var(--bg-card);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 12px;
     border-radius: 8px;
     color: var(--text-white);
-    font-size: 0.95rem;
     outline: none;
-    cursor: not-allowed;
-    opacity: 0.6;
+    font-size: 0.9rem;
 }
 
-.mock-btn {
-    width: 100%;
-    justify-content: center;
-    margin-top: 10px;
-    cursor: not-allowed !important;
-    opacity: 0.6;
+.staff-add-row input:focus {
+    border-color: var(--purple-glow);
+}
+
+.dashboard-staff-list {
+    list-style: none;
+    max-height: 250px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding-right: 8px;
+}
+
+.staff-list-item {
+    background-color: var(--bg-card);
+    border: 1px solid rgba(255, 255, 255, 0.03);
+    padding: 10px 15px;
+    border-radius: 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+
+.remove-staff-btn {
+    background: none;
+    border: none;
+    color: #e74c3c;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: 0.2s ease;
+}
+
+.remove-staff-btn:hover {
+    color: #c0392b;
+    transform: scale(1.1);
 }
 
 /* Footer */
@@ -829,7 +961,6 @@ footer {
 /* Sunucu Rolleri Bölümü Geliştirilmiş Tasarımı */
 .roles-section {
     padding: 6rem 8%;
-    /* Arka plana yukarıdan aşağıya yayılan çok hafif mor bir ışıma efekti veriyoruz */
     background: radial-gradient(120% 120% at 50% 10%, rgba(159, 122, 234, 0.03) 0%, rgba(10, 9, 14, 0) 60%), var(--bg-main);
     border-top: 1px solid rgba(159, 122, 234, 0.05);
 }
@@ -851,7 +982,6 @@ footer {
     transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
 }
 
-/* Üzerine gelindiğinde üstte parlayacak olan mor çizgi */
 .roles-column::before {
     content: '';
     position: absolute;
@@ -929,7 +1059,7 @@ footer {
     align-items: center;
     gap: 8px;
     padding: 4px 12px;
-    border-radius: 50px; /* Hap şeklinde tasarım */
+    border-radius: 50px;
     font-size: 0.8rem;
     font-weight: 700;
     letter-spacing: 0.4px;
@@ -937,7 +1067,6 @@ footer {
     cursor: default;
 }
 
-/* Sol Taraftaki Discord Tarzı Renkli Nokta */
 .role-badge::before {
     content: '';
     display: inline-block;
@@ -952,144 +1081,23 @@ footer {
     transform: scale(1.04);
 }
 
-/* --- DETAYLI ROL RENKLERİ VE DIŞ IŞIMALARI --- */
+/* Detaylı Rol Renkleri */
+.r-founder { background-color: rgba(255, 77, 77, 0.06); color: #ff4d4d; border: 1px solid rgba(255, 77, 77, 0.25); box-shadow: 0 0 10px rgba(255, 77, 77, 0.05); }
+.r-coleader { background-color: rgba(255, 77, 166, 0.06); color: #ff4da6; border: 1px solid rgba(255, 77, 166, 0.25); box-shadow: 0 0 10px rgba(255, 77, 166, 0.05); }
+.r-headadmin { background-color: rgba(46, 204, 113, 0.06); color: #2ecc71; border: 1px solid rgba(46, 204, 113, 0.25); box-shadow: 0 0 10px rgba(46, 204, 113, 0.05); }
+.r-highmod { background-color: rgba(255, 118, 117, 0.06); color: #ff7675; border: 1px solid rgba(255, 118, 117, 0.25); box-shadow: 0 0 10px rgba(255, 118, 117, 0.05); }
+.r-helper { background-color: rgba(159, 122, 234, 0.06); color: #9f7aea; border: 1px solid rgba(159, 122, 234, 0.25); box-shadow: 0 0 10px rgba(159, 122, 234, 0.05); }
+.r-mod { background-color: rgba(230, 126, 34, 0.06); color: #e67e22; border: 1px solid rgba(230, 126, 34, 0.25); box-shadow: 0 0 10px rgba(230, 126, 34, 0.05); }
+.r-trialmod { background-color: rgba(241, 196, 15, 0.06); color: #f1c40f; border: 1px solid rgba(241, 196, 15, 0.25); box-shadow: 0 0 10px rgba(241, 196, 15, 0.05); }
 
-/* Yönetim ve Ekip Rolleri */
-.r-founder { 
-    background-color: rgba(255, 77, 77, 0.06); 
-    color: #ff4d4d; 
-    border: 1px solid rgba(255, 77, 77, 0.25); 
-    box-shadow: 0 0 10px rgba(255, 77, 77, 0.05); 
-}
-.r-coleader { 
-    background-color: rgba(255, 77, 166, 0.06); 
-    color: #ff4da6; 
-    border: 1px solid rgba(255, 77, 166, 0.25); 
-    box-shadow: 0 0 10px rgba(255, 77, 166, 0.05); 
-}
-.r-headadmin { 
-    background-color: rgba(46, 204, 113, 0.06); 
-    color: #2ecc71; 
-    border: 1px solid rgba(46, 204, 113, 0.25); 
-    box-shadow: 0 0 10px rgba(46, 204, 113, 0.05); 
-}
-.r-highmod { 
-    background-color: rgba(255, 118, 117, 0.06); 
-    color: #ff7675; 
-    border: 1px solid rgba(255, 118, 117, 0.25); 
-    box-shadow: 0 0 10px rgba(255, 118, 117, 0.05); 
-}
-.r-helper { 
-    background-color: rgba(159, 122, 234, 0.06); 
-    color: #9f7aea; 
-    border: 1px solid rgba(159, 122, 234, 0.25); 
-    box-shadow: 0 0 10px rgba(159, 122, 234, 0.05); 
-}
-.r-mod { 
-    background-color: rgba(230, 126, 34, 0.06); 
-    color: #e67e22; 
-    border: 1px solid rgba(230, 126, 34, 0.25); 
-    box-shadow: 0 0 10px rgba(230, 126, 34, 0.05); 
-}
-.r-trialmod { 
-    background-color: rgba(241, 196, 15, 0.06); 
-    color: #f1c40f; 
-    border: 1px solid rgba(241, 196, 15, 0.25); 
-    box-shadow: 0 0 10px rgba(241, 196, 15, 0.05); 
-}
+.r-special { background-color: rgba(155, 89, 182, 0.06); color: #9b59b6; border: 1px solid rgba(155, 89, 182, 0.25); box-shadow: 0 0 10px rgba(155, 89, 182, 0.05); }
+.r-legendary { background-color: rgba(241, 196, 15, 0.06); color: #f1c40f; border: 1px solid rgba(241, 196, 15, 0.25); box-shadow: 0 0 10px rgba(241, 196, 15, 0.05); }
+.r-master { background-color: rgba(211, 84, 0, 0.06); color: #d35400; border: 1px solid rgba(211, 84, 0, 0.25); box-shadow: 0 0 10px rgba(211, 84, 0, 0.05); }
+.r-diamond { background-color: rgba(52, 152, 219, 0.06); color: #3498db; border: 1px solid rgba(52, 152, 219, 0.25); box-shadow: 0 0 10px rgba(52, 152, 219, 0.05); }
+.r-gold { background-color: rgba(243, 156, 18, 0.06); color: #f39c12; border: 1px solid rgba(243, 156, 18, 0.25); box-shadow: 0 0 10px rgba(243, 156, 18, 0.05); }
+.r-bronze { background-color: rgba(189, 195, 199, 0.06); color: #bdc3c7; border: 1px solid rgba(189, 195, 199, 0.25); box-shadow: 0 0 10px rgba(189, 195, 199, 0.05); }
 
-/* Rütbe ve Üyelik Rolleri */
-.r-special { 
-    background-color: rgba(155, 89, 182, 0.06); 
-    color: #9b59b6; 
-    border: 1px solid rgba(155, 89, 182, 0.25); 
-    box-shadow: 0 0 10px rgba(155, 89, 182, 0.05); 
-}
-.r-legendary { 
-    background-color: rgba(241, 196, 15, 0.06); 
-    color: #f1c40f; 
-    border: 1px solid rgba(241, 196, 15, 0.25); 
-    box-shadow: 0 0 10px rgba(241, 196, 15, 0.05); 
-}
-.r-master { 
-    background-color: rgba(211, 84, 0, 0.06); 
-    color: #d35400; 
-    border: 1px solid rgba(211, 84, 0, 0.25); 
-    box-shadow: 0 0 10px rgba(211, 84, 0, 0.05); 
-}
-.r-diamond { 
-    background-color: rgba(52, 152, 219, 0.06); 
-    color: #3498db; 
-    border: 1px solid rgba(52, 152, 219, 0.25); 
-    box-shadow: 0 0 10px rgba(52, 152, 219, 0.05); 
-}
-.r-gold { 
-    background-color: rgba(243, 156, 18, 0.06); 
-    color: #f39c12; 
-    border: 1px solid rgba(243, 156, 18, 0.25); 
-    box-shadow: 0 0 10px rgba(243, 156, 18, 0.05); 
-}
-.r-bronze { 
-    background-color: rgba(189, 195, 199, 0.06); 
-    color: #bdc3c7; 
-    border: 1px solid rgba(189, 195, 199, 0.25); 
-    box-shadow: 0 0 10px rgba(189, 195, 199, 0.05); 
-}
-
-/* Özel ve Üye Rolleri */
-.r-partnerteam { 
-    background-color: rgba(26, 188, 156, 0.06); 
-    color: #1abc9c; 
-    border: 1px solid rgba(26, 188, 156, 0.25); 
-    box-shadow: 0 0 10px rgba(26, 188, 156, 0.05); 
-}
-.r-developer { 
-    background-color: rgba(52, 152, 219, 0.06); 
-    color: #3498db; 
-    border: 1px solid rgba(52, 152, 219, 0.25); 
-    box-shadow: 0 0 10px rgba(52, 152, 219, 0.05); 
-}
-.r-member { 
-    background-color: rgba(46, 204, 113, 0.06); 
-    color: #2ecc71; 
-    border: 1px solid rgba(46, 204, 113, 0.25); 
-    box-shadow: 0 0 10px rgba(46, 204, 113, 0.05); 
-}
-.r-partnerinvite { 
-    background-color: rgba(155, 89, 182, 0.06); 
-    color: #9b59b6; 
-    border: 1px solid rgba(155, 89, 182, 0.25); 
-    box-shadow: 0 0 10px rgba(155, 89, 182, 0.05); 
-}
-
-/* Google ile Giriş Butonu Tasarımı */
-.google-signin-btn {
-    width: 100%;
-    background-color: #ffffff;
-    color: #12101a;
-    border: none;
-    padding: 12px;
-    border-radius: 8px;
-    font-weight: 700;
-    font-size: 1rem;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-    margin-top: 15px;
-    margin-bottom: 20px;
-    box-shadow: 0 4px 15px rgba(255, 255, 255, 0.1);
-    transition: all 0.3s ease;
-}
-
-.google-signin-btn i {
-    color: #4285F4; /* Google Mavi rengi */
-    font-size: 1.1rem;
-}
-
-.google-signin-btn:hover {
-    background-color: #f1f1f1;
-    transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(255, 255, 255, 0.2);
-}
+.r-partnerteam { background-color: rgba(26, 188, 156, 0.06); color: #1abc9c; border: 1px solid rgba(26, 188, 156, 0.25); box-shadow: 0 0 10px rgba(26, 188, 156, 0.05); }
+.r-developer { background-color: rgba(52, 152, 219, 0.06); color: #3498db; border: 1px solid rgba(52, 152, 219, 0.25); box-shadow: 0 0 10px rgba(52, 152, 219, 0.05); }
+.r-member { background-color: rgba(46, 204, 113, 0.06); color: #2ecc71; border: 1px solid rgba(46, 204, 113, 0.25); box-shadow: 0 0 10px rgba(46, 204, 113, 0.05); }
+.r-partnerinvite { background-color: rgba(155, 89, 182, 0.06); color: #9b59b6; border: 1px solid rgba(155, 89, 182, 0.25); box-shadow: 0 0 10px rgba(155, 89, 182, 0.05); }
