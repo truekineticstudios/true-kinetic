@@ -549,16 +549,16 @@ nav a:hover {
 
 /* Fiyat Modalı Özel Genişlik */
 .pricing-modal-content {
-    max-width: 800px; /* Geniş kart görünümü için */
+    max-width: 800px;
     padding: 2.5rem;
 }
 
 /* Admin Paneli Özel Genişlik */
 .dashboard-content {
-    max-width: 900px;
+    max-width: 1100px; /* 3 Sütunlu Panel İçin Genişletildi */
     width: 100%;
     text-align: left;
-    padding: 3rem;
+    padding: 2.5rem;
 }
 
 @keyframes modalSlide {
@@ -677,14 +677,18 @@ nav a:hover {
 /* ADMIN DASHBOARD (KONTROL PANELİ) DETAYLARI */
 .dashboard-body {
     display: grid;
-    grid-template-columns: 1.2fr 1fr;
-    gap: 40px;
+    grid-template-columns: 1.2fr 1.2fr 1fr; /* 3 Sütun Yapısı */
+    gap: 25px;
     margin-top: 2rem;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 1024px) {
     .dashboard-body {
-        grid-template-columns: 1fr;
+        grid-template-columns: 1fr; /* Mobilde dikey akış */
+    }
+    .dashboard-content {
+        max-width: 90%;
+        padding: 2rem;
     }
 }
 
@@ -764,6 +768,7 @@ nav a:hover {
     font-size: 0.88rem;
     outline: none;
     width: 100%;
+    margin-bottom: 10px;
 }
 
 .dashboard-input:focus {
@@ -776,9 +781,35 @@ nav a:hover {
     font-size: 0.95rem;
     display: flex;
     justify-content: center;
+    margin-top: auto; /* Altta sabitle */
 }
 
-/* Staff Manager */
+/* Dinamik Yeni Paket Giriş Kutusu */
+.add-prod-tiers-fields {
+    max-height: 200px;
+    overflow-y: auto;
+    margin: 15px 0;
+    padding-right: 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.tier-input-group {
+    background-color: var(--bg-card);
+    border: 1px solid rgba(159, 122, 234, 0.15);
+    border-radius: 8px;
+    padding: 12px;
+}
+
+.tier-input-group h5 {
+    color: var(--purple-glow);
+    font-size: 0.85rem;
+    font-weight: 700;
+    margin-bottom: 8px;
+}
+
+/* Staff Manager & Ürün Silme */
 .staff-manager-box {
     display: flex;
     flex-direction: column;
@@ -818,27 +849,34 @@ nav a:hover {
 .staff-list-item {
     background-color: var(--bg-card);
     border: 1px solid rgba(255, 255, 255, 0.03);
-    padding: 10px 15px;
+    padding: 10px 12px;
     border-radius: 8px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    font-size: 0.9rem;
+    font-size: 0.88rem;
     font-weight: 600;
 }
 
-.remove-staff-btn {
+.remove-staff-btn, .remove-product-btn {
     background: none;
     border: none;
     color: #e74c3c;
     cursor: pointer;
-    font-size: 1rem;
+    font-size: 0.95rem;
     transition: 0.2s ease;
 }
 
-.remove-staff-btn:hover {
+.remove-staff-btn:hover, .remove-product-btn:hover {
     color: #c0392b;
     transform: scale(1.1);
+}
+
+/* Form Satır Tipleri */
+.form-row-dual {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
 }
 
 /* Footer */
@@ -967,7 +1005,7 @@ footer {
 
 .roles-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
     gap: 30px;
     margin-top: 3.5rem;
 }
@@ -1078,7 +1116,7 @@ footer {
 }
 
 .role-badge:hover {
-    transform: scale(1.04); 
+    transform: scale(1.04);
 }
 
 /* Detaylı Rol Renkleri */
