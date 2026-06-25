@@ -357,7 +357,7 @@
             
             <!-- Webhook Settings (Hafızada şifreli saklanır, GitHub'da sızmaz!) -->
             <div style="background-color: rgba(159, 122, 234, 0.05); border: 1px dashed var(--purple-glow); padding: 15px; border-radius: 8px;">
-                <h4 style="font-size: 0.9rem; color: var(--purple-glow); margin-bottom: 8px;"><i class="fas fa-link"></i> Discord Webhook Integration</h4>
+                <h4 style="font-size: 0.9rem; color: var(--purple-glow); margin-bottom: 8px;"><i class="fas fa-link"></i> Discord Webhook Integration (DO NOT CHANGE!)</h4>
                 <div class="form-group" style="margin-bottom: 0;">
                     <input type="password" id="webhookInput" class="form-control" style="font-size: 0.85rem; padding: 8px;" placeholder="Paste Discord Webhook URL here...">
                 </div>
@@ -368,7 +368,7 @@
                 <form id="orderForm">
                     <div class="form-group">
                         <label>Discord Username</label>
-                        <input type="text" id="custName" class="form-control" placeholder="e.g., salih_dev" required>
+                        <input type="text" id="custName" class="form-control" placeholder="e.g., @nerual_forge." required>
                     </div>
 
                     <div class="form-group">
@@ -377,17 +377,17 @@
                     </div>
 
                     <div class="form-group">
-                        <label>Amount Paid (e.g. 493 TL or $12)</label>
-                        <input type="text" id="custAmount" class="form-control" placeholder="e.g., 493 TL" required>
+                        <label>Amount Paid (USD/TRY)</label>
+                        <input type="text" id="custAmount" class="form-control" placeholder="e.g., 8$" required>
                     </div>
 
                     <div class="form-group">
                         <label>Payment Method</label>
                         <select id="custPayMethod" class="form-select">
-                            <option value="Papara">Papara</option>
+                            <option value="Papara">Shopier</option>
                             <option value="Bank Transfer">Bank Transfer</option>
                             <option value="Credit Card">Credit Card</option>
-                            <option value="Other">Other</option>
+                            <option value="Other">Other (e.g. Papara)</option>
                         </select>
                     </div>
 
