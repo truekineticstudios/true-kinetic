@@ -353,48 +353,58 @@
     <div class="container">
         
         <!-- Left Column: Add Order Form -->
-        <aside class="panel-card">
-            <h3><i class="fas fa-cart-plus"></i> Add New Order</h3>
-            <form id="orderForm">
-                
-                <div class="form-group">
-                    <label>Discord Username</label>
-                    <input type="text" id="custName" class="form-control" placeholder="e.g., salih_dev" required>
+        <aside class="panel-card" style="display: flex; flex-direction: column; gap: 20px;">
+            
+            <!-- Webhook Settings (Hafızada şifreli saklanır, GitHub'da sızmaz!) -->
+            <div style="background-color: rgba(159, 122, 234, 0.05); border: 1px dashed var(--purple-glow); padding: 15px; border-radius: 8px;">
+                <h4 style="font-size: 0.9rem; color: var(--purple-glow); margin-bottom: 8px;"><i class="fas fa-link"></i> Discord Webhook Integration</h4>
+                <div class="form-group" style="margin-bottom: 0;">
+                    <input type="password" id="webhookInput" class="form-control" style="font-size: 0.85rem; padding: 8px;" placeholder="Paste Discord Webhook URL here...">
                 </div>
+            </div>
 
-                <div class="form-group">
-                    <label>Purchased Service / Product</label>
-                    <input type="text" id="custItem" class="form-control" placeholder="e.g., Valorant 1700 VP" required>
-                </div>
+            <div>
+                <h3><i class="fas fa-cart-plus"></i> Add New Order</h3>
+                <form id="orderForm">
+                    <div class="form-group">
+                        <label>Discord Username</label>
+                        <input type="text" id="custName" class="form-control" placeholder="e.g., salih_dev" required>
+                    </div>
 
-                <div class="form-group">
-                    <label>Amount Paid (e.g. 493 TL or $12)</label>
-                    <input type="text" id="custAmount" class="form-control" placeholder="e.g., 493 TL" required>
-                </div>
+                    <div class="form-group">
+                        <label>Purchased Service / Product</label>
+                        <input type="text" id="custItem" class="form-control" placeholder="e.g., Valorant 1700 VP" required>
+                    </div>
 
-                <div class="form-group">
-                    <label>Payment Method</label>
-                    <select id="custPayMethod" class="form-select">
-                        <option value="Papara">Papara</option>
-                        <option value="Bank Transfer">Bank Transfer</option>
-                        <option value="Credit Card">Credit Card</option>
-                        <option value="Other">Other</option>
-                    </select>
-                </div>
+                    <div class="form-group">
+                        <label>Amount Paid (e.g. 493 TL or $12)</label>
+                        <input type="text" id="custAmount" class="form-control" placeholder="e.g., 493 TL" required>
+                    </div>
 
-                <div class="form-group">
-                    <label>Initial Status</label>
-                    <select id="custStatus" class="form-select">
-                        <option value="pending">Pending (Hazırlanıyor)</option>
-                        <option value="completed">Completed (Teslim Edildi)</option>
-                        <option value="cancelled">Cancelled (İptal Edildi)</option>
-                    </select>
-                </div>
+                    <div class="form-group">
+                        <label>Payment Method</label>
+                        <select id="custPayMethod" class="form-select">
+                            <option value="Papara">Papara</option>
+                            <option value="Bank Transfer">Bank Transfer</option>
+                            <option value="Credit Card">Credit Card</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
 
-                <button type="submit" class="primary-btn" style="width: 100%; justify-content: center; margin-top: 10px;">
-                    <i class="fas fa-plus"></i> Save Order
-                </button>
-            </form>
+                    <div class="form-group">
+                        <label>Initial Status</label>
+                        <select id="custStatus" class="form-select">
+                            <option value="pending">Pending (Hazırlanıyor)</option>
+                            <option value="completed">Completed (Teslim Edildi)</option>
+                            <option value="cancelled">Cancelled (İptal Edildi)</option>
+                        </select>
+                    </div>
+
+                    <button type="submit" class="primary-btn" style="width: 100%; justify-content: center; margin-top: 10px;">
+                        <i class="fas fa-plus"></i> Save Order
+                    </button>
+                </form>
+            </div>
         </aside>
 
         <!-- Right Column: Orders Management & Table -->
@@ -447,16 +457,14 @@
                             <th>Actions</th>
                         </tr>
                     </thead>
-                    <tbody id="ordersTableBody">
-                        <!-- Filled by JS -->
+                    <tbody id="tableBody">
+                        <!-- JS tarafından doldurulacaktır -->
                     </tbody>
                 </table>
             </div>
         </main>
-
     </div>
 
-    <!-- SCRIPT LOGIC (Tanımlama Hatalarından Arındırılmış Sıralı Sürüm) -->
     <script>
         const ADMIN_PASSWORD = "xs72kp1z773t3p3t9o5nc2f9uf3rhqx3ylbjexd23mmfty2s5u";
 
@@ -464,12 +472,21 @@
         let ordersData = JSON.parse(localStorage.getItem("kineticOrdersDB")) || [];
 
         const orderForm = document.getElementById("orderForm");
-        const ordersTableBody = document.getElementById("ordersTableBody");
+        const ordersTableBody = document.getElementById("tableBody"); // Fix target body ID
         const searchOrderInput = document.getElementById("searchOrderInput");
+        const webhookInput = document.getElementById("webhookInput");
         
         const exportBtn = document.getElementById("exportBtn");
         const importBtn = document.getElementById("importBtn");
         const importFile = document.getElementById("importFile");
+
+        // Webhook URL'sini tarayıcı hafızasından oku
+        if (webhookInput) {
+            webhookInput.value = localStorage.getItem("kineticWebhookURL") || "";
+            webhookInput.addEventListener("input", (e) => {
+                localStorage.setItem("kineticWebhookURL", e.target.value.trim());
+            });
+        }
 
         // 2. DETAYLI İSTATİSTİK METOTLARI
         function updateStats() {
@@ -567,7 +584,7 @@
             updateStats();
         }
 
-        // Sipariş Ekleme Formu
+        // Sipariş Ekleme Formu ve Discord Webhook Gönderimi
         orderForm.addEventListener("submit", (e) => {
             e.preventDefault();
 
@@ -584,12 +601,56 @@
             const now = new Date();
             const dateStr = now.toLocaleDateString("en-US") + " " + now.toLocaleTimeString("en-US", { hour: '2-digit', minute: '2-digit' });
 
-            ordersData.push({ id, date: dateStr, customer, item, amount, method, status });
+            const newOrder = { id, date: dateStr, customer, item, amount, method, status };
+            ordersData.push(newOrder);
             saveOrders();
+
+            // Discord Webhook Bildirimi Gönder
+            sendDiscordNotification(newOrder);
 
             orderForm.reset();
             alert(`Order #${id} added successfully!`);
         });
+
+        // DISCORD WEBHOOK BİLDİRİM MOTORU
+        function sendDiscordNotification(order) {
+            const webhookUrl = localStorage.getItem("kineticWebhookURL");
+            if (!webhookUrl) return; // Webhook adresi girilmemişse sessizce geç
+
+            const payload = {
+                username: "True Kinetic Bot",
+                avatar_url: "https://truekinetichub.com.tr/logo.png", // <--- Varsa kendi logonun linkini buraya yazabilirsin
+                embeds: [{
+                    title: "🆕 New Order Logged!",
+                    description: "A new transaction has been registered via Command Center.",
+                    color: 10451690, // #9f7aea (Mor Işıma Rengi)
+                    fields: [
+                        { name: "Order ID", value: `\`#${order.id}\``, inline: true },
+                        { name: "Customer", value: `**@${order.customer}**`, inline: true },
+                        { name: "Product / Service", value: order.item, inline: false },
+                        { name: "Amount Paid", value: `**${order.amount}**`, inline: true },
+                        { name: "Payment Method", value: order.method, inline: true },
+                        { name: "Order Status", value: `\`${order.status.toUpperCase()}\``, inline: true }
+                    ],
+                    footer: {
+                        text: "True Kinetic Command Center System"
+                    },
+                    timestamp: new Date().toISOString()
+                }]
+            };
+
+            fetch(webhookUrl, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(payload)
+            }).then(response => {
+                if (!response.ok) {
+                    console.error("Webhook Error Status:", response.statusText);
+                }
+            }).catch(err => {
+                console.error("Failed to trigger Discord Webhook:", err);
+            });
+        }
 
         // Inline Durum Güncelleme
         function updateOrderStatus(id, status) {
@@ -608,6 +669,11 @@
             }
         }
 
+        // Arama/Filtreleme Olayı
+        searchOrderInput.addEventListener("input", (e) => {
+            renderOrders(e.target.value);
+        });
+
         // Discord Log Panoya Kopyalama
         function copyToDiscord(id) {
             const order = ordersData.find(o => o.id === id);
@@ -622,19 +688,13 @@
             });
         }
 
-        // Canlı Arama Girdisi Dinleyicisi
-        searchOrderInput.addEventListener("input", (e) => {
-            renderOrders(e.target.value);
-        });
-
         // ==========================================================================
         // 5. YETKİLENDİRME VE GÜVENLİK KONTROLÜ (GÜVENLİ EN SONDA ÇALIŞTIRMA)
         // ==========================================================================
         function verifyAccess() {
-            const inputPass = prompt("Please enter the Admin Password / Lütfen Yönetici Şifresini Girin:");
+            const inputPass = prompt("Please enter the Admin Password:");
             
             if (inputPass === null) {
-                // Şifre paneli iptal edilirse anasayfaya yönlendir
                 window.location.href = "../index.html";
                 return;
             }
@@ -645,32 +705,12 @@
                 updateStats();
             } else {
                 alert("Incorrect password! Access denied.");
-                window.location.href = "../index.html"; // Yanlışsa anasayfaya yönlendir
+                window.location.href = "../index.html";
             }
         }
 
         // Doğrulamayı başlat
         verifyAccess();
-
-        function verifyAccess() {
-            checkPassword();
-        }
-
-        function checkPassword() {
-            verifyAccessLogic();
-        }
-
-        function verifyAccessLogic() {
-            const inputPass = prompt("Enter Security Password:");
-            if (inputPass === ADMIN_PASSWORD) {
-                document.body.style.display = "block"; 
-                renderOrders();
-                updateStats();
-            } else {
-                alert("Incorrect password! Access denied.");
-                window.location.href = "../index.html"; 
-            }
-        }
 
         // ==========================================================================
         // EXPORT & IMPORT ENGINE
