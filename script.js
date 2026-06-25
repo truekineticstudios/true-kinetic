@@ -185,6 +185,8 @@ const translations = {
 // VARSAYILAN FİYAT VE PAKET VERİLERİ (Öncelikli olarak LocalStorage'dan yüklenecektir)
 const defaultPricingData = {
   web: {
+    category: "software",
+    icon: "fas fa-code",
     title: { en: "Web Site Design", tr: "Web Tasarım Paketleri" },
     desc: { en: "Professional responsive design services.", tr: "Profesyonel arayüz tasarım hizmetleri." },
     tiers: [
@@ -194,6 +196,8 @@ const defaultPricingData = {
     ]
   },
   discord: {
+    category: "software",
+    icon: "fab fa-discord",
     title: { en: "Discord Server Setup", tr: "Discord Sunucu Yapılandırması" },
     desc: { en: "Tailored roles, security settings, and professional bot setup.", tr: "Size özel yetkilendirme, güvenlik yapılandırmaları ve profesyonel botlar." },
     tiers: [
@@ -202,6 +206,8 @@ const defaultPricingData = {
     ]
   },
   detailed_analysis: {
+    category: "software",
+    icon: "fas fa-chart-line",
     title: { en: "Detailed Server Analysis", tr: "Detaylı Sunucu Analizi" },
     desc: { en: "Deep inspection into roles, permissions, and security loopholes.", tr: "Roller, kanal yetkileri ve güvenlik açıklarına yönelik derin analiz." },
     tiers: [
@@ -209,6 +215,8 @@ const defaultPricingData = {
     ]
   },
   basic_analysis: {
+    category: "software",
+    icon: "fas fa-poll",
     title: { en: "Basic Server Analysis", tr: "Temel Sunucu Analizi" },
     desc: { en: "Overview check-up of server layout safety standards.", tr: "Sunucu düzeni ve temel güvenlik standartlarının taranması." },
     tiers: [
@@ -216,6 +224,8 @@ const defaultPricingData = {
     ]
   },
   roblox_gift: {
+    category: "games",
+    icon: "fas fa-ticket-alt",
     title: { en: "Roblox Gift Cards", tr: "Roblox Hediye Kartları" },
     desc: { en: "Roblox digital codes directly applicable for Robux or Premium.", tr: "Robux veya Premium için doğrudan geçerli resmi Roblox kodları." },
     tiers: [
@@ -225,6 +235,8 @@ const defaultPricingData = {
     ]
   },
   pubg_uc: {
+    category: "games",
+    icon: "fas fa-crosshairs",
     title: { en: "PUBG Mobile UC", tr: "PUBG Mobile UC Fiyatları" },
     desc: { en: "In-game Unknown Cash delivered directly with your Player ID.", tr: "Karakter ID'niz kullanılarak hesabınıza doğrudan yüklenen UC paketleri." },
     tiers: [
@@ -234,6 +246,8 @@ const defaultPricingData = {
     ]
   },
   valorant_vp: {
+    category: "games",
+    icon: "fas fa-gamepad",
     title: { en: "Valorant VP", tr: "Valorant VP Fiyatları" },
     desc: { en: "Secure Valorant Points Pin Codes valid on target regional accounts.", tr: "Türkiye ve hedef hesaplarda geçerli indirimli Valorant Points e-pin kodları." },
     tiers: [
@@ -242,6 +256,8 @@ const defaultPricingData = {
     ]
   },
   steam_wallet: {
+    category: "games",
+    icon: "fab fa-steam",
     title: { en: "Steam Wallet Code", tr: "Steam Cüzdan Kodları" },
     desc: { en: "Add funds directly to your digital Steam Wallet.", tr: "Steam bakiyenize ekleyebileceğiniz güvenli cüzdan kodları." },
     tiers: [
@@ -249,6 +265,8 @@ const defaultPricingData = {
     ]
   },
   freefire_gem: {
+    category: "games",
+    icon: "fas fa-gem",
     title: { en: "Free Fire Gem", tr: "Free Fire Elmas Paketleri" },
     desc: { en: "Cheapest FF diamonds packages directly loaded into your account.", tr: "Hesabınıza doğrudan yüklenecek en uygun fiyatlı Free Fire elmas paketleri." },
     tiers: [
@@ -258,6 +276,8 @@ const defaultPricingData = {
   },
   custom_requests: {
     title: { en: "Special Requests", tr: "Özel İstekler" },
+    icon: "fas fa-wand-magic-sparkles",
+    category: "software",
     desc: { en: "Get in touch for custom, bespoke developer tasks and requests.", tr: "Size özel yazılım, bot veya arayüz talepleri için bizimle iletişime geçin." },
     tiers: [
       { name: { en: "Custom Order", tr: "Özel Talep Formu" }, price: { en: "Flexible", tr: "Esnek Fiyat" }, desc: { en: "Visit our server to pitch your custom project guidelines.", tr: "Özel hizmet istekleriniz ve detaylı görüşme için lütfen sunucumuzu ziyaret edin." } }
@@ -265,11 +285,22 @@ const defaultPricingData = {
   }
 };
 
-// ADMIN PANEL ŞİFRESİ (Buradan istediğin şifreyi belirleyebilirsin)
-const ADMIN_PASSWORD="xs72kp1z773t3p3t9o5nc2f9uf3rhqx3ylbjexd23mmfty2s5u";
+// ADMIN PANEL ŞİFRESİ
+const ADMIN_PASSWORD = "xs72kp1z773t3p3t9o5nc2f9uf3rhqx3ylbjexd23mmfty2s5u";
 
 // Hafızada fiyat listesi varsa onu yükle, yoksa varsayılanı yükle
 let pricingData = JSON.parse(localStorage.getItem("kineticPricingDB")) || defaultPricingData;
+
+// --- BELLEK ONARIMI (MIGRATION CHECK) ---
+// Eğer kullanıcının localStorage verisinde 'category' veya 'icon' eksikse onları defaultPricingData'dan tamamlıyoruz
+Object.keys(defaultPricingData).forEach(key => {
+  if (!pricingData[key]) {
+    pricingData[key] = defaultPricingData[key];
+  } else {
+    if (!pricingData[key].category) pricingData[key].category = defaultPricingData[key].category || "software";
+    if (!pricingData[key].icon) pricingData[key].icon = defaultPricingData[key].icon || "fas fa-cube";
+  }
+});
 
 // Hafızada yetkili listesi varsa onu yükle, yoksa varsayılan listeyi yükle
 const defaultStaff = ["owmanxx", "neural_forge.", "someoneelsexd"];
@@ -288,21 +319,101 @@ document.addEventListener("DOMContentLoaded", () => {
   const pricingTitle = document.getElementById('pricingTitle');
   const pricingDesc = document.getElementById('pricingDesc');
   const pricingTiers = document.getElementById('pricingTiers');
-  const actionButtons = document.querySelectorAll('.card-action-btn');
 
   const verifyBtn = document.getElementById("verifyBtn");
   const staffInput = document.getElementById("staffInput");
   const verifyResult = document.getElementById("verifyResult");
 
+  // Admin Editör Seçicileri
   const editorServiceSelect = document.getElementById("editorServiceSelect");
   const editorTiersContainer = document.getElementById("editorTiersContainer");
   const savePricesBtn = document.getElementById("savePricesBtn");
 
+  // Admin Ürün Ekleme Seçicileri
+  const addProdKey = document.getElementById("addProdKey");
+  const addProdTitleEn = document.getElementById("addProdTitleEn");
+  const addProdTitleTr = document.getElementById("addProdTitleTr");
+  const addProdDescEn = document.getElementById("addProdDescEn");
+  const addProdDescTr = document.getElementById("addProdDescTr");
+  const addProdCategory = document.getElementById("addProdCategory");
+  const addProdIcon = document.getElementById("addProdIcon");
+  const addProdTiersCount = document.getElementById("addProdTiersCount");
+  const addProdTiersFields = document.getElementById("addProdTiersFields");
+  const addProductBtn = document.getElementById("addProductBtn");
+
+  // Admin Ürün Silme & Yetkili Seçicileri
+  const adminProductList = document.getElementById("adminProductList");
   const newStaffInput = document.getElementById("newStaffInput");
   const addStaffBtn = document.getElementById("addStaffBtn");
   const staffList = document.getElementById("staffList");
 
+  const servicesGrid = document.getElementById("servicesGrid");
+
   let currentOpenService = null; // Fiyat modalında açık olan servis anahtarı
+
+  // ==========================================================================
+  // 1. DINAMIK ANASAYFA KARTLARI OLUŞTURMA SİSTEMİ (RENDER SERVICES)
+  // ==========================================================================
+  function renderServices() {
+    if (!servicesGrid) return;
+    const currentLang = localStorage.getItem("preferredLang") || "en";
+    servicesGrid.innerHTML = "";
+
+    Object.keys(pricingData).forEach(key => {
+      const item = pricingData[key];
+      const card = document.createElement("div");
+      card.className = "service-card";
+      card.setAttribute("data-category", item.category || "software");
+
+      // İkon Çözücü: FontAwesome sınıfı mı yoksa Emoji mi? Safely kontrol ediyoruz.
+      const icon = item.icon || "fas fa-cube";
+      let iconHTML = "";
+      const isFontAwesome = icon.startsWith("fa") || icon.includes(" ");
+      if (isFontAwesome) {
+        iconHTML = `<i class="${icon}"></i>`;
+      } else {
+        iconHTML = icon; // Doğrudan emoji yazdır
+      }
+
+      const titleText = item.title[currentLang] || item.title;
+      const descText = item.desc[currentLang] || item.desc;
+
+      // Kategori bazlı buton ismini belirle
+      let btnLabelText = translations[currentLang]["btn_view_prices"];
+      if (item.category === "software") {
+        btnLabelText = key.includes("analysis") 
+          ? translations[currentLang]["btn_info"] 
+          : translations[currentLang]["btn_order"];
+      }
+
+      card.innerHTML = `
+        <div class="card-icon">${iconHTML}</div>
+        <h3>${titleText}</h3>
+        <p>${descText}</p>
+        <button class="card-action-btn" data-service="${key}">
+            <span>${btnLabelText}</span> <i class="fas fa-arrow-right"></i>
+        </button>
+      `;
+      servicesGrid.appendChild(card);
+    });
+  }
+
+  // Event Delegation ile tıklamaları yönetiyoruz (Dinamik butonlar için hayati önem taşır)
+  if (servicesGrid) {
+    servicesGrid.addEventListener("click", (e) => {
+      const btn = e.target.closest(".card-action-btn");
+      if (btn) {
+        const serviceKey = btn.getAttribute("data-service");
+        const currentLang = localStorage.getItem("preferredLang") || "en";
+
+        currentOpenService = serviceKey;
+        populatePricingModal(serviceKey, currentLang);
+
+        pricingModal.classList.add("open");
+        document.body.style.overflow = "hidden";
+      }
+    });
+  }
 
   // 1. DİL DEĞİŞTİRME MEKANİZMASI (I18N)
   function applyLanguage(lang) {
@@ -319,11 +430,15 @@ document.addEventListener("DOMContentLoaded", () => {
     localStorage.setItem("preferredLang", lang);
     langSelect.value = lang;
 
+    // Kartları yeni dile göre tekrar oluştur
+    renderServices();
+
     if (currentOpenService) {
       populatePricingModal(currentOpenService, lang);
     }
   }
 
+  // İlk dil yüklemesi ve kart çizimleri
   const savedLanguage = localStorage.getItem("preferredLang") || "en";
   applyLanguage(savedLanguage);
 
@@ -337,17 +452,17 @@ document.addEventListener("DOMContentLoaded", () => {
     const data = pricingData[serviceKey];
     if (!data) return;
 
-    pricingTitle.textContent = data.title[lang];
-    pricingDesc.textContent = data.desc[lang];
+    pricingTitle.textContent = data.title[lang] || data.title;
+    pricingDesc.textContent = data.desc[lang] || data.desc;
     pricingTiers.innerHTML = "";
 
     data.tiers.forEach((tier) => {
       const tierCard = document.createElement("div");
       tierCard.className = "tier-card";
 
-      const tierName = typeof tier.name === "string" ? tier.name : tier.name[lang];
-      const tierPrice = typeof tier.price === "string" ? tier.price : tier.price[lang];
-      const tierDesc = typeof tier.desc === "string" ? tier.desc : tier.desc[lang];
+      const tierName = typeof tier.name === "string" ? tier.name : (tier.name[lang] || tier.name["en"]);
+      const tierPrice = typeof tier.price === "string" ? tier.price : (tier.price[lang] || tier.price["en"]);
+      const tierDesc = typeof tier.desc === "string" ? tier.desc : (tier.desc[lang] || tier.desc["en"]);
 
       tierCard.innerHTML = `
                 <h4>${tierName}</h4>
@@ -357,19 +472,6 @@ document.addEventListener("DOMContentLoaded", () => {
       pricingTiers.appendChild(tierCard);
     });
   }
-
-  actionButtons.forEach((button) => {
-    button.addEventListener("click", () => {
-      const serviceKey = button.getAttribute("data-service");
-      const currentLang = localStorage.getItem("preferredLang") || "en";
-
-      currentOpenService = serviceKey;
-      populatePricingModal(serviceKey, currentLang);
-
-      pricingModal.classList.add("open");
-      document.body.style.overflow = "hidden";
-    });
-  });
 
   if (closePricingBtn) {
     closePricingBtn.addEventListener("click", () => {
@@ -382,15 +484,15 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // 3. ADMIN PANEL ŞİFRELİ GİRİŞ VE AÇILMA YÖNETİMİ
   adminBtn.addEventListener("click", () => {
-    // Şifre Soran Prompt
     const inputPass = prompt("Please enter the Admin Password / Lütfen Yönetici Şifresini Girin:");
     
-    if (inputPass === null) return; // İptal edilirse çık
+    if (inputPass === null) return;
 
     if (inputPass === ADMIN_PASSWORD) {
-      // Şifre doğruysa paneli yükle ve aç
       loadAdminSelect();
       renderStaffList();
+      renderAdminProductList();
+      generateAddProdTiersForm(); // İlk yüklemede paketleri oluştur
       adminDashboard.classList.add("open");
       document.body.style.overflow = "hidden";
     } else {
@@ -412,10 +514,10 @@ document.addEventListener("DOMContentLoaded", () => {
     Object.keys(pricingData).forEach(key => {
       const option = document.createElement("option");
       option.value = key;
-      option.textContent = pricingData[key].title["en"] + " / " + pricingData[key].title["tr"];
+      const titleText = pricingData[key].title["en"] || pricingData[key].title;
+      option.textContent = titleText;
       editorServiceSelect.appendChild(option);
     });
-    // İlk servisin paketlerini yükle
     loadServiceTiersToEditor(editorServiceSelect.value);
   }
 
@@ -426,12 +528,13 @@ document.addEventListener("DOMContentLoaded", () => {
   function loadServiceTiersToEditor(serviceKey) {
     const data = pricingData[serviceKey];
     editorTiersContainer.innerHTML = "";
+    if (!data) return;
 
     data.tiers.forEach((tier, index) => {
       const tierDiv = document.createElement("div");
       tierDiv.className = "tier-edit-row";
 
-      const nameText = typeof tier.name === "string" ? tier.name : tier.name["en"];
+      const nameText = typeof tier.name === "string" ? tier.name : (tier.name["en"] || tier.name["tr"]);
 
       tierDiv.innerHTML = `
         <label>${nameText} - Package ${index + 1}</label>
@@ -452,7 +555,6 @@ document.addEventListener("DOMContentLoaded", () => {
       const priceTr = row.querySelector(".edit-price-tr").value.trim();
       const priceEn = row.querySelector(".edit-price-en").value.trim();
 
-      // pricingData objesindeki ilgili alanları güncelle
       if (typeof pricingData[selectedService].tiers[index].price === "string") {
         pricingData[selectedService].tiers[index].price = { en: priceEn, tr: priceTr };
       } else {
@@ -461,14 +563,163 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     });
 
-    // LocalStorage'a kaydet
     localStorage.setItem("kineticPricingDB", JSON.stringify(pricingData));
+    applyLanguage(localStorage.getItem("preferredLang") || "en");
     alert("Prices updated successfully! / Fiyatlar başarıyla güncellendi!");
   });
 
 
+  // 5. ADMIN PANEL - DİNAMİK YENİ ÜRÜN VE PAKET EKLEME SİSTEMİ
+  function generateAddProdTiersForm() {
+    const count = parseInt(addProdTiersCount.value) || 1;
+    addProdTiersFields.innerHTML = "";
+
+    for (let i = 1; i <= count; i++) {
+      const group = document.createElement("div");
+      group.className = "tier-input-group";
+      group.innerHTML = `
+        <h5>Package ${i}</h5>
+        <div class="form-row-dual" style="margin-bottom: 8px;">
+          <input type="text" class="dashboard-input tier-name-en" placeholder="Name (EN)" required>
+          <input type="text" class="dashboard-input tier-name-tr" placeholder="Adı (TR)" required>
+        </div>
+        <div class="form-row-dual" style="margin-bottom: 8px;">
+          <input type="text" class="dashboard-input tier-price-en" placeholder="Price (EN) e.g. 10$" required>
+          <input type="text" class="dashboard-input tier-price-tr" placeholder="Fiyat (TR) örn: 300 TL" required>
+        </div>
+        <div class="form-row-dual">
+          <input type="text" class="dashboard-input tier-desc-en" placeholder="Desc (EN)" required>
+          <input type="text" class="dashboard-input tier-desc-tr" placeholder="Açıklama (TR)" required>
+        </div>
+      `;
+      addProdTiersFields.appendChild(group);
+    }
+  }
+
+  // Paket Sayısı değiştiğinde anında form alanlarını oluştur
+  if (addProdTiersCount) {
+    addProdTiersCount.addEventListener("input", () => {
+      generateAddProdTiersForm();
+    });
+  }
+
+  // ÜRÜN OLUŞTURMA TETİKLEYİCİSİ
+  addProductBtn.addEventListener("click", () => {
+    const key = addProdKey.value.trim().toLowerCase().replace(/\s+/g, '_');
+    const titleEn = addProdTitleEn.value.trim();
+    const titleTr = addProdTitleTr.value.trim();
+    const descEn = addProdDescEn.value.trim();
+    const descTr = addProdDescTr.value.trim();
+    const category = addProdCategory.value;
+    const icon = addProdIcon.value.trim();
+
+    if (!key || !titleEn || !titleTr || !descEn || !descTr || !icon) {
+      alert("Please fill in all general fields! / Lütfen tüm ana alanları doldurun!");
+      return;
+    }
+
+    if (pricingData[key]) {
+      alert("This username is already added! / Bu kullanıcı zaten ekli!");
+      return;
+    }
+
+    const groups = addProdTiersFields.querySelectorAll(".tier-input-group");
+    const tiers = [];
+
+    let hasEmptyFields = false;
+    groups.forEach(group => {
+      const nameEn = group.querySelector(".tier-name-en").value.trim();
+      const nameTr = group.querySelector(".tier-name-tr").value.trim();
+      const priceEn = group.querySelector(".tier-price-en").value.trim();
+      const priceTr = group.querySelector(".tier-price-tr").value.trim();
+      const descEn = group.querySelector(".tier-desc-en").value.trim();
+      const descTr = group.querySelector(".tier-desc-tr").value.trim();
+
+      if (!nameEn || !nameTr || !priceEn || !priceTr || !descEn || !descTr) {
+        hasEmptyFields = true;
+      }
+
+      tiers.push({
+        name: { en: nameEn, tr: nameTr },
+        price: { en: priceEn, tr: priceTr },
+        desc: { en: descEn, tr: descTr }
+      });
+    });
+
+    if (hasEmptyFields) {
+      alert("Please fill in all package details! / Lütfen tüm paket detaylarını doldurun!");
+      return;
+    }
+
+    // Yeni ürünü pricingData'ya yaz
+    pricingData[key] = {
+      category: category,
+      icon: icon,
+      title: { en: titleEn, tr: titleTr },
+      desc: { en: descEn, tr: descTr },
+      tiers: tiers
+    };
+
+    // Kaydet ve Arayüzleri Yenile
+    localStorage.setItem("kineticPricingDB", JSON.stringify(pricingData));
+    
+    // Formları temizle
+    addProdKey.value = "";
+    addProdTitleEn.value = "";
+    addProdTitleTr.value = "";
+    addProdDescEn.value = "";
+    addProdDescTr.value = "";
+    addProdIcon.value = "";
+    addProdTiersCount.value = 1;
+    generateAddProdTiersForm();
+
+    const currentLang = localStorage.getItem("preferredLang") || "en";
+    applyLanguage(currentLang);
+    loadAdminSelect();
+    renderAdminProductList();
+
+    alert("Product created successfully! / Ürün başarıyla oluşturuldu!");
+  });
+
+
+  // 6. ADMIN PANEL - ÜRÜN LİSTELEME VE SİLME (DELETE PRODUCTS)
+  function renderAdminProductList() {
+    if (!adminProductList) return;
+    adminProductList.innerHTML = "";
+    Object.keys(pricingData).forEach(key => {
+      const item = pricingData[key];
+      const titleText = item.title["en"] || item.title;
+      const li = document.createElement("li");
+      li.className = "staff-list-item";
+      li.innerHTML = `
+        <span>${titleText}</span>
+        <button class="remove-product-btn" data-key="${key}"><i class="fas fa-trash"></i></button>
+      `;
+      adminProductList.appendChild(li);
+    });
+
+    // Ürün Silme Buton Olayları
+    const removeProdBtns = adminProductList.querySelectorAll(".remove-product-btn");
+    removeProdBtns.forEach(btn => {
+      btn.addEventListener("click", () => {
+        const key = btn.getAttribute("data-key");
+        if (confirm(`Are you sure you want to delete "${key}"? / Bu ürünü tamamen silmek istediğinizden emin misiniz?`)) {
+          delete pricingData[key];
+          localStorage.setItem("kineticPricingDB", JSON.stringify(pricingData));
+          
+          const currentLang = localStorage.getItem("preferredLang") || "en";
+          applyLanguage(currentLang);
+          loadAdminSelect();
+          renderAdminProductList();
+        }
+      });
+    });
+  }
+
+
   // 5. ADMIN PANEL - YETKİLİ (STAFF) KADROSU YÖNETİMİ
   function renderStaffList() {
+    if (!staffList) return;
     staffList.innerHTML = "";
     officialStaff.forEach((username, index) => {
       const li = document.createElement("li");
@@ -480,7 +731,6 @@ document.addEventListener("DOMContentLoaded", () => {
       staffList.appendChild(li);
     });
 
-    // Silme butonlarını aktif et
     const removeBtns = staffList.querySelectorAll(".remove-staff-btn");
     removeBtns.forEach(btn => {
       btn.addEventListener("click", () => {
@@ -510,7 +760,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // 6. HİZMET FİLTRELEME (SOFTWARE / GAMES)
   const filterButtons = document.querySelectorAll(".filter-btn");
-  const serviceCards = document.querySelectorAll(".service-card");
 
   filterButtons.forEach((button) => {
     button.addEventListener("click", () => {
@@ -518,6 +767,7 @@ document.addEventListener("DOMContentLoaded", () => {
       button.classList.add("active");
 
       const filterValue = button.getAttribute("data-filter");
+      const serviceCards = document.querySelectorAll(".service-card");
 
       serviceCards.forEach((card) => {
         const category = card.getAttribute("data-category");
@@ -584,8 +834,8 @@ document.addEventListener("DOMContentLoaded", () => {
       });
 
       if (!isActive) {
-        item.classList.add("active");
-        answer.style.maxHeight = answer.scrollHeight + "px";
+                item.classList.add("active");
+                answer.style.maxHeight = answer.scrollHeight + "px";
       } else {
         item.classList.remove("active");
         answer.style.maxHeight = null;
