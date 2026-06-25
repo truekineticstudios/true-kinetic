@@ -1078,7 +1078,7 @@ footer {
 }
 
 .role-badge:hover {
-    transform: scale(1.04);
+    transform: scale(1.04); 
 }
 
 /* Detaylı Rol Renkleri */
