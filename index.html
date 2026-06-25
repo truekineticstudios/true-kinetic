@@ -32,9 +32,9 @@
                     </select>
                 </div>
 
-                <!-- Giriş Butonu -->
-                <button id="loginBtn" class="nav-login-btn">
-                    <i class="far fa-user"></i> <span data-i18n="nav_login">Log In</span>
+                <!-- Admin Giriş Butonu -->
+                <button id="adminBtn" class="nav-admin-btn">
+                    <i class="fas fa-user-shield"></i> <span data-i18n="nav_admin">Admin</span>
                 </button>
 
                 <a href="https://discord.gg/tqsKHt6qSS" target="_blank" rel="noopener noreferrer" class="nav-discord-btn">
@@ -109,7 +109,7 @@
         <!-- Cards Grid -->
         <div class="services-grid">
             
-            <!-- Yazılım / Geliştirme Hizmetleri -->
+            <!-- Geliştirme Hizmetleri -->
             <div class="service-card" data-category="software">
                 <div class="card-icon"><i class="fas fa-code"></i></div>
                 <h3 data-i18n="srv_web_title">Web Site Design</h3>
@@ -146,7 +146,7 @@
                 </button>
             </div>
 
-            <!-- Oyun Paraları ve Kodlar -->
+            <!-- Oyun Paraları -->
             <div class="service-card" data-category="games">
                 <div class="card-icon"><i class="fas fa-ticket-alt"></i></div>
                 <h3 data-i18n="srv_roblox_title">Roblox Gift Cards</h3>
@@ -216,42 +216,34 @@
             <div class="roles-column">
                 <h3 class="column-title"><i class="fas fa-user-shield"></i> <span data-i18n="role_col_staff">Management & Staff</span></h3>
                 <div class="role-list">
-                    
                     <div class="role-item">
                         <span class="role-badge r-founder">@Founder</span>
                         <p data-i18n="r_founder_desc">Official server founder, owner.</p>
                     </div>
-
                     <div class="role-item">
                         <span class="role-badge r-coleader">@Co-Leader</span>
                         <p data-i18n="r_coleader_desc">Official server Co-Lead.</p>
                     </div>
-
                     <div class="role-item">
                         <span class="role-badge r-headadmin">@Head Administration</span>
                         <p data-i18n="r_headadmin_desc">Ban requests, partnership applications, staff recruitment, bot administrator.</p>
                     </div>
-
                     <div class="role-item">
                         <span class="role-badge r-highmod">@High Moderator</span>
                         <p data-i18n="r_highmod_desc">Ban request submission, log viewing, message management, server monitoring.</p>
                     </div>
-
                     <div class="role-item">
                         <span class="role-badge r-helper">@True Kinetic Helper</span>
                         <p data-i18n="r_helper_desc">Highly authorized management bots.</p>
                     </div>
-
                     <div class="role-item">
                         <span class="role-badge r-mod">@Moderation Team</span>
                         <p data-i18n="r_mod_desc">Moderation staff member, log viewing, report priority.</p>
                     </div>
-
                     <div class="role-item">
                         <span class="role-badge r-trialmod">@Trial Moderation</span>
                         <p data-i18n="r_trialmod_desc">New staff member under monitoring, testing phase, limited access.</p>
                     </div>
-
                 </div>
             </div>
 
@@ -259,37 +251,30 @@
             <div class="roles-column">
                 <h3 class="column-title"><i class="fas fa-trophy"></i> <span data-i18n="role_col_ranks">Active Purchase Ranks</span></h3>
                 <div class="role-list">
-                    
                     <div class="role-item">
                         <span class="role-badge r-special">@Special Member</span>
                         <p data-i18n="r_special_desc">Very special server role.</p>
                     </div>
-
                     <div class="role-item">
                         <span class="role-badge r-legendary">@Legendary</span>
                         <p data-i18n="r_legendary_desc">Requires making a total of 100+ purchases.</p>
                     </div>
-
                     <div class="role-item">
                         <span class="role-badge r-master">@Master</span>
                         <p data-i18n="r_master_desc">Requires making a total of 50+ purchases.</p>
                     </div>
-
                     <div class="role-item">
                         <span class="role-badge r-diamond">@Diamond</span>
                         <p data-i18n="r_diamond_desc">Requires making a total of 25+ purchases.</p>
                     </div>
-
                     <div class="role-item">
                         <span class="role-badge r-gold">@Gold</span>
                         <p data-i18n="r_gold_desc">Requires making a total of 5+ purchases.</p>
                     </div>
-
                     <div class="role-item">
                         <span class="role-badge r-bronze">@Bronze</span>
                         <p data-i18n="r_bronze_desc">Requires making a total of 1+ purchase.</p>
                     </div>
-
                 </div>
             </div>
 
@@ -297,27 +282,22 @@
             <div class="roles-column">
                 <h3 class="column-title"><i class="fas fa-users"></i> <span data-i18n="role_col_members">Special & Member Roles</span></h3>
                 <div class="role-list">
-                    
                     <div class="role-item">
                         <span class="role-badge r-partnerteam">@Official Partner Team</span>
                         <p data-i18n="r_partnerteam_desc">Partner, free advertising authority.</p>
                     </div>
-
                     <div class="role-item">
                         <span class="role-badge r-developer">@Developer</span>
                         <p data-i18n="r_developer_desc">Official development team members.</p>
                     </div>
-
                     <div class="role-item">
                         <span class="role-badge r-member">@Member</span>
                         <p data-i18n="r_member_desc">Official server member.</p>
                     </div>
-
                     <div class="role-item">
                         <span class="role-badge r-partnerinvite">@Partner Invitation</span>
                         <p data-i18n="r_partnerinvite_desc">Official server member who joined using a partner invitation link.</p>
                     </div>
-
                 </div>
             </div>
 
@@ -366,7 +346,6 @@
                 <p id="pricingDesc">Our latest plans and pricing.</p>
             </div>
             
-            <!-- Dinamik Olarak Doldurulacak Paket Tablosu / Listesi -->
             <div id="pricingTiers" class="pricing-tiers">
                 <!-- JS tarafından doldurulacaktır -->
             </div>
@@ -379,28 +358,54 @@
         </div>
     </div>
 
-    <!-- Giriş Yap (Account) Modal -->
-    <div id="loginModal" class="login-modal">
-        <div class="modal-content">
-            <span class="close-modal-btn">&times;</span>
-            <div class="modal-header">
-                <h2>TRUE KINETIC</h2>
-                <p data-i18n="modal_subtitle">Account Portal</p>
-            </div>
-            <div class="coming-soon-badge">
-                <i class="fas fa-tools"></i> <span data-i18n="modal_badge">Under Construction</span>
-            </div>
-            <p class="modal-desc" data-i18n="modal_desc">We are currently developing our dashboard. Soon, you will be able to track your orders and manage services from here!</p>
+    <!-- ADMIN DASHBOARD PANEL (Açılır Büyük Pop-up) -->
+    <div id="adminDashboard" class="admin-dashboard-modal">
+        <div class="dashboard-content">
+            <span class="close-dashboard-btn">&times;</span>
             
-            <!-- Google ile Giriş Butonu -->
-            <button id="googleSignInBtn" class="google-signin-btn">
-                <i class="fab fa-google"></i> <span data-i18n="modal_google_btn">Sign in with Google</span>
-            </button>
+            <div class="dashboard-header">
+                <h2><i class="fas fa-toolbox"></i> True Kinetic Control Panel</h2>
+                <p>Manage prices, packages, and verified staff members instantly.</p>
+            </div>
 
-            <div class="mock-form">
-                <input type="email" placeholder="Email Address" disabled>
-                <input type="password" placeholder="Password" disabled>
-                <button class="primary-btn mock-btn" disabled data-i18n="modal_btn">Coming Soon</button>
+            <div class="dashboard-body">
+                
+                <!-- Bölüm 1: Fiyat ve Paketleri Yönetme -->
+                <div class="dashboard-section">
+                    <h3><i class="fas fa-tags"></i> Edit Service & Game Prices</h3>
+                    <p class="section-desc">Select a service to update its plans and pricing globally.</p>
+                    
+                    <div class="editor-row">
+                        <select id="editorServiceSelect" class="dashboard-select">
+                            <!-- JS tarafından doldurulacak hizmet listesi -->
+                        </select>
+                    </div>
+
+                    <div id="editorTiersContainer" class="editor-tiers-container">
+                        <!-- Seçilen hizmetin paketleri buraya form elemanı olarak yüklenecek -->
+                    </div>
+
+                    <button id="savePricesBtn" class="primary-btn dashboard-action-btn">
+                        <i class="fas fa-save"></i> Save Changes & Apply
+                    </button>
+                </div>
+
+                <!-- Bölüm 2: Yetkili Kadrosu Yönetimi -->
+                <div class="dashboard-section">
+                    <h3><i class="fas fa-users-gear"></i> Manage Verified Staff</h3>
+                    <p class="section-desc">Add or remove verified staff usernames for the Staff Verification Tool.</p>
+                    
+                    <div class="staff-manager-box">
+                        <div class="staff-add-row">
+                            <input type="text" id="newStaffInput" placeholder="Discord Username (e.g. salih_dev)">
+                            <button id="addStaffBtn" class="primary-btn"><i class="fas fa-plus"></i> Add</button>
+                        </div>
+                        <ul id="staffList" class="dashboard-staff-list">
+                            <!-- JS tarafından doldurulacak yetkili listesi -->
+                        </ul>
+                    </div>
+                </div>
+
             </div>
         </div>
     </div>
@@ -413,7 +418,7 @@
         </div>
     </footer>
 
-    <!-- SCRIPT TÜRÜNÜ "MODULE" OLARAK AYARLIYORUZ -->
-    <script type="module" src="script.js"></script>
+    <!-- Standart statik JS yükleme -->
+    <script src="script.js"></script>
 </body>
 </html>
