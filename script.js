@@ -288,21 +288,20 @@ const defaultPricingData = {
 // ADMIN PANEL ŞİFRESİ
 const ADMIN_PASSWORD = "xs72kp1z773t3p3t9o5nc2f9uf3rhqx3ylbjexd23mmfty2s5u";
 
-// Hafızada fiyat listesi varsa onu yükle, yoksa varsayılanı yükle
-let pricingData = JSON.parse(localStorage.getItem("kineticPricingDB")) || defaultPricingData;
+// KÖKLÜ BELLEK ONARIMI: Sitenin ilk açılışında veri yoksa varsayılanı kaydet. Varsa sadece onu yükle (Silinenler geri gelmez!)
+if (!localStorage.getItem("kineticPricingDB")) {
+  localStorage.setItem("kineticPricingDB", JSON.stringify(defaultPricingData));
+}
+let pricingData = JSON.parse(localStorage.getItem("kineticPricingDB"));
 
-// --- BELLEK ONARIMI (MIGRATION CHECK) ---
-// Eğer kullanıcının localStorage verisinde 'category' veya 'icon' eksikse onları defaultPricingData'dan tamamlıyoruz
-Object.keys(defaultPricingData).forEach(key => {
-  if (!pricingData[key]) {
-    pricingData[key] = defaultPricingData[key];
-  } else {
-    if (!pricingData[key].category) pricingData[key].category = defaultPricingData[key].category || "software";
-    if (!pricingData[key].icon) pricingData[key].icon = defaultPricingData[key].icon || "fas fa-cube";
+// Eski hafıza uyumluluğu için mevcut anahtarları onar (Eksik kategori/ikonları ekler, silinenleri canlandırmaz!)
+Object.keys(pricingData).forEach(key => {
+  if (defaultPricingData[key]) {
+    if (!pricingData[key].category) pricingData[key].category = defaultPricingData[key].category;
+    if (!pricingData[key].icon) pricingData[key].icon = defaultPricingData[key].icon;
   }
 });
 
-// Hafızada yetkili listesi varsa onu yükle, yoksa varsayılan listeyi yükle
 const defaultStaff = ["owmanxx", "neural_forge.", "someoneelsexd"];
 let officialStaff = JSON.parse(localStorage.getItem("kineticStaffDB")) || defaultStaff;
 
@@ -346,14 +345,32 @@ document.addEventListener("DOMContentLoaded", () => {
   const newStaffInput = document.getElementById("newStaffInput");
   const addStaffBtn = document.getElementById("addStaffBtn");
   const staffList = document.getElementById("staffList");
+  const exportDbBtn = document.getElementById("exportDbBtn");
 
   const servicesGrid = document.getElementById("servicesGrid");
 
-  let currentOpenService = null; // Fiyat modalında açık olan servis anahtarı
+  let currentOpenService = null;
 
   // ==========================================================================
-  // 1. DINAMIK ANASAYFA KARTLARI OLUŞTURMA SİSTEMİ (RENDER SERVICES)
+  // CANLI EŞİTLEME MOTORU (FETCH PRODUCTS.JSON FROM GITHUB)
   // ==========================================================================
+  async function fetchLiveProducts() {
+    try {
+      // Sitenizin ana dizinindeki products.json dosyasını çekmeye çalışır
+      const response = await fetch("products.json");
+      if (response.ok) {
+        const liveData = await response.json();
+        pricingData = liveData;
+        localStorage.setItem("kineticPricingDB", JSON.stringify(pricingData));
+        console.log("[+] Live Database synced from GitHub Page!");
+      }
+    } catch (err) {
+      console.log("[i] Offline mode / Local storage active.");
+    }
+    renderServices();
+  }
+
+  // 1. DINAMIK ANASAYFA KARTLARI OLUŞTURMA SİSTEMİ
   function renderServices() {
     if (!servicesGrid) return;
     const currentLang = localStorage.getItem("preferredLang") || "en";
@@ -365,20 +382,18 @@ document.addEventListener("DOMContentLoaded", () => {
       card.className = "service-card";
       card.setAttribute("data-category", item.category || "software");
 
-      // İkon Çözücü: FontAwesome sınıfı mı yoksa Emoji mi? Safely kontrol ediyoruz.
       const icon = item.icon || "fas fa-cube";
       let iconHTML = "";
       const isFontAwesome = icon.startsWith("fa") || icon.includes(" ");
       if (isFontAwesome) {
         iconHTML = `<i class="${icon}"></i>`;
       } else {
-        iconHTML = icon; // Doğrudan emoji yazdır
+        iconHTML = icon;
       }
 
       const titleText = item.title[currentLang] || item.title;
       const descText = item.desc[currentLang] || item.desc;
 
-      // Kategori bazlı buton ismini belirle
       let btnLabelText = translations[currentLang]["btn_view_prices"];
       if (item.category === "software") {
         btnLabelText = key.includes("analysis") 
@@ -398,17 +413,14 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // Event Delegation ile tıklamaları yönetiyoruz (Dinamik butonlar için hayati önem taşır)
   if (servicesGrid) {
     servicesGrid.addEventListener("click", (e) => {
       const btn = e.target.closest(".card-action-btn");
       if (btn) {
         const serviceKey = btn.getAttribute("data-service");
         const currentLang = localStorage.getItem("preferredLang") || "en";
-
         currentOpenService = serviceKey;
         populatePricingModal(serviceKey, currentLang);
-
         pricingModal.classList.add("open");
         document.body.style.overflow = "hidden";
       }
@@ -430,7 +442,6 @@ document.addEventListener("DOMContentLoaded", () => {
     localStorage.setItem("preferredLang", lang);
     langSelect.value = lang;
 
-    // Kartları yeni dile göre tekrar oluştur
     renderServices();
 
     if (currentOpenService) {
@@ -441,6 +452,7 @@ document.addEventListener("DOMContentLoaded", () => {
   // İlk dil yüklemesi ve kart çizimleri
   const savedLanguage = localStorage.getItem("preferredLang") || "en";
   applyLanguage(savedLanguage);
+  fetchLiveProducts(); // Canlı verileri GitHub'dan çekmeyi dene
 
   langSelect.addEventListener('change', (e) => {
     applyLanguage(e.target.value);
@@ -482,7 +494,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
 
-  // 3. ADMIN PANEL ŞİFRELİ GİRİŞ VE AÇILMA YÖNETİMİ
+  // 3. ADMIN PANEL ŞİFRELİ GİRİŞ VE SEKME YÖNETİMİ
   adminBtn.addEventListener("click", () => {
     const inputPass = prompt("Please enter the Admin Password / Lütfen Yönetici Şifresini Girin:");
     
@@ -492,7 +504,7 @@ document.addEventListener("DOMContentLoaded", () => {
       loadAdminSelect();
       renderStaffList();
       renderAdminProductList();
-      generateAddProdTiersForm(); // İlk yüklemede paketleri oluştur
+      generateAddProdTiersForm();
       adminDashboard.classList.add("open");
       document.body.style.overflow = "hidden";
     } else {
@@ -506,6 +518,22 @@ document.addEventListener("DOMContentLoaded", () => {
       document.body.style.overflow = "auto";
     });
   }
+
+  // Admin Dashboard Sekme Geçiş Tetikleyicileri
+  const tabButtons = adminDashboard.querySelectorAll(".dashboard-tabs .tab-btn");
+  const tabContents = adminDashboard.querySelectorAll(".tab-content");
+
+  tabButtons.forEach(btn => {
+    btn.addEventListener("click", () => {
+      const targetTab = btn.getAttribute("data-tab");
+      
+      tabButtons.forEach(b => b.classList.remove("active"));
+      tabContents.forEach(c => c.classList.remove("active"));
+
+      btn.classList.add("active");
+      document.getElementById(targetTab).classList.add("active");
+    });
+  });
 
 
   // 4. ADMIN PANEL - DİNAMİK FİYAT EDİTÖRÜ MANTIĞI
@@ -575,9 +603,9 @@ document.addEventListener("DOMContentLoaded", () => {
     addProdTiersFields.innerHTML = "";
 
     for (let i = 1; i <= count; i++) {
-      const group = document.createElement("div");
-      group.className = "tier-input-group";
-      group.innerHTML = `
+      const tierDiv = document.createElement("div");
+      tierDiv.className = "tier-input-group";
+      tierDiv.innerHTML = `
         <h5>Package ${i}</h5>
         <div class="form-row-dual" style="margin-bottom: 8px;">
           <input type="text" class="dashboard-input tier-name-en" placeholder="Name (EN)" required>
@@ -592,11 +620,10 @@ document.addEventListener("DOMContentLoaded", () => {
           <input type="text" class="dashboard-input tier-desc-tr" placeholder="Açıklama (TR)" required>
         </div>
       `;
-      addProdTiersFields.appendChild(group);
+      addProdTiersFields.appendChild(tierDiv);
     }
   }
 
-  // Paket Sayısı değiştiğinde anında form alanlarını oluştur
   if (addProdTiersCount) {
     addProdTiersCount.addEventListener("input", () => {
       generateAddProdTiersForm();
@@ -619,7 +646,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     if (pricingData[key]) {
-      alert("This username is already added! / Bu kullanıcı zaten ekli!");
+      alert("This product ID already exists! / Bu ürün kimliği zaten mevcut!");
       return;
     }
 
@@ -651,7 +678,6 @@ document.addEventListener("DOMContentLoaded", () => {
       return;
     }
 
-    // Yeni ürünü pricingData'ya yaz
     pricingData[key] = {
       category: category,
       icon: icon,
@@ -660,7 +686,6 @@ document.addEventListener("DOMContentLoaded", () => {
       tiers: tiers
     };
 
-    // Kaydet ve Arayüzleri Yenile
     localStorage.setItem("kineticPricingDB", JSON.stringify(pricingData));
     
     // Formları temizle
@@ -682,7 +707,7 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
 
-  // 6. ADMIN PANEL - ÜRÜN LİSTELEME VE SİLME (DELETE PRODUCTS)
+  // 6. ADMIN PANEL - ÜRÜN SİLME (DELETE PRODUCTS - FIXED)
   function renderAdminProductList() {
     if (!adminProductList) return;
     adminProductList.innerHTML = "";
@@ -698,7 +723,6 @@ document.addEventListener("DOMContentLoaded", () => {
       adminProductList.appendChild(li);
     });
 
-    // Ürün Silme Buton Olayları
     const removeProdBtns = adminProductList.querySelectorAll(".remove-product-btn");
     removeProdBtns.forEach(btn => {
       btn.addEventListener("click", () => {
@@ -717,7 +741,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
 
-  // 5. ADMIN PANEL - YETKİLİ (STAFF) KADROSU YÖNETİMİ
+  // 7. ADMIN PANEL - YETKİLİ (STAFF) KADROSU YÖNETİMİ
   function renderStaffList() {
     if (!staffList) return;
     staffList.innerHTML = "";
@@ -758,7 +782,21 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
 
-  // 6. HİZMET FİLTRELEME (SOFTWARE / GAMES)
+  // 8. DATABASE EXPORT (EŞİTLEME İÇİN GÜNCEL PRODUCTS.JSON İNDİRME)
+  if (exportDbBtn) {
+    exportDbBtn.addEventListener("click", () => {
+      const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(pricingData, null, 2));
+      const downloadAnchor = document.createElement('a');
+      downloadAnchor.setAttribute("href", dataStr);
+      downloadAnchor.setAttribute("download", "products.json"); // Mutlaka products.json olarak insin
+      document.body.appendChild(downloadAnchor);
+      downloadAnchor.click();
+      downloadAnchor.remove();
+    });
+  }
+
+
+  // 9. HİZMET FİLTRELEME (SOFTWARE / GAMES)
   const filterButtons = document.querySelectorAll(".filter-btn");
 
   filterButtons.forEach((button) => {
@@ -789,7 +827,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
-  // 7. YETKİLİ DOĞRULAMA (STAFF VERIFICATION)
+  // 10. YETKİLİ DOĞRULAMA (STAFF VERIFICATION)
   verifyBtn.addEventListener("click", () => {
     const inputVal = staffInput.value.trim().toLowerCase();
     const currentLang = localStorage.getItem("preferredLang") || "en";
@@ -818,7 +856,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
-  // 8. FAQ (S.S.S.) AKORDEON YAPISI
+  // 11. FAQ (S.S.S.) AKORDEON YAPISI
   const faqItems = document.querySelectorAll(".faq-item");
 
   faqItems.forEach((item) => {
@@ -843,12 +881,8 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
-  // Ortak dış tık kapatma (Tüm modallar için)
+  // Ortak dış tık kapatma (Sadece fiyat pop-up'ı için aktif, Admin paneli için devre dışı!)
   window.addEventListener("click", (e) => {
-    if (e.target === adminDashboard) {
-      adminDashboard.classList.remove("open");
-      document.body.style.overflow = "auto";
-    }
     if (e.target === pricingModal) {
       pricingModal.classList.remove("open");
       currentOpenService = null;
