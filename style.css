@@ -1,4 +1,6 @@
-/* Tasarım Temelleri ve Değişkenler */
+/* ==========================================================================
+   1. TEMA DEĞİŞKENLERİ VE GENEL SIFIRLAMALAR (VARIABLES & RESET)
+   ========================================================================== */
 :root {
     --bg-main: #0a090e;         
     --bg-darker: #060508;       
@@ -25,7 +27,9 @@ body {
     overflow-x: hidden;
 }
 
-/* Header / Navbar */
+/* ==========================================================================
+   2. ÜST YATAY MENÜ TASARIMI (NAVBAR)
+   ========================================================================== */
 .navbar {
     display: flex;
     justify-content: space-between;
@@ -140,7 +144,9 @@ nav a:hover {
     transform: translateY(-1px);
 }
 
-/* Hero Section */
+/* ==========================================================================
+   3. GİRİŞ BÖLÜMÜ (HERO SECTION)
+   ========================================================================== */
 .hero {
     min-height: 75vh;
     display: flex;
@@ -230,7 +236,9 @@ nav a:hover {
     transform: translateY(-2px);
 }
 
-/* Nasıl Çalışır */
+/* ==========================================================================
+   4. NASIL ÇALIŞIR VE KONTRAST GEÇİŞLER (HOW IT WORKS & SECTIONS)
+   ========================================================================== */
 .how-it-works {
     background-color: var(--bg-darker);
     padding: 5rem 8%;
@@ -291,7 +299,9 @@ nav a:hover {
     font-size: 0.95rem;
 }
 
-/* Hizmetler Bölümü */
+/* ==========================================================================
+   5. HİZMETLER VE ÜRÜNLER (SERVICES & CARDS)
+   ========================================================================== */
 .services-section {
     padding: 6rem 8%;
 }
@@ -373,7 +383,6 @@ nav a:hover {
     flex-grow: 1;
 }
 
-/* Yenilenen Buton Tasarımı */
 .card-action-btn {
     background: none;
     border: none;
@@ -399,30 +408,37 @@ nav a:hover {
     transform: translateX(4px);
 }
 
-/* Güvenlik (Staff Tool) */
+/* ==========================================================================
+   6. GÜVENLİK VE STAFF VERIFICATION (SECURITY & AUDIT)
+   ========================================================================== */
 .security-check {
     background-color: var(--bg-darker);
     padding: 5rem 8%;
     border-top: 1px solid rgba(159, 122, 234, 0.05);
 }
+
 .security-container {
     max-width: 650px;
     margin: 0 auto;
     text-align: center;
 }
+
 .security-container h2 {
     color: var(--purple-glow);
     margin-bottom: 10px;
 }
+
 .security-container p {
     color: var(--text-muted);
     font-size: 0.95rem;
 }
+
 .verify-box {
     display: flex;
     gap: 10px;
     margin-top: 2rem;
 }
+
 .verify-box input {
     flex: 1;
     background-color: var(--bg-card);
@@ -432,6 +448,7 @@ nav a:hover {
     color: white;
     outline: none;
 }
+
 .verify-result {
     margin-top: 1.5rem;
     padding: 12px;
@@ -439,18 +456,22 @@ nav a:hover {
     font-weight: 600;
     display: none;
 }
+
 .verify-success {
     background-color: rgba(46, 204, 113, 0.15);
     color: #2ecc71;
     border: 1px solid #2ecc71;
 }
+
 .verify-fail {
     background-color: rgba(231, 76, 60, 0.15);
     color: #e74c3c;
     border: 1px solid #e74c3c;
 }
 
-/* SSS */
+/* ==========================================================================
+   7. SIKÇA SORULAN SORULAR (FAQ ACCORDION)
+   ========================================================================== */
 .faq-section {
     background-color: var(--bg-main);
     padding: 6rem 8%;
@@ -514,7 +535,9 @@ nav a:hover {
     line-height: 1.6;
 }
 
-/* GENEL MODAL ALTYAPISI */
+/* ==========================================================================
+   8. DİNAMİK POP-UP MODAL ALTYAPISI (PRICING MODAL)
+   ========================================================================== */
 .pricing-modal, .admin-dashboard-modal {
     display: none; 
     position: fixed;
@@ -547,7 +570,6 @@ nav a:hover {
     animation: modalSlide 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
 }
 
-/* Fiyat Modalı Özel Genişlik */
 .pricing-modal-content {
     max-width: 800px;
     padding: 2.5rem;
@@ -555,21 +577,14 @@ nav a:hover {
 
 /* Admin Paneli Özel Genişlik */
 .dashboard-content {
-    max-width: 1100px; /* 3 Sütunlu Panel İçin Genişletildi */
-    width: 100%;
+    max-width: 950px;
     text-align: left;
-    padding: 2.5rem;
+    padding: 3rem;
 }
 
 @keyframes modalSlide {
-    from {
-        transform: translateY(30px);
-        opacity: 0;
-    }
-    to {
-        transform: translateY(0);
-        opacity: 1;
-    }
+    from { transform: translateY(30px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
 }
 
 .close-pricing-btn, .close-dashboard-btn {
@@ -604,7 +619,6 @@ nav a:hover {
     margin-bottom: 1.5rem;
 }
 
-/* FİYAT MODAL DETAYLARI */
 .pricing-tiers {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -674,22 +688,55 @@ nav a:hover {
     transform: translateY(-2px);
 }
 
-/* ADMIN DASHBOARD (KONTROL PANELİ) DETAYLARI */
-.dashboard-body {
-    display: grid;
-    grid-template-columns: 1.2fr 1.2fr 1fr; /* 3 Sütun Yapısı */
-    gap: 25px;
-    margin-top: 2rem;
+/* ==========================================================================
+   9. GECE MODU & DETAYLI SEKMELI ADMIN DASHBOARD STILLERI (ADMIN PANEL)
+   ========================================================================== */
+.dashboard-tabs {
+    display: flex;
+    gap: 10px;
+    border-bottom: 1px solid rgba(159, 122, 234, 0.15);
+    margin-bottom: 1.5rem;
 }
 
-@media (max-width: 1024px) {
-    .dashboard-body {
-        grid-template-columns: 1fr; /* Mobilde dikey akış */
-    }
-    .dashboard-content {
-        max-width: 90%;
-        padding: 2rem;
-    }
+.dashboard-tabs .tab-btn {
+    background: none;
+    border: none;
+    color: var(--text-muted);
+    padding: 12px 20px;
+    font-weight: 700;
+    font-size: 0.95rem;
+    cursor: pointer;
+    transition: 0.3s ease;
+    border-bottom: 2px solid transparent;
+}
+
+.dashboard-tabs .tab-btn:hover {
+    color: var(--purple-glow);
+}
+
+.dashboard-tabs .tab-btn.active {
+    color: var(--purple-glow);
+    border-bottom-color: var(--purple-glow);
+}
+
+.tab-content {
+    display: none;
+}
+
+.tab-content.active {
+    display: block;
+}
+
+/* Sütun Düzenleri */
+.dashboard-grid-1 {
+    display: grid;
+    grid-template-columns: 1fr;
+}
+
+.dashboard-grid-2 {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: 25px;
 }
 
 .dashboard-section {
@@ -738,14 +785,18 @@ nav a:hover {
     padding-right: 8px;
 }
 
-.tier-edit-row {
+.tier-edit-row, .tier-input-group {
     background-color: var(--bg-card);
     border: 1px solid rgba(255, 255, 255, 0.05);
     border-radius: 8px;
     padding: 12px;
 }
 
-.tier-edit-row label {
+.tier-input-group {
+    margin-bottom: 15px;
+}
+
+.tier-edit-row label, .tier-input-group h5 {
     font-size: 0.85rem;
     font-weight: 700;
     color: var(--purple-glow);
@@ -753,10 +804,14 @@ nav a:hover {
     margin-bottom: 6px;
 }
 
-.edit-inputs {
+.edit-inputs, .form-row-dual {
     display: grid;
     grid-template-columns: 1.5fr 1fr;
     gap: 10px;
+}
+
+.form-row-dual {
+    margin-bottom: 8px;
 }
 
 .dashboard-input {
@@ -768,7 +823,6 @@ nav a:hover {
     font-size: 0.88rem;
     outline: none;
     width: 100%;
-    margin-bottom: 10px;
 }
 
 .dashboard-input:focus {
@@ -781,35 +835,9 @@ nav a:hover {
     font-size: 0.95rem;
     display: flex;
     justify-content: center;
-    margin-top: auto; /* Altta sabitle */
 }
 
-/* Dinamik Yeni Paket Giriş Kutusu */
-.add-prod-tiers-fields {
-    max-height: 200px;
-    overflow-y: auto;
-    margin: 15px 0;
-    padding-right: 8px;
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-}
-
-.tier-input-group {
-    background-color: var(--bg-card);
-    border: 1px solid rgba(159, 122, 234, 0.15);
-    border-radius: 8px;
-    padding: 12px;
-}
-
-.tier-input-group h5 {
-    color: var(--purple-glow);
-    font-size: 0.85rem;
-    font-weight: 700;
-    margin-bottom: 8px;
-}
-
-/* Staff Manager & Ürün Silme */
+/* Staff Manager */
 .staff-manager-box {
     display: flex;
     flex-direction: column;
@@ -849,12 +877,12 @@ nav a:hover {
 .staff-list-item {
     background-color: var(--bg-card);
     border: 1px solid rgba(255, 255, 255, 0.03);
-    padding: 10px 12px;
+    padding: 10px 15px;
     border-radius: 8px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    font-size: 0.88rem;
+    font-size: 0.9rem;
     font-weight: 600;
 }
 
@@ -863,7 +891,7 @@ nav a:hover {
     border: none;
     color: #e74c3c;
     cursor: pointer;
-    font-size: 0.95rem;
+    font-size: 1rem;
     transition: 0.2s ease;
 }
 
@@ -872,71 +900,9 @@ nav a:hover {
     transform: scale(1.1);
 }
 
-/* Form Satır Tipleri */
-.form-row-dual {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 10px;
-}
-
-/* Footer */
-footer {
-    padding: 3.5rem 2rem;
-    text-align: center;
-    border-top: 1px solid rgba(159, 122, 234, 0.05);
-}
-
-.footer-content p {
-    color: var(--text-muted);
-    font-size: 0.9rem;
-    margin-bottom: 0.5rem;
-}
-
-.footer-sub {
-    font-size: 0.75rem !important;
-    opacity: 0.5;
-}
-
-/* Mobil Uyumluluk */
-@media (max-width: 1024px) {
-    .navbar {
-        flex-direction: column;
-        gap: 20px;
-        text-align: center;
-        padding: 1.5rem 1rem;
-    }
-    .nav-container {
-        flex-direction: column;
-        gap: 20px;
-        width: 100%;
-    }
-    nav {
-        flex-direction: row;
-        flex-wrap: wrap;
-        justify-content: center;
-        gap: 15px;
-    }
-    .nav-actions {
-        width: 100%;
-        justify-content: center;
-        flex-wrap: wrap;
-        gap: 12px;
-    }
-}
-
-@media (max-width: 768px) {
-    .hero h1 {
-        font-size: 2.3rem;
-    }
-    .hero p {
-        font-size: 1rem;
-    }
-    .services-section {
-        padding: 4rem 5%;
-    }
-}
-
-/* Güven ve Bilgilendirme Kartı */
+/* ==========================================================================
+   10. GÜVEN VE BİLGİLENDİRME KARTI (TRUST CARD)
+   ========================================================================== */
 .trust-info-section {
     padding: 3rem 8% 1rem 8%;
     display: flex;
@@ -984,19 +950,9 @@ footer {
     line-height: 1.6;
 }
 
-/* Mobil Cihazlar İçin Uyum */
-@media (max-width: 768px) {
-    .trust-card {
-        flex-direction: column;
-        text-align: center;
-        padding: 1.8rem;
-    }
-    .trust-icon {
-        margin: 0 auto;
-    }
-}
-
-/* Sunucu Rolleri Bölümü Geliştirilmiş Tasarımı */
+/* ==========================================================================
+   11. SUNUCU ROLLERİ BÖLÜMÜ GELİŞTİRİLMİŞ TASARIMI (DISCORD ROLES)
+   ========================================================================== */
 .roles-section {
     padding: 6rem 8%;
     background: radial-gradient(120% 120% at 50% 10%, rgba(159, 122, 234, 0.03) 0%, rgba(10, 9, 14, 0) 60%), var(--bg-main);
@@ -1005,7 +961,7 @@ footer {
 
 .roles-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 30px;
     margin-top: 3.5rem;
 }
@@ -1065,7 +1021,6 @@ footer {
     gap: 15px;
 }
 
-/* Her Bir Rol Satırı */
 .role-item {
     display: flex;
     flex-direction: column;
@@ -1091,7 +1046,6 @@ footer {
     padding-left: 4px;
 }
 
-/* Discord Rol Etiketleri (Glow & Dot Efektli Badges) */
 .role-badge {
     display: inline-flex;
     align-items: center;
@@ -1132,10 +1086,106 @@ footer {
 .r-legendary { background-color: rgba(241, 196, 15, 0.06); color: #f1c40f; border: 1px solid rgba(241, 196, 15, 0.25); box-shadow: 0 0 10px rgba(241, 196, 15, 0.05); }
 .r-master { background-color: rgba(211, 84, 0, 0.06); color: #d35400; border: 1px solid rgba(211, 84, 0, 0.25); box-shadow: 0 0 10px rgba(211, 84, 0, 0.05); }
 .r-diamond { background-color: rgba(52, 152, 219, 0.06); color: #3498db; border: 1px solid rgba(52, 152, 219, 0.25); box-shadow: 0 0 10px rgba(52, 152, 219, 0.05); }
-.r-gold { background-color: rgba(243, 156, 18, 0.06); color: #f39c12; border: 1px solid rgba(243, 156, 18, 0.25); box-shadow: 0 0 10px rgba(243, 156, 18, 0.05); }
+.r-gold { background-color: rgba(243, 156, 18, 0.06); color: #f39c12; border: 1px solid rgba(243, 156, 18, 0.3); box-shadow: 0 0 10px rgba(243, 156, 18, 0.05); }
 .r-bronze { background-color: rgba(189, 195, 199, 0.06); color: #bdc3c7; border: 1px solid rgba(189, 195, 199, 0.25); box-shadow: 0 0 10px rgba(189, 195, 199, 0.05); }
 
 .r-partnerteam { background-color: rgba(26, 188, 156, 0.06); color: #1abc9c; border: 1px solid rgba(26, 188, 156, 0.25); box-shadow: 0 0 10px rgba(26, 188, 156, 0.05); }
 .r-developer { background-color: rgba(52, 152, 219, 0.06); color: #3498db; border: 1px solid rgba(52, 152, 219, 0.25); box-shadow: 0 0 10px rgba(52, 152, 219, 0.05); }
 .r-member { background-color: rgba(46, 204, 113, 0.06); color: #2ecc71; border: 1px solid rgba(46, 204, 113, 0.25); box-shadow: 0 0 10px rgba(46, 204, 113, 0.05); }
 .r-partnerinvite { background-color: rgba(155, 89, 182, 0.06); color: #9b59b6; border: 1px solid rgba(155, 89, 182, 0.25); box-shadow: 0 0 10px rgba(155, 89, 182, 0.05); }
+
+/* ==========================================================================
+   12. ALT BİLGİ ALANI (FOOTER)
+   ========================================================================== */
+footer {
+    padding: 3.5rem 2rem;
+    text-align: center;
+    border-top: 1px solid rgba(159, 122, 234, 0.05);
+}
+
+.footer-content p {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    margin-bottom: 0.5rem;
+}
+
+.footer-sub {
+    font-size: 0.75rem !important;
+    opacity: 0.5;
+}
+
+/* ==========================================================================
+   13. DUYARLI KIRILMA NOKTALARI (RESPONSIVENESS)
+   ========================================================================== */
+@media (max-width: 1024px) {
+    .navbar {
+        flex-direction: column;
+        gap: 20px;
+        text-align: center;
+        padding: 1.5rem 1rem;
+    }
+    .nav-container {
+        flex-direction: column;
+        gap: 20px;
+        width: 100%;
+    }
+    nav {
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 15px;
+    }
+    .nav-actions {
+        width: 100%;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 12px;
+    }
+}
+
+@media (max-width: 768px) {
+    .hero h1 {
+        font-size: 2.3rem;
+    }
+    .hero p {
+        font-size: 1rem;
+    }
+    .services-section {
+        padding: 4rem 5%;
+    }
+    .verify-box {
+        flex-direction: column;
+    }
+    .verify-box button {
+        width: 100%;
+        justify-content: center;
+    }
+}
+
+/* Admin Paneli Özel Genişlik ve Taşma Önleyici */
+.dashboard-content {
+    max-width: 1100px;
+    width: 100%;
+    max-height: 85vh;          /* Ekran yüksekliğinin %85'ini asla geçemez */
+    overflow-y: auto;          /* İçerik ekrandan büyükse panel kendi içinde kaydırılır */
+    text-align: left;
+    padding: 2rem 2.5rem;      /* İç boşluğu biraz daraltarak dikeyde yer kazandık */
+    position: relative;
+    background-color: var(--bg-card);
+    border: 1px solid rgba(159, 122, 234, 0.25);
+    border-radius: 16px;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+    animation: modalSlide 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+/* Panel İçi Kaydırma Çubuğu Özelleştirmesi (Scrollbar) */
+.dashboard-content::-webkit-scrollbar {
+    width: 6px;
+}
+.dashboard-content::-webkit-scrollbar-thumb {
+    background-color: rgba(159, 122, 234, 0.2);
+    border-radius: 10px;
+}
+.dashboard-content::-webkit-scrollbar-thumb:hover {
+    background-color: var(--purple-glow);
+}
