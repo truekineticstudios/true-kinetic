@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,256 +6,455 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>True Kinetic | Command Center</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    
     <style>
-        /* ==========================================================================
-           TEMA DEĞİŞKENLERİ VE GENEL STILLER (THEME VARIABLES & RESET)
-           ========================================================================== */
+
         :root {
-            --bg-main: #060509;         
-            --bg-darker: #030305;       
-            --bg-card: #0f0d19;         
-            --purple-glow: #9f7aea;     
-            --purple-hover: #b794f4;    
-            --text-white: #ffffff;
+            --bg-main: #0a0812;         
+            --bg-darker: #050409;       
+            --bg-card: rgba(21, 18, 36, 0.7);         
+            --purple-glow: #a855f7;     
+            --purple-hover: #c084fc;    
+            --purple-opaque: rgba(168, 85, 247, 0.15);
+            --text-white: #f3f4f6;
             --text-muted: #9ca3af;
-            --border-color: rgba(159, 122, 234, 0.15);
+            --border-color: rgba(168, 85, 247, 0.12);
+            --border-hover: rgba(168, 85, 247, 0.3);
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --font-sans: 'Plus Jakarta Sans', -apple-system, sans-serif;
+            --font-mono: 'JetBrains Mono', monospace;
         }
 
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: var(--font-sans);
         }
 
         body {
             background-color: var(--bg-main);
             color: var(--text-white);
             line-height: 1.6;
-            display: none; /* Hide body until password is verified */
-            padding-bottom: 4rem;
-            background-image: radial-gradient(rgba(159, 122, 234, 0.05) 1px, transparent 1px);
-            background-size: 24px 24px;
+            min-height: 100vh;
+            background-image: 
+                radial-gradient(at 0% 0%, rgba(168, 85, 247, 0.1) 0px, transparent 50%),
+                radial-gradient(at 100% 100%, rgba(168, 85, 247, 0.05) 0px, transparent 50%),
+                radial-gradient(rgba(168, 85, 247, 0.03) 1px, transparent 1px);
+            background-size: 100% 100%, 100% 100%, 24px 24px;
+            overflow-x: hidden;
         }
-
-        /* Özel Kaydırma Çubuğu */
+        
         ::-webkit-scrollbar {
-            width: 6px;
-            height: 6px;
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: var(--bg-darker);
         }
         ::-webkit-scrollbar-thumb {
-            background-color: var(--bg-card);
+            background-color: rgba(168, 85, 247, 0.25);
             border-radius: 10px;
+            border: 2px solid var(--bg-darker);
         }
         ::-webkit-scrollbar-thumb:hover {
             background-color: var(--purple-glow);
         }
 
-        /* Header */
+        #loginOverlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: var(--bg-darker);
+            background-image: radial-gradient(rgba(168, 85, 247, 0.08) 1px, transparent 1px);
+            background-size: 20px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            transition: opacity 0.5s ease, visibility 0.5s ease;
+        }
+
+        .login-card {
+            background: rgba(15, 12, 28, 0.85);
+            border: 1px solid var(--border-color);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8), 0 0 40px rgba(168, 85, 247, 0.1);
+            backdrop-filter: blur(12px);
+            padding: 3rem 2.5rem;
+            border-radius: 20px;
+            width: 100%;
+            max-width: 440px;
+            text-align: center;
+            transform: translateY(0);
+            transition: transform 0.4s ease;
+        }
+
+        .login-logo {
+            font-size: 1.8rem;
+            font-weight: 800;
+            letter-spacing: 2px;
+            margin-bottom: 2rem;
+        }
+
+        .login-logo span {
+            color: var(--purple-glow);
+            text-shadow: 0 0 15px rgba(168, 85, 247, 0.5);
+        }
+
+        .password-field-wrapper {
+            position: relative;
+            margin-bottom: 1.5rem;
+        }
+
+        .password-field-wrapper input {
+            padding-right: 45px;
+        }
+
+        .password-toggle-btn {
+            position: absolute;
+            right: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            color: var(--text-muted);
+            cursor: pointer;
+            transition: color 0.2s;
+        }
+
+        .password-toggle-btn:hover {
+            color: var(--text-white);
+        }
+
+
+        #dashboardWrapper {
+            display: none; 
+            animation: fadeIn 0.6s ease forwards;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+      
         .header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 1.5rem 5%;
-            background-color: var(--bg-darker);
+            padding: 1.2rem 4%;
+            background-color: rgba(5, 4, 9, 0.8);
+            backdrop-filter: blur(10px);
             border-bottom: 1px solid var(--border-color);
-            box-shadow: 0 5px 25px rgba(0,0,0,0.6);
-            margin-bottom: 2.5rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
         }
 
         .logo-area {
-            font-size: 1.4rem;
-            font-weight: 900;
-            letter-spacing: 1.5px;
-            text-shadow: 0 0 10px rgba(159, 122, 234, 0.2);
-        }
-        .logo-true { color: var(--text-white); }
-        .logo-kinetic { color: var(--purple-glow); }
-
-        .header-actions {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-
-        .back-btn {
-            background: none;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            color: var(--text-muted);
-            padding: 8px 18px;
-            border-radius: 8px;
-            cursor: pointer;
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 0.9rem;
-            transition: 0.3s ease;
-        }
-        .back-btn:hover {
-            color: var(--purple-glow);
-            border-color: var(--purple-glow);
-            box-shadow: 0 0 10px rgba(159, 122, 234, 0.15);
-        }
-
-        /* Grid Layout */
-        .container {
-            max-width: 1450px;
-            margin: 0 auto;
-            padding: 0 2rem;
-            display: grid;
-            grid-template-columns: 320px 1fr;
-            gap: 30px;
-        }
-
-        @media (max-width: 1024px) {
-            .container {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        /* Card Component */
-        .panel-card {
-            background-color: var(--bg-card);
-            border: 1px solid rgba(159, 122, 234, 0.1);
-            border-radius: 16px;
-            padding: 2rem;
-            height: fit-content;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-        }
-
-        /* YAPIŞKAN VE TAŞMAZ SOL PANEL (STICKY SIDEBAR) */
-        aside.panel-card {
-            max-height: calc(100vh - 160px); /* Ekran yüksekliğine göre dikeyde sınırlar */
-            overflow-y: auto;                 /* İçerik sığmazsa kendi içinde kaydırma çubuğu açar */
-            position: sticky;
-            top: 100px;                       /* Sayfayı aşağı kaydırdıkça ekrana yapışık kalır */
-        }
-
-        .panel-card h3 {
             font-size: 1.3rem;
             font-weight: 800;
-            margin-bottom: 1.8rem;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-            padding-bottom: 12px;
-            color: var(--purple-glow);
+            letter-spacing: 1px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo-true { color: var(--text-white); }
+        .logo-kinetic { 
+            color: var(--purple-glow); 
+            text-shadow: 0 0 10px rgba(168, 85, 247, 0.35);
+        }
+
+        .header-actions {
             display: flex;
             align-items: center;
             gap: 12px;
         }
 
-        /* Form Controls */
+        .user-badge {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            padding: 6px 14px;
+            border-radius: 10px;
+            font-size: 0.8rem;
+        }
+
+        .role-badge {
+            font-size: 0.68rem;
+            font-weight: 800;
+            padding: 2px 6px;
+            border-radius: 4px;
+            text-transform: uppercase;
+        }
+
+        .badge-owner { background-color: rgba(168, 85, 247, 0.15); color: var(--purple-glow); border: 1px solid var(--purple-glow); }
+        .badge-head-admin { background-color: rgba(59, 130, 246, 0.15); color: #3b82f6; border: 1px solid #3b82f6; }
+        .badge-admin { background-color: rgba(156, 163, 175, 0.15); color: var(--text-muted); border: 1px solid var(--text-muted); }
+
+        .header-btn {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            color: var(--text-muted);
+            padding: 10px 16px;
+            border-radius: 10px;
+            cursor: pointer;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.85rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.25s ease;
+        }
+
+        .header-btn:hover {
+            color: var(--purple-glow);
+            border-color: var(--purple-glow);
+            background: var(--purple-opaque);
+            box-shadow: 0 0 12px rgba(168, 85, 247, 0.15);
+        }
+
+        .logout-btn:hover {
+            color: var(--danger);
+            border-color: var(--danger);
+            background: rgba(239, 68, 68, 0.1);
+            box-shadow: 0 0 12px rgba(239, 68, 68, 0.15);
+        }
+
+    
+        .container {
+            max-width: 1550px;
+            margin: 0 auto;
+            padding: 2rem;
+            display: grid;
+            grid-template-columns: 340px 1fr;
+            gap: 30px;
+        }
+
+        @media (max-width: 1150px) {
+            .container {
+                grid-template-columns: 1fr;
+            }
+        }
+
+
+        .panel-card {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 18px;
+            padding: 2rem;
+            height: fit-content;
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(8px);
+            transition: border-color 0.3s;
+        }
+
+        .panel-card:hover {
+            border-color: rgba(168, 85, 247, 0.25);
+        }
+
+        aside.panel-card {
+            position: sticky;
+            top: 90px;
+            max-height: calc(100vh - 120px);
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .panel-card h3 {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            padding-bottom: 12px;
+            color: var(--purple-glow);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+   
         .form-group {
-            margin-bottom: 15px;
+            margin-bottom: 18px;
             width: 100%;
         }
 
         .form-group label {
             display: block;
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             font-weight: 700;
             margin-bottom: 6px;
             color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
 
         .form-control, .form-select {
             width: 100%;
-            background-color: var(--bg-main);
+            background-color: rgba(5, 4, 9, 0.6);
             border: 1px solid rgba(255, 255, 255, 0.08);
-            padding: 12px 14px;
-            border-radius: 8px;
+            padding: 11px 14px;
+            border-radius: 10px;
             color: var(--text-white);
             outline: none;
-            font-size: 0.92rem;
-            transition: 0.3s ease;
+            font-size: 0.9rem;
+            transition: all 0.25s ease;
         }
 
         .form-control:focus, .form-select:focus {
             border-color: var(--purple-glow);
-            box-shadow: 0 0 10px rgba(159, 122, 234, 0.1);
+            box-shadow: 0 0 10px rgba(168, 85, 247, 0.15);
+            background-color: rgba(5, 4, 9, 0.9);
         }
+
+        .form-select option {
+            background-color: var(--bg-main);
+            color: var(--text-white);
+        }
+
 
         .primary-btn {
             background-color: var(--purple-glow);
-            color: var(--bg-main);
+            color: #ffffff;
             border: none;
-            padding: 14px;
-            border-radius: 8px;
+            padding: 13px;
+            border-radius: 10px;
             font-weight: 700;
-            font-size: 0.95rem;
+            font-size: 0.9rem;
             cursor: pointer;
             width: 100%;
             display: flex;
             align-items: center;
             justify-content: center;
             gap: 8px;
-            transition: 0.3s ease;
-            box-shadow: 0 4px 15px rgba(159, 122, 234, 0.2);
-        }
-        .primary-btn:hover {
-            background-color: var(--purple-hover);
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(159, 122, 234, 0.35);
+            transition: all 0.25s ease;
+            box-shadow: 0 4px 15px rgba(168, 85, 247, 0.3);
         }
 
-        /* STATS / ANALYTICS ROW */
-        .stats-row {
+        .primary-btn:hover {
+            background-color: var(--purple-hover);
+            transform: translateY(-1px);
+            box-shadow: 0 6px 20px rgba(168, 85, 247, 0.55);
+        }
+
+        .secondary-btn {
+            background-color: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--text-white);
+            padding: 11px;
+            border-radius: 10px;
+            font-weight: 600;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: all 0.25s ease;
+        }
+
+        .secondary-btn:hover {
+            background-color: rgba(255, 255, 255, 0.08);
+            border-color: rgba(255, 255, 255, 0.2);
+        }
+
+
+        .stats-grid {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 20px;
-            margin-bottom: 2.2rem;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+            margin-bottom: 2rem;
+        }
+
+        @media (max-width: 768px) {
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
         }
 
         .stat-box {
-            background: linear-gradient(135deg, rgba(18, 16, 26, 0.6) 0%, rgba(6, 5, 8, 0.8) 100%);
-            border: 1px solid rgba(159, 122, 234, 0.1);
-            border-radius: 12px;
-            padding: 20px 15px;
+            background: linear-gradient(135deg, rgba(25, 20, 45, 0.4) 0%, rgba(10, 8, 18, 0.6) 100%);
+            border: 1px solid rgba(168, 85, 247, 0.1);
+            border-radius: 14px;
+            padding: 18px 14px;
             text-align: center;
-            transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+            transition: all 0.3s ease;
             position: relative;
-            overflow: hidden;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .stat-box:hover {
+            transform: translateY(-2px);
+            border-color: rgba(168, 85, 247, 0.3);
+            box-shadow: 0 8px 25px rgba(168, 85, 247, 0.08);
         }
 
         .stat-box.total-box { border-bottom: 3px solid var(--purple-glow); }
-        .stat-box.pending-box { border-bottom: 3px solid #f1c40f; }
-        .stat-box.completed-box { border-bottom: 3px solid #2ecc71; }
-
-        .stat-box:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 10px 25px rgba(159, 122, 234, 0.08);
-            border-color: rgba(159, 122, 234, 0.25);
-        }
+        .stat-box.pending-box { border-bottom: 3px solid var(--warning); }
+        .stat-box.completed-box { border-bottom: 3px solid var(--success); }
+        .stat-box.revenue-box { border-bottom: 3px solid #3b82f6; }
 
         .stat-label {
             display: block;
-            font-size: 0.8rem;
+            font-size: 0.72rem;
             color: var(--text-muted);
             text-transform: uppercase;
             font-weight: 700;
             margin-bottom: 6px;
-            letter-spacing: 0.5px;
+            letter-spacing: 0.8px;
         }
 
         .stat-value {
-            font-size: 2.2rem;
-            font-weight: 900;
+            font-size: 1.6rem;
+            font-weight: 800;
             color: var(--text-white);
-            text-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
         }
 
-        /* Table Toolbar */
+
+        .progress-container {
+            margin-top: 15px;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 8px;
+            height: 6px;
+            overflow: hidden;
+            width: 100%;
+        }
+
+        .progress-bar {
+            background: linear-gradient(90deg, var(--purple-glow), var(--success));
+            height: 100%;
+            width: 0%;
+            transition: width 0.5s ease-out;
+        }
+
+
         .table-toolbar {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-bottom: 1.5rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            padding-bottom: 1.5rem;
+        }
+
+        .toolbar-top {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 1.8rem;
             gap: 15px;
             flex-wrap: wrap;
         }
 
         .search-box {
             position: relative;
-            max-width: 350px;
+            max-width: 380px;
             width: 100%;
         }
 
@@ -273,281 +473,747 @@
         .sync-buttons {
             display: flex;
             gap: 10px;
+            flex-wrap: wrap;
         }
 
-        .sync-btn {
-            background-color: rgba(255, 255, 255, 0.03);
-            color: var(--text-white);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            padding: 10px 18px;
+        .filter-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .filter-tabs {
+            display: flex;
+            gap: 8px;
+            background: rgba(5, 4, 9, 0.4);
+            padding: 4px;
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .filter-tab {
+            background: none;
+            border: none;
+            color: var(--text-muted);
+            padding: 6px 14px;
             border-radius: 8px;
             cursor: pointer;
-            font-size: 0.88rem;
+            font-size: 0.8rem;
             font-weight: 600;
+            transition: all 0.2s ease;
+        }
+
+        .filter-tab.active {
+            background-color: var(--purple-glow);
+            color: white;
+        }
+
+        .sort-wrapper {
             display: flex;
             align-items: center;
             gap: 8px;
-            transition: 0.3s ease;
-        }
-        .sync-btn:hover {
-            background-color: rgba(159, 122, 234, 0.08);
-            border-color: var(--purple-glow);
-            box-shadow: 0 0 10px rgba(159, 122, 234, 0.1);
         }
 
-        /* Orders Table */
+        .sort-wrapper label {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            font-weight: 600;
+            white-space: nowrap;
+        }
+
         .table-responsive {
             width: 100%;
             overflow-x: auto;
-            border: 1px solid rgba(255, 255, 255, 0.04);
-            border-radius: 10px;
-            box-shadow: inset 0 0 20px rgba(0,0,0,0.5);
+            border: 1px solid rgba(168, 85, 247, 0.08);
+            border-radius: 12px;
+            background: rgba(5, 4, 9, 0.3);
         }
 
         .orders-table {
             width: 100%;
-            border-collapse: collapse;
+            border-collapse: separate;
+            border-spacing: 0;
             text-align: left;
-            font-size: 0.9rem;
-            background-color: var(--bg-card);
-            table-layout: fixed;
+            font-size: 0.85rem;
         }
 
-        .orders-table th, .orders-table td {
-            padding: 15px;
+        .orders-table th {
+            background-color: rgba(5, 4, 9, 0.7);
+            color: var(--purple-glow);
+            font-weight: 700;
+            padding: 14px 16px;
+            border-bottom: 2px solid rgba(168, 85, 247, 0.15);
+            text-transform: uppercase;
+            font-size: 0.75rem;
+            letter-spacing: 0.5px;
+        }
+
+        .orders-table td {
+            padding: 14px 16px;
             border-bottom: 1px solid rgba(255, 255, 255, 0.03);
-            vertical-align: middle; /* Tüm hücreleri dikeyde kusursuz hizalar! */
+            vertical-align: middle;
+            color: #e5e7eb;
         }
 
-        /* AKILLI KIRPMA SINIFI (Düzgün Hizalama Sağlar, Taşmayı Engeller) */
+        .orders-table tr:hover td {
+            background-color: rgba(168, 85, 247, 0.03);
+        }
+
+
+        .orders-table th:nth-child(1), .orders-table td:nth-child(1) { width: 110px; } /* Order ID */
+        .orders-table th:nth-child(2), .orders-table td:nth-child(2) { width: 140px; } /* Date */
+        .orders-table th:nth-child(3), .orders-table td:nth-child(3) { width: 150px; } /* Customer */
+        .orders-table th:nth-child(4), .orders-table td:nth-child(4) { width: 190px; } /* Product/Service */
+        .orders-table th:nth-child(5), .orders-table td:nth-child(5) { width: 110px; } /* Amount */
+        .orders-table th:nth-child(6), .orders-table td:nth-child(6) { width: 110px; } /* Method */
+        .orders-table th:nth-child(7), .orders-table td:nth-child(7) { width: 145px; } /* Status & Req */
+        .orders-table th:nth-child(8), .orders-table td:nth-child(8) { width: 110px; } /* Actions */
+
         .orders-table td.truncate {
             white-space: nowrap;
             overflow: hidden;
-            text-overflow: ellipsis; /* Çok uzun metinlerin sonuna '...' ekler */
+            text-overflow: ellipsis;
+            max-width: 1px; 
         }
 
-        /* Kolon Genişlik Sınırlandırmaları */
-        .orders-table th:nth-child(1), .orders-table td:nth-child(1) { width: 110px; } /* Order ID */
-        .orders-table th:nth-child(2), .orders-table td:nth-child(2) { width: 160px; } /* Date */
-        .orders-table th:nth-child(3), .orders-table td:nth-child(3) { width: 180px; } /* Customer */
-        .orders-table th:nth-child(4), .orders-table td:nth-child(4) { width: 220px; } /* Product/Service */
-        .orders-table th:nth-child(5), .orders-table td:nth-child(5) { width: 140px; } /* Amount */
-        .orders-table th:nth-child(6), .orders-table td:nth-child(6) { width: 110px; } /* Method */
-        .orders-table th:nth-child(7), .orders-table td:nth-child(7) { width: 130px; } /* Status */
-        .orders-table th:nth-child(8), .orders-table td:nth-child(8) { width: 100px; } /* Actions */
-
-        .orders-table th {
-            background-color: rgba(3, 3, 5, 0.4);
-            color: var(--purple-glow);
-            font-weight: 700;
-            border-bottom: 2px solid rgba(159, 122, 234, 0.15);
-        }
-
-        .orders-table tr:hover {
-            background-color: rgba(255, 255, 255, 0.01);
-        }
-
-        /* Status Badges */
+  
         .status-badge {
-            display: inline-block;
-            padding: 4px 10px;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            padding: 4px 8px;
             border-radius: 6px;
-            font-size: 0.78rem;
+            font-size: 0.75rem;
             font-weight: 700;
+            text-transform: uppercase;
         }
 
-        .status-pending { background-color: rgba(241, 196, 15, 0.1); color: #f1c40f; border: 1px solid #f1c40f; }
-        .status-completed { background-color: rgba(46, 204, 113, 0.1); color: #2ecc71; border: 1px solid #2ecc71; }
-        .status-cancelled { background-color: rgba(231, 76, 60, 0.1); color: #e74c3c; border: 1px solid #e74c3c; }
+        .badge-pending { background-color: rgba(245, 158, 11, 0.1); color: var(--warning); border: 1px solid rgba(245, 158, 11, 0.3); }
+        .badge-completed { background-color: rgba(16, 185, 129, 0.1); color: var(--success); border: 1px solid rgba(16, 185, 129, 0.3); }
+        .badge-cancelled { background-color: rgba(239, 68, 110, 0.1); color: var(--danger); border: 1px solid rgba(239, 68, 68, 0.3); }
 
         .order-id {
-            font-family: monospace;
+            font-family: var(--font-mono);
             font-weight: 700;
-            color: var(--text-muted);
+            color: var(--purple-glow);
         }
 
-        /* Action Buttons */
+  
         .action-btns {
             display: flex;
-            gap: 12px;
+            gap: 10px;
             align-items: center;
         }
 
         .action-icon-btn {
-            background: none;
-            border: none;
-            cursor: pointer;
-            transition: 0.2s ease;
-            font-size: 1rem;
-        }
-
-        .copy-order-btn { color: #3498db; }
-        .copy-order-btn:hover { transform: scale(1.15); color: #2980b9; }
-
-        .delete-order-btn { color: #e74c3c; }
-        .delete-order-btn:hover { transform: scale(1.15); color: #c0392b; }
-
-        .status-select-inline {
-            background-color: var(--bg-main);
-            color: white;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            padding: 6px 10px;
+            background: rgba(255,255,255,0.02);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 6px 8px;
             border-radius: 6px;
-            font-size: 0.85rem;
             cursor: pointer;
-            outline: none;
+            transition: all 0.2s ease;
+            color: var(--text-muted);
+        }
+
+        .action-icon-btn:hover {
+            background: rgba(255, 255, 255, 0.08);
+            color: var(--text-white);
+        }
+
+        .edit-order-btn:hover { color: #3b82f6; border-color: rgba(59, 130, 246, 0.4); }
+        .copy-order-btn:hover { color: #10b981; border-color: rgba(16, 185, 129, 0.4); }
+        .delete-order-btn:hover { color: #ef4444; border-color: rgba(239, 68, 68, 0.4); }
+
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
             width: 100%;
+            height: 100%;
+            background: rgba(3, 3, 5, 0.85);
+            backdrop-filter: blur(8px);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
         }
-        .status-select-inline:focus {
-            border-color: var(--purple-glow);
+
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
         }
+
+        .modal-box {
+            background: rgba(20, 16, 35, 0.95);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 2rem;
+            width: 90%;
+            max-width: 500px;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.8);
+            transform: scale(0.9);
+            transition: transform 0.3s ease;
+        }
+
+        .modal-overlay.active .modal-box {
+            transform: scale(1);
+        }
+
+        .modal-header {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--purple-glow);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .modal-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 12px;
+            margin-top: 1.8rem;
+        }
+
+        /* Toast Container */
+        #toastContainer {
+            position: fixed;
+            top: 24px;
+            right: 24px;
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .toast {
+            background: rgba(15, 12, 28, 0.9);
+            border-left: 4px solid var(--purple-glow);
+            border-top: 1px solid var(--border-color);
+            border-right: 1px solid var(--border-color);
+            border-bottom: 1px solid var(--border-color);
+            padding: 14px 20px;
+            border-radius: 8px;
+            color: var(--text-white);
+            font-size: 0.85rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            min-width: 300px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+            transform: translateX(120%);
+            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .toast.show {
+            transform: translateX(0);
+        }
+
+        .toast.success { border-left-color: var(--success); }
+        .toast.error { border-left-color: var(--danger); }
+        .toast.info { border-left-color: #3b82f6; }
     </style>
 </head>
 <body>
 
-    <!-- Header -->
-    <header class="header">
-        <div class="logo-area">
-            <span class="logo-true">TRUE</span><span class="logo-kinetic"> COMMAND CENTER</span>
-        </div>
-        <div class="header-actions">
-            <a href="../index.html" class="back-btn"><i class="fas fa-arrow-left"></i> Exit Dashboard</a>
-        </div>
-    </header>
-
-    <!-- Main Board -->
-    <div class="container">
-        
-        <!-- Left Column: Add Order Form -->
-        <aside class="panel-card" style="display: flex; flex-direction: column; gap: 20px;">
-            
-            <!-- Webhook Settings (Hafızada şifreli saklanır, GitHub'da sızmaz!) -->
-            <div style="background-color: rgba(159, 122, 234, 0.03); border: 1px dashed rgba(159, 122, 234, 0.3); padding: 15px; border-radius: 8px;">
-                <h4 style="font-size: 0.9rem; color: var(--purple-glow); margin-bottom: 8px;"><i class="fas fa-link"></i> Discord Webhook Integration</h4>
-                <div class="form-group" style="margin-bottom: 0;">
-                    <input type="password" id="webhookInput" class="form-control" style="font-size: 0.85rem; padding: 8px;" placeholder="Paste Discord Webhook URL here...">
-                </div>
+    <div id="loginOverlay">
+        <div class="login-card">
+            <div class="login-logo">
+                TRUE <span>COMMAND CENTER</span>
             </div>
+            <p style="color: var(--text-muted); font-size: 0.85rem; margin-bottom: 2rem;">Authorized Console Authorization Protocol.</p>
+            <form id="loginForm">
+                <div class="password-field-wrapper">
+                    <input type="password" id="loginPassInput" class="form-control" placeholder="Enter Role Access Key..." required autofocus>
+                    <button type="button" class="password-toggle-btn" id="toggleLoginPass">
+                        <i class="far fa-eye"></i>
+                    </button>
+                </div>
+                <button type="submit" class="primary-btn" style="padding: 12px;"><i class="fas fa-sign-in-alt"></i> Access Command Console</button>
+            </form>
+        </div>
+    </div>
 
-            <div>
-                <h3><i class="fas fa-cart-plus"></i> Add New Order</h3>
-                <form id="orderForm">
-                    <div class="form-group">
-                        <label>Discord Username</label>
-                        <input type="text" id="custName" class="form-control" placeholder="e.g., salih_dev" required>
+
+    <div id="dashboardWrapper">
+        
+        <!-- Header -->
+        <header class="header">
+            <div class="logo-area">
+                <span class="logo-true">TRUE</span><span class="logo-kinetic"><i class="fas fa-terminal"></i> COMMAND CENTER</span>
+            </div>
+            <div class="header-actions">
+                <div class="user-badge">
+                    <i class="fas fa-user-shield"></i>
+                    <span id="headerUsername">@Guest</span>
+                    <span id="headerRoleBadge" class="role-badge">GUEST</span>
+                </div>
+                <a href="../index.html" class="header-btn"><i class="fas fa-arrow-left"></i> Exit Dashboard</a>
+                <button class="header-btn logout-btn" id="lockConsoleBtn"><i class="fas fa-lock"></i> Lock Console</button>
+            </div>
+        </header>
+
+        <!-- Main Board -->
+        <div class="container">
+            
+            <!-- Left Panel: Create, Webhook & RBAC Users Control -->
+            <aside class="panel-card">
+                
+
+                <div style="background-color: rgba(168, 85, 247, 0.02); border: 1px dashed rgba(168, 85, 247, 0.25); padding: 15px; border-radius: 12px;">
+                    <h4 style="font-size: 0.85rem; color: var(--purple-glow); margin-bottom: 10px; display:flex; align-items:center; justify-content:space-between;">
+                        <span><i class="fas fa-link"></i> Discord Integration</span>
+                        <span style="font-size: 0.7rem; background: rgba(168,85,247,0.15); padding: 2px 6px; border-radius: 4px;">Active</span>
+                    </h4>
+                    <div class="form-group" style="margin-bottom: 10px;">
+                        <input type="password" id="webhookInput" class="form-control" style="font-size: 0.8rem; padding: 10px;" placeholder="Paste Discord Webhook URL...">
+                    </div>
+                    <button class="secondary-btn" id="testWebhookBtn" style="width:100%; font-size:0.75rem; padding: 8px;"><i class="fab fa-discord"></i> Send Test Message</button>
+                </div>
+
+                <div>
+                    <h3><i class="fas fa-cart-plus"></i> Log New Transaction</h3>
+                    <form id="orderForm">
+                        <div class="form-group">
+                            <label>Discord Username</label>
+                            <input type="text" id="custName" class="form-control" placeholder="e.g., salih_dev" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Purchased Service / Product</label>
+                            <input type="text" id="custItem" class="form-control" placeholder="e.g., Valorant 1700 VP" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Amount Paid</label>
+                            <input type="text" id="custAmount" class="form-control" placeholder="e.g., 493 TL" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Payment Method</label>
+                            <select id="custPayMethod" class="form-select">
+                                <option value="Papara">Papara</option>
+                                <option value="Bank Transfer">Bank Transfer</option>
+                                <option value="Credit Card">Credit Card</option>
+                                <option value="Other">Other</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Initial Status</label>
+                            <select id="custStatus" class="form-select">
+                                <option value="pending">Pending</option>
+                                <option value="completed">Completed</option>
+                                <option value="cancelled">Cancelled</option>
+                            </select>
+                        </div>
+
+                        <button type="submit" class="primary-btn" style="margin-top: 10px;">
+                            <i class="fas fa-plus"></i> Save Transaction
+                        </button>
+                    </form>
+                </div>
+
+
+                <div id="userManagementSection" style="display: none; border-top: 1px solid rgba(255, 255, 255, 0.05); padding-top: 20px;">
+                    <h3><i class="fas fa-users-cog"></i> Access Control</h3>
+                    <form id="createUserForm" style="margin-bottom: 15px;">
+                        <div class="form-group" style="margin-bottom: 10px;">
+                            <label>User Identifier / Alias</label>
+                            <input type="text" id="newUsername" class="form-control" style="font-size:0.8rem; padding: 8px 12px;" placeholder="e.g., salih_admin" required>
+                        </div>
+                        <div class="form-group" style="margin-bottom: 12px;">
+                            <label>Access Role Privilege</label>
+                            <select id="newUserRole" class="form-select" style="font-size:0.8rem; padding: 8px 12px;">
+                                <option value="head-admin">Head Admin</option>
+                                <option value="admin">Admin</option>
+                            </select>
+                        </div>
+                        <button type="submit" class="primary-btn" style="font-size:0.8rem; padding: 10px;"><i class="fas fa-key"></i> Generate Security Key</button>
+                    </form>
+                    
+                    <h4 style="font-size:0.75rem; color:var(--text-muted); margin-bottom:8px; text-transform:uppercase;">Active Credentials</h4>
+                    <div id="usersListContainer" style="display:flex; flex-direction:column; gap:8px; max-height:220px; overflow-y:auto; padding-right:5px;">
+          
+                    </div>
+                </div>
+            </aside>
+
+            <main style="display: flex; flex-direction: column; gap: 24px;">
+                
+ 
+                <div class="stats-grid">
+                    <div class="stat-box total-box">
+                        <span class="stat-label">Total Transactions</span>
+                        <span id="statTotalOrders" class="stat-value">0</span>
+                    </div>
+                    <div class="stat-box pending-box">
+                        <span class="stat-label">Pending</span>
+                        <span id="statPendingOrders" class="stat-value" style="color: var(--warning);">0</span>
+                    </div>
+                    <div class="stat-box completed-box">
+                        <span class="stat-label">Completed</span>
+                        <span id="statCompletedOrders" class="stat-value" style="color: var(--success);">0</span>
+                    </div>
+                    <div class="stat-box revenue-box">
+                        <span class="stat-label">Estimated Turnover</span>
+                        <span id="statTotalRevenue" class="stat-value" style="color: #3b82f6;">0 TL</span>
+                    </div>
+                </div>
+
+
+                <div class="panel-card" style="width: 100%;">
+                    <h3><i class="fas fa-list-check"></i> Enterprise Database Manager</h3>
+
+
+                    <div class="table-toolbar">
+                        <div class="toolbar-top">
+                            <div class="search-box">
+                                <i class="fas fa-search"></i>
+                                <input type="text" id="searchOrderInput" class="form-control" placeholder="Search ID, customer or product...">
+                            </div>
+
+                            <div class="sync-buttons">
+                                <input type="file" id="importFile" style="display: none;" accept=".json">
+                                <button class="secondary-btn" id="importBtn"><i class="fas fa-file-import"></i> Sync Backup</button>
+                                <button class="secondary-btn" id="exportBtn"><i class="fas fa-file-export"></i> Dump JSON</button>
+                            </div>
+                        </div>
+
+                        <div class="filter-row">
+                            <div class="filter-tabs" id="statusFilterTabs">
+                                <button class="filter-tab active" data-filter="all">All Logs</button>
+                                <button class="filter-tab" data-filter="pending">Pending</button>
+                                <button class="filter-tab" data-filter="completed">Completed</button>
+                                <button class="filter-tab" data-filter="cancelled">Cancelled</button>
+                            </div>
+
+                            <div class="sort-wrapper">
+                                <label for="sortSelector">Sort By:</label>
+                                <select id="sortSelector" class="form-select" style="width: 160px; padding: 6px 10px; font-size: 0.8rem;">
+                                    <option value="date-desc">Newest First</option>
+                                    <option value="date-asc">Oldest First</option>
+                                    <option value="amount-desc">Value: High to Low</option>
+                                    <option value="amount-asc">Value: Low to High</option>
+                                    <option value="customer-asc">Name: A to Z</option>
+                                </select>
+                            </div>
+                        </div>
                     </div>
 
-                    <div class="form-group">
-                        <label>Purchased Service / Product</label>
-                        <input type="text" id="custItem" class="form-control" placeholder="e.g., Valorant 1700 VP" required>
-                    </div>
 
-                    <div class="form-group">
-                        <label>Amount Paid</label>
-                        <input type="text" id="custAmount" class="form-control" placeholder="e.g., 493 TL" required>
-                    </div>
+                    <div class="table-responsive">
+                        <table class="orders-table">
+                            <thead>
+                                <tr>
+                                    <th>Order ID</th>
+                                    <th>Logged Date</th>
+                                    <th>Customer</th>
+                                    <th>Product / Service</th>
+                                    <th>Amount</th>
+                                    <th>Method</th>
+                                    <th>Status</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tableBody">
 
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                    <div style="margin-top: 20px; display: flex; align-items: center; justify-content: space-between; font-size: 0.75rem; color: var(--text-muted);">
+                        <span>Overall Fulfilment Ratio: <strong id="progressPercentage" style="color:var(--success)">0%</strong></span>
+                        <div style="width: 70%;">
+                            <div class="progress-container">
+                                <div class="progress-bar" id="completionProgressBar"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="editModal">
+        <div class="modal-box">
+            <div class="modal-header">
+                <i class="fas fa-edit"></i> Edit Transaction Details
+            </div>
+            <form id="editOrderForm">
+                <input type="hidden" id="editOrderId">
+                
+                <div class="form-group">
+                    <label>Customer Name</label>
+                    <input type="text" id="editCustName" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label>Product / Service</label>
+                    <input type="text" id="editCustItem" class="form-control" required>
+                </div>
+                <div class="form-group text-row" style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+                    <div class="form-group">
+                        <label>Amount</label>
+                        <input type="text" id="editCustAmount" class="form-control" required>
+                    </div>
                     <div class="form-group">
                         <label>Payment Method</label>
-                        <select id="custPayMethod" class="form-select">
+                        <select id="editCustPayMethod" class="form-select">
                             <option value="Papara">Papara</option>
                             <option value="Bank Transfer">Bank Transfer</option>
                             <option value="Credit Card">Credit Card</option>
                             <option value="Other">Other</option>
                         </select>
                     </div>
-
-                    <div class="form-group">
-                        <label>Initial Status</label>
-                        <select id="custStatus" class="form-select">
-                            <option value="pending">Pending (Hazırlanıyor)</option>
-                            <option value="completed">Completed (Teslim Edildi)</option>
-                            <option value="cancelled">Cancelled (İptal Edildi)</option>
-                        </select>
-                    </div>
-
-                    <button type="submit" class="primary-btn" style="width: 100%; justify-content: center; margin-top: 10px;">
-                        <i class="fas fa-plus"></i> Save Order
-                    </button>
-                </form>
-            </div>
-        </aside>
-
-        <!-- Right Column: Orders Management & Table -->
-        <main class="panel-card">
-            
-            <!-- Quick Analytics Statistics (Yenilenmiş Lüks Görünüm) -->
-            <div class="stats-row">
-                <div class="stat-box total-box">
-                    <span class="stat-label">Total Orders</span>
-                    <span id="statTotalOrders" class="stat-value">0</span>
                 </div>
-                <div class="stat-box pending-box">
-                    <span class="stat-label">Pending</span>
-                    <span id="statPendingOrders" class="stat-value" style="color: #f1c40f;">0</span>
-                </div>
-                <div class="stat-box completed-box">
-                    <span class="stat-label">Completed</span>
-                    <span id="statCompletedOrders" class="stat-value" style="color: #2ecc71;">0</span>
-                </div>
-            </div>
-
-            <h3><i class="fas fa-list-check"></i> Orders Management</h3>
-
-            <!-- Search & Sync Toolbar -->
-            <div class="table-toolbar">
-                <div class="search-box">
-                    <i class="fas fa-search"></i>
-                    <input type="text" id="searchOrderInput" class="form-control" placeholder="Search customer, item or Order ID...">
+                <div class="form-group">
+                    <label>Transaction Date</label>
+                    <input type="text" id="editCustDate" class="form-control" required>
                 </div>
 
-                <div class="sync-buttons">
-                    <input type="file" id="importFile" style="display: none;" accept=".json">
-                    <button class="sync-btn" id="importBtn"><i class="fas fa-file-import"></i> Import Backup (Sync)</button>
-                    <button class="sync-btn" id="exportBtn"><i class="fas fa-file-export"></i> Export Database</button>
+                <div class="modal-actions">
+                    <button type="button" class="secondary-btn" id="closeEditModalBtn">Cancel</button>
+                    <button type="submit" class="primary-btn" style="width: auto; padding: 10px 24px;">Save Updates</button>
                 </div>
-            </div>
-
-            <!-- Table (Kırpma, dikey hizalama ve taşma korumalı yeni ızgara) -->
-            <div class="table-responsive">
-                <table class="orders-table">
-                    <thead>
-                        <tr>
-                            <th>Order ID</th>
-                            <th>Date & Time</th>
-                            <th>Customer</th>
-                            <th>Product/Service</th>
-                            <th>Amount</th>
-                            <th>Method</th>
-                            <th>Status</th>
-                            <th>Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody id="tableBody">
-                        <!-- Filled by JS -->
-                    </tbody>
-                </table>
-            </div>
-        </main>
+            </form>
+        </div>
     </div>
 
-    <!-- SCRIPT LOGIC (Dinamik Kırpma ve Tooltip Destekli Son Sürüm) -->
-    <script>
-        const ADMIN_PASSWORD = "xs72kp1z773t3p3t9o5nc2f9uf3rhqx3ylbjexd23mmfty2s5u";
+    <div class="modal-overlay" id="requestModal">
+        <div class="modal-box" style="max-width: 400px;">
+            <div class="modal-header">
+                <i class="fas fa-paper-plane"></i> Request Status Change
+            </div>
+            <input type="hidden" id="requestOrderId">
+            <div class="form-group">
+                <label>Target Status Request</label>
+                <select id="requestedStatusValue" class="form-select">
+                    <option value="completed">Completed</option>
+                    <option value="cancelled">Cancelled</option>
+                </select>
+            </div>
+            <div class="modal-actions">
+                <button type="button" class="secondary-btn" id="closeRequestModalBtn">Cancel</button>
+                <button type="button" class="primary-btn" id="submitRequestBtn" style="width: auto; padding: 10px 20px;">Submit Request</button>
+            </div>
+        </div>
+    </div>
 
-        // 1. ELEMAN TANIMLAMALARI (INITIALIZATIONS FIRST)
+
+    <div class="modal-overlay" id="confirmModal">
+        <div class="modal-box" style="max-width: 400px; text-align: center;">
+            <div style="font-size: 2.5rem; color: var(--danger); margin-bottom: 1rem;">
+                <i class="fas fa-exclamation-triangle"></i>
+            </div>
+            <h4 id="confirmTitle" style="font-size: 1.1rem; margin-bottom: 8px;">Are you sure?</h4>
+            <p id="confirmText" style="color: var(--text-muted); font-size: 0.85rem; margin-bottom: 1.5rem;">This action cannot be undone.</p>
+            <div class="modal-actions" style="justify-content: center;">
+                <button type="button" class="secondary-btn" id="confirmCancelBtn" style="min-width: 100px;">Cancel</button>
+                <button type="button" class="primary-btn" id="confirmProceedBtn" style="width: auto; min-width: 100px; background-color: var(--danger); box-shadow: 0 4px 15px rgba(239, 68, 68, 0.3);">Proceed</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="toastContainer"></div>
+
+    <script>
+        const defaultUsers = [
+            { id: "Owner_System", code: "xs72kp1z773t3p3t9o5nc2f9uf3rhqx3ylbjexd23mmfty2s5u", role: "owner", createdBy: "System" }
+        ];
+        
+        let usersData = JSON.parse(localStorage.getItem("kineticUsersDB")) || defaultUsers;
+        if (!localStorage.getItem("kineticUsersDB")) {
+            localStorage.setItem("kineticUsersDB", JSON.stringify(defaultUsers));
+        }
+
+        let currentUser = null;
+
+        const loginOverlay = document.getElementById("loginOverlay");
+        const loginForm = document.getElementById("loginForm");
+        const loginPassInput = document.getElementById("loginPassInput");
+        const toggleLoginPass = document.getElementById("toggleLoginPass");
+        const dashboardWrapper = document.getElementById("dashboardWrapper");
+        const lockConsoleBtn = document.getElementById("lockConsoleBtn");
+
+        loginForm.addEventListener("submit", (e) => {
+            e.preventDefault();
+            const inputVal = loginPassInput.value.trim();
+            const matchedUser = usersData.find(u => u.code === inputVal);
+
+            if (matchedUser) {
+                currentUser = matchedUser;
+                sessionStorage.setItem("kineticSession", "active");
+                sessionStorage.setItem("kineticCurrentUser", JSON.stringify(matchedUser));
+                grantAccess();
+                showToast(`Welcome back, @${matchedUser.id}! Access verified as ${matchedUser.role.toUpperCase()}.`, "success");
+            } else {
+                showToast("Access Denied. Invalid Role Authentication Key.", "error");
+                loginPassInput.value = "";
+                loginPassInput.focus();
+            }
+        });
+
+        toggleLoginPass.addEventListener("click", () => {
+            const type = loginPassInput.getAttribute("type") === "password" ? "text" : "password";
+            loginPassInput.setAttribute("type", type);
+            toggleLoginPass.querySelector("i").classList.toggle("fa-eye");
+            toggleLoginPass.querySelector("i").classList.toggle("fa-eye-slash");
+        });
+
+
+        function grantAccess() {
+            loginOverlay.style.opacity = "0";
+            setTimeout(() => {
+                loginOverlay.style.display = "none";
+                dashboardWrapper.style.display = "block";
+                
+
+                document.getElementById("headerUsername").textContent = `@${currentUser.id}`;
+                const rBadge = document.getElementById("headerRoleBadge");
+                rBadge.textContent = currentUser.role;
+                rBadge.className = `role-badge badge-${currentUser.role}`;
+
+      
+                const userManagementSection = document.getElementById("userManagementSection");
+                if (currentUser.role === "owner") {
+                    userManagementSection.style.display = "block";
+                    renderUsersList();
+                } else {
+                    userManagementSection.style.display = "none";
+                }
+
+   
+                renderOrders();
+                updateStats();
+            }, 500);
+        }
+
+
+        lockConsoleBtn.addEventListener("click", () => {
+            sessionStorage.removeItem("kineticSession");
+            sessionStorage.removeItem("kineticCurrentUser");
+            showToast("Session closed. Locking console...", "info");
+            setTimeout(() => {
+                window.location.reload();
+            }, 1000);
+        });
+
+ 
+        window.addEventListener("DOMContentLoaded", () => {
+            const activeSession = sessionStorage.getItem("kineticSession") === "active";
+            const sessionUser = JSON.parse(sessionStorage.getItem("kineticCurrentUser"));
+
+            if (activeSession && sessionUser) {
+                currentUser = sessionUser;
+                grantAccess();
+            }
+        });
+
+
+        const createUserForm = document.getElementById("createUserForm");
+        const newUsername = document.getElementById("newUsername");
+        const newUserRole = document.getElementById("newUserRole");
+        const usersListContainer = document.getElementById("usersListContainer");
+
+        createUserForm.addEventListener("submit", (e) => {
+            e.preventDefault();
+            if (currentUser.role !== "owner") return;
+
+            const name = newUsername.value.trim().replace(/\s+/g, '_');
+            const role = newUserRole.value;
+
+
+            const rolePrefix = role === "head-admin" ? "HA" : "AD";
+            const randomCode = Math.random().toString(36).substring(2, 8) + Math.random().toString(36).substring(2, 8);
+            const generatedKey = `TK-${rolePrefix}-${randomCode.toUpperCase()}`;
+
+      
+            if (usersData.some(u => u.id.toLowerCase() === name.toLowerCase())) {
+                showToast("This user identifier already exists.", "error");
+                return;
+            }
+
+            const newUser = {
+                id: name,
+                code: generatedKey,
+                role: role,
+                createdBy: currentUser.id
+            };
+
+            usersData.push(newUser);
+            localStorage.setItem("kineticUsersDB", JSON.stringify(usersData));
+            
+            newUsername.value = "";
+            renderUsersList();
+            showToast(`Security key generated for @${name}!`, "success");
+        });
+
+
+        function renderUsersList() {
+            usersListContainer.innerHTML = "";
+     
+            const subUsers = usersData.filter(u => u.role !== "owner");
+
+            if (subUsers.length === 0) {
+                usersListContainer.innerHTML = `<div style="font-size:0.75rem; text-align:center; color:var(--text-muted); padding: 5px;">No active sub-keys registered.</div>`;
+                return;
+            }
+
+            subUsers.forEach(u => {
+                const item = document.createElement("div");
+                item.style.cssText = "display:flex; flex-direction:column; background:rgba(0,0,0,0.2); padding: 8px 10px; border-radius:8px; border: 1px solid rgba(255,255,255,0.03);";
+                item.innerHTML = `
+                    <div style="display:flex; justify-content:space-between; align-items:center;">
+                        <span style="font-size:0.8rem; font-weight:700;">@${u.id} <span class="role-badge badge-${u.role}" style="font-size:0.6rem; padding:1px 4px;">${u.role}</span></span>
+                        <button class="delete-user-btn" data-id="${u.id}" style="background:none; border:none; color:var(--danger); cursor:pointer; font-size:0.8rem;" title="Revoke Access Key">
+                            <i class="fas fa-user-minus"></i>
+                        </button>
+                    </div>
+                    <div style="display:flex; align-items:center; justify-content:space-between; margin-top: 5px; background:rgba(255,255,255,0.02); padding: 4px 6px; border-radius:4px;">
+                        <span class="user-key-masked" style="font-family:var(--font-mono); font-size:0.7rem; color:var(--purple-hover); user-select:all;">${u.code}</span>
+                    </div>
+                `;
+                usersListContainer.appendChild(item);
+            });
+
+
+            usersListContainer.querySelectorAll(".delete-user-btn").forEach(btn => {
+                btn.addEventListener("click", () => {
+                    const id = btn.getAttribute("data-id");
+                    openConfirmDialog(
+                        `Revoke Access: @${id}`,
+                        `Are you sure you want to permanently delete the login keys of @${id}? This user will lose immediate access.`,
+                        () => {
+                            usersData = usersData.filter(u => u.id !== id);
+                            localStorage.setItem("kineticUsersDB", JSON.stringify(usersData));
+                            renderUsersList();
+                            showToast(`Access privilege revoked for @${id}.`, "info");
+                        }
+                    );
+                });
+            });
+        }
+
+
+
         let ordersData = JSON.parse(localStorage.getItem("kineticOrdersDB")) || [];
+        let currentFilter = "all";
 
         const orderForm = document.getElementById("orderForm");
         const ordersTableBody = document.getElementById("tableBody");
         const searchOrderInput = document.getElementById("searchOrderInput");
         const webhookInput = document.getElementById("webhookInput");
-        
-        const exportBtn = document.getElementById("exportBtn");
-        const importBtn = document.getElementById("importBtn");
-        const importFile = document.getElementById("importFile");
+        const testWebhookBtn = document.getElementById("testWebhookBtn");
+        const sortSelector = document.getElementById("sortSelector");
 
-        // Webhook URL'sini tarayıcı hafızasından oku
+  
         if (webhookInput) {
             webhookInput.value = localStorage.getItem("kineticWebhookURL") || "";
             webhookInput.addEventListener("input", (e) => {
@@ -555,7 +1221,15 @@
             });
         }
 
-        // 2. DETAYLI İSTATİSTİK METOTLARI
+   
+        function extractAmount(amountStr) {
+            if (!amountStr) return 0;
+            const cleaned = amountStr.replace(/[^0-9.,]/g, '').replace(',', '.');
+            const parsed = parseFloat(cleaned);
+            return isNaN(parsed) ? 0 : parsed;
+        }
+
+
         function updateStats() {
             document.getElementById("statTotalOrders").textContent = ordersData.length;
             
@@ -564,95 +1238,265 @@
             
             const completedCount = ordersData.filter(o => o.status === "completed").length;
             document.getElementById("statCompletedOrders").textContent = completedCount;
+
+
+            let totalRev = 0;
+            ordersData.forEach(o => {
+                if (o.status === "completed") {
+                    totalRev += extractAmount(o.amount);
+                }
+            });
+            document.getElementById("statTotalRevenue").textContent = totalRev.toLocaleString('tr-TR', { minimumFractionDigits: 0, maximumFractionDigits: 2 }) + " TL";
+
+
+            const progressBar = document.getElementById("completionProgressBar");
+            const progressPercentageText = document.getElementById("progressPercentage");
+            if (ordersData.length > 0) {
+                const ratio = Math.round((completedCount / ordersData.length) * 100);
+                progressBar.style.width = ratio + "%";
+                progressPercentageText.textContent = ratio + "%";
+            } else {
+                progressBar.style.width = "0%";
+                progressPercentageText.textContent = "0%";
+            }
         }
 
-        // 3. TABLO ÇİZİM METOTLARI (Dinamik Tooltip ve Kırpma Sınıfları Eklendi)
-        function renderOrders(filterText = "") {
+
+        function renderOrders() {
             ordersTableBody.innerHTML = "";
-            
-            const filteredOrders = ordersData.filter(order => {
-                const search = filterText.toLowerCase();
+            const search = searchOrderInput.value.toLowerCase().trim();
+
+            if (!currentUser) return;
+
+
+            let processedOrders = ordersData.filter(order => {
+                if (currentFilter !== "all" && order.status !== currentFilter) {
+                    return false;
+                }
                 return order.id.toLowerCase().includes(search) || 
                        order.customer.toLowerCase().includes(search) ||
-                       order.item.toLowerCase().includes(search);
+                       order.item.toLowerCase().includes(search) ||
+                       order.amount.toLowerCase().includes(search);
             });
 
-            const reversedOrders = [...filteredOrders].reverse(); // En yeni sipariş en üstte
 
-            if (reversedOrders.length === 0) {
-                ordersTableBody.innerHTML = `<tr><td colspan="8" style="text-align:center; color:var(--text-muted); padding: 25px;">No orders found.</td></tr>`;
+            const sortVal = sortSelector.value;
+            processedOrders.sort((a, b) => {
+                if (sortVal === "date-desc") {
+                    return new Date(b.date) - new Date(a.date);
+                } else if (sortVal === "date-asc") {
+                    return new Date(a.date) - new Date(b.date);
+                } else if (sortVal === "amount-desc") {
+                    return extractAmount(b.amount) - extractAmount(a.amount);
+                } else if (sortVal === "amount-asc") {
+                    return extractAmount(a.amount) - extractAmount(b.amount);
+                } else if (sortVal === "customer-asc") {
+                    return a.customer.localeCompare(b.customer);
+                }
+                return 0;
+            });
+
+            if (processedOrders.length === 0) {
+                ordersTableBody.innerHTML = `<tr><td colspan="8" style="text-align:center; color:var(--text-muted); padding: 30px;">No transaction logs matches your criteria.</td></tr>`;
                 return;
             }
 
-            reversedOrders.forEach(order => {
+            processedOrders.forEach(order => {
                 const tr = document.createElement("tr");
 
-                // title="..." özelliği sayesinde üzerine gelindiğinde tarayıcı orijinal metni şık bir balon olarak gösterir!
+                let badgeClass = "badge-pending";
+                if (order.status === "completed") badgeClass = "badge-completed";
+                if (order.status === "cancelled") badgeClass = "badge-cancelled";
+
+
+                let requestIndicatorMarkup = "";
+                if (order.statusRequest) {
+                    requestIndicatorMarkup = `
+                        <div style="margin-top: 5px; font-size: 0.72rem; color: var(--warning); display: flex; align-items: center; gap: 4px;">
+                            <i class="fas fa-exclamation-triangle"></i> Req: ${order.statusRequest.toUpperCase()}
+                            ${(currentUser.role === 'owner' || currentUser.role === 'head-admin') ? `
+                                <button class="approve-request-btn" data-id="${order.id}" title="Approve Request" style="background:none; border:none; color:var(--success); cursor:pointer;"><i class="fas fa-check-circle"></i></button>
+                                <button class="reject-request-btn" data-id="${order.id}" title="Reject Request" style="background:none; border:none; color:var(--danger); cursor:pointer;"><i class="fas fa-times-circle"></i></button>
+                            ` : ''}
+                        </div>
+                    `;
+                }
+
+                let statusControlElement = "";
+                if (currentUser.role === "owner" || currentUser.role === "head-admin") {
+                    statusControlElement = `
+                        <select class="status-select-inline" data-id="${order.id}" style="background-color: var(--bg-main); color: white; border: 1px solid rgba(255,255,255,0.1); padding: 4px 8px; border-radius: 6px; font-size: 0.8rem; cursor: pointer; outline: none; width: 100%;">
+                            <option value="pending" ${order.status === 'pending' ? 'selected' : ''}>Pending</option>
+                            <option value="completed" ${order.status === 'completed' ? 'selected' : ''}>Completed</option>
+                            <option value="cancelled" ${order.status === 'cancelled' ? 'selected' : ''}>Cancelled</option>
+                        </select>
+                    `;
+                } else {
+   
+                    statusControlElement = `
+                        <div style="display:flex; flex-direction:column; gap:4px; align-items:flex-start;">
+                            <span class="status-badge ${badgeClass}">${order.status}</span>
+                            ${!order.statusRequest ? `
+                                <button class="request-change-btn" data-id="${order.id}" style="font-size: 0.68rem; padding: 2px 6px; background: rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.1); color: var(--text-muted); border-radius:4px; cursor:pointer;">
+                                    <i class="fas fa-paper-plane"></i> Request Change
+                                </button>
+                            ` : ''}
+                        </div>
+                    `;
+                }
+
+ 
+                const canEdit = currentUser.role === "owner" || currentUser.role === "head-admin";
+                const canDelete = currentUser.role === "owner";
+
                 tr.innerHTML = `
                     <td class="order-id">#${order.id}</td>
                     <td>${order.date}</td>
                     <td class="truncate" title="@${order.customer}"><strong>@${order.customer}</strong></td>
                     <td class="truncate" title="${order.item}">${order.item}</td>
                     <td class="truncate" title="${order.amount}" style="color: var(--purple-glow); font-weight: 700;">${order.amount}</td>
-                    <td><span class="status-badge" style="color:white; background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.1);">${order.method}</span></td>
+                    <td><span style="font-size:0.75rem; color:var(--text-muted); font-family:var(--font-mono)">${order.method}</span></td>
                     <td>
-                        <select class="status-select-inline" data-id="${order.id}">
-                            <option value="pending" ${order.status === 'pending' ? 'selected' : ''}>Pending</option>
-                            <option value="completed" ${order.status === 'completed' ? 'selected' : ''}>Completed</option>
-                            <option value="cancelled" ${order.status === 'cancelled' ? 'selected' : ''}>Cancelled</option>
-                        </select>
+                        <div style="display:flex; flex-direction:column; gap:2px;">
+                            ${statusControlElement}
+                            ${requestIndicatorMarkup}
+                        </div>
                     </td>
                     <td>
                         <div class="action-btns">
-                            <button class="action-icon-btn copy-order-btn" data-id="${order.id}" title="Copy for Discord Logs">
+                            ${canEdit ? `
+                                <button class="action-icon-btn edit-order-btn" data-id="${order.id}" title="Edit Order">
+                                    <i class="fas fa-edit"></i>
+                                </button>
+                            ` : ''}
+                            <button class="action-icon-btn copy-order-btn" data-id="${order.id}" title="Copy Log for Discord">
                                 <i class="far fa-copy"></i>
                             </button>
-                            <button class="action-icon-btn delete-order-btn" data-id="${order.id}" title="Delete Order">
-                                <i class="fas fa-trash"></i>
-                            </button>
+                            ${canDelete ? `
+                                <button class="action-icon-btn delete-order-btn" data-id="${order.id}" title="Delete Record">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            ` : ''}
                         </div>
                     </td>
                 `;
                 ordersTableBody.appendChild(tr);
             });
 
-            // Inline Status Select Değiştirme Tetikleyicileri
-            const statusSelects = ordersTableBody.querySelectorAll(".status-select-inline");
-            statusSelects.forEach(select => {
+            bindTableActionButtons();
+        }
+
+
+        function bindTableActionButtons() {
+   
+            ordersTableBody.querySelectorAll(".status-select-inline").forEach(select => {
                 select.addEventListener("change", (e) => {
                     const id = select.getAttribute("data-id");
                     const newStatus = e.target.value;
-                    updateOrderStatus(id, newStatus);
+                    
+                    if (currentUser.role === "owner" || currentUser.role === "head-admin") {
+                        const order = ordersData.find(o => o.id === id);
+                        if (order) {
+                            order.status = newStatus;
+          
+                            order.statusRequest = null;
+                            saveOrders();
+                            showToast(`Status of #${id} changed to ${newStatus.toUpperCase()}`, "info");
+                            sendDiscordNotification(order, "🔄 Order Status Updated!");
+                        }
+                    }
                 });
             });
 
-            // Sipariş Silme Tetikleyicileri
-            const deleteBtns = ordersTableBody.querySelectorAll(".delete-order-btn");
-            deleteBtns.forEach(btn => {
+
+            ordersTableBody.querySelectorAll(".approve-request-btn").forEach(btn => {
                 btn.addEventListener("click", () => {
                     const id = btn.getAttribute("data-id");
-                    deleteOrder(id);
+                    if (currentUser.role === "owner" || currentUser.role === "head-admin") {
+                        const order = ordersData.find(o => o.id === id);
+                        if (order && order.statusRequest) {
+                            order.status = order.statusRequest;
+                            order.statusRequest = null;
+                            saveOrders();
+                            showToast(`Request approved for #${id}!`, "success");
+                            sendDiscordNotification(order, "✅ Admin Update Request Approved!");
+                        }
+                    }
                 });
             });
 
-            // Discord İçin Kopyalama Tetikleyicileri
-            const copyBtns = ordersTableBody.querySelectorAll(".copy-order-btn");
-            copyBtns.forEach(btn => {
+            ordersTableBody.querySelectorAll(".reject-request-btn").forEach(btn => {
                 btn.addEventListener("click", () => {
                     const id = btn.getAttribute("data-id");
-                    copyToDiscord(id);
+                    if (currentUser.role === "owner" || currentUser.role === "head-admin") {
+                        const order = ordersData.find(o => o.id === id);
+                        if (order) {
+                            order.statusRequest = null;
+                            saveOrders();
+                            showToast(`Request rejected for #${id}.`, "error");
+                        }
+                    }
+                });
+            });
+
+ 
+            ordersTableBody.querySelectorAll(".request-change-btn").forEach(btn => {
+                btn.addEventListener("click", () => {
+                    openRequestModal(btn.getAttribute("data-id"));
+                });
+            });
+
+            ordersTableBody.querySelectorAll(".edit-order-btn").forEach(btn => {
+                btn.addEventListener("click", () => {
+                    openEditModal(btn.getAttribute("data-id"));
+                });
+            });
+
+
+            ordersTableBody.querySelectorAll(".copy-order-btn").forEach(btn => {
+                btn.addEventListener("click", () => {
+                    copyToDiscord(btn.getAttribute("data-id"));
+                });
+            });
+
+   
+            ordersTableBody.querySelectorAll(".delete-order-btn").forEach(btn => {
+                btn.addEventListener("click", () => {
+                    const id = btn.getAttribute("data-id");
+                    if (currentUser.role === "owner") {
+                        openConfirmDialog(
+                            `Delete Record #${id}`,
+                            `Are you sure you want to permanently erase transaction #${id} from local database?`,
+                            () => {
+                                deleteOrder(id);
+                            }
+                        );
+                    }
                 });
             });
         }
 
-        // 4. VERİTABANI GÜNCELLEME METOTLARI
+
         function saveOrders() {
             localStorage.setItem("kineticOrdersDB", JSON.stringify(ordersData));
-            renderOrders(searchOrderInput.value);
+            renderOrders();
             updateStats();
         }
 
-        // Sipariş Ekleme Formu ve Discord Webhook Gönderimi
+        const filterTabs = document.getElementById("statusFilterTabs");
+        filterTabs.querySelectorAll(".filter-tab").forEach(tab => {
+            tab.addEventListener("click", () => {
+                filterTabs.querySelector(".filter-tab.active").classList.remove("active");
+                tab.classList.add("active");
+                currentFilter = tab.getAttribute("data-filter");
+                renderOrders();
+            });
+        });
+
+        searchOrderInput.addEventListener("input", renderOrders);
+        sortSelector.addEventListener("change", renderOrders);
+
+
         orderForm.addEventListener("submit", (e) => {
             e.preventDefault();
 
@@ -662,47 +1506,139 @@
             const method = document.getElementById("custPayMethod").value;
             const status = document.getElementById("custStatus").value;
 
-            // Benzersiz 6 haneli kod
             const id = "TK-" + Math.floor(100000 + Math.random() * 900000);
 
-            // Tarih
             const now = new Date();
             const dateStr = now.toLocaleDateString("en-US") + " " + now.toLocaleTimeString("en-US", { hour: '2-digit', minute: '2-digit' });
 
-            const newOrder = { id, date: dateStr, customer, item, amount, method, status };
+            const newOrder = { id, date: dateStr, customer, item, amount, method, status, statusRequest: null };
             ordersData.push(newOrder);
             saveOrders();
 
-            // Discord Webhook Bildirimi Gönder
-            sendDiscordNotification(newOrder);
+            sendDiscordNotification(newOrder, "🆕 New Order Logged!");
 
             orderForm.reset();
-            alert(`Order #${id} added successfully!`);
+            showToast(`Order #${id} added successfully!`, "success");
         });
 
-        // DISCORD WEBHOOK BİLDİRİM MOTORU
-        function sendDiscordNotification(order) {
+        const requestModal = document.getElementById("requestModal");
+        const submitRequestBtn = document.getElementById("submitRequestBtn");
+        const closeRequestModalBtn = document.getElementById("closeRequestModalBtn");
+
+        function openRequestModal(id) {
+            document.getElementById("requestOrderId").value = id;
+            requestModal.classList.add("active");
+        }
+
+        function closeRequestModal() {
+            requestModal.classList.remove("active");
+        }
+
+        closeRequestModalBtn.addEventListener("click", closeRequestModal);
+        
+        submitRequestBtn.addEventListener("click", () => {
+            const id = document.getElementById("requestOrderId").value;
+            const targetStatus = document.getElementById("requestedStatusValue").value;
+
+            const order = ordersData.find(o => o.id === id);
+            if (order) {
+                order.statusRequest = targetStatus;
+                saveOrders();
+                closeRequestModal();
+                showToast(`Change request to ${targetStatus.toUpperCase()} sent to executives.`, "info");
+                
+     
+                sendDiscordNotification(order, `⚠️ Status Change Request Submitted by @${currentUser.id}!`);
+            }
+        });
+
+
+
+        const editModal = document.getElementById("editModal");
+        const editOrderForm = document.getElementById("editOrderForm");
+        const closeEditModalBtn = document.getElementById("closeEditModalBtn");
+
+        function openEditModal(id) {
+            const order = ordersData.find(o => o.id === id);
+            if (!order) return;
+
+            document.getElementById("editOrderId").value = order.id;
+            document.getElementById("editCustName").value = order.customer;
+            document.getElementById("editCustItem").value = order.item;
+            document.getElementById("editCustAmount").value = order.amount;
+            document.getElementById("editCustPayMethod").value = order.method;
+            document.getElementById("editCustDate").value = order.date;
+
+            editModal.classList.add("active");
+        }
+
+        function closeEditModal() {
+            editModal.classList.remove("active");
+            editOrderForm.reset();
+        }
+
+        closeEditModalBtn.addEventListener("click", closeEditModal);
+
+        editOrderForm.addEventListener("submit", (e) => {
+            e.preventDefault();
+            const id = document.getElementById("editOrderId").value;
+            const order = ordersData.find(o => o.id === id);
+
+            if (order && (currentUser.role === "owner" || currentUser.role === "head-admin")) {
+                order.customer = document.getElementById("editCustName").value.trim();
+                order.item = document.getElementById("editCustItem").value.trim();
+                order.amount = document.getElementById("editCustAmount").value.trim();
+                order.method = document.getElementById("editCustPayMethod").value;
+                order.date = document.getElementById("editCustDate").value.trim();
+
+                saveOrders();
+                closeEditModal();
+                showToast(`Order #${id} logs updated!`, "info");
+                
+                sendDiscordNotification(order, "🔄 Order Log Updated!");
+            }
+        });
+
+
+        function deleteOrder(id) {
+            if (currentUser.role !== "owner") return;
+            ordersData = ordersData.filter(o => o.id !== id);
+            saveOrders();
+            showToast(`Order #${id} deleted successfully.`, "error");
+        }
+
+  
+        function sendDiscordNotification(order, actionTitle) {
             const webhookUrl = localStorage.getItem("kineticWebhookURL");
-            if (!webhookUrl) return; // Webhook adresi girilmemişse sessizce geç
+            if (!webhookUrl) return;
+
+            let embedColor = 11031031; 
+            if (order.status === "completed") embedColor = 1095949; 
+            if (order.status === "cancelled") embedColor = 15682612; 
+
+            const fields = [
+                { name: "Order ID", value: `\`#${order.id}\``, inline: true },
+                { name: "Customer Discord", value: `**@${order.customer}**`, inline: true },
+                { name: "Product / Service", value: `\`${order.item}\``, inline: false },
+                { name: "Amount Paid", value: `**${order.amount}**`, inline: true },
+                { name: "Payment Method", value: order.method, inline: true },
+                { name: "Current Status", value: `\`${order.status.toUpperCase()}\``, inline: true }
+            ];
+
+     
+            if (order.statusRequest) {
+                fields.push({ name: "🚨 Status Change Request", value: `Required: \`${order.statusRequest.toUpperCase()}\``, inline: false });
+            }
 
             const payload = {
-                username: "True Kinetic Bot",
+                username: "True Kinetic Command Bot",
                 avatar_url: "https://truekinetichub.com.tr/logo.png",
                 embeds: [{
-                    title: "🆕 New Order Logged!",
-                    description: "A new transaction has been registered via Command Center.",
-                    color: 10451690, // #9f7aea (Mor Işıma Rengi)
-                    fields: [
-                        { name: "Order ID", value: `\`#${order.id}\``, inline: true },
-                        { name: "Customer", value: `**@${order.customer}**`, inline: true },
-                        { name: "Product / Service", value: order.item, inline: false },
-                        { name: "Amount Paid", value: `**${order.amount}**`, inline: true },
-                        { name: "Payment Method", value: order.method, inline: true },
-                        { name: "Order Status", value: `\`${order.status.toUpperCase()}\``, inline: true }
-                    ],
-                    footer: {
-                        text: "True Kinetic Command Center System"
-                    },
+                    title: actionTitle,
+                    description: `Logs modified by terminal user: **@${currentUser.id}** (${currentUser.role.toUpperCase()})`,
+                    color: embedColor,
+                    fields: fields,
+                    footer: { text: "True Kinetic Cloud Operations Command Center" },
                     timestamp: new Date().toISOString()
                 }]
             };
@@ -711,81 +1647,57 @@
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(payload)
-            }).then(response => {
-                if (!response.ok) {
-                    console.error("Webhook Error Status:", response.statusText);
+            }).catch(err => console.error("Discord integration transmission failure:", err));
+        }
+
+       
+        testWebhookBtn.addEventListener("click", () => {
+            const webhookUrl = localStorage.getItem("kineticWebhookURL");
+            if (!webhookUrl) {
+                showToast("Please supply a valid Discord Webhook URL first.", "error");
+                return;
+            }
+
+            fetch(webhookUrl, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    username: "True Kinetic Bot",
+                    content: `🔔 **True Kinetic Webhook Active!** Terminal tested by user **@${currentUser.id}** (${currentUser.role.toUpperCase()}).`
+                })
+            }).then(res => {
+                if(res.ok) {
+                    showToast("Test message fired to Discord!", "success");
+                } else {
+                    showToast("Discord API returned an error. Check URL syntax.", "error");
                 }
             }).catch(err => {
-                console.error("Failed to trigger Discord Webhook:", err);
+                showToast("Pipeline failed. Check network or CORS policies.", "error");
             });
-        }
-
-        // Inline Durum Güncelleme
-        function updateOrderStatus(id, status) {
-            const found = ordersData.find(o => o.id === id);
-            if (found) {
-                found.status = status;
-                saveOrders();
-            }
-        }
-
-        // Sipariş Silme
-        function deleteOrder(id) {
-            if (confirm(`Are you sure you want to delete order #${id}?`)) {
-                ordersData = ordersData.filter(o => o.id !== id);
-                saveOrders();
-            }
-        }
-
-        // Arama/Filtreleme Olayı
-        searchOrderInput.addEventListener("input", (e) => {
-            renderOrders(e.target.value);
         });
 
-        // Discord Log Panoya Kopyalama
+    
         function copyToDiscord(id) {
             const order = ordersData.find(o => o.id === id);
             if (!order) return;
             
-            const logText = `#${order.id} | Customer: @${order.customer} | Item: ${order.item} | Price: ${order.amount} | Method: ${order.method} | Status: ${order.status.toUpperCase()}`;
+            const logText = `\`#${order.id}\` | Customer: **@${order.customer}** | Item: \`${order.item}\` | Price: **${order.amount}** | Method: \`${order.method}\` | Status: \`${order.status.toUpperCase()}\``;
             
             navigator.clipboard.writeText(logText).then(() => {
-                alert(`Order #${id} info copied to clipboard for Discord!`);
+                showToast(`Log copied for Discord clipboard!`, "success");
             }).catch(err => {
-                console.error("Copy failed: ", err);
+                showToast("Clipboard access denied.", "error");
             });
         }
 
-        // ==========================================================================
-        // 5. YETKİLENDİRME VE GÜVENLİK KONTROLÜ (GÜVENLİ EN SONDA ÇALIŞTIRMA)
-        // ==========================================================================
-        function verifyAccess() {
-            const inputPass = prompt("Please enter the Admin Password:");
-            
-            if (inputPass === null) {
-                window.location.href = "../index.html";
-                return;
-            }
 
-            if (inputPass === ADMIN_PASSWORD) {
-                document.body.style.display = "block"; // Paneli aç
-                renderOrders();
-                updateStats();
-            } else {
-                alert("Incorrect password! Access denied.");
-                window.location.href = "../index.html";
-            }
-        }
+        const exportBtn = document.getElementById("exportBtn");
+        const importBtn = document.getElementById("importBtn");
+        const importFile = document.getElementById("importFile");
 
-        // Doğrulamayı başlat (Tüm tanımlamalardan sonra en sonda!)
-        verifyAccess();
-
-        // ==========================================================================
-        // EXPORT & IMPORT ENGINE
-        // ==========================================================================
         exportBtn.addEventListener("click", () => {
             if (ordersData.length === 0) {
-                alert("No orders available to back up!");
+                showToast("No records database found to download.", "error");
                 return;
             }
             
@@ -798,10 +1710,11 @@
             const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(exportData, null, 2));
             const downloadLink = document.createElement('a');
             downloadLink.setAttribute("href", dataStr);
-            downloadLink.setAttribute("download", `tk_orders_db_${new Date().toISOString().slice(0,10)}.json`);
+            downloadLink.setAttribute("download", `true_kinetic_dump_${new Date().toISOString().slice(0,10)}.json`);
             document.body.appendChild(downloadLink);
             downloadLink.click();
             downloadLink.remove();
+            showToast("Database dump file successfully generated.", "success");
         });
 
         importBtn.addEventListener("click", () => {
@@ -817,19 +1730,74 @@
                 try {
                     const backup = JSON.parse(event.target.result);
                     if (backup && backup.orders) {
-                        if (confirm("Warning: Your current lists will be overwritten by orders from this file. Do you wish to continue?")) {
-                            ordersData = backup.orders;
-                            saveOrders();
-                            alert("Database synced and restored successfully!");
-                        }
+                        openConfirmDialog(
+                            "Import & Overwrite",
+                            "This will overwrite all current browser records with data from import file. Do you wish to continue?",
+                            () => {
+                                ordersData = backup.orders;
+                                saveOrders();
+                                showToast("Database integrated & synchronised!", "success");
+                            }
+                        );
                     } else {
-                        alert("Invalid backup file! Target JSON must contain 'orders' key.");
+                        showToast("Invalid JSON Schema detected.", "error");
                     }
                 } catch (err) {
-                    alert("Error reading backup file. Please select a valid JSON database file.");
+                    showToast("Fail to parse import file.", "error");
                 }
             };
             reader.readAsText(file);
+            importFile.value = ""; 
+        });
+
+        function showToast(message, type = "info") {
+            const container = document.getElementById("toastContainer");
+            const toast = document.createElement("div");
+            toast.className = `toast ${type}`;
+            
+            let icon = "fa-info-circle";
+            if (type === "success") icon = "fa-check-circle";
+            if (type === "error") icon = "fa-exclamation-circle";
+
+            toast.innerHTML = `<i class="fas ${icon}"></i> <span>${message}</span>`;
+            container.appendChild(toast);
+
+
+            setTimeout(() => toast.classList.add("show"), 10);
+
+      
+            setTimeout(() => {
+                toast.classList.remove("show");
+                setTimeout(() => toast.remove(), 300);
+            }, 3500);
+        }
+
+   
+        let activeConfirmCallback = null;
+        const confirmModal = document.getElementById("confirmModal");
+        const confirmTitle = document.getElementById("confirmTitle");
+        const confirmText = document.getElementById("confirmText");
+        const confirmProceedBtn = document.getElementById("confirmProceedBtn");
+        const confirmCancelBtn = document.getElementById("confirmCancelBtn");
+
+        function openConfirmDialog(title, text, proceedCallback) {
+            confirmTitle.textContent = title;
+            confirmText.textContent = text;
+            activeConfirmCallback = proceedCallback;
+            confirmModal.classList.add("active");
+        }
+
+        function closeConfirmDialog() {
+            confirmModal.classList.remove("active");
+            activeConfirmCallback = null;
+        }
+
+        confirmCancelBtn.addEventListener("click", closeConfirmDialog);
+        confirmProceedBtn.addEventListener("click", () => {
+            if (activeConfirmCallback) {
+                activeConfirmCallback();
+            }
+            closeConfirmDialog();
         });
     </script>
 </body>
