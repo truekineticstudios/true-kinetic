@@ -1,38 +1,146 @@
 import json
 import os
+import re
+import requests
+from bs4 import BeautifulSoup
 
 FILE_PATH = 'products.json'
 
-# Varsayılan veriler (Dosya deponuzda yoksa otomatik oluşturulması için)
-DEFAULT_DATA = {
-    "web": { "category": "software", "icon": "fas fa-code", "title": { "en": "Web Site Design", "tr": "Web Tasarım Paketleri" }, "desc": { "en": "Professional responsive design services.", "tr": "Profesyonel arayüz tasarım hizmetleri." }, "tiers": [{ "name": { "en": "Front-End", "tr": "Front-End" }, "price": { "en": "12$", "tr": "400 TL" }, "desc": { "en": "+$5 extra page", "tr": "Ek sayfa +170 TL" } }] },
-    "discord": { "category": "software", "icon": "fab fa-discord", "title": { "en": "Discord Server Setup", "tr": "Discord Sunucu Kurulumu" }, "desc": { "en": "Tailored roles and professional bot setup.", "tr": "Özel yetkilendirme ve profesyonel botlar." }, "tiers": [{ "name": { "en": "Basic Setup", "tr": "Temel Kurulum" }, "price": { "en": "2$", "tr": "70 TL" }, "desc": { "en": "Perfect starting layout", "tr": "Standart, temiz kurulum" } }] },
-    "roblox_gift": { "category": "games", "icon": "https://upload.wikimedia.org/wikipedia/commons/3/3a/Robux_2019_Logo_gold.svg", "title": { "en": "Roblox Gift Cards", "tr": "Roblox Hediye Kartları" }, "desc": { "en": "Digital codes directly applicable for Robux.", "tr": "Robux için geçerli resmi kodlar." }, "tiers": [{ "name": "$5 Gift Card", "price": { "en": "5$", "tr": "400 TL" }, "desc": { "en": "Official key", "tr": "Resmi kod" } }] },
-    "pubg_uc": { "category": "games", "icon": "fas fa-crosshairs", "title": { "en": "PUBG Mobile UC", "tr": "PUBG Mobile UC" }, "desc": { "en": "In-game Unknown Cash delivered to Player ID.", "tr": "Oyuncu ID'nize doğrudan yüklenen UC." }, "tiers": [{ "name": "325 UC", "price": { "en": "4.5$", "tr": "230 TL" }, "desc": { "en": "Direct ID Top-up", "tr": "Doğrudan Yükleme" } }] },
-    "valorant_vp": { "category": "games", "icon": "fas fa-gamepad", "title": { "en": "Valorant VP", "tr": "Valorant VP" }, "desc": { "en": "Secure Valorant Points Pin Codes.", "tr": "İndirimli Valorant Points e-pin kodları." }, "tiers": [{ "name": "1700 VP", "price": { "en": "7.5$", "tr": "493 TL" }, "desc": { "en": "Riot PIN delivery", "tr": "Hızlı Riot PIN teslimatı" } }] }
-}
+# --- SHOPIER VE KÂR AYARLARI ---
+SHOPIER_COMMISSION_RATE = 0.0499  # %4.99 Shopier standart komisyon oranı
+KDV_RATE = 0.20                 # %20 KDV oranı (Komisyon ve sabit ücret için)
+SHOPIER_FIXED_FEE = 0.49         # İşlem başı 0.49 TL sabit ücret
 
-def fiyatlari_guncelle():
-    # 1. Eğer dosya yoksa, varsayılan şablonla otomatik oluştur
-    if not os.path.exists(FILE_PATH):
-        print("products.json bulunamadı, yenisi otomatik oluşturuluyor...")
-        data = DEFAULT_DATA
+def get_profit_margin(cost):
+    """
+    Ürünün maliyetine göre üzerine eklenecek net kârı belirler.
+    Sınırları ve kâr miktarlarını buradan değiştirebilirsin.
+    """
+    if cost < 150:
+        return 20  # 150 TL altı ürünlere net 20 TL kâr ekle
+    elif cost <= 400:
+        return 35  # 150-400 TL arası ürünlere net 35 TL kâr ekle
+    elif cost <= 1000:
+        return 65  # 400-1000 TL arası ürünlere net 65 TL kâr ekle
     else:
-        with open(FILE_PATH, 'r', encoding='utf-8') as file:
-            data = json.load(file)
+        return (cost * 0.08) + 40  # 1000 TL üzeri ürünlere %8 + 40 TL kâr ekle
 
-    # 2. Örnek zam işlemi (Test amaçlı Valorant'a +5 TL ekliyoruz)
-    if 'valorant_vp' in data:
-        eski_fiyat_str = data['valorant_vp']['tiers'][0]['price']['tr']
-        eski_fiyat = int(eski_fiyat_str.replace(" TL", "").strip())
-        yeni_fiyat = eski_fiyat + 5
-        data['valorant_vp']['tiers'][0]['price']['tr'] = f"{yeni_fiyat} TL"
-        print(f"Valorant VP güncellendi: {eski_fiyat_str} -> {yeni_fiyat} TL")
+def calculate_shopier_price(cost):
+    """
+    Shopier kesintilerini hesaplayarak kuruşu kuruşuna nihai satış fiyatını bulur.
+    """
+    profit = get_profit_margin(cost)
+    target_payout = cost + profit # Cebimize kalmasını istediğimiz net para
+    
+    # KDV Dahil Komisyon Oranı ve Sabit Ücret
+    comm_factor = SHOPIER_COMMISSION_RATE * (1 + KDV_RATE)       # ~0.05988
+    fixed_fee_with_kdv = SHOPIER_FIXED_FEE * (1 + KDV_RATE)      # ~0.588
+    
+    # Shopier Ters Komisyon Formülü
+    final_price = (target_payout + fixed_fee_with_kdv) / (1 - comm_factor)
+    return round(final_price) # Fiyatı tam sayıya yuvarla
 
-    # 3. Dosyayı kaydet
+# --- HESAP.COM.TR CANLI FİYAT ÇEKİCİ (SCRAPER) ---
+def get_hesap_com_price(url, keyword):
+    headers = {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
+        "Accept-Language": "tr-TR,tr;q=0.9,en-US;q=0.8,en;q=0.7",
+        "Referer": "https://www.google.com/"
+    }
+    try:
+        response = requests.get(url, headers=headers, timeout=15)
+        if response.status_code != 200:
+            print(f"Bağlantı Hatası: {url} (Kod: {response.status_code})")
+            return None
+        
+        soup = BeautifulSoup(response.text, 'html.parser')
+        
+        # Ürün isminin tam geçtiği elementleri tara
+        elements = soup.find_all(string=re.compile(rf"\b{keyword}\b", re.IGNORECASE))
+        
+        parsed_prices = []
+        for el in elements:
+            parent = el.parent
+            for _ in range(5):
+                if not parent:
+                    break
+                text = parent.get_text()
+                # Fiyat formatlarını yakala
+                prices = re.findall(r'(\d+(?:[.,]\d+)?)\s*(?:TL|₺)', text)
+                if prices:
+                    for p in prices:
+                        clean_p = p.replace('.', '').replace(',', '.')
+                        try:
+                            val = float(clean_p)
+                            # E-pin fiyatları için mantıklı değer sınırları
+                            if 15 < val < 15000: 
+                                parsed_prices.append(val)
+                        except ValueError:
+                            continue
+                parent = parent.parent
+                
+        if parsed_prices:
+            return min(parsed_prices) # En ucuz seçeneği (asıl fiyatı) dön
+            
+    except Exception as e:
+        print(f"Hata oluştu ({url} - {keyword}): {e}")
+    return None
+
+# --- ANA PROGRAM ---
+def main():
+    if not os.path.exists(FILE_PATH):
+        print("products.json bulunamadı!")
+        return
+
+    with open(FILE_PATH, 'r', encoding='utf-8') as file:
+        data = json.load(file)
+
+    # 1. VALORANT VP GÜNCELLEME (1700 VP)
+    print("\n--- Valorant VP Güncelleniyor ---")
+    val_cost = get_hesap_com_price("https://www.hesap.com.tr/valorant-vp-satin-al", "1700 VP")
+    if val_cost:
+        yeni_satis_fiyati = calculate_shopier_price(val_cost)
+        data['valorant_vp']['tiers'][0]['price']['tr'] = f"{yeni_satis_fiyati} TL"
+        print(f"1700 VP -> Maliyet: {val_cost} TL | Satış Fiyatı: {yeni_satis_fiyati} TL")
+    else:
+        print("Valorant VP fiyatı çekilemedi, eski fiyat korunuyor.")
+
+    # 2. PUBG UC GÜNCELLEME (3 Farklı Paket)
+    print("\n--- PUBG Mobile UC Paketleri Güncelleniyor ---")
+    pubg_uc_targets = [
+        {"keyword": "325 UC", "index": 0},
+        {"keyword": "660 UC", "index": 1},
+        {"keyword": "1800 UC", "index": 2}
+    ]
+    for target in pubg_uc_targets:
+        cost = get_hesap_com_price("https://www.hesap.com.tr/pubg-mobile-uc-satin-al", target["keyword"])
+        if cost:
+            yeni_satis_fiyati = calculate_shopier_price(cost)
+            data['pubg_uc']['tiers'][target["index"]]['price']['tr'] = f"{yeni_satis_fiyati} TL"
+            print(f"{target['keyword']} -> Maliyet: {cost} TL | Satış Fiyatı: {yeni_satis_fiyati} TL")
+        else:
+            print(f"{target['keyword']} fiyatı çekilemedi, eski fiyat korunuyor.")
+
+    # 3. FREE FIRE ELMAS GÜNCELLEME (2 Farklı Paket)
+    print("\n--- Free Fire Elmas Paketleri Güncelleniyor ---")
+    ff_targets = [
+        {"keyword": "231 Elmas", "index": 0},
+        {"keyword": "583 Elmas", "index": 1}
+    ]
+    for target in ff_targets:
+        # Free Fire elmas araması Hesap.com.tr üzerinde genellikle 'free-fire-elmas-satin-al' linkindedir.
+        cost = get_hesap_com_price("https://www.hesap.com.tr/free-fire-elmas-satin-al", target["keyword"])
+        if cost:
+            yeni_satis_fiyati = calculate_shopier_price(cost)
+            data['freefire_gem']['tiers'][target["index"]]['price']['tr'] = f"{yeni_satis_fiyati} TL"
+            print(f"{target['keyword']} -> Maliyet: {cost} TL | Satış Fiyatı: {yeni_satis_fiyati} TL")
+        else:
+            print(f"{target['keyword']} fiyatı çekilemedi, eski fiyat korunuyor.")
+
+    # Güncellenmiş yeni products.json verisini yaz
     with open(FILE_PATH, 'w', encoding='utf-8') as file:
         json.dump(data, file, ensure_ascii=False, indent=4)
-    print("İşlem tamamlandı, dosya kaydedildi.")
+    print("\n[BAŞARILI] products.json dosyası yeni veri yapısına uygun şekilde güncellendi.")
 
 if __name__ == "__main__":
-    fiyatlari_guncelle()
+    main()
