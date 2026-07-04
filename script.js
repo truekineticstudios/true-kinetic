@@ -1,35 +1,4 @@
 /* ==========================================================================
-   2. VERİTABANI BAŞLATMA (GITHUB PRODUCTS.JSON VEYA LOCALSTORAGE)
-   ========================================================================== */
-const defaultPricingData = { ... }; // Mevcut varsayılan verilerin durabilir
-
-let pricingData = JSON.parse(localStorage.getItem("kineticPricingDB")) || defaultPricingData;
-let officialStaff = JSON.parse(localStorage.getItem("kineticStaffDB")) || ["owmanxx", "neural_forge.", "someoneelsexd"];
-let currentLang = localStorage.getItem("preferredLang") || "en";
-
-// GitHub'daki en güncel products.json dosyasını çek
-async function fetchLatestProducts() {
-    try {
-        // Cache'i önlemek için rastgele bir parametre ekliyoruz (?t=...)
-        const response = await fetch('products.json?t=' + new Date().getTime());
-        if (response.ok) {
-            const freshData = await response.json();
-            pricingData = freshData;
-            localStorage.setItem("kineticPricingDB", JSON.stringify(pricingData));
-            renderServices(document.getElementById("searchInput") ? document.getElementById("searchInput").value : "");
-            console.log("Fiyatlar GitHub'dan başarıyla güncellendi!");
-        }
-    } catch (e) {
-        console.log("GitHub verisi çekilemedi, yerel veri kullanılıyor.", e);
-    }
-}
-
-// Sayfa yüklendiğinde en güncel fiyatları çek
-document.addEventListener("DOMContentLoaded", () => {
-    fetchLatestProducts();
-});
-
-/* ==========================================================================
    1. TRANSLATIONS (DİL SÖZLÜĞÜ)
    ========================================================================== */
 const translations = {
@@ -68,22 +37,118 @@ const translations = {
 };
 
 /* ==========================================================================
-   2. VERİTABANI BAŞLATMA (LOCALSTORAGE & DEFAULTS)
+   2. VERİTABANI BAŞLATMA (YENİ VE TAM UYUMLU ŞABLON)
    ========================================================================== */
 const defaultPricingData = {
-    web: { category: "software", icon: "fas fa-code", title: { en: "Web Site Design", tr: "Web Tasarım Paketleri" }, desc: { en: "Professional responsive design services.", tr: "Profesyonel arayüz tasarım hizmetleri." }, tiers: [{ name: { en: "Front-End", tr: "Front-End" }, price: { en: "12$", tr: "400 TL" }, desc: { en: "+$5 extra page", tr: "Ek sayfa +170 TL" } }] },
-    discord: { category: "software", icon: "fab fa-discord", title: { en: "Discord Server Setup", tr: "Discord Sunucu Kurulumu" }, desc: { en: "Tailored roles and professional bot setup.", tr: "Özel yetkilendirme ve profesyonel botlar." }, tiers: [{ name: { en: "Basic Setup", tr: "Temel Kurulum" }, price: { en: "2$", tr: "70 TL" }, desc: { en: "Perfect starting layout", tr: "Standart, temiz kurulum" } }] },
-    roblox_gift: { category: "games", icon: "https://upload.wikimedia.org/wikipedia/commons/3/3a/Robux_2019_Logo_gold.svg", title: { en: "Roblox Gift Cards", tr: "Roblox Hediye Kartları" }, desc: { en: "Digital codes directly applicable for Robux.", tr: "Robux için geçerli resmi kodlar." }, tiers: [{ name: "$5 Gift Card", price: { en: "5$", tr: "400 TL" }, desc: { en: "Official key", tr: "Resmi kod" } }] },
-    pubg_uc: { category: "games", icon: "fas fa-crosshairs", title: { en: "PUBG Mobile UC", tr: "PUBG Mobile UC" }, desc: { en: "In-game Unknown Cash delivered to Player ID.", tr: "Oyuncu ID'nize doğrudan yüklenen UC." }, tiers: [{ name: "325 UC", price: { en: "4.5$", tr: "230 TL" }, desc: { en: "Direct ID Top-up", tr: "Doğrudan Yükleme" } }] },
-    valorant_vp: { category: "games", icon: "fas fa-gamepad", title: { en: "Valorant VP", tr: "Valorant VP" }, desc: { en: "Secure Valorant Points Pin Codes.", tr: "İndirimli Valorant Points e-pin kodları." }, tiers: [{ name: "1700 VP", price: { en: "7.5$", tr: "493 TL" }, desc: { en: "Riot PIN delivery", tr: "Hızlı Riot PIN teslimatı" } }] }
+  "web": {
+    "title": { "en": "Web Site Design", "tr": "Web Tasarım Paketleri" },
+    "desc": { "en": "Professional responsive design services.", "tr": "Profesyonel arayüz tasarım hizmetleri." },
+    "tiers": [
+      { "name": { "en": "Front-End Web Design", "tr": "Front-End Web Tasarım" }, "price": { "en": "12$", "tr": "400 TL" }, "desc": { "en": "+$5 for each extra page", "tr": "Ek sayfa başına +170 TL" } },
+      { "name": { "en": "Back-End Design", "tr": "Back-End Tasarım" }, "price": { "en": "Soon", "tr": "Yakında" }, "desc": { "en": "Under development", "tr": "Geliştirilme aşamasında" } },
+      { "name": { "en": "Full-Stack Design", "tr": "Full-Stack Tasarım" }, "price": { "en": "Soon", "tr": "Yakında" }, "desc": { "en": "Under development", "tr": "Geliştirilme aşamasında" } }
+    ],
+    "category": "software",
+    "icon": "fas fa-code"
+  },
+  "discord": {
+    "title": { "en": "Discord Server Setup", "tr": "Discord Sunucu Yapılandırması" },
+    "desc": { "en": "Tailored roles, security settings, and professional bot setup.", "tr": "Size özel yetkilendirme, güvenlik yapılandırmaları ve profesyonel botlar." },
+    "tiers": [
+      { "name": { "en": "Basic Setup", "tr": "Temel Kurulum" }, "price": { "en": "2$", "tr": "70 TL" }, "desc": { "en": "Perfect starting layout for small communities", "tr": "Küçük topluluklar için standart, temiz kurulum" } },
+      { "name": { "en": "Advanced Server", "tr": "Gelişmiş Sunucu" }, "price": { "en": "Soon", "tr": "Yakında" }, "desc": { "en": "Under development", "tr": "Geliştirilme aşamasında" } }
+    ],
+    "category": "software",
+    "icon": "fab fa-discord"
+  },
+  "detailed_analysis": {
+    "title": { "en": "Detailed Server Analysis", "tr": "Detaylı Sunucu Analizi" },
+    "desc": { "en": "Deep inspection into roles, permissions, and security loopholes.", "tr": "Roller, kanal yetkileri ve güvenlik açıklarına yönelik derin analiz." },
+    "tiers": [
+      { "name": { "en": "Comprehensive Audit", "tr": "Detaylı İnceleme" }, "price": { "en": "8$", "tr": "270 TL" }, "desc": { "en": "Complete security report sheet", "tr": "Tam kapsamlı güvenlik raporu teslimi" } }
+    ],
+    "category": "software",
+    "icon": "fas fa-chart-line"
+  },
+  "basic_analysis": {
+    "title": { "en": "Basic Server Analysis", "tr": "Temel Sunucu Analizi" },
+    "desc": { "en": "Overview check-up of server layout safety standards.", "tr": "Sunucu düzeni ve temel güvenlik standartlarının taranması." },
+    "tiers": [
+      { "name": { "en": "Standard Audit", "tr": "Temel İnceleme" }, "price": { "en": "3$", "tr": "100 TL" }, "desc": { "en": "Overview permission check", "tr": "Temel izin ve rol denetimi" } }
+    ],
+    "category": "software",
+    "icon": "fas fa-poll"
+  },
+  "pubg_uc": {
+    "title": { "en": "PUBG Mobile UC", "tr": "PUBG Mobile UC Fiyatları" },
+    "desc": { "en": "In-game Unknown Cash delivered directly with your Player ID.", "tr": "Karakter ID'niz kullanılarak hesabınıza doğrudan yüklenen UC paketleri." },
+    "tiers": [
+      { "name": "325 UC", "price": { "en": "4.5$", "tr": "230 TL" }, "desc": { "en": "ID top-up delivery", "tr": "Oyuncu ID'sine doğrudan yükleme" } },
+      { "name": "660 UC", "price": { "en": "8.5$", "tr": "442 TL" }, "desc": { "en": "ID top-up delivery", "tr": "Oyuncu ID'sine doğrudan yükleme" } },
+      { "name": "1800 UC", "price": { "en": "22$", "tr": "1100 TL" }, "desc": { "en": "ID top-up delivery", "tr": "Oyuncu ID'sine doğrudan yükleme" } }
+    ],
+    "category": "games",
+    "icon": "fas fa-crosshairs"
+  },
+  "valorant_vp": {
+    "title": { "en": "Valorant VP", "tr": "Valorant VP Fiyatları" },
+    "desc": { "en": "Secure Valorant Points Pin Codes valid on target regional accounts.", "tr": "Türkiye ve hedef hesaplarda geçerli indirimli Valorant Points e-pin kodları." },
+    "tiers": [
+      { "name": "1700 VP", "price": { "en": "7.5$", "tr": "493 TL" }, "desc": { "en": "Riot PIN delivery code", "tr": "Hızlı Riot PIN teslimatı" } },
+      { "name": { "en": "Other Quantities", "tr": "Diğer Miktarlar" }, "price": { "en": "Varies", "tr": "Değişken" }, "desc": { "en": "Please visit our Discord server for custom amounts", "tr": "Diğer tüm miktarlar için lütfen Discord sunucumuzu ziyaret edin" } }
+    ],
+    "category": "games",
+    "icon": "fas fa-gamepad"
+  },
+  "steam_wallet": {
+    "title": { "en": "Steam Wallet Code", "tr": "Steam Cüzdan Kodları" },
+    "desc": { "en": "Add funds directly to your digital Steam Wallet.", "tr": "Steam bakiyenize ekleyebileceğiniz güvenli cüzdan kodları." },
+    "tiers": [
+      { "name": { "en": "Variable Prices", "tr": "Sabit Fiyat Yoktur" }, "price": { "en": "Contact Us", "tr": "İletişime Geçin" }, "desc": { "en": "No fixed price, please visit our Discord server for details.", "tr": "Ürünün sabit fiyatı bulunmamaktadır. Detaylı bilgi için lütfen sunucumuzu ziyaret edin." } }
+    ],
+    "category": "games",
+    "icon": "fab fa-steam"
+  },
+  "freefire_gem": {
+    "title": { "en": "Free Fire Gem", "tr": "Free Fire Elmas Paketleri" },
+    "desc": { "en": "Cheapest FF diamonds packages directly loaded into your account.", "tr": "Hesabınıza doğrudan yüklenecek en uygun fiyatlı Free Fire elmas paketleri." },
+    "tiers": [
+      { "name": { "en": "231 Diamonds", "tr": "231 Elmas" }, "price": { "en": "2$", "tr": "121 TL" }, "desc": { "en": "Instant in-game top-up", "tr": "Oyun içi doğrudan hızlı yükleme" } },
+      { "name": { "en": "583 Diamonds", "tr": "583 Elmas" }, "price": { "en": "4.5$", "tr": "300 TL" }, "desc": { "en": "Instant in-game top-up", "tr": "Oyun içi doğrudan hızlı yükleme" } }
+    ],
+    "category": "games",
+    "icon": "fas fa-gem"
+  },
+  "custom_requests": {
+    "title": { "en": "Special Requests", "tr": "Özel İstekler" },
+    "desc": { "en": "Get in touch for custom, bespoke developer tasks and requests.", "tr": "Size özel yazılım, bot veya arayüz talepleri için bizimle iletişime geçin." },
+    "tiers": [
+      { "name": { "en": "Custom Order", "tr": "Özel Talep Formu" }, "price": { "en": "Flexible", "tr": "Esnek Fiyat" }, "desc": { "en": "Visit our server to pitch your custom project guidelines.", "tr": "Özel hizmet istekleriniz ve detaylı görüşme için lütfen sunucumuzu ziyaret edin." } }
+    ],
+    "category": "software",
+    "icon": "fas fa-wand-magic-sparkles"
+  }
 };
 
-if (!localStorage.getItem("kineticPricingDB")) {
-    localStorage.setItem("kineticPricingDB", JSON.stringify(defaultPricingData));
-}
-let pricingData = JSON.parse(localStorage.getItem("kineticPricingDB"));
+let pricingData = JSON.parse(localStorage.getItem("kineticPricingDB")) || defaultPricingData;
 let officialStaff = JSON.parse(localStorage.getItem("kineticStaffDB")) || ["owmanxx", "neural_forge.", "someoneelsexd"];
 let currentLang = localStorage.getItem("preferredLang") || "en";
+
+// GITHUB'DAN EN GÜNCEL DOSYAYI ÇEKME FONKSİYONU
+async function fetchLatestProducts() {
+    try {
+        const response = await fetch('products.json?t=' + new Date().getTime());
+        if (response.ok) {
+            const freshData = await response.json();
+            pricingData = freshData;
+            localStorage.setItem("kineticPricingDB", JSON.stringify(pricingData));
+            renderServices(document.getElementById("searchInput") ? document.getElementById("searchInput").value : "");
+            console.log("Fiyatlar GitHub'dan başarıyla güncellendi!");
+        }
+    } catch (e) {
+        console.log("GitHub verisi çekilemedi, yerel veri kullanılıyor.", e);
+    }
+}
 
 /* ==========================================================================
    3. GÜVENLİK (ADMIN ŞİFRESİ GİZLEME)
@@ -103,6 +168,7 @@ function verifyAdminPassword(inputPass) {
    ========================================================================== */
 function showToast(message, type = "info") {
     const container = document.getElementById("toastContainer");
+    if (!container) return;
     const toast = document.createElement("div");
     toast.className = `toast ${type}`;
     let icon = type === "success" ? "fa-check-circle" : type === "error" ? "fa-exclamation-circle" : "fa-info-circle";
@@ -128,9 +194,9 @@ function initSpotlight() {
 
 function renderServices(searchQuery = "") {
     const grid = document.getElementById("servicesGrid");
+    if (!grid) return;
     grid.innerHTML = "";
     
-    // Geçerli kategori filtresini al
     const activeFilterBtn = document.querySelector(".filter-btn.active");
     const activeFilter = activeFilterBtn ? activeFilterBtn.getAttribute("data-filter") : "all";
 
@@ -140,12 +206,10 @@ function renderServices(searchQuery = "") {
         const descText = item.desc[currentLang] || item.desc.en || item.desc;
         const btnText = item.category === "software" ? translations[currentLang].btn_info : translations[currentLang].btn_view_prices;
 
-        // Arama ve Kategori Filtresi Uygunluk Kontrolü
         const matchesCategory = (activeFilter === "all" || item.category === activeFilter);
         const matchesSearch = titleText.toLowerCase().includes(searchQuery.toLowerCase()) || descText.toLowerCase().includes(searchQuery.toLowerCase());
 
         if (matchesCategory && matchesSearch) {
-            // İkon mu yoksa Resim url'si mi kontrolü (http içeriyorsa resimdir)
             let iconHTML = item.icon.includes("http") ? `<img src="${item.icon}" alt="${titleText}">` : `<i class="${item.icon}"></i>`;
             
             const card = document.createElement("div");
@@ -176,7 +240,8 @@ function renderServices(searchQuery = "") {
 function applyLanguage(lang) {
     currentLang = lang;
     localStorage.setItem("preferredLang", lang);
-    document.getElementById("langSelect").value = lang;
+    const select = document.getElementById("langSelect");
+    if (select) select.value = lang;
 
     document.querySelectorAll("[data-i18n]").forEach(element => {
         const key = element.getAttribute("data-i18n");
@@ -196,22 +261,27 @@ function applyLanguage(lang) {
    ========================================================================== */
 document.addEventListener("DOMContentLoaded", () => {
     applyLanguage(currentLang);
+    fetchLatestProducts(); // Gelişmiş canlı veri çekme fonksiyonu
 
-    // Scroll Navbar
     window.addEventListener("scroll", () => {
         const nav = document.getElementById("navbar");
-        if (window.scrollY > 50) nav.classList.add("scrolled"); else nav.classList.remove("scrolled");
+        if (nav) {
+            if (window.scrollY > 50) nav.classList.add("scrolled"); else nav.classList.remove("scrolled");
+        }
     });
 
-    // Mobile Nav
-    document.getElementById("mobileToggle").addEventListener("click", () => {
-        document.getElementById("navContainer").classList.toggle("active");
-    });
+    const mobToggle = document.getElementById("mobileToggle");
+    if (mobToggle) {
+        mobToggle.addEventListener("click", () => {
+            document.getElementById("navContainer").classList.toggle("active");
+        });
+    }
 
-    // Language change
-    document.getElementById("langSelect").addEventListener("change", (e) => applyLanguage(e.target.value));
+    const langSelect = document.getElementById("langSelect");
+    if (langSelect) {
+        langSelect.addEventListener("change", (e) => applyLanguage(e.target.value));
+    }
 
-    // Scroll Animations
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
@@ -221,17 +291,15 @@ document.addEventListener("DOMContentLoaded", () => {
     }, { threshold: 0.1 });
     document.querySelectorAll(".reveal-on-scroll").forEach(el => observer.observe(el));
 
-    // Kategori Filtre Butonları
     const filterBtns = document.querySelectorAll(".filter-btn");
     filterBtns.forEach(btn => {
         btn.addEventListener("click", () => {
             filterBtns.forEach(b => b.classList.remove("active"));
             btn.classList.add("active");
-            renderServices(document.getElementById("searchInput").value);
+            renderServices(document.getElementById("searchInput") ? document.getElementById("searchInput").value : "");
         });
     });
 
-    // Arama Çubuğu Dinleyici
     const searchInput = document.getElementById("searchInput");
     if(searchInput) {
         searchInput.addEventListener("input", (e) => {
@@ -239,7 +307,6 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    // FAQ Akordeon
     document.querySelectorAll(".faq-question").forEach(btn => {
         btn.addEventListener("click", () => {
             const item = btn.parentElement;
@@ -256,7 +323,6 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
 
-    // Staff Verification Tool
     const verifyBtn = document.getElementById("verifyBtn");
     if(verifyBtn) {
         verifyBtn.addEventListener("click", () => {
@@ -275,7 +341,6 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    // Modalları kapatma (dışarı tıklayınca)
     window.addEventListener("click", (e) => {
         if (e.target.classList.contains("modal-overlay")) e.target.classList.remove("active");
     });
@@ -296,21 +361,22 @@ window.openPricingModal = function(key) {
     document.getElementById("pricingDesc").textContent = data.desc[currentLang] || data.desc.en;
     
     const tiersDiv = document.getElementById("pricingTiers");
-    tiersDiv.innerHTML = "";
+    if (tiersDiv) {
+        tiersDiv.innerHTML = "";
+        data.tiers.forEach(tier => {
+            const tName = typeof tier.name === "string" ? tier.name : (tier.name[currentLang] || tier.name.en);
+            const tPrice = typeof tier.price === "string" ? tier.price : (tier.price[currentLang] || tier.price.en);
+            const tDesc = typeof tier.desc === "string" ? tier.desc : (tier.desc[currentLang] || tier.desc.en);
 
-    data.tiers.forEach(tier => {
-        const tName = typeof tier.name === "string" ? tier.name : (tier.name[currentLang] || tier.name.en);
-        const tPrice = typeof tier.price === "string" ? tier.price : (tier.price[currentLang] || tier.price.en);
-        const tDesc = typeof tier.desc === "string" ? tier.desc : (tier.desc[currentLang] || tier.desc.en);
-
-        tiersDiv.innerHTML += `
-            <div class="tier-card">
-                <h4>${tName}</h4>
-                <div class="tier-price">${tPrice}</div>
-                <p class="tier-desc">${tDesc}</p>
-            </div>
-        `;
-    });
+            tiersDiv.innerHTML += `
+                <div class="tier-card">
+                    <h4>${tName}</h4>
+                    <div class="tier-price">${tPrice}</div>
+                    <p class="tier-desc">${tDesc}</p>
+                </div>
+            `;
+        });
+    }
 
     document.getElementById("pricingModal").classList.add("active");
 };
@@ -318,31 +384,39 @@ window.openPricingModal = function(key) {
 /* ==========================================================================
    9. ADMIN PANELİ & GİRİŞ (AUTH)
    ========================================================================== */
-document.getElementById("openAdminLoginBtn").addEventListener("click", () => {
-    document.getElementById("adminAuthModal").classList.add("active");
-});
+const openAdminBtn = document.getElementById("openAdminLoginBtn");
+if (openAdminBtn) {
+    openAdminBtn.addEventListener("click", () => {
+        document.getElementById("adminAuthModal").classList.add("add", "active");
+    });
+}
 
-document.getElementById("toggleAdminPass").addEventListener("click", () => {
-    const inp = document.getElementById("adminPassInput");
-    const icon = document.querySelector("#toggleAdminPass i");
-    if (inp.type === "password") { inp.type = "text"; icon.className = "far fa-eye-slash"; } 
-    else { inp.type = "password"; icon.className = "far fa-eye"; }
-});
+const toggleAdminPass = document.getElementById("toggleAdminPass");
+if (toggleAdminPass) {
+    toggleAdminPass.addEventListener("click", () => {
+        const inp = document.getElementById("adminPassInput");
+        const icon = document.querySelector("#toggleAdminPass i");
+        if (inp.type === "password") { inp.type = "text"; icon.className = "far fa-eye-slash"; } 
+        else { inp.type = "password"; icon.className = "far fa-eye"; }
+    });
+}
 
-// Güvenli Admin Giriş İşlemi
-document.getElementById("submitAdminLoginBtn").addEventListener("click", () => {
-    const inpVal = document.getElementById("adminPassInput").value;
-    const isValid = verifyAdminPassword(inpVal);
+const submitAdminBtn = document.getElementById("submitAdminLoginBtn");
+if (submitAdminBtn) {
+    submitAdminBtn.addEventListener("click", () => {
+        const inpVal = document.getElementById("adminPassInput").value;
+        const isValid = verifyAdminPassword(inpVal);
 
-    if (isValid) {
-        document.getElementById("adminAuthModal").classList.remove("active");
-        document.getElementById("adminPassInput").value = "";
-        showToast("Access Granted! Welcome to Command Center.", "success");
-        openAdminDashboard();
-    } else {
-        showToast("Authentication Failed! Invalid Security Key.", "error");
-    }
-});
+        if (isValid) {
+            document.getElementById("adminAuthModal").classList.remove("active");
+            document.getElementById("adminPassInput").value = "";
+            showToast("Access Granted! Welcome to Command Center.", "success");
+            openAdminDashboard();
+        } else {
+            showToast("Authentication Failed! Invalid Security Key.", "error");
+        }
+    });
+}
 
 /* ==========================================================================
    10. ADMIN DASHBOARD İŞLEVLERİ (TABS, EDIT, ADD, DB IMPORT/EXPORT)
@@ -366,9 +440,10 @@ function openAdminDashboard() {
 }
 
 function refreshAdminDashboardData() {
-    // İstatistikleri Güncelle
-    document.getElementById("statTotalProducts").textContent = Object.keys(pricingData).length;
-    document.getElementById("statTotalStaff").textContent = officialStaff.length;
+    const totalProdEl = document.getElementById("statTotalProducts");
+    const totalStaffEl = document.getElementById("statTotalStaff");
+    if(totalProdEl) totalProdEl.textContent = Object.keys(pricingData).length;
+    if(totalStaffEl) totalStaffEl.textContent = officialStaff.length;
 
     loadEditorSelect();
     loadAdminProductList();
@@ -376,11 +451,11 @@ function refreshAdminDashboardData() {
     generateTiersInputFields();
 }
 
-// FİYAT GÜNCELLEME (Edit Prices)
 const editorSelect = document.getElementById("editorServiceSelect");
 const editorContainer = document.getElementById("editorTiersContainer");
 
 function loadEditorSelect() {
+    if(!editorSelect) return;
     editorSelect.innerHTML = "";
     Object.keys(pricingData).forEach(key => {
         editorSelect.innerHTML += `<option value="${key}">${pricingData[key].title.en || pricingData[key].title}</option>`;
@@ -388,10 +463,13 @@ function loadEditorSelect() {
     if(Object.keys(pricingData).length > 0) loadTiersIntoEditor(editorSelect.value);
 }
 
-editorSelect.addEventListener("change", (e) => loadTiersIntoEditor(e.target.value));
+if(editorSelect) {
+    editorSelect.addEventListener("change", (e) => loadTiersIntoEditor(e.target.value));
+}
 
 function loadTiersIntoEditor(serviceKey) {
     const data = pricingData[serviceKey];
+    if(!editorContainer) return;
     editorContainer.innerHTML = "";
     if (!data) return;
 
@@ -412,27 +490,30 @@ function loadTiersIntoEditor(serviceKey) {
     });
 }
 
-document.getElementById("savePricesBtn").addEventListener("click", () => {
-    const key = editorSelect.value;
-    if(!pricingData[key]) return;
-    const rows = editorContainer.querySelectorAll(".tier-edit-row");
-    
-    rows.forEach((row, index) => {
-        const enVal = row.querySelector(".edit-p-en").value;
-        const trVal = row.querySelector(".edit-p-tr").value;
-        pricingData[key].tiers[index].price = { en: enVal, tr: trVal };
+const savePricesBtn = document.getElementById("savePricesBtn");
+if(savePricesBtn) {
+    savePricesBtn.addEventListener("click", () => {
+        const key = editorSelect.value;
+        if(!pricingData[key]) return;
+        const rows = editorContainer.querySelectorAll(".tier-edit-row");
+        
+        rows.forEach((row, index) => {
+            const enVal = row.querySelector(".edit-p-en").value;
+            const trVal = row.querySelector(".edit-p-tr").value;
+            pricingData[key].tiers[index].price = { en: enVal, tr: trVal };
+        });
+
+        localStorage.setItem("kineticPricingDB", JSON.stringify(pricingData));
+        renderServices(document.getElementById("searchInput") ? document.getElementById("searchInput").value : "");
+        showToast("Global pricing configuration updated!", "success");
     });
+}
 
-    localStorage.setItem("kineticPricingDB", JSON.stringify(pricingData));
-    renderServices(document.getElementById("searchInput") ? document.getElementById("searchInput").value : "");
-    showToast("Global pricing configuration updated!", "success");
-});
-
-// YENİ ÜRÜN EKLE / SİL
 const addProdTiersCount = document.getElementById("addProdTiersCount");
 const addProdTiersFields = document.getElementById("addProdTiersFields");
 
 function generateTiersInputFields() {
+    if(!addProdTiersCount || !addProdTiersFields) return;
     const count = parseInt(addProdTiersCount.value) || 1;
     addProdTiersFields.innerHTML = "";
 
@@ -456,50 +537,53 @@ function generateTiersInputFields() {
         `;
     }
 }
-addProdTiersCount.addEventListener("input", generateTiersInputFields);
+if(addProdTiersCount) addProdTiersCount.addEventListener("input", generateTiersInputFields);
 
-document.getElementById("addProductBtn").addEventListener("click", () => {
-    const key = document.getElementById("addProdKey").value.trim().toLowerCase().replace(/\s+/g, '_');
-    if (!key) return showToast("Product ID cannot be empty!", "error");
-    if (pricingData[key]) return showToast("This Product ID already exists!", "error");
+const addProductBtn = document.getElementById("addProductBtn");
+if(addProductBtn) {
+    addProductBtn.addEventListener("click", () => {
+        const key = document.getElementById("addProdKey").value.trim().toLowerCase().replace(/\s+/g, '_');
+        if (!key) return showToast("Product ID cannot be empty!", "error");
+        if (pricingData[key]) return showToast("This Product ID already exists!", "error");
 
-    const tierGroups = addProdTiersFields.querySelectorAll(".tier-input-group");
-    const tiers = [];
-    let isTiersValid = true;
+        const tierGroups = addProdTiersFields.querySelectorAll(".tier-input-group");
+        const tiers = [];
+        let isTiersValid = true;
 
-    tierGroups.forEach(group => {
-        const nameEn = group.querySelector(".t-name-en").value;
-        if(!nameEn) isTiersValid = false;
-        tiers.push({
-            name: { en: nameEn, tr: group.querySelector(".t-name-tr").value },
-            price: { en: group.querySelector(".t-price-en").value, tr: group.querySelector(".t-price-tr").value },
-            desc: { en: group.querySelector(".t-desc-en").value, tr: group.querySelector(".t-desc-tr").value }
+        tierGroups.forEach(group => {
+            const nameEn = group.querySelector(".t-name-en").value;
+            if(!nameEn) isTiersValid = false;
+            tiers.push({
+                name: { en: nameEn, tr: group.querySelector(".t-name-tr").value },
+                price: { en: group.querySelector(".t-price-en").value, tr: group.querySelector(".t-price-tr").value },
+                desc: { en: group.querySelector(".t-desc-en").value, tr: group.querySelector(".t-desc-tr").value }
+            });
         });
+
+        if(!isTiersValid) return showToast("Please fill all package names!", "error");
+
+        pricingData[key] = {
+            category: document.getElementById("addProdCategory").value, 
+            icon: document.getElementById("addProdIcon").value || "fas fa-box",
+            title: { en: document.getElementById("addProdTitleEn").value, tr: document.getElementById("addProdTitleTr").value },
+            desc: { en: document.getElementById("addProdDescEn").value, tr: document.getElementById("addProdDescTr").value },
+            tiers: tiers
+        };
+
+        localStorage.setItem("kineticPricingDB", JSON.stringify(pricingData));
+        showToast("New product integrated to the global hub!", "success");
+        
+        document.querySelectorAll(".add-product-form input[type='text']").forEach(i => i.value = "");
+        addProdTiersCount.value = 1; generateTiersInputFields();
+        
+        renderServices(document.getElementById("searchInput") ? document.getElementById("searchInput").value : "");
+        refreshAdminDashboardData();
     });
-
-    if(!isTiersValid) return showToast("Please fill all package names!", "error");
-
-    pricingData[key] = {
-        category: document.getElementById("addProdCategory").value, 
-        icon: document.getElementById("addProdIcon").value || "fas fa-box",
-        title: { en: document.getElementById("addProdTitleEn").value, tr: document.getElementById("addProdTitleTr").value },
-        desc: { en: document.getElementById("addProdDescEn").value, tr: document.getElementById("addProdDescTr").value },
-        tiers: tiers
-    };
-
-    localStorage.setItem("kineticPricingDB", JSON.stringify(pricingData));
-    showToast("New product integrated to the global hub!", "success");
-    
-    // Formu temizle
-    document.querySelectorAll(".add-product-form input[type='text']").forEach(i => i.value = "");
-    addProdTiersCount.value = 1; generateTiersInputFields();
-    
-    renderServices(document.getElementById("searchInput") ? document.getElementById("searchInput").value : "");
-    refreshAdminDashboardData();
-});
+}
 
 function loadAdminProductList() {
     const ul = document.getElementById("adminProductList");
+    if(!ul) return;
     ul.innerHTML = "";
     Object.keys(pricingData).forEach(key => {
         const title = pricingData[key].title.en || pricingData[key].title;
@@ -520,9 +604,9 @@ window.deleteProduct = function(key) {
     refreshAdminDashboardData();
 };
 
-// STAFF YÖNETİMİ
 function loadStaffList() {
     const ul = document.getElementById("staffList");
+    if(!ul) return;
     ul.innerHTML = "";
     officialStaff.forEach((username, index) => {
         ul.innerHTML += `
@@ -534,19 +618,22 @@ function loadStaffList() {
     });
 }
 
-document.getElementById("addStaffBtn").addEventListener("click", () => {
-    const input = document.getElementById("newStaffInput");
-    const val = input.value.trim().toLowerCase();
-    
-    if (!val) return;
-    if (officialStaff.includes(val)) return showToast("User is already in the registry.", "error");
+const addStaffBtn = document.getElementById("addStaffBtn");
+if(addStaffBtn) {
+    addStaffBtn.addEventListener("click", () => {
+        const input = document.getElementById("newStaffInput");
+        const val = input.value.trim().toLowerCase();
+        
+        if (!val) return;
+        if (officialStaff.includes(val)) return showToast("User is already in the registry.", "error");
 
-    officialStaff.push(val);
-    localStorage.setItem("kineticStaffDB", JSON.stringify(officialStaff));
-    input.value = "";
-    refreshAdminDashboardData();
-    showToast("Staff registry updated.", "success");
-});
+        officialStaff.push(val);
+        localStorage.setItem("kineticStaffDB", JSON.stringify(officialStaff));
+        input.value = "";
+        refreshAdminDashboardData();
+        showToast("Staff registry updated.", "success");
+    });
+}
 
 window.removeStaff = function(index) {
     officialStaff.splice(index, 1);
@@ -555,40 +642,43 @@ window.removeStaff = function(index) {
     showToast("Staff access revoked.", "info");
 };
 
-// VERİTABANI İNDİRME VE İÇE AKTARMA (JSON EXPORT & IMPORT)
-document.getElementById("exportDbBtn").addEventListener("click", () => {
-    const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(pricingData, null, 2));
-    const dlAnchorElem = document.createElement('a');
-    dlAnchorElem.setAttribute("href", dataStr); dlAnchorElem.setAttribute("download", "products.json");
-    document.body.appendChild(dlAnchorElem); dlAnchorElem.click(); dlAnchorElem.remove();
-    showToast("JSON successfully generated for GitHub sync.", "success");
-});
+const exportDbBtn = document.getElementById("exportDbBtn");
+if(exportDbBtn) {
+    exportDbBtn.addEventListener("click", () => {
+        const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(pricingData, null, 2));
+        const dlAnchorElem = document.createElement('a');
+        dlAnchorElem.setAttribute("href", dataStr); dlAnchorElem.setAttribute("download", "products.json");
+        document.body.appendChild(dlAnchorElem); dlAnchorElem.click(); dlAnchorElem.remove();
+        showToast("JSON successfully generated for GitHub sync.", "success");
+    });
+}
 
 const importDbBtn = document.getElementById("importDbBtn");
 const importDbFile = document.getElementById("importDbFile");
 
-importDbBtn.addEventListener("click", () => importDbFile.click());
+if(importDbBtn && importDbFile) {
+    importDbBtn.addEventListener("click", () => importDbFile.click());
 
-importDbFile.addEventListener("change", (e) => {
-    const file = e.target.files[0];
-    if (!file) return;
+    importDbFile.addEventListener("change", (e) => {
+        const file = e.target.files[0];
+        if (!file) return;
 
-    const reader = new FileReader();
-    reader.onload = function(evt) {
-        try {
-            const importedData = JSON.parse(evt.target.result);
-            if (typeof importedData === "object" && importedData !== null) {
-                pricingData = importedData;
-                localStorage.setItem("kineticPricingDB", JSON.stringify(pricingData));
-                renderServices(document.getElementById("searchInput") ? document.getElementById("searchInput").value : "");
-                refreshAdminDashboardData();
-                showToast("Database successfully restored from JSON!", "success");
-            } else { throw new Error("Invalid format"); }
-        } catch (error) {
-            showToast("Failed to import! The JSON file is corrupted or invalid.", "error");
-        }
-    };
-    reader.readAsText(file);
-    // Reset file input
-    e.target.value = '';
-});
+        const reader = new FileReader();
+        reader.onload = function(evt) {
+            try {
+                const importedData = JSON.parse(evt.target.result);
+                if (typeof importedData === "object" && importedData !== null) {
+                    pricingData = importedData;
+                    localStorage.setItem("kineticPricingDB", JSON.stringify(pricingData));
+                    renderServices(document.getElementById("searchInput") ? document.getElementById("searchInput").value : "");
+                    refreshAdminDashboardData();
+                    showToast("Database successfully restored from JSON!", "success");
+                } else { throw new Error("Invalid format"); }
+            } catch (error) {
+                showToast("Failed to import! The JSON file is corrupted or invalid.", "error");
+            }
+        };
+        reader.readAsText(file);
+        e.target.value = '';
+    });
+}
