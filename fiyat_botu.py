@@ -1,7 +1,7 @@
 import json
 import os
 import re
-import requests
+import cloudscraper  # Cloudflare korumasını aşmak için ekledik
 from bs4 import BeautifulSoup
 
 FILE_PATH = 'products.json'
@@ -42,13 +42,17 @@ def calculate_shopier_price(cost):
 
 # --- HESAP.COM.TR CANLI FİYAT ÇEKİCİ (SCRAPER) ---
 def get_hesap_com_price(url, keyword):
-    headers = {
-        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
-        "Accept-Language": "tr-TR,tr;q=0.9,en-US;q=0.8,en;q=0.7",
-        "Referer": "https://www.google.com/"
-    }
     try:
-        response = requests.get(url, headers=headers, timeout=15)
+        # cloudscraper ile normal requests kütüphanesini taklit ediyoruz (Cloudflare bypass)
+        scraper = cloudscraper.create_scraper(
+            browser={
+                'browser': 'chrome',
+                'platform': 'windows',
+                'mobile': False
+            }
+        )
+        response = scraper.get(url, timeout=20)
+        
         if response.status_code != 200:
             print(f"Bağlantı Hatası: {url} (Kod: {response.status_code})")
             return None
@@ -97,7 +101,7 @@ def main():
 
     # 1. VALORANT VP GÜNCELLEME (1700 VP)
     print("\n--- Valorant VP Güncelleniyor ---")
-    val_cost = get_hesap_com_price("https://www.hesap.com.tr/valorant-vp-satin-al", "1700 VP")
+    val_cost = get_hesap_com_price("https://www.hesap.com.tr/urunler/valorant-vp-satin-al", "1700 VP")
     if val_cost:
         yeni_satis_fiyati = calculate_shopier_price(val_cost)
         data['valorant_vp']['tiers'][0]['price']['tr'] = f"{yeni_satis_fiyati} TL"
@@ -113,7 +117,7 @@ def main():
         {"keyword": "1800 UC", "index": 2}
     ]
     for target in pubg_uc_targets:
-        cost = get_hesap_com_price("https://www.hesap.com.tr/pubg-mobile-uc-satin-al", target["keyword"])
+        cost = get_hesap_com_price("https://www.hesap.com.tr/urunler/pubg-mobile-uc-satin-al", target["keyword"])
         if cost:
             yeni_satis_fiyati = calculate_shopier_price(cost)
             data['pubg_uc']['tiers'][target["index"]]['price']['tr'] = f"{yeni_satis_fiyati} TL"
@@ -128,8 +132,7 @@ def main():
         {"keyword": "583 Elmas", "index": 1}
     ]
     for target in ff_targets:
-        # Free Fire elmas araması Hesap.com.tr üzerinde genellikle 'free-fire-elmas-satin-al' linkindedir.
-        cost = get_hesap_com_price("https://www.hesap.com.tr/free-fire-elmas-satin-al", target["keyword"])
+        cost = get_hesap_com_price("https://www.hesap.com.tr/urunler/free-fire-elmas-satin-al", target["keyword"])
         if cost:
             yeni_satis_fiyati = calculate_shopier_price(cost)
             data['freefire_gem']['tiers'][target["index"]]['price']['tr'] = f"{yeni_satis_fiyati} TL"
