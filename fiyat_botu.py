@@ -6,23 +6,30 @@ from bs4 import BeautifulSoup
 
 FILE_PATH = 'products.json'
 
-# --- SHOPIER VE KÂR AYARLARI ---
+# ==========================================================================
+# ⚙️ SENİN KÂR AYARLARIN (Buradaki rakamları istediğin gibi değiştirebilirsin)
+# ==========================================================================
+PROFIT_UNDER_150 = 10   # 150 TL altı ürünlerden kazanmak istediğin NET para
+PROFIT_150_TO_400 = 15  # 150-400 TL arası ürünlerden kazanmak istediğin NET para
+PROFIT_400_TO_1000 = 25 # 400-1000 TL arası ürünlerden kazanmak istediğin NET para
+
+# --- SHOPIER VE VERGİ AYARLARI ---
 SHOPIER_COMMISSION_RATE = 0.0499  # %4.99 Shopier standart komisyon oranı
 KDV_RATE = 0.20                 # %20 KDV oranı (Komisyon ve sabit ücret için)
 SHOPIER_FIXED_FEE = 0.49         # İşlem başı 0.49 TL sabit ücret
 
 def get_profit_margin(cost):
     """
-    Ürünün maliyetine göre üzerine eklenecek net kârı belirler.
+    Maliyete göre eklenecek kârı yukarıdaki ayarlardan otomatik çeker.
     """
     if cost < 150:
-        return 20  # 150 TL altı ürünlere net 20 TL kâr ekle
+        return PROFIT_UNDER_150
     elif cost <= 400:
-        return 35  # 150-400 TL arası ürünlere net 35 TL kâr ekle
+        return PROFIT_150_TO_400
     elif cost <= 1000:
-        return 65  # 400-1000 TL arası ürünlere net 65 TL kâr ekle
+        return PROFIT_400_TO_1000
     else:
-        return (cost * 0.08) + 40  # 1000 TL üzeri ürünlere %8 + 40 TL kâr ekle
+        return (cost * 0.05) + 30  # 1000 TL üzeri için %5 + 30 TL net kâr
 
 def calculate_shopier_price(cost):
     """
@@ -74,7 +81,6 @@ def get_hesap_com_price(url, keyword, min_val):
                 continue
                 
             text_content = tag.get_text().strip()
-            # Makul uzunluktaki ve aradığımız anahtar kelimeyi içeren etiketleri yakala (örn: "PUBG Mobile 325 UC")
             if text_content and len(text_content) < 120:
                 if re.search(regex_pattern, text_content, re.IGNORECASE):
                     elements.append(tag)
@@ -82,14 +88,14 @@ def get_hesap_com_price(url, keyword, min_val):
         # Bulunan her elementten yukarı doğru tırmanıp fiyat ara
         for el in elements:
             parent = el.parent
-            # EN KRİTİK YER: Tırmanış seviyesini maksimum 3 seviyeyle sınırlandırıyoruz (böylece diğer yan kartlara bulaşmıyor)
-            for _ in range(3):
+            # 1800 UC için tırmanış seviyesini 4 yaptık
+            for _ in range(4):
                 if not parent:
                     break
                 text = parent.get_text()
                 
-                # EN KRİTİK YER 2: Eğer okunan metin çok uzadıysa (280 karakterden fazla), yan bölge sekmelerine bulaşmışız demektir, tırmanmayı durdur!
-                if len(text) > 280:
+                # Karakter uzunluk sınırını 350 yaptık (1800 UC'nin geniş kart yapısı için)
+                if len(text) > 350:
                     break
                     
                 prices = re.findall(r'(\d+(?:[.,]\d+)?)\s*(?:TL|₺)', text)
@@ -140,7 +146,7 @@ def main():
     pubg_uc_targets = [
         {"keyword": "325 UC", "index": 0, "min_val": 150},   # 325 UC en az 150 TL olmalı
         {"keyword": "660 UC", "index": 1, "min_val": 300},   # 660 UC en az 300 TL olmalı
-        {"keyword": "1800 UC", "index": 2, "min_val": 800}   # 1800 UC en az 800 TL olmalı
+        {"keyword": "1800 UC", "index": 2, "min_val": 650}   # Eşik değeri 650 TL'ye çekerek garantiledik
     ]
     for target in pubg_uc_targets:
         cost = get_hesap_com_price("https://www.hesap.com.tr/urunler/pubg-mobile-uc-satin-al", target["keyword"], target["min_val"])
