@@ -1,47 +1,468 @@
 <!DOCTYPE html>
-<html lang="tr">
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bakım Modu</title>
-    <style>
-        body {
-            margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            background-color: #0f0f0f;
-            color: #ffffff;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            text-align: center;
-        }
-        .container {
-            padding: 20px;
-        }
-        h1 {
-            font-size: 2.5rem;
-            margin-bottom: 10px;
-            color: #ff4757;
-        }
-        p {
-            font-size: 1.2rem;
-            color: #b3b3b3;
-        }
-        .divider {
-            width: 50px;
-            height: 2px;
-            background-color: #ff4757;
-            margin: 20px auto;
-        }
-    </style>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+    <!-- SEO & Discord Open Graph Etiketleri -->
+    <title>True Kinetic Hub | Services and Game Solutions</title>
+    <meta name="description" content="Professional web design, Discord server configuration, and popular in-game currencies with secure delivery.">
+    <meta property="og:title" content="True Kinetic Hub | Digital Services" />
+    <meta property="og:description" content="Professional web design, Discord server configuration, and popular in-game currencies with secure delivery at one single hub." />
+    <meta property="og:image" content="https://images.unsplash.com/photo-1614680376573-df3480f0c6ff?q=80&w=1200&auto=format&fit=crop" />
+    <meta property="og:url" content="https://truekinetichub.com" />
+    <meta name="theme-color" content="#a855f7">
+
+    <!-- Özel Fontlar ve İkonlar -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    
+    <!-- Harici CSS Dosyası -->
+    <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-    <div class="container">
-        <h1>Closed</h1>
-        <div class="divider"></div>
-        <p>The current workload and the pressure to keep everything running have become quite exhausting lately.<br>Thanks for understanding, and thanks for chosing True Kinetic...</p>
+
+    <!-- DUYURU ÇUBUĞU (ANNOUNCEMENT BAR) -->
+    <div class="announcement-bar">
+        <span data-i18n="announcement">🚀 Summer Sale: Use code KINETIC2026 for 10% off on all Game Currencies!</span>
     </div>
+
+    <!-- =======================================================================
+         HEADER & NAVBAR
+         ======================================================================= -->
+    <header class="navbar" id="navbar">
+        <div class="logo-area">
+            <span class="logo-true">TRUE</span>
+            <span class="logo-kinetic"> KINETIC</span>
+        </div>
+
+        <div class="mobile-toggle" id="mobileToggle">
+            <i class="fas fa-bars"></i>
+        </div>
+
+        <div class="nav-container" id="navContainer">
+            <nav>
+                <a href="#home" data-i18n="nav_home">Home</a>
+                <a href="#how-it-works" data-i18n="nav_how">How It Works</a>
+                <a href="#services" data-i18n="nav_services">Services</a>
+                <a href="#reviews" data-i18n="nav_reviews">Reviews</a>
+                <a href="#faq" data-i18n="nav_faq">FAQ</a>
+            </nav>
+
+            <div class="nav-actions">
+                <!-- Dil Seçici -->
+                <div class="lang-selector">
+                    <select id="langSelect">
+                        <option value="en">EN</option>
+                        <option value="tr">TR</option>
+                    </select>
+                </div>
+
+                <!-- Admin Giriş Butonu -->
+                <button id="openAdminLoginBtn" class="nav-admin-btn">
+                    <i class="fas fa-user-shield"></i>
+                    <span data-i18n="nav_admin">Admin</span>
+                </button>
+
+                <a href="https://discord.gg/tqsKHt6qSS" target="_blank" rel="noopener noreferrer" class="nav-discord-btn">
+                    <i class="fab fa-discord"></i> Discord
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- HERO SECTION -->
+    <section id="home" class="hero">
+        <div class="hero-content reveal-on-scroll">
+            <span class="badge"><i class="fas fa-bolt"></i> True Kinetic Hub</span>
+            <h1 data-i18n="hero_title">Reliable Digital Services & Game Solutions</h1>
+            <p data-i18n="hero_desc">Professional web design, Discord server configuration, and popular in-game currencies with secure delivery at one single hub.</p>
+            <div class="hero-buttons">
+                <a href="#services" class="primary-btn" data-i18n="hero_btn_explore">Explore Services</a>
+                <a href="https://discord.gg/tqsKHt6qSS" target="_blank" rel="noopener noreferrer" class="secondary-btn">
+                    <i class="fab fa-discord"></i>
+                    <span data-i18n="hero_btn_discord">Join Community</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- HOW IT WORKS -->
+    <section id="how-it-works" class="how-it-works content-section">
+        <div class="section-header reveal-on-scroll">
+            <h2 class="section-title" data-i18n="how_title">How It Works?</h2>
+            <p class="section-subtitle">A seamless process designed for your absolute security and convenience.</p>
+        </div>
+        <div class="steps-grid reveal-on-scroll">
+            <div class="step-card">
+                <div class="step-num">01</div>
+                <h3 data-i18n="step1_title">Join Discord</h3>
+                <p data-i18n="step1_desc">Enter our official Discord server safely using any join button on our website.</p>
+            </div>
+            <div class="step-card">
+                <div class="step-num">02</div>
+                <h3 data-i18n="step2_title">Open a Ticket</h3>
+                <p data-i18n="step2_desc">Create an order or inquiry ticket through our dedicated support channels in the server.</p>
+            </div>
+            <div class="step-card">
+                <div class="step-num">03</div>
+                <h3 data-i18n="step3_title">Safe Delivery</h3>
+                <p data-i18n="step3_desc">Our team members will assist you shortly and deliver your order securely.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- GÜVEN BİLGİLENDİRMESİ -->
+    <section class="trust-info-section content-section">
+        <div class="trust-card reveal-on-scroll">
+            <div class="trust-icon"><i class="fas fa-certificate"></i></div>
+            <div class="trust-text">
+                <h3 data-i18n="trust_title">Our Background & Sales</h3>
+                <p data-i18n="trust_desc">Please note that while our Discord-based shop is a newly established hub, our primary developer operations and sales history are rooted in the official Roblox Creator Marketplace and other verified platforms.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- SERVICES & PRODUCTS -->
+    <section id="services" class="services-section content-section">
+        <div class="section-header reveal-on-scroll">
+            <h2 class="section-title" data-i18n="services_title">Our Services & Products</h2>
+            <p class="section-subtitle" data-i18n="services_subtitle">You can filter our current catalogs using the quick tabs below.</p>
+        </div>
+
+        <div class="filter-wrapper reveal-on-scroll">
+            <div class="filter-container">
+                <button class="filter-btn active" data-filter="all" data-i18n="filter_all">All</button>
+                <button class="filter-btn" data-filter="software" data-i18n="filter_software">Software & Server</button>
+                <button class="filter-btn" data-filter="games" data-i18n="filter_games">Game Currencies</button>
+            </div>
+            <!-- YENİ: Ürün Arama Çubuğu -->
+            <div class="search-box">
+                <i class="fas fa-search"></i>
+                <input type="text" id="searchInput" data-i18n-placeholder="search_placeholder" placeholder="Search services...">
+            </div>
+        </div>
+
+        <!-- JS Tarafından Doldurulacak -->
+        <div class="services-grid" id="servicesGrid"></div>
+    </section>
+
+    <!-- YENİ: MÜŞTERİ YORUMLARI (REVIEWS) -->
+    <section id="reviews" class="reviews-section content-section">
+        <div class="section-header reveal-on-scroll">
+            <h2 class="section-title" data-i18n="reviews_title">Client Testimonials</h2>
+            <p class="section-subtitle" data-i18n="reviews_subtitle">What our community says about our secure services.</p>
+        </div>
+        <div class="reviews-grid reveal-on-scroll">
+            <div class="review-card">
+                <div class="review-stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                <p>"Fastest delivery I've ever experienced! The team was super helpful via Discord ticket. Bought Valorant VP and got it in 2 minutes."</p>
+                <div class="reviewer">
+                    <img src="https://ui-avatars.com/api/?name=Alex+G&background=random" alt="User">
+                    <div>
+                        <h4>Alex G.</h4>
+                        <span>Verified Buyer</span>
+                    </div>
+                </div>
+            </div>
+            <div class="review-card">
+                <div class="review-stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                <p>"True Kinetic set up our entire Discord server. Custom roles, bots, and security features all flawlessly executed. Highly recommend their software team!"</p>
+                <div class="reviewer">
+                    <img src="https://ui-avatars.com/api/?name=Sarah+M&background=random" alt="User">
+                    <div>
+                        <h4>Sarah M.</h4>
+                        <span>Server Owner</span>
+                    </div>
+                </div>
+            </div>
+            <div class="review-card">
+                <div class="review-stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i></div>
+                <p>"Güvenilir ve çok hızlılar. Papara ile ödeme yapıp hemen UC teslim aldım. Dolandırıcıların bol olduğu bu dönemde ilaç gibi geldiler."</p>
+                <div class="reviewer">
+                    <img src="https://ui-avatars.com/api/?name=Caner+T&background=random" alt="User">
+                    <div>
+                        <h4>Caner T.</h4>
+                        <span>Verified Buyer</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- DISCORD ROLLERİ -->
+    <section id="server-roles" class="roles-section content-section">
+        <div class="section-header reveal-on-scroll">
+            <h2 class="section-title" data-i18n="roles_title">Discord Server Roles</h2>
+            <p class="section-subtitle" data-i18n="roles_subtitle">Information about the roles and ranks available on our Discord server.</p>
+        </div>
+
+        <div class="roles-grid reveal-on-scroll">
+            <div class="roles-column">
+                <h3 class="column-title"><i class="fas fa-user-shield"></i> <span data-i18n="role_col_staff">Management & Staff</span></h3>
+                <div class="role-list">
+                    <div class="role-item"><span class="role-badge r-founder">@Founder</span><p data-i18n="r_founder_desc">Official server founder, owner.</p></div>
+                    <div class="role-item"><span class="role-badge r-coleader">@Co-Leader</span><p data-i18n="r_coleader_desc">Official server Co-Lead.</p></div>
+                    <div class="role-item"><span class="role-badge r-headadmin">@Head Administration</span><p data-i18n="r_headadmin_desc">Ban requests, applications, bot admin.</p></div>
+                    <div class="role-item"><span class="role-badge r-mod">@Moderation Team</span><p data-i18n="r_mod_desc">Moderation staff member, log viewing.</p></div>
+                </div>
+            </div>
+            <div class="roles-column">
+                <h3 class="column-title"><i class="fas fa-trophy"></i> <span data-i18n="role_col_ranks">Active Purchase Ranks</span></h3>
+                <div class="role-list">
+                    <div class="role-item"><span class="role-badge r-legendary">@Legendary</span><p data-i18n="r_legendary_desc">Requires making a total of 100+ purchases.</p></div>
+                    <div class="role-item"><span class="role-badge r-master">@Master</span><p data-i18n="r_master_desc">Requires making a total of 50+ purchases.</p></div>
+                    <div class="role-item"><span class="role-badge r-diamond">@Diamond</span><p data-i18n="r_diamond_desc">Requires making a total of 25+ purchases.</p></div>
+                    <div class="role-item"><span class="role-badge r-gold">@Gold</span><p data-i18n="r_gold_desc">Requires making a total of 5+ purchases.</p></div>
+                </div>
+            </div>
+            <div class="roles-column">
+                <h3 class="column-title"><i class="fas fa-users"></i> <span data-i18n="role_col_members">Special & Member Roles</span></h3>
+                <div class="role-list">
+                    <div class="role-item"><span class="role-badge r-partnerteam">@Official Partner</span><p data-i18n="r_partnerteam_desc">Partner, free advertising authority.</p></div>
+                    <div class="role-item"><span class="role-badge r-developer">@Developer</span><p data-i18n="r_developer_desc">Official development team members.</p></div>
+                    <div class="role-item"><span class="role-badge r-member">@Member</span><p data-i18n="r_member_desc">Official server member.</p></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- YETKİLİ DOĞRULAMA -->
+    <section class="security-check content-section">
+        <div class="security-container reveal-on-scroll">
+            <h2><i class="fas fa-shield-halved"></i> Staff Verification Tool</h2>
+            <p data-i18n="sec_desc">Ensure you are talking to a real True Kinetic official. Enter their Discord Username below to verify them.</p>
+
+            <div class="verify-box">
+                <input type="text" id="staffInput" placeholder="Discord Username..." />
+                <button id="verifyBtn" class="primary-btn" data-i18n="sec_btn">Verify Staff</button>
+            </div>
+            <div id="verifyResult" class="verify-result"></div>
+        </div>
+    </section>
+
+    <!-- S.S.S. -->
+    <section id="faq" class="faq-section content-section">
+        <div class="section-header reveal-on-scroll">
+            <h2 class="section-title" data-i18n="faq_title">Frequently Asked Questions</h2>
+        </div>
+        <div class="faq-container reveal-on-scroll">
+            <div class="faq-item">
+                <button class="faq-question">
+                    <span data-i18n="faq_q1_title">How can I make payments?</span>
+                    <i class="fas fa-chevron-down"></i>
+                </button>
+                <div class="faq-answer">
+                    <p data-i18n="faq_q1_desc">You can easily complete payments by opening a ticket on our Discord server. We support various secure options like Bank Transfer, Papara, and major secure local payment networks.</p>
+                </div>
+            </div>
+            <div class="faq-item">
+                <button class="faq-question">
+                    <span data-i18n="faq_q3_title">Why is everything based on Discord?</span>
+                    <i class="fas fa-chevron-down"></i>
+                </button>
+                <div class="faq-answer">
+                    <p data-i18n="faq_q3_desc">To offer personal assistance, address specific inquiries directly, and maintain direct secure support, we manage all purchases personally through our Discord ticket system.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-community">
+                <div class="community-info">
+                    <div class="community-logo-wrapper">
+                        <span class="logo-true" style="font-weight: 900; font-size: 0.8rem;">T</span><span class="logo-kinetic" style="font-weight: 900; font-size: 0.8rem; color:var(--purple-glow)">K</span>
+                    </div>
+                    <div class="community-text">
+                        <h4 data-i18n="footer_community_title">True Kinetic Studios</h4>
+                        <p data-i18n="footer_community_desc">This web project is managed via the official True Kinetic Studios Discord page.</p>
+                    </div>
+                </div>
+                <a href="https://discord.gg/tqsKHt6qSS" target="_blank" class="community-btn">
+                    Join Server <i class="fas fa-arrow-right"></i>
+                </a>
+            </div>
+
+            <div class="footer-content">
+                <p>&copy; 2026 True Kinetic. Design for the Future.</p>
+                <p class="footer-sub" data-i18n="footer_sub">This website and provided services are independently operated by the True Kinetic Team.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Toast Bildirim Konteyneri -->
+    <div id="toastContainer"></div>
+
+    <!-- 1. Ürün Fiyat Modalı -->
+    <div id="pricingModal" class="modal-overlay">
+        <div class="modal-content pricing-modal-content">
+            <span class="close-modal-btn close-pricing-btn">&times;</span>
+            <div class="modal-header">
+                <h2 id="pricingTitle">Service Packages</h2>
+                <p id="pricingDesc">Our latest plans and pricing.</p>
+            </div>
+            <div id="pricingTiers" class="pricing-tiers"></div>
+            <div class="pricing-footer">
+                <a href="https://discord.gg/tqsKHt6qSS" target="_blank" rel="noopener noreferrer" class="discord-order-btn">
+                    <i class="fab fa-discord"></i>
+                    <span data-i18n="btn_order_on_discord">Order via Discord</span>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- 2. Admin Şifre Giriş Modalı -->
+    <div id="adminAuthModal" class="modal-overlay">
+        <div class="modal-content auth-modal-content">
+            <span class="close-modal-btn" id="closeAuthBtn">&times;</span>
+            <i class="fas fa-fingerprint auth-icon"></i>
+            <h2>System Authentication</h2>
+            <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 2rem;">Authorized administrators only.</p>
+            
+            <div class="password-field-wrapper">
+                <input type="password" id="adminPassInput" class="dashboard-input" placeholder="Enter secure key...">
+                <button type="button" class="password-toggle-btn" id="toggleAdminPass">
+                    <i class="far fa-eye"></i>
+                </button>
+            </div>
+            <button id="submitAdminLoginBtn" class="primary-btn" style="width: 100%; justify-content: center; margin-top: 1rem;">
+                <i class="fas fa-unlock"></i> Authenticate Session
+            </button>
+        </div>
+    </div>
+
+    <!-- 3. Admin Yönetim Paneli Modalı (Dashboard) -->
+    <div id="adminDashboard" class="modal-overlay">
+        <div class="dashboard-content">
+            <span class="close-modal-btn close-dashboard-btn">&times;</span>
+
+            <div class="dashboard-header">
+                <h2><i class="fas fa-toolbox"></i> True Kinetic Control Panel</h2>
+                <p>Manage products, edit global prices, and verify server staff instantly.</p>
+            </div>
+            
+            <!-- YENİ: İstatistik Kartları -->
+            <div class="dashboard-stats">
+                <div class="stat-card">
+                    <div class="stat-icon"><i class="fas fa-box"></i></div>
+                    <div class="stat-info">
+                        <h4 id="statTotalProducts">0</h4>
+                        <span>Total Products</span>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon"><i class="fas fa-user-shield"></i></div>
+                    <div class="stat-info">
+                        <h4 id="statTotalStaff">0</h4>
+                        <span>Registered Staff</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="dashboard-tabs">
+                <button class="tab-btn active" data-tab="tabEditPrices"><i class="fas fa-tags"></i> Edit Prices</button>
+                <button class="tab-btn" data-tab="tabAddDelete"><i class="fas fa-folder-plus"></i> Add & Delete Products</button>
+                <button class="tab-btn" data-tab="tabStaffDb"><i class="fas fa-database"></i> Database & Staff</button>
+            </div>
+
+            <div class="dashboard-body">
+                <!-- Sekme 1: Fiyatlar -->
+                <div id="tabEditPrices" class="tab-content active">
+                    <div class="dashboard-grid-1">
+                        <div class="dashboard-section">
+                            <h3><i class="fas fa-pen-to-square"></i> Update Plan Prices</h3>
+                            <p class="section-desc">Select an active product to update its regional plan prices globally.</p>
+                            <div style="margin-bottom: 15px">
+                                <select id="editorServiceSelect" class="dashboard-select"></select>
+                            </div>
+                            <div id="editorTiersContainer" class="editor-tiers-container"></div>
+                            <button id="savePricesBtn" class="primary-btn dashboard-action-btn">
+                                <i class="fas fa-save"></i> Save Plan Prices
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sekme 2: Ürün Ekle/Sil -->
+                <div id="tabAddDelete" class="tab-content">
+                    <div class="dashboard-grid-2">
+                        <div class="dashboard-section">
+                            <h3><i class="fas fa-plus"></i> Create New Product</h3>
+                            <p class="section-desc">Add a new service. You can use a FontAwesome icon or an Image URL.</p>
+                            <div class="add-product-form">
+                                <input type="text" id="addProdKey" class="dashboard-input" placeholder="Product ID (e.g., robux_pack)" required />
+                                <div class="form-row-dual">
+                                    <input type="text" id="addProdTitleEn" class="dashboard-input" placeholder="Title (EN)" required />
+                                    <input type="text" id="addProdTitleTr" class="dashboard-input" placeholder="Başlık (TR)" required />
+                                </div>
+                                <div class="form-row-dual">
+                                    <input type="text" id="addProdDescEn" class="dashboard-input" placeholder="Short Desc (EN)" required />
+                                    <input type="text" id="addProdDescTr" class="dashboard-input" placeholder="Kısa Açıklama (TR)" required />
+                                </div>
+                                <div class="form-row-dual">
+                                    <select id="addProdCategory" class="dashboard-select" style="padding: 10px; margin-bottom: 10px">
+                                        <option value="software">Software & Server</option>
+                                        <option value="games">Game Currencies</option>
+                                    </select>
+                                    <input type="text" id="addProdIcon" class="dashboard-input" placeholder="Icon Class OR Image URL" required />
+                                </div>
+                                <div>
+                                    <label style="font-size: 0.8rem; font-weight: 700; color: var(--purple-glow);">Number of Packages:</label>
+                                    <input type="number" id="addProdTiersCount" class="dashboard-input" min="1" max="5" value="1" />
+                                </div>
+                                <div id="addProdTiersFields" class="add-prod-tiers-fields"></div>
+                                <button id="addProductBtn" class="primary-btn dashboard-action-btn">
+                                    <i class="fas fa-plus"></i> Add Product
+                                </button>
+                            </div>
+                        </div>
+                        <div class="dashboard-section">
+                            <h3><i class="fas fa-trash-can"></i> Delete Products</h3>
+                            <p class="section-desc">Permanently remove a product card.</p>
+                            <ul id="adminProductList" class="dashboard-staff-list" style="max-height: 400px"></ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sekme 3: Staff & Data -->
+                <div id="tabStaffDb" class="tab-content">
+                    <div class="dashboard-grid-2">
+                        <div class="dashboard-section">
+                            <h3><i class="fas fa-users-gear"></i> Staff Verification List</h3>
+                            <p class="section-desc">Manage registered usernames for the homepage tool.</p>
+                            <div class="staff-manager-box">
+                                <div class="staff-add-row" style="display:flex; gap:10px; margin-bottom:15px;">
+                                    <input type="text" id="newStaffInput" class="dashboard-input" style="margin:0;" placeholder="Discord Username" />
+                                    <button id="addStaffBtn" class="primary-btn" style="padding: 0 20px;"><i class="fas fa-plus"></i></button>
+                                </div>
+                                <ul id="staffList" class="dashboard-staff-list" style="max-height: 250px"></ul>
+                            </div>
+                        </div>
+                        <div class="dashboard-section">
+                            <h3><i class="fas fa-server"></i> Sync Database (JSON)</h3>
+                            <p class="section-desc">Export your current data or Import a <strong>products.json</strong> file to restore your settings.</p>
+                            
+                            <div style="display:flex; gap:10px; margin-top:2rem;">
+                                <button id="exportDbBtn" class="primary-btn" style="flex:1; background: #2ecc71; color: #000;">
+                                    <i class="fas fa-download"></i> Export
+                                </button>
+                                <!-- YENİ: İçe Aktarma -->
+                                <input type="file" id="importDbFile" accept=".json" style="display:none;">
+                                <button id="importDbBtn" class="primary-btn" style="flex:1; background: #f39c12; color: #000;">
+                                    <i class="fas fa-upload"></i> Import
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Javascript Dosyası -->
+    <script src="script.js"></script>
 </body>
 </html>
