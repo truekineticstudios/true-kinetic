@@ -1,0 +1,133 @@
+{
+    "web": {
+        "category": "software",
+        "icon": "fas fa-code",
+        "title": {
+            "en": "Web Site Design",
+            "tr": "Web Tasarım Paketleri"
+        },
+        "desc": {
+            "en": "Professional responsive design services.",
+            "tr": "Profesyonel arayüz tasarım hizmetleri."
+        },
+        "tiers": [
+            {
+                "name": {
+                    "en": "Front-End",
+                    "tr": "Front-End"
+                },
+                "price": {
+                    "en": "12$",
+                    "tr": "400 TL"
+                },
+                "desc": {
+                    "en": "+$5 extra page",
+                    "tr": "Ek sayfa +170 TL"
+                }
+            }
+        ]
+    },
+    "discord": {
+        "category": "software",
+        "icon": "fab fa-discord",
+        "title": {
+            "en": "Discord Server Setup",
+            "tr": "Discord Sunucu Kurulumu"
+        },
+        "desc": {
+            "en": "Tailored roles and professional bot setup.",
+            "tr": "Özel yetkilendirme ve profesyonel botlar."
+        },
+        "tiers": [
+            {
+                "name": {
+                    "en": "Basic Setup",
+                    "tr": "Temel Kurulum"
+                },
+                "price": {
+                    "en": "2$",
+                    "tr": "70 TL"
+                },
+                "desc": {
+                    "en": "Perfect starting layout",
+                    "tr": "Standart, temiz kurulum"
+                }
+            }
+        ]
+    },
+    "roblox_gift": {
+        "category": "games",
+        "icon": "https://upload.wikimedia.org/wikipedia/commons/3/3a/Robux_2019_Logo_gold.svg",
+        "title": {
+            "en": "Roblox Gift Cards",
+            "tr": "Roblox Hediye Kartları"
+        },
+        "desc": {
+            "en": "Digital codes directly applicable for Robux.",
+            "tr": "Robux için geçerli resmi kodlar."
+        },
+        "tiers": [
+            {
+                "name": "$5 Gift Card",
+                "price": {
+                    "en": "5$",
+                    "tr": "400 TL"
+                },
+                "desc": {
+                    "en": "Official key",
+                    "tr": "Resmi kod"
+                }
+            }
+        ]
+    },
+    "pubg_uc": {
+        "category": "games",
+        "icon": "fas fa-crosshairs",
+        "title": {
+            "en": "PUBG Mobile UC",
+            "tr": "PUBG Mobile UC"
+        },
+        "desc": {
+            "en": "In-game Unknown Cash delivered to Player ID.",
+            "tr": "Oyuncu ID'nize doğrudan yüklenen UC."
+        },
+        "tiers": [
+            {
+                "name": "325 UC",
+                "price": {
+                    "en": "4.5$",
+                    "tr": "230 TL"
+                },
+                "desc": {
+                    "en": "Direct ID Top-up",
+                    "tr": "Doğrudan Yükleme"
+                }
+            }
+        ]
+    },
+    "valorant_vp": {
+        "category": "games",
+        "icon": "fas fa-gamepad",
+        "title": {
+            "en": "Valorant VP",
+            "tr": "Valorant VP"
+        },
+        "desc": {
+            "en": "Secure Valorant Points Pin Codes.",
+            "tr": "İndirimli Valorant Points e-pin kodları."
+        },
+        "tiers": [
+            {
+                "name": "1700 VP",
+                "price": {
+                    "en": "7.5$",
+                    "tr": "498 TL"
+                },
+                "desc": {
+                    "en": "Riot PIN delivery",
+                    "tr": "Hızlı Riot PIN teslimatı"
+                }
+            }
+        ]
+    }
+}
