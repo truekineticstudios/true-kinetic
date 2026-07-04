@@ -1,4 +1,35 @@
 /* ==========================================================================
+   2. VERİTABANI BAŞLATMA (GITHUB PRODUCTS.JSON VEYA LOCALSTORAGE)
+   ========================================================================== */
+const defaultPricingData = { ... }; // Mevcut varsayılan verilerin durabilir
+
+let pricingData = JSON.parse(localStorage.getItem("kineticPricingDB")) || defaultPricingData;
+let officialStaff = JSON.parse(localStorage.getItem("kineticStaffDB")) || ["owmanxx", "neural_forge.", "someoneelsexd"];
+let currentLang = localStorage.getItem("preferredLang") || "en";
+
+// GitHub'daki en güncel products.json dosyasını çek
+async function fetchLatestProducts() {
+    try {
+        // Cache'i önlemek için rastgele bir parametre ekliyoruz (?t=...)
+        const response = await fetch('products.json?t=' + new Date().getTime());
+        if (response.ok) {
+            const freshData = await response.json();
+            pricingData = freshData;
+            localStorage.setItem("kineticPricingDB", JSON.stringify(pricingData));
+            renderServices(document.getElementById("searchInput") ? document.getElementById("searchInput").value : "");
+            console.log("Fiyatlar GitHub'dan başarıyla güncellendi!");
+        }
+    } catch (e) {
+        console.log("GitHub verisi çekilemedi, yerel veri kullanılıyor.", e);
+    }
+}
+
+// Sayfa yüklendiğinde en güncel fiyatları çek
+document.addEventListener("DOMContentLoaded", () => {
+    fetchLatestProducts();
+});
+
+/* ==========================================================================
    1. TRANSLATIONS (DİL SÖZLÜĞÜ)
    ========================================================================== */
 const translations = {
