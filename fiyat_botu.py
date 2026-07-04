@@ -14,7 +14,6 @@ SHOPIER_FIXED_FEE = 0.49         # İşlem başı 0.49 TL sabit ücret
 def get_profit_margin(cost):
     """
     Ürünün maliyetine göre üzerine eklenecek net kârı belirler.
-    Sınırları ve kâr miktarlarını buradan değiştirebilirsin.
     """
     if cost < 150:
         return 20  # 150 TL altı ürünlere net 20 TL kâr ekle
@@ -41,7 +40,7 @@ def calculate_shopier_price(cost):
     return round(final_price) # Fiyatı tam sayıya yuvarla
 
 # --- HESAP.COM.TR CANLI FİYAT ÇEKİCİ (SCRAPER) ---
-def get_hesap_com_price(url, keyword):
+def get_hesap_com_price(url, keyword, min_val):
     try:
         scraper = cloudscraper.create_scraper(
             browser={
@@ -58,13 +57,12 @@ def get_hesap_com_price(url, keyword):
         
         soup = BeautifulSoup(response.text, 'html.parser')
         
-        # Sitedeki olası ekstra boşlukları/satır başlarını (\n) kaçırmamak için esnek regex şablonu oluştur
+        # Boşlukları esnek regex haline getir
         regex_pattern = re.sub(r'\s+', r'\\s+', keyword)
         elements = []
         
-        # Sayfadaki tüm olası görünür etiketleri tara
+        # Sadece görünür body elemanlarını tara (script, head, meta, style etiketlerini es geç)
         for tag in soup.find_all(['div', 'span', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'p', 'a', 'b', 'strong']):
-            # Head, script, style ve meta gibi arka plan / görünmez etiketlerin içindekileri tamamen es geç!
             parent_is_invalid = False
             temp = tag
             while temp:
@@ -76,20 +74,17 @@ def get_hesap_com_price(url, keyword):
                 continue
                 
             text_content = tag.get_text().strip()
-            # Makul uzunluktaki ve aradığımız anahtar kelimeyi içeren etiketleri yakala (örn: "PUBG Mobile 325 UC")
             if text_content and len(text_content) < 120:
                 if re.search(regex_pattern, text_content, re.IGNORECASE):
                     elements.append(tag)
         
-        # Yakalanan her görünür elementten yukarı doğru tırmanarak fiyat ara
+        # Bulunan her elementten yukarı doğru tırmanıp fiyat ara
         for el in elements:
             parent = el.parent
-            # Yukarı doğru tırman, fiyat bulduğumuz İLK parent'ta dur ve o fiyati döndür!
             for _ in range(4):
                 if not parent:
                     break
                 text = parent.get_text()
-                # Fiyat formatlarını yakala: Örn: "150 TL" veya "150,50 TL" veya "150,00 ₺"
                 prices = re.findall(r'(\d+(?:[.,]\d+)?)\s*(?:TL|₺)', text)
                 if prices:
                     clean_prices = []
@@ -97,15 +92,17 @@ def get_hesap_com_price(url, keyword):
                         clean_p = p.replace('.', '').replace(',', '.')
                         try:
                             val = float(clean_p)
-                            # Fiyatın mantıklı bir aralıkta olduğunu doğrula (15 TL ile 15.000 TL arası)
+                            # Fiyat limiti kontrolü
                             if 15 < val < 15000:
                                 clean_prices.append(val)
                         except ValueError:
                             continue
                     
                     if clean_prices:
-                        # Bu karttaki en düşük fiyatı döndür (genellikle indirimli fiyattır) ve tırmanmayı durdur!
-                        return min(clean_prices)
+                        # EN KRİTİK YER: Sadece beklediğimiz minimum fiyattan (eşik değerden) büyük fiyatları al
+                        valid_prices = [v for v in clean_prices if v >= min_val]
+                        if valid_prices:
+                            return min(valid_prices) # Karttaki indirimli/güncel fiyatı dön
                 parent = parent.parent
                 
     except Exception as e:
@@ -121,9 +118,9 @@ def main():
     with open(FILE_PATH, 'r', encoding='utf-8') as file:
         data = json.load(file)
 
-    # 1. VALORANT VP GÜNCELLEME (1700 VP)
+    # 1. VALORANT VP GÜNCELLEME (1700 VP) - Eşik Değer: 300 TL
     print("\n--- Valorant VP Güncelleniyor ---")
-    val_cost = get_hesap_com_price("https://www.hesap.com.tr/urunler/valorant-vp-satin-al", "1700 VP")
+    val_cost = get_hesap_com_price("https://www.hesap.com.tr/urunler/valorant-vp-satin-al", "1700 VP", 300)
     if val_cost:
         yeni_satis_fiyati = calculate_shopier_price(val_cost)
         data['valorant_vp']['tiers'][0]['price']['tr'] = f"{yeni_satis_fiyati} TL"
@@ -134,12 +131,12 @@ def main():
     # 2. PUBG UC GÜNCELLEME (3 Farklı Paket)
     print("\n--- PUBG Mobile UC Paketleri Güncelleniyor ---")
     pubg_uc_targets = [
-        {"keyword": "325 UC", "index": 0},
-        {"keyword": "660 UC", "index": 1},
-        {"keyword": "1800 UC", "index": 2}
+        {"keyword": "325 UC", "index": 0, "min_val": 150},   # 325 UC en az 150 TL olmalı
+        {"keyword": "660 UC", "index": 1, "min_val": 300},   # 660 UC en az 300 TL olmalı
+        {"keyword": "1800 UC", "index": 2, "min_val": 800}   # 1800 UC en az 800 TL olmalı
     ]
     for target in pubg_uc_targets:
-        cost = get_hesap_com_price("https://www.hesap.com.tr/urunler/pubg-mobile-uc-satin-al", target["keyword"])
+        cost = get_hesap_com_price("https://www.hesap.com.tr/urunler/pubg-mobile-uc-satin-al", target["keyword"], target["min_val"])
         if cost:
             yeni_satis_fiyati = calculate_shopier_price(cost)
             data['pubg_uc']['tiers'][target["index"]]['price']['tr'] = f"{yeni_satis_fiyati} TL"
@@ -150,11 +147,11 @@ def main():
     # 3. FREE FIRE ELMAS GÜNCELLEME (2 Farklı Paket)
     print("\n--- Free Fire Elmas Paketleri Güncelleniyor ---")
     ff_targets = [
-        {"keyword": "231 Elmas", "index": 0},
-        {"keyword": "583 Elmas", "index": 1}
+        {"keyword": "231 Elmas", "index": 0, "min_val": 80},  # 231 Elmas en az 80 TL olmalı
+        {"keyword": "583 Elmas", "index": 1, "min_val": 200}  # 583 Elmas en az 200 TL olmalı
     ]
     for target in ff_targets:
-        cost = get_hesap_com_price("https://www.hesap.com.tr/urunler/free-fire-elmas-satin-al", target["keyword"])
+        cost = get_hesap_com_price("https://www.hesap.com.tr/urunler/free-fire-elmas-satin-al", target["keyword"], target["min_val"])
         if cost:
             yeni_satis_fiyati = calculate_shopier_price(cost)
             data['freefire_gem']['tiers'][target["index"]]['price']['tr'] = f"{yeni_satis_fiyati} TL"
