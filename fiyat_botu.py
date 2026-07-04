@@ -60,12 +60,32 @@ def get_hesap_com_price(url, keyword):
         
         # Sitedeki olası ekstra boşlukları/satır başlarını (\n) kaçırmamak için esnek regex şablonu oluştur
         regex_pattern = re.sub(r'\s+', r'\\s+', keyword)
-        elements = soup.find_all(string=re.compile(regex_pattern, re.IGNORECASE))
+        elements = []
         
+        # Sayfadaki tüm olası görünür etiketleri tara
+        for tag in soup.find_all(['div', 'span', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'p', 'a', 'b', 'strong']):
+            # Head, script, style ve meta gibi arka plan / görünmez etiketlerin içindekileri tamamen es geç!
+            parent_is_invalid = False
+            temp = tag
+            while temp:
+                if temp.name in ['script', 'style', 'meta', 'link', 'head', 'title']:
+                    parent_is_invalid = True
+                    break
+                temp = temp.parent
+            if parent_is_invalid:
+                continue
+                
+            text_content = tag.get_text().strip()
+            # Makul uzunluktaki ve aradığımız anahtar kelimeyi içeren etiketleri yakala (örn: "PUBG Mobile 325 UC")
+            if text_content and len(text_content) < 120:
+                if re.search(regex_pattern, text_content, re.IGNORECASE):
+                    elements.append(tag)
+        
+        # Yakalanan her görünür elementten yukarı doğru tırmanarak fiyat ara
         for el in elements:
             parent = el.parent
             # Yukarı doğru tırman, fiyat bulduğumuz İLK parent'ta dur ve o fiyati döndür!
-            for _ in range(5):
+            for _ in range(4):
                 if not parent:
                     break
                 text = parent.get_text()
