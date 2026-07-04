@@ -1,892 +1,563 @@
-// DİL SÖZLÜĞÜ (TRANSLATION DICTIONARY)
+/* ==========================================================================
+   1. TRANSLATIONS (DİL SÖZLÜĞÜ)
+   ========================================================================== */
 const translations = {
-  en: {
-    nav_home: "Home",
-    nav_how: "How It Works",
-    nav_services: "Services",
-    nav_faq: "FAQ",
-    nav_admin: "Admin",
-
-    hero_title: "Reliable Digital Services & Game Solutions",
-    hero_desc: "Professional web design, Discord server configuration, and popular in-game currencies with secure delivery at one single hub.",
-    hero_btn_explore: "Explore Services",
-    hero_btn_discord: "Join Community",
-
-    how_title: "How It Works?",
-    step1_title: "Join Discord",
-    step1_desc: "Enter our official Discord server safely using any join button on our website.",
-    step2_title: "Open a Ticket",
-    step2_desc: "Create an order or inquiry ticket through our dedicated support channels in the server.",
-    step3_title: "Safe Delivery",
-    step3_desc: "Our team members will assist you shortly and deliver your order securely.",
-
-    trust_title: "Our Background & Sales",
-    trust_desc: "Please note that while our Discord-based shop is a newly established hub, our primary developer operations and sales history are rooted in the official Roblox Creator Marketplace and other verified platforms.",
-
-    services_title: "Our Services & Products",
-    services_subtitle: "You can filter our current catalogs using the quick tabs below.",
-    filter_all: "All",
-    filter_software: "Software & Server",
-    filter_games: "Game Currencies",
-
-    srv_web_title: "Web Site Design",
-    srv_web_desc: "We build modern, ultra-fast, responsive, and SEO-optimized web designs tailored to your needs.",
-    srv_discord_title: "Discord Server Setup",
-    srv_discord_desc: "Advanced bot configurations, neat role hierarchy, and professional category structure.",
-    srv_det_analysis_title: "Detailed Server Analysis",
-    srv_det_analysis_desc: "Comprehensive auditing of your current server security, user activity, and technical setups.",
-    srv_bas_analysis_title: "Basic Server Analysis",
-    srv_bas_analysis_desc: "A quick security and structural layout check-up for a better-performing server environment.",
-
-    srv_roblox_title: "Roblox Gift Cards",
-    srv_roblox_desc: "Roblox digital gift card codes to redeem Robux or Premium membership.",
-    srv_uc_title: "PUBG Mobile UC",
-    srv_uc_desc: "Fast and safe delivery on Unknown Cash packages to customize your in-game avatar.",
-    srv_vp_title: "Valorant VP",
-    srv_vp_desc: "Don't miss out on weapon skins with our instantly delivered discounted Valorant Points.",
-    srv_steam_title: "Steam Wallet Code",
-    srv_steam_desc: "Safe wallet codes that you can apply directly to expand your games library.",
-    srv_gem_title: "Free Fire Gem",
-    srv_gem_desc: "Most cost-efficient and reliable diamond loading options for your Free Fire account.",
-    srv_custom_title: "Special Requests",
-    srv_custom_desc: "Apply for a custom, tailored digital service or specialized script requests.",
-
-    btn_order: "Order Now",
-    btn_info: "Get Info",
-    btn_view_prices: "View Prices",
-    btn_order_on_discord: "Order via Discord",
-
-    sec_desc: "Ensure you are talking to a real True Kinetic official. Enter their Discord Username below to verify them.",
-    sec_btn: "Verify Staff",
-
-    faq_title: "Frequently Asked Questions",
-    faq_q1_title: "How can I make payments?",
-    faq_q1_desc: "You can easily complete payments by opening a ticket on our Discord server. We support various secure options like Bank Transfer, Papara, and major secure local payment networks.",
-    faq_q3_title: "Why is everything based on Discord?",
-    faq_q3_desc: "To offer personal assistance, address specific inquiries directly, and maintain direct secure support, we manage all purchases personally through our Discord ticket system.",
-
-    roles_title: "Discord Server Roles",
-    roles_subtitle: "Information about the roles and ranks available on our Discord server.",
-    role_col_staff: "Management & Staff",
-    role_col_ranks: "Active Purchase Ranks",
-    role_col_members: "Special & Member Roles",
-    
-    r_founder_desc: "Official server founder and owner.",
-    r_coleader_desc: "Official server Co-Leader.",
-    r_headadmin_desc: "Handles ban requests, partnership applications, staff recruitment, and bot administration.",
-    r_highmod_desc: "Ban request submission, log auditing, message management, and server monitoring.",
-    r_helper_desc: "Highly authorized management bots.",
-    r_mod_desc: "Moderation staff member, log viewing, and report priority.",
-    r_trialmod_desc: "New staff member under monitoring, testing phase, and limited access.",
-    r_special_desc: "Very special server role.",
-    r_legendary_desc: "Requires making a total of 100+ purchases.",
-    r_master_desc: "Requires making a total of 50+ purchases.",
-    r_diamond_desc: "Requires making a total of 25+ purchases.",
-    r_gold_desc: "Requires making a total of 5+ purchases.",
-    r_bronze_desc: "Requires making a total of 1+ purchase.",
-    r_partnerteam_desc: "Partner, free advertising authority.",
-    r_developer_desc: "Official development team members.",
-    r_member_desc: "Official server member.",
-    r_partnerinvite_desc: "Official server member who joined using a partner invitation link.",
-
-    footer_sub: "This website and provided services are independently operated by the True Kinetic Team."
-  },
-  tr: {
-    nav_home: "Ana Sayfa",
-    nav_how: "Nasıl Çalışır?",
-    nav_services: "Hizmetler",
-    nav_faq: "S.S.S.",
-    nav_admin: "Admin",
-
-    hero_title: "Güvenilir Dijital Hizmetler ve Oyun Çözümleri",
-    hero_desc: "Profesyonel web tasarım, Discord sunucu yapılandırması ve en popüler oyun içi para birimleri güvenli teslimat ile tek adreste.",
-    hero_btn_explore: "Hizmetleri İncele",
-    hero_btn_discord: "Topluluğa Katıl",
-
-    how_title: "Nasıl Satın Alınır?",
-    step1_title: "Discord'a Katılın",
-    step1_desc: "Sitemizdeki butonları kullanarak resmi Discord sunucumuza güvenli bir şekilde giriş yapın.",
-    step2_title: "Destek Talebi Açın",
-    step2_desc: "Sunucumuzda yer alan sipariş ve destek kanallarından almak istediğiniz hizmet için talep oluşturun.",
-    step3_title: "Güvenle Teslim Alın",
-    step3_desc: "Yetkililerimiz talebinizle ilgilenerek siparişinizi en kısa sürede güvenli bir şekilde teslim etsin.",
-
-    trust_title: "Satış Geçmişimiz ve Arka Planımız",
-    trust_desc: "Discord sunucumuz üzerinden gerçekleştirdiğimiz satışlarımız henüz yenidir. Ana geliştirici faaliyetlerimiz, referanslarımız ve asıl satış geçmişimiz resmi Roblox Creator Marketplace (Roblox Üretici Pazarı) ve diğer yetkili platformlar üzerindedir.",
-
-    services_title: "Hizmetlerimiz ve Ürünlerimiz",
-    services_subtitle: "Aşağıdaki filtreleri kullanarak aradığınız hizmete hızlıca göz atabilirsiniz.",
-    filter_all: "Tümü",
-    filter_software: "Yazılım & Sunucu",
-    filter_games: "Oyun Paraları",
-
-    srv_web_title: "Web Site Tasarımı",
-    srv_web_desc: "Modern arayüze sahip, hızlı, mobil uyumlu ve SEO dostu web siteleri tasarlıyoruz.",
-    srv_discord_title: "Discord Sunucu Kurulumu",
-    srv_discord_desc: "Gelişmiş bot sistemleri, rol hiyerarşisi ve özel kanal izinleriyle sunucunuzu hazırlıyoruz.",
-    srv_det_analysis_title: "Detaylı Sunucu Analizi",
-    srv_det_analysis_desc: "Mevcut sunucunuzun güvenliğini, üye gidişatını ve teknik açıklarını detaylıca analiz ediyoruz.",
-    srv_bas_analysis_title: "Temel Sunucu Analizi",
-    srv_bas_analysis_desc: "Sunucunuzun daha düzenli ve aktif olması için temel yapılandırma ve öneri raporu hazırlıyoruz.",
-
-    srv_roblox_title: "Roblox Hediye Kartları",
-    srv_roblox_desc: "Robux veya Premium yüklemek için kullanabileceğiniz dijital hediye kartı kodları.",
-    srv_uc_title: "PUBG Mobile UC",
-    srv_uc_desc: "Karakterinizi özelleştirmeniz için en hızlı şekilde hesabınıza tanımlanan UC ürünleri.",
-    srv_vp_title: "Valorant VP",
-    srv_vp_desc: "Silah kaplamalarını kaçırmamak için anında teslim edilen indirimli Valorant Points.",
-    srv_steam_title: "Steam Cüzdan Kodu",
-    srv_steam_desc: "Steam kütüphanenizi genişletmek için kullanabileceğiniz güvenli cüzdan kodları.",
-    srv_gem_title: "Free Fire Elmas",
-    srv_gem_desc: "Garena Free Fire hesabınız için en hesaplı ve güvenilir elmas yükleme seçenekleri.",
-    srv_custom_title: "Özel İstekler",
-    srv_custom_desc: "Özel yazılımlar, tasarım talepleri veya sıra dışı projeleriniz için özel talep oluşturun.",
-
-    btn_order: "Sipariş Ver",
-    btn_info: "Bilgi Al",
-    btn_view_prices: "Fiyatları Gör",
-    btn_order_on_discord: "Discord ile Sipariş Ver",
-
-    sec_desc: "Gerçek bir True Kinetic yetkilisi ile konuştuğunuzdan emin olun. Doğrulamak için aşağıya Discord kullanıcı adını yazın.",
-    sec_btn: "Yetkiliyi Doğrula",
-
-    faq_title: "Sıkça Sorulan Sorular",
-    faq_q1_title: "Ödemeleri nasıl yapabilirim?",
-    faq_q1_desc: "Ödemelerinizi Discord sunucumuz üzerinden destek talebi açarak yetkililerimizin belirteceği güvenli ödeme yöntemleriyle (Havale/EFT, Papara, IBAN vb.) gerçekleştirebilirsiniz.",
-    faq_q3_title: "Satışlar neden Discord üzerinden yapılıyor?",
-    faq_q3_desc: "Müşterilerimizle birebir iletişim kurabilmek, sorularını doğrudan yanıtlamak ve her siparişe özel canlı destek sunabilmek amacıyla tüm süreci Discord sunucumuz üzerinden yönetiyoruz.",
-
-    roles_title: "Sunucu Rolleri",
-    roles_subtitle: "Sunucumuzda mevcut olan roller ve rütbeler hakkında bilgi.",
-    role_col_staff: "Yönetim & Yetkililer",
-    role_col_ranks: "Aktif Roller & Rütbeler",
-    role_col_members: "Özel Roller & Üyeler",
-    
-    r_founder_desc: "Resmi sunucu kurucusu, sahibi.",
-    r_coleader_desc: "Resmi sunucu eş lideri.",
-    r_headadmin_desc: "Ban istekleri, ortaklık başvuruları, moderasyon ekibi üye alımı ve bot yöneticisi.",
-    r_highmod_desc: "Ban isteği gönderme, log görüntüleme, mesaj yönetimi ve sunucu izleme.",
-    r_helper_desc: "Yüksek yetkili yönetim botları.",
-    r_mod_desc: "Moderasyon ekibi üyesi, log görüntüleme ve rapor önceliği.",
-    r_trialmod_desc: "Yeni, gözetim altında, test aşamasında olan sınırlı erişimli yetkili.",
-    r_special_desc: "Çok özel sunucu rolü.",
-    r_legendary_desc: "Toplamda 100'den fazla satın alma işlemi gerçekleştirmiş üyeler.",
-    r_master_desc: "Toplamda 50'den fazla satın alma işlemi gerçekleştirmiş üyeler.",
-    r_diamond_desc: "Toplamda 25'den fazla satın alma işlemi gerçekleştirmiş üyeler.",
-    r_gold_desc: "Toplamda 5'den fazla satın alma işlemi gerçekleştirmiş üyeler.",
-    r_bronze_desc: "Toplamda 1'den fazla satın alma işlemi gerçekleştirmiş üyeler.",
-    r_partnerteam_desc: "İş ortağı, ücretsiz reklam yetkisi olan üye.",
-    r_developer_desc: "Resmi geliştirici ekip üyeleri.",
-    r_member_desc: "Resmi sunucu üyesi.",
-    r_partnerinvite_desc: "Resmi sunucu üyesi (İş ortağı davet bağlantısı kullanıldı)."
-  }
+    en: {
+        nav_home: "Home", nav_how: "How It Works", nav_services: "Services", nav_reviews: "Reviews", nav_faq: "FAQ", nav_admin: "Admin",
+        announcement: "🚀 Summer Sale: Join our Discord for special discounts!",
+        search_placeholder: "Search services...",
+        hero_title: "Reliable Digital Services & Game Solutions", hero_desc: "Professional web design, Discord server configuration, and popular in-game currencies with secure delivery at one single hub.", hero_btn_explore: "Explore Services", hero_btn_discord: "Join Community",
+        how_title: "How It Works?", step1_title: "Join Discord", step1_desc: "Enter our official Discord server safely using any join button on our website.", step2_title: "Open a Ticket", step2_desc: "Create an order or inquiry ticket through our dedicated support channels.", step3_title: "Safe Delivery", step3_desc: "Our team members will assist you shortly and deliver your order securely.",
+        trust_title: "Our Background & Sales", trust_desc: "Please note that while our Discord-based shop is a newly established hub, our primary developer operations and sales history are rooted in the official Roblox Creator Marketplace and other verified platforms.",
+        services_title: "Our Services & Products", services_subtitle: "You can filter our current catalogs using the quick tabs below.", filter_all: "All", filter_software: "Software & Server", filter_games: "Game Currencies",
+        btn_order: "Order Now", btn_info: "Get Info", btn_view_prices: "View Prices", btn_order_on_discord: "Order via Discord",
+        reviews_title: "Client Testimonials", reviews_subtitle: "What our community says about our secure services.",
+        sec_desc: "Ensure you are talking to a real True Kinetic official. Enter their Discord Username below to verify them.", sec_btn: "Verify Staff",
+        faq_title: "Frequently Asked Questions", faq_q1_title: "How can I make payments?", faq_q1_desc: "You can easily complete payments by opening a ticket on our Discord server. We support various secure options like Bank Transfer, Papara, and major secure local payment networks.", faq_q3_title: "Why is everything based on Discord?", faq_q3_desc: "To offer personal assistance, address specific inquiries directly, and maintain direct secure support, we manage all purchases personally through our Discord ticket system.",
+        roles_title: "Discord Server Roles", roles_subtitle: "Information about the roles and ranks available on our Discord server.", role_col_staff: "Management & Staff", role_col_ranks: "Active Purchase Ranks", role_col_members: "Special & Member Roles",
+        r_founder_desc: "Official server founder and owner.", r_coleader_desc: "Official server Co-Leader.", r_headadmin_desc: "Ban requests, partnership applications, staff recruitment, and bot administration.", r_mod_desc: "Moderation staff member, log viewing, and report priority.", r_legendary_desc: "Requires making a total of 100+ purchases.", r_master_desc: "Requires making a total of 50+ purchases.", r_diamond_desc: "Requires making a total of 25+ purchases.", r_gold_desc: "Requires making a total of 5+ purchases.", r_partnerteam_desc: "Partner, free advertising authority.", r_developer_desc: "Official development team members.", r_member_desc: "Official server member.", 
+        footer_community_title: "True Kinetic Studios", footer_community_desc: "This web project is managed via the official True Kinetic Studios Discord page.", footer_sub: "This website and provided services are independently operated by the True Kinetic Team."
+    },
+    tr: {
+        nav_home: "Ana Sayfa", nav_how: "Nasıl Çalışır", nav_services: "Hizmetler", nav_reviews: "Yorumlar", nav_faq: "S.S.S.", nav_admin: "Admin",
+        announcement: "🚀 Yaz İndirimleri: Özel indirimler için Discord sunucumuza katılın!",
+        search_placeholder: "Hizmetlerde ara...",
+        hero_title: "Güvenilir Dijital Hizmetler ve Oyun Çözümleri", hero_desc: "Profesyonel web tasarım, Discord sunucu yapılandırması ve en popüler oyun içi para birimleri güvenli teslimat ile tek adreste.", hero_btn_explore: "Hizmetleri İncele", hero_btn_discord: "Topluluğa Katıl",
+        how_title: "Nasıl Satın Alınır?", step1_title: "Discord'a Katılın", step1_desc: "Sitemizdeki butonları kullanarak resmi Discord sunucumuza güvenli bir şekilde giriş yapın.", step2_title: "Talep Açın", step2_desc: "Sunucumuzda yer alan sipariş ve destek kanallarından hizmet için talep oluşturun.", step3_title: "Güvenle Teslim Alın", step3_desc: "Yetkililerimiz talebinizle ilgilenerek siparişinizi güvenli bir şekilde teslim etsin.",
+        trust_title: "Satış Geçmişimiz", trust_desc: "Discord mağazamız henüz yenidir. Ana geliştirici faaliyetlerimiz ve asıl satış geçmişimiz resmi Roblox Creator Marketplace ve diğer yetkili platformlar üzerindedir.",
+        services_title: "Hizmetlerimiz ve Ürünlerimiz", services_subtitle: "Aşağıdaki filtreleri kullanarak aradığınız hizmete hızlıca göz atabilirsiniz.", filter_all: "Tümü", filter_software: "Yazılım & Sunucu", filter_games: "Oyun Paraları",
+        btn_order: "Sipariş Ver", btn_info: "Bilgi Al", btn_view_prices: "Fiyatları Gör", btn_order_on_discord: "Discord ile Sipariş Ver",
+        reviews_title: "Müşteri Yorumları", reviews_subtitle: "Topluluğumuzun güvenli hizmetlerimiz hakkındaki düşünceleri.",
+        sec_desc: "Gerçek bir True Kinetic yetkilisi ile konuştuğunuzdan emin olun. Doğrulamak için aşağıya kullanıcı adını yazın.", sec_btn: "Yetkiliyi Doğrula",
+        faq_title: "Sıkça Sorulan Sorular", faq_q1_title: "Ödemeleri nasıl yapabilirim?", faq_q1_desc: "Ödemelerinizi Discord sunucumuz üzerinden destek talebi açarak güvenli yöntemlerle (Havale/EFT, Papara vb.) gerçekleştirebilirsiniz.", faq_q3_title: "Neden Discord?", faq_q3_desc: "Müşterilerimizle birebir iletişim kurabilmek, doğrudan canlı destek sunabilmek amacıyla tüm süreci Discord üzerinden yönetiyoruz.",
+        roles_title: "Sunucu Rolleri", roles_subtitle: "Sunucumuzda mevcut olan roller ve rütbeler hakkında bilgi.", role_col_staff: "Yönetim & Yetkililer", role_col_ranks: "Aktif Rütbeler", role_col_members: "Özel Roller & Üyeler",
+        r_founder_desc: "Resmi sunucu kurucusu, sahibi.", r_coleader_desc: "Resmi sunucu eş lideri.", r_headadmin_desc: "Ban istekleri, ortaklık başvuruları, yetkili alımı ve bot yöneticisi.", r_mod_desc: "Moderasyon ekibi, log görüntüleme.", r_legendary_desc: "Toplamda 100+ satın alma.", r_master_desc: "Toplamda 50+ satın alma.", r_diamond_desc: "Toplamda 25+ satın alma.", r_gold_desc: "Toplamda 5+ satın alma.", r_partnerteam_desc: "İş ortağı, reklam yetkisi.", r_developer_desc: "Geliştirici ekip üyeleri.", r_member_desc: "Resmi sunucu üyesi.", 
+        footer_community_title: "True Kinetic Studios", footer_community_desc: "Bu web projesi, resmi True Kinetic Studios Discord sayfasında yayınlanmaktadır.", footer_sub: "Bu web sitesi True Kinetic ekibi tarafından bağımsız olarak yönetilmektedir."
+    }
 };
 
-// VARSAYILAN FİYAT VE PAKET VERİLERİ (Öncelikli olarak LocalStorage'dan yüklenecektir)
+/* ==========================================================================
+   2. VERİTABANI BAŞLATMA (LOCALSTORAGE & DEFAULTS)
+   ========================================================================== */
 const defaultPricingData = {
-  web: {
-    category: "software",
-    icon: "fas fa-code",
-    title: { en: "Web Site Design", tr: "Web Tasarım Paketleri" },
-    desc: { en: "Professional responsive design services.", tr: "Profesyonel arayüz tasarım hizmetleri." },
-    tiers: [
-      { name: { en: "Front-End Web Design", tr: "Front-End Web Tasarım" }, price: { en: "12$", tr: "400 TL" }, desc: { en: "+$5 for each extra page", tr: "Ek sayfa başına +170 TL" } },
-      { name: { en: "Back-End Design", tr: "Back-End Tasarım" }, price: { en: "Soon", tr: "Yakında" }, desc: { en: "Under development", tr: "Geliştirilme aşamasında" } },
-      { name: { en: "Full-Stack Design", tr: "Full-Stack Tasarım" }, price: { en: "Soon", tr: "Yakında" }, desc: { en: "Under development", tr: "Geliştirilme aşamasında" } }
-    ]
-  },
-  discord: {
-    category: "software",
-    icon: "fab fa-discord",
-    title: { en: "Discord Server Setup", tr: "Discord Sunucu Yapılandırması" },
-    desc: { en: "Tailored roles, security settings, and professional bot setup.", tr: "Size özel yetkilendirme, güvenlik yapılandırmaları ve profesyonel botlar." },
-    tiers: [
-      { name: { en: "Basic Setup", tr: "Temel Kurulum" }, price: { en: "2$", tr: "70 TL" }, desc: { en: "Perfect starting layout for small communities", tr: "Küçük topluluklar için standart, temiz kurulum" } },
-      { name: { en: "Advanced Server", tr: "Gelişmiş Sunucu" }, price: { en: "Soon", tr: "Yakında" }, desc: { en: "Under development", tr: "Geliştirilme aşamasında" } }
-    ]
-  },
-  detailed_analysis: {
-    category: "software",
-    icon: "fas fa-chart-line",
-    title: { en: "Detailed Server Analysis", tr: "Detaylı Sunucu Analizi" },
-    desc: { en: "Deep inspection into roles, permissions, and security loopholes.", tr: "Roller, kanal yetkileri ve güvenlik açıklarına yönelik derin analiz." },
-    tiers: [
-      { name: { en: "Comprehensive Audit", tr: "Detaylı İnceleme" }, price: { en: "8$", tr: "270 TL" }, desc: { en: "Complete security report sheet", tr: "Tam kapsamlı güvenlik raporu teslimi" } }
-    ]
-  },
-  basic_analysis: {
-    category: "software",
-    icon: "fas fa-poll",
-    title: { en: "Basic Server Analysis", tr: "Temel Sunucu Analizi" },
-    desc: { en: "Overview check-up of server layout safety standards.", tr: "Sunucu düzeni ve temel güvenlik standartlarının taranması." },
-    tiers: [
-      { name: { en: "Standard Audit", tr: "Temel İnceleme" }, price: { en: "3$", tr: "100 TL" }, desc: { en: "Overview permission check", tr: "Temel izin ve rol denetimi" } }
-    ]
-  },
-  roblox_gift: {
-    category: "games",
-    icon: "fas fa-ticket-alt",
-    title: { en: "Roblox Gift Cards", tr: "Roblox Hediye Kartları" },
-    desc: { en: "Roblox digital codes directly applicable for Robux or Premium.", tr: "Robux veya Premium için doğrudan geçerli resmi Roblox kodları." },
-    tiers: [
-      { name: { en: "$5 Gift Card", tr: "5$ Hediye Kartı" }, price: { en: "5$", tr: "400 TL" }, desc: { en: "Official redeemable digital key", tr: "Resmi, hesaba tanımlanabilir dijital kod" } },
-      { name: { en: "$10 Gift Card", tr: "10$ Hediye Kartı" }, price: { en: "10$", tr: "650 TL" }, desc: { en: "Official redeemable digital key", tr: "Resmi, hesaba tanımlanabilir dijital kod" } },
-      { name: { en: "Other Quantities", tr: "Diğer Miktarlar" }, price: { en: "Varies", tr: "Değişken" }, desc: { en: "Please visit our Discord server for custom amounts", tr: "Diğer tüm miktarlar için lütfen Discord sunucumuzu ziyaret edin" } }
-    ]
-  },
-  pubg_uc: {
-    category: "games",
-    icon: "fas fa-crosshairs",
-    title: { en: "PUBG Mobile UC", tr: "PUBG Mobile UC Fiyatları" },
-    desc: { en: "In-game Unknown Cash delivered directly with your Player ID.", tr: "Karakter ID'niz kullanılarak hesabınıza doğrudan yüklenen UC paketleri." },
-    tiers: [
-      { name: "325 UC", price: { en: "4.5$", tr: "230 TL" }, desc: { en: "ID top-up delivery", tr: "Oyuncu ID'sine doğrudan yükleme" } },
-      { name: "660 UC", price: { en: "8.5$", tr: "442 TL" }, desc: { en: "ID top-up delivery", tr: "Oyuncu ID'sine doğrudan yükleme" } },
-      { name: "1800 UC", price: { en: "22$", tr: "1100 TL" }, desc: { en: "ID top-up delivery", tr: "Oyuncu ID'sine doğrudan yükleme" } }
-    ]
-  },
-  valorant_vp: {
-    category: "games",
-    icon: "fas fa-gamepad",
-    title: { en: "Valorant VP", tr: "Valorant VP Fiyatları" },
-    desc: { en: "Secure Valorant Points Pin Codes valid on target regional accounts.", tr: "Türkiye ve hedef hesaplarda geçerli indirimli Valorant Points e-pin kodları." },
-    tiers: [
-      { name: "1700 VP", price: { en: "7.5$", tr: "493 TL" }, desc: { en: "Riot PIN delivery code", tr: "Hızlı Riot PIN teslimatı" } },
-      { name: { en: "Other Quantities", tr: "Diğer Miktarlar" }, price: { en: "Varies", tr: "Değişken" }, desc: { en: "Please visit our Discord server for custom amounts", tr: "Diğer tüm miktarlar için lütfen Discord sunucumuzu ziyaret edin" } }
-    ]
-  },
-  steam_wallet: {
-    category: "games",
-    icon: "fab fa-steam",
-    title: { en: "Steam Wallet Code", tr: "Steam Cüzdan Kodları" },
-    desc: { en: "Add funds directly to your digital Steam Wallet.", tr: "Steam bakiyenize ekleyebileceğiniz güvenli cüzdan kodları." },
-    tiers: [
-      { name: { en: "Variable Prices", tr: "Sabit Fiyat Yoktur" }, price: { en: "Contact Us", tr: "İletişime Geçin" }, desc: { en: "No fixed price, please visit our Discord server for details.", tr: "Ürünün sabit fiyatı bulunmamaktadır. Detaylı bilgi için lütfen sunucumuzu ziyaret edin." } }
-    ]
-  },
-  freefire_gem: {
-    category: "games",
-    icon: "fas fa-gem",
-    title: { en: "Free Fire Gem", tr: "Free Fire Elmas Paketleri" },
-    desc: { en: "Cheapest FF diamonds packages directly loaded into your account.", tr: "Hesabınıza doğrudan yüklenecek en uygun fiyatlı Free Fire elmas paketleri." },
-    tiers: [
-      { name: { en: "231 Diamonds", tr: "231 Elmas" }, price: { en: "2$", tr: "121 TL" }, desc: { en: "Instant in-game top-up", tr: "Oyun içi doğrudan hızlı yükleme" } },
-      { name: { en: "583 Diamonds", tr: "583 Elmas" }, price: { en: "4.5$", tr: "300 TL" }, desc: { en: "Instant in-game top-up", tr: "Oyun içi doğrudan hızlı yükleme" } }
-    ]
-  },
-  custom_requests: {
-    title: { en: "Special Requests", tr: "Özel İstekler" },
-    icon: "fas fa-wand-magic-sparkles",
-    category: "software",
-    desc: { en: "Get in touch for custom, bespoke developer tasks and requests.", tr: "Size özel yazılım, bot veya arayüz talepleri için bizimle iletişime geçin." },
-    tiers: [
-      { name: { en: "Custom Order", tr: "Özel Talep Formu" }, price: { en: "Flexible", tr: "Esnek Fiyat" }, desc: { en: "Visit our server to pitch your custom project guidelines.", tr: "Özel hizmet istekleriniz ve detaylı görüşme için lütfen sunucumuzu ziyaret edin." } }
-    ]
-  }
+    web: { category: "software", icon: "fas fa-code", title: { en: "Web Site Design", tr: "Web Tasarım Paketleri" }, desc: { en: "Professional responsive design services.", tr: "Profesyonel arayüz tasarım hizmetleri." }, tiers: [{ name: { en: "Front-End", tr: "Front-End" }, price: { en: "12$", tr: "400 TL" }, desc: { en: "+$5 extra page", tr: "Ek sayfa +170 TL" } }] },
+    discord: { category: "software", icon: "fab fa-discord", title: { en: "Discord Server Setup", tr: "Discord Sunucu Kurulumu" }, desc: { en: "Tailored roles and professional bot setup.", tr: "Özel yetkilendirme ve profesyonel botlar." }, tiers: [{ name: { en: "Basic Setup", tr: "Temel Kurulum" }, price: { en: "2$", tr: "70 TL" }, desc: { en: "Perfect starting layout", tr: "Standart, temiz kurulum" } }] },
+    roblox_gift: { category: "games", icon: "https://upload.wikimedia.org/wikipedia/commons/3/3a/Robux_2019_Logo_gold.svg", title: { en: "Roblox Gift Cards", tr: "Roblox Hediye Kartları" }, desc: { en: "Digital codes directly applicable for Robux.", tr: "Robux için geçerli resmi kodlar." }, tiers: [{ name: "$5 Gift Card", price: { en: "5$", tr: "400 TL" }, desc: { en: "Official key", tr: "Resmi kod" } }] },
+    pubg_uc: { category: "games", icon: "fas fa-crosshairs", title: { en: "PUBG Mobile UC", tr: "PUBG Mobile UC" }, desc: { en: "In-game Unknown Cash delivered to Player ID.", tr: "Oyuncu ID'nize doğrudan yüklenen UC." }, tiers: [{ name: "325 UC", price: { en: "4.5$", tr: "230 TL" }, desc: { en: "Direct ID Top-up", tr: "Doğrudan Yükleme" } }] },
+    valorant_vp: { category: "games", icon: "fas fa-gamepad", title: { en: "Valorant VP", tr: "Valorant VP" }, desc: { en: "Secure Valorant Points Pin Codes.", tr: "İndirimli Valorant Points e-pin kodları." }, tiers: [{ name: "1700 VP", price: { en: "7.5$", tr: "493 TL" }, desc: { en: "Riot PIN delivery", tr: "Hızlı Riot PIN teslimatı" } }] }
 };
 
-// ADMIN PANEL ŞİFRESİ
-const ADMIN_PASSWORD = "xs72kp1z773t3p3t9o5nc2f9uf3rhqx3ylbjexd23mmfty2s5u";
-
-// KÖKLÜ BELLEK ONARIMI: Sitenin ilk açılışında veri yoksa varsayılanı kaydet. Varsa sadece onu yükle (Silinenler geri gelmez!)
 if (!localStorage.getItem("kineticPricingDB")) {
-  localStorage.setItem("kineticPricingDB", JSON.stringify(defaultPricingData));
+    localStorage.setItem("kineticPricingDB", JSON.stringify(defaultPricingData));
 }
 let pricingData = JSON.parse(localStorage.getItem("kineticPricingDB"));
+let officialStaff = JSON.parse(localStorage.getItem("kineticStaffDB")) || ["owmanxx", "neural_forge.", "someoneelsexd"];
+let currentLang = localStorage.getItem("preferredLang") || "en";
 
-// Eski hafıza uyumluluğu için mevcut anahtarları onar (Eksik kategori/ikonları ekler, silinenleri canlandırmaz!)
-Object.keys(pricingData).forEach(key => {
-  if (defaultPricingData[key]) {
-    if (!pricingData[key].category) pricingData[key].category = defaultPricingData[key].category;
-    if (!pricingData[key].icon) pricingData[key].icon = defaultPricingData[key].icon;
-  }
+/* ==========================================================================
+   3. GÜVENLİK (ADMIN ŞİFRESİ GİZLEME)
+   ========================================================================== */
+const ENCODED_PASS = "eHM3MmtwMXo3NzN0M3AzdDlvNW5jMmY5dWYzcmhxeDN5bGJqZXhkMjNtbWZ0eTJzNXU=";
+
+function verifyAdminPassword(inputPass) {
+    try {
+        return btoa(inputPass) === ENCODED_PASS;
+    } catch(e) {
+        return false;
+    }
+}
+
+/* ==========================================================================
+   4. TOAST BİLDİRİM SİSTEMİ
+   ========================================================================== */
+function showToast(message, type = "info") {
+    const container = document.getElementById("toastContainer");
+    const toast = document.createElement("div");
+    toast.className = `toast ${type}`;
+    let icon = type === "success" ? "fa-check-circle" : type === "error" ? "fa-exclamation-circle" : "fa-info-circle";
+    toast.innerHTML = `<i class="fas ${icon}"></i> <span>${message}</span>`;
+    container.appendChild(toast);
+    setTimeout(() => toast.classList.add("show"), 10);
+    setTimeout(() => { toast.classList.remove("show"); setTimeout(() => toast.remove(), 400); }, 3500);
+}
+
+/* ==========================================================================
+   5. ARAMA & LİSTELEME MOTORU (SPOTLIGHT)
+   ========================================================================== */
+function initSpotlight() {
+    const cards = document.querySelectorAll(".service-card");
+    cards.forEach(card => {
+        card.addEventListener("mousemove", e => {
+            const rect = card.getBoundingClientRect();
+            card.style.setProperty("--mouse-x", `${e.clientX - rect.left}px`);
+            card.style.setProperty("--mouse-y", `${e.clientY - rect.top}px`);
+        });
+    });
+}
+
+function renderServices(searchQuery = "") {
+    const grid = document.getElementById("servicesGrid");
+    grid.innerHTML = "";
+    
+    // Geçerli kategori filtresini al
+    const activeFilterBtn = document.querySelector(".filter-btn.active");
+    const activeFilter = activeFilterBtn ? activeFilterBtn.getAttribute("data-filter") : "all";
+
+    Object.keys(pricingData).forEach(key => {
+        const item = pricingData[key];
+        const titleText = item.title[currentLang] || item.title.en || item.title;
+        const descText = item.desc[currentLang] || item.desc.en || item.desc;
+        const btnText = item.category === "software" ? translations[currentLang].btn_info : translations[currentLang].btn_view_prices;
+
+        // Arama ve Kategori Filtresi Uygunluk Kontrolü
+        const matchesCategory = (activeFilter === "all" || item.category === activeFilter);
+        const matchesSearch = titleText.toLowerCase().includes(searchQuery.toLowerCase()) || descText.toLowerCase().includes(searchQuery.toLowerCase());
+
+        if (matchesCategory && matchesSearch) {
+            // İkon mu yoksa Resim url'si mi kontrolü (http içeriyorsa resimdir)
+            let iconHTML = item.icon.includes("http") ? `<img src="${item.icon}" alt="${titleText}">` : `<i class="${item.icon}"></i>`;
+            
+            const card = document.createElement("div");
+            card.className = "service-card";
+            card.setAttribute("data-category", item.category || "software");
+            card.innerHTML = `
+                <div class="card-icon">${iconHTML}</div>
+                <h3>${titleText}</h3>
+                <p>${descText}</p>
+                <button class="card-action-btn" onclick="openPricingModal('${key}')">
+                    <span>${btnText}</span> <i class="fas fa-arrow-right"></i>
+                </button>
+            `;
+            grid.appendChild(card);
+        }
+    });
+
+    if (grid.innerHTML === "") {
+        grid.innerHTML = `<p style="color: var(--text-muted); text-align:center; width:100%; grid-column: 1 / -1;">No matching services found.</p>`;
+    }
+
+    initSpotlight();
+}
+
+/* ==========================================================================
+   6. DİL / ÇEVİRİ YÖNETİMİ
+   ========================================================================== */
+function applyLanguage(lang) {
+    currentLang = lang;
+    localStorage.setItem("preferredLang", lang);
+    document.getElementById("langSelect").value = lang;
+
+    document.querySelectorAll("[data-i18n]").forEach(element => {
+        const key = element.getAttribute("data-i18n");
+        if (translations[lang] && translations[lang][key]) element.textContent = translations[lang][key];
+    });
+
+    document.querySelectorAll("[data-i18n-placeholder]").forEach(element => {
+        const key = element.getAttribute("data-i18n-placeholder");
+        if (translations[lang] && translations[lang][key]) element.setAttribute("placeholder", translations[lang][key]);
+    });
+
+    renderServices(document.getElementById("searchInput") ? document.getElementById("searchInput").value : "");
+}
+
+/* ==========================================================================
+   7. UI ETKİLEŞİMLERİ (SCROLL, MOBİL, ARAMA, FAQ)
+   ========================================================================== */
+document.addEventListener("DOMContentLoaded", () => {
+    applyLanguage(currentLang);
+
+    // Scroll Navbar
+    window.addEventListener("scroll", () => {
+        const nav = document.getElementById("navbar");
+        if (window.scrollY > 50) nav.classList.add("scrolled"); else nav.classList.remove("scrolled");
+    });
+
+    // Mobile Nav
+    document.getElementById("mobileToggle").addEventListener("click", () => {
+        document.getElementById("navContainer").classList.toggle("active");
+    });
+
+    // Language change
+    document.getElementById("langSelect").addEventListener("change", (e) => applyLanguage(e.target.value));
+
+    // Scroll Animations
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add("active"); observer.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.1 });
+    document.querySelectorAll(".reveal-on-scroll").forEach(el => observer.observe(el));
+
+    // Kategori Filtre Butonları
+    const filterBtns = document.querySelectorAll(".filter-btn");
+    filterBtns.forEach(btn => {
+        btn.addEventListener("click", () => {
+            filterBtns.forEach(b => b.classList.remove("active"));
+            btn.classList.add("active");
+            renderServices(document.getElementById("searchInput").value);
+        });
+    });
+
+    // Arama Çubuğu Dinleyici
+    const searchInput = document.getElementById("searchInput");
+    if(searchInput) {
+        searchInput.addEventListener("input", (e) => {
+            renderServices(e.target.value);
+        });
+    }
+
+    // FAQ Akordeon
+    document.querySelectorAll(".faq-question").forEach(btn => {
+        btn.addEventListener("click", () => {
+            const item = btn.parentElement;
+            const answer = item.querySelector(".faq-answer");
+            const isActive = item.classList.contains("active");
+            
+            document.querySelectorAll(".faq-item").forEach(i => {
+                i.classList.remove("active"); i.querySelector(".faq-answer").style.maxHeight = null;
+            });
+
+            if (!isActive) {
+                item.classList.add("active"); answer.style.maxHeight = answer.scrollHeight + "px";
+            }
+        });
+    });
+
+    // Staff Verification Tool
+    const verifyBtn = document.getElementById("verifyBtn");
+    if(verifyBtn) {
+        verifyBtn.addEventListener("click", () => {
+            const val = document.getElementById("staffInput").value.trim().toLowerCase();
+            const resBox = document.getElementById("verifyResult");
+            if (!val) return;
+
+            resBox.style.display = "block";
+            if (officialStaff.includes(val)) {
+                resBox.className = "verify-result verify-success";
+                resBox.innerHTML = `<i class="fas fa-check-circle"></i> VERIFIED: <strong>@${val}</strong> is an official team member.`;
+            } else {
+                resBox.className = "verify-result verify-fail";
+                resBox.innerHTML = `<i class="fas fa-exclamation-triangle"></i> WARNING: <strong>@${val}</strong> is NOT a registered official!`;
+            }
+        });
+    }
+
+    // Modalları kapatma (dışarı tıklayınca)
+    window.addEventListener("click", (e) => {
+        if (e.target.classList.contains("modal-overlay")) e.target.classList.remove("active");
+    });
 });
 
-const defaultStaff = ["owmanxx", "neural_forge.", "someoneelsexd"];
-let officialStaff = JSON.parse(localStorage.getItem("kineticStaffDB")) || defaultStaff;
+/* ==========================================================================
+   8. MODAL YÖNETİMİ (KAPATMA VE PRICING AÇMA)
+   ========================================================================== */
+document.querySelectorAll(".close-modal-btn").forEach(btn => {
+    btn.addEventListener("click", () => btn.closest(".modal-overlay").classList.remove("active"));
+});
 
-document.addEventListener("DOMContentLoaded", () => {
-
-  // --- TÜM SEÇİCİLER (DOM ELEMENTS) ---
-  const langSelect = document.getElementById("langSelect");
-  const adminBtn = document.getElementById("adminBtn");
-  const adminDashboard = document.getElementById("adminDashboard");
-  const closeDashboardBtn = document.querySelector(".close-dashboard-btn");
-
-  const pricingModal = document.getElementById('pricingModal');
-  const closePricingBtn = document.querySelector('.close-pricing-btn');
-  const pricingTitle = document.getElementById('pricingTitle');
-  const pricingDesc = document.getElementById('pricingDesc');
-  const pricingTiers = document.getElementById('pricingTiers');
-
-  const verifyBtn = document.getElementById("verifyBtn");
-  const staffInput = document.getElementById("staffInput");
-  const verifyResult = document.getElementById("verifyResult");
-
-  // Admin Editör Seçicileri
-  const editorServiceSelect = document.getElementById("editorServiceSelect");
-  const editorTiersContainer = document.getElementById("editorTiersContainer");
-  const savePricesBtn = document.getElementById("savePricesBtn");
-
-  // Admin Ürün Ekleme Seçicileri
-  const addProdKey = document.getElementById("addProdKey");
-  const addProdTitleEn = document.getElementById("addProdTitleEn");
-  const addProdTitleTr = document.getElementById("addProdTitleTr");
-  const addProdDescEn = document.getElementById("addProdDescEn");
-  const addProdDescTr = document.getElementById("addProdDescTr");
-  const addProdCategory = document.getElementById("addProdCategory");
-  const addProdIcon = document.getElementById("addProdIcon");
-  const addProdTiersCount = document.getElementById("addProdTiersCount");
-  const addProdTiersFields = document.getElementById("addProdTiersFields");
-  const addProductBtn = document.getElementById("addProductBtn");
-
-  // Admin Ürün Silme & Yetkili Seçicileri
-  const adminProductList = document.getElementById("adminProductList");
-  const newStaffInput = document.getElementById("newStaffInput");
-  const addStaffBtn = document.getElementById("addStaffBtn");
-  const staffList = document.getElementById("staffList");
-  const exportDbBtn = document.getElementById("exportDbBtn");
-
-  const servicesGrid = document.getElementById("servicesGrid");
-
-  let currentOpenService = null;
-
-  // ==========================================================================
-  // CANLI EŞİTLEME MOTORU (FETCH PRODUCTS.JSON FROM GITHUB)
-  // ==========================================================================
-  async function fetchLiveProducts() {
-    try {
-      // Sitenizin ana dizinindeki products.json dosyasını çekmeye çalışır
-      const response = await fetch("products.json");
-      if (response.ok) {
-        const liveData = await response.json();
-        pricingData = liveData;
-        localStorage.setItem("kineticPricingDB", JSON.stringify(pricingData));
-        console.log("[+] Live Database synced from GitHub Page!");
-      }
-    } catch (err) {
-      console.log("[i] Offline mode / Local storage active.");
-    }
-    renderServices();
-  }
-
-  // 1. DINAMIK ANASAYFA KARTLARI OLUŞTURMA SİSTEMİ
-  function renderServices() {
-    if (!servicesGrid) return;
-    const currentLang = localStorage.getItem("preferredLang") || "en";
-    servicesGrid.innerHTML = "";
-
-    Object.keys(pricingData).forEach(key => {
-      const item = pricingData[key];
-      const card = document.createElement("div");
-      card.className = "service-card";
-      card.setAttribute("data-category", item.category || "software");
-
-      const icon = item.icon || "fas fa-cube";
-      let iconHTML = "";
-      const isFontAwesome = icon.startsWith("fa") || icon.includes(" ");
-      if (isFontAwesome) {
-        iconHTML = `<i class="${icon}"></i>`;
-      } else {
-        iconHTML = icon;
-      }
-
-      const titleText = item.title[currentLang] || item.title;
-      const descText = item.desc[currentLang] || item.desc;
-
-      let btnLabelText = translations[currentLang]["btn_view_prices"];
-      if (item.category === "software") {
-        btnLabelText = key.includes("analysis") 
-          ? translations[currentLang]["btn_info"] 
-          : translations[currentLang]["btn_order"];
-      }
-
-      card.innerHTML = `
-        <div class="card-icon">${iconHTML}</div>
-        <h3>${titleText}</h3>
-        <p>${descText}</p>
-        <button class="card-action-btn" data-service="${key}">
-            <span>${btnLabelText}</span> <i class="fas fa-arrow-right"></i>
-        </button>
-      `;
-      servicesGrid.appendChild(card);
-    });
-  }
-
-  if (servicesGrid) {
-    servicesGrid.addEventListener("click", (e) => {
-      const btn = e.target.closest(".card-action-btn");
-      if (btn) {
-        const serviceKey = btn.getAttribute("data-service");
-        const currentLang = localStorage.getItem("preferredLang") || "en";
-        currentOpenService = serviceKey;
-        populatePricingModal(serviceKey, currentLang);
-        pricingModal.classList.add("open");
-        document.body.style.overflow = "hidden";
-      }
-    });
-  }
-
-  // 1. DİL DEĞİŞTİRME MEKANİZMASI (I18N)
-  function applyLanguage(lang) {
-    const i18nElements = document.querySelectorAll("[data-i18n]");
-
-    i18nElements.forEach((element) => {
-      const key = element.getAttribute("data-i18n");
-      if (translations[lang] && translations[lang][key]) {
-        element.textContent = translations[lang][key];
-      }
-    });
-
-    document.documentElement.lang = lang;
-    localStorage.setItem("preferredLang", lang);
-    langSelect.value = lang;
-
-    renderServices();
-
-    if (currentOpenService) {
-      populatePricingModal(currentOpenService, lang);
-    }
-  }
-
-  // İlk dil yüklemesi ve kart çizimleri
-  const savedLanguage = localStorage.getItem("preferredLang") || "en";
-  applyLanguage(savedLanguage);
-  fetchLiveProducts(); // Canlı verileri GitHub'dan çekmeyi dene
-
-  langSelect.addEventListener('change', (e) => {
-    applyLanguage(e.target.value);
-  });
-
-
-  // 2. DİNAMİK FİYAT POP-UP MODALI (PRICING MODAL)
-  function populatePricingModal(serviceKey, lang) {
-    const data = pricingData[serviceKey];
+window.openPricingModal = function(key) {
+    const data = pricingData[key];
     if (!data) return;
 
-    pricingTitle.textContent = data.title[lang] || data.title;
-    pricingDesc.textContent = data.desc[lang] || data.desc;
-    pricingTiers.innerHTML = "";
-
-    data.tiers.forEach((tier) => {
-      const tierCard = document.createElement("div");
-      tierCard.className = "tier-card";
-
-      const tierName = typeof tier.name === "string" ? tier.name : (tier.name[lang] || tier.name["en"]);
-      const tierPrice = typeof tier.price === "string" ? tier.price : (tier.price[lang] || tier.price["en"]);
-      const tierDesc = typeof tier.desc === "string" ? tier.desc : (tier.desc[lang] || tier.desc["en"]);
-
-      tierCard.innerHTML = `
-                <h4>${tierName}</h4>
-                <div class="tier-price">${tierPrice}</div>
-                <p class="tier-desc">${tierDesc}</p>
-            `;
-      pricingTiers.appendChild(tierCard);
-    });
-  }
-
-  if (closePricingBtn) {
-    closePricingBtn.addEventListener("click", () => {
-      pricingModal.classList.remove("open");
-      currentOpenService = null;
-      document.body.style.overflow = "auto";
-    });
-  }
-
-
-  // 3. ADMIN PANEL ŞİFRELİ GİRİŞ VE SEKME YÖNETİMİ
-  adminBtn.addEventListener("click", () => {
-    const inputPass = prompt("Please enter the Admin Password / Lütfen Yönetici Şifresini Girin:");
+    document.getElementById("pricingTitle").textContent = data.title[currentLang] || data.title.en;
+    document.getElementById("pricingDesc").textContent = data.desc[currentLang] || data.desc.en;
     
-    if (inputPass === null) return;
+    const tiersDiv = document.getElementById("pricingTiers");
+    tiersDiv.innerHTML = "";
 
-    if (inputPass === ADMIN_PASSWORD) {
-      loadAdminSelect();
-      renderStaffList();
-      renderAdminProductList();
-      generateAddProdTiersForm();
-      adminDashboard.classList.add("open");
-      document.body.style.overflow = "hidden";
+    data.tiers.forEach(tier => {
+        const tName = typeof tier.name === "string" ? tier.name : (tier.name[currentLang] || tier.name.en);
+        const tPrice = typeof tier.price === "string" ? tier.price : (tier.price[currentLang] || tier.price.en);
+        const tDesc = typeof tier.desc === "string" ? tier.desc : (tier.desc[currentLang] || tier.desc.en);
+
+        tiersDiv.innerHTML += `
+            <div class="tier-card">
+                <h4>${tName}</h4>
+                <div class="tier-price">${tPrice}</div>
+                <p class="tier-desc">${tDesc}</p>
+            </div>
+        `;
+    });
+
+    document.getElementById("pricingModal").classList.add("active");
+};
+
+/* ==========================================================================
+   9. ADMIN PANELİ & GİRİŞ (AUTH)
+   ========================================================================== */
+document.getElementById("openAdminLoginBtn").addEventListener("click", () => {
+    document.getElementById("adminAuthModal").classList.add("active");
+});
+
+document.getElementById("toggleAdminPass").addEventListener("click", () => {
+    const inp = document.getElementById("adminPassInput");
+    const icon = document.querySelector("#toggleAdminPass i");
+    if (inp.type === "password") { inp.type = "text"; icon.className = "far fa-eye-slash"; } 
+    else { inp.type = "password"; icon.className = "far fa-eye"; }
+});
+
+// Güvenli Admin Giriş İşlemi
+document.getElementById("submitAdminLoginBtn").addEventListener("click", () => {
+    const inpVal = document.getElementById("adminPassInput").value;
+    const isValid = verifyAdminPassword(inpVal);
+
+    if (isValid) {
+        document.getElementById("adminAuthModal").classList.remove("active");
+        document.getElementById("adminPassInput").value = "";
+        showToast("Access Granted! Welcome to Command Center.", "success");
+        openAdminDashboard();
     } else {
-      alert("Incorrect password! / Hatalı şifre girdiniz!");
+        showToast("Authentication Failed! Invalid Security Key.", "error");
     }
-  });
+});
 
-  if (closeDashboardBtn) {
-    closeDashboardBtn.addEventListener("click", () => {
-      adminDashboard.classList.remove("open");
-      document.body.style.overflow = "auto";
+/* ==========================================================================
+   10. ADMIN DASHBOARD İŞLEVLERİ (TABS, EDIT, ADD, DB IMPORT/EXPORT)
+   ========================================================================== */
+function openAdminDashboard() {
+    document.getElementById("adminDashboard").classList.add("active");
+    
+    const tabBtns = document.querySelectorAll("#adminDashboard .tab-btn");
+    const tabContents = document.querySelectorAll("#adminDashboard .tab-content");
+
+    tabBtns.forEach(btn => {
+        btn.addEventListener("click", () => {
+            tabBtns.forEach(b => b.classList.remove("active"));
+            tabContents.forEach(c => c.classList.remove("active"));
+            btn.classList.add("active");
+            document.getElementById(btn.getAttribute("data-tab")).classList.add("active");
+        });
     });
-  }
 
-  // Admin Dashboard Sekme Geçiş Tetikleyicileri
-  const tabButtons = adminDashboard.querySelectorAll(".dashboard-tabs .tab-btn");
-  const tabContents = adminDashboard.querySelectorAll(".tab-content");
+    refreshAdminDashboardData();
+}
 
-  tabButtons.forEach(btn => {
-    btn.addEventListener("click", () => {
-      const targetTab = btn.getAttribute("data-tab");
-      
-      tabButtons.forEach(b => b.classList.remove("active"));
-      tabContents.forEach(c => c.classList.remove("active"));
+function refreshAdminDashboardData() {
+    // İstatistikleri Güncelle
+    document.getElementById("statTotalProducts").textContent = Object.keys(pricingData).length;
+    document.getElementById("statTotalStaff").textContent = officialStaff.length;
 
-      btn.classList.add("active");
-      document.getElementById(targetTab).classList.add("active");
-    });
-  });
+    loadEditorSelect();
+    loadAdminProductList();
+    loadStaffList();
+    generateTiersInputFields();
+}
 
+// FİYAT GÜNCELLEME (Edit Prices)
+const editorSelect = document.getElementById("editorServiceSelect");
+const editorContainer = document.getElementById("editorTiersContainer");
 
-  // 4. ADMIN PANEL - DİNAMİK FİYAT EDİTÖRÜ MANTIĞI
-  function loadAdminSelect() {
-    editorServiceSelect.innerHTML = "";
+function loadEditorSelect() {
+    editorSelect.innerHTML = "";
     Object.keys(pricingData).forEach(key => {
-      const option = document.createElement("option");
-      option.value = key;
-      const titleText = pricingData[key].title["en"] || pricingData[key].title;
-      option.textContent = titleText;
-      editorServiceSelect.appendChild(option);
+        editorSelect.innerHTML += `<option value="${key}">${pricingData[key].title.en || pricingData[key].title}</option>`;
     });
-    loadServiceTiersToEditor(editorServiceSelect.value);
-  }
+    if(Object.keys(pricingData).length > 0) loadTiersIntoEditor(editorSelect.value);
+}
 
-  editorServiceSelect.addEventListener("change", (e) => {
-    loadServiceTiersToEditor(e.target.value);
-  });
+editorSelect.addEventListener("change", (e) => loadTiersIntoEditor(e.target.value));
 
-  function loadServiceTiersToEditor(serviceKey) {
+function loadTiersIntoEditor(serviceKey) {
     const data = pricingData[serviceKey];
-    editorTiersContainer.innerHTML = "";
+    editorContainer.innerHTML = "";
     if (!data) return;
 
     data.tiers.forEach((tier, index) => {
-      const tierDiv = document.createElement("div");
-      tierDiv.className = "tier-edit-row";
+        const tName = typeof tier.name === "string" ? tier.name : (tier.name.en || tier.name.tr);
+        const pEn = typeof tier.price === "string" ? tier.price : tier.price.en;
+        const pTr = typeof tier.price === "string" ? tier.price : tier.price.tr;
 
-      const nameText = typeof tier.name === "string" ? tier.name : (tier.name["en"] || tier.name["tr"]);
-
-      tierDiv.innerHTML = `
-        <label>${nameText} - Package ${index + 1}</label>
-        <div class="edit-inputs">
-          <input type="text" class="dashboard-input edit-price-tr" placeholder="Fiyat (TR) örn: 450 TL" value="${typeof tier.price === 'string' ? tier.price : tier.price['tr']}">
-          <input type="text" class="dashboard-input edit-price-en" placeholder="Price (EN) örn: 15$" value="${typeof tier.price === 'string' ? tier.price : tier.price['en']}">
-        </div>
-      `;
-      editorTiersContainer.appendChild(tierDiv);
+        editorContainer.innerHTML += `
+            <div class="tier-edit-row">
+                <label>${tName} (Package ${index + 1})</label>
+                <div class="form-row-dual">
+                    <input type="text" class="dashboard-input edit-p-en" value="${pEn}" placeholder="Price (EN)">
+                    <input type="text" class="dashboard-input edit-p-tr" value="${pTr}" placeholder="Fiyat (TR)">
+                </div>
+            </div>
+        `;
     });
-  }
+}
 
-  savePricesBtn.addEventListener("click", () => {
-    const selectedService = editorServiceSelect.value;
-    const rows = editorTiersContainer.querySelectorAll(".tier-edit-row");
-
+document.getElementById("savePricesBtn").addEventListener("click", () => {
+    const key = editorSelect.value;
+    if(!pricingData[key]) return;
+    const rows = editorContainer.querySelectorAll(".tier-edit-row");
+    
     rows.forEach((row, index) => {
-      const priceTr = row.querySelector(".edit-price-tr").value.trim();
-      const priceEn = row.querySelector(".edit-price-en").value.trim();
-
-      if (typeof pricingData[selectedService].tiers[index].price === "string") {
-        pricingData[selectedService].tiers[index].price = { en: priceEn, tr: priceTr };
-      } else {
-        pricingData[selectedService].tiers[index].price.en = priceEn;
-        pricingData[selectedService].tiers[index].price.tr = priceTr;
-      }
+        const enVal = row.querySelector(".edit-p-en").value;
+        const trVal = row.querySelector(".edit-p-tr").value;
+        pricingData[key].tiers[index].price = { en: enVal, tr: trVal };
     });
 
     localStorage.setItem("kineticPricingDB", JSON.stringify(pricingData));
-    applyLanguage(localStorage.getItem("preferredLang") || "en");
-    alert("Prices updated successfully! / Fiyatlar başarıyla güncellendi!");
-  });
+    renderServices(document.getElementById("searchInput") ? document.getElementById("searchInput").value : "");
+    showToast("Global pricing configuration updated!", "success");
+});
 
+// YENİ ÜRÜN EKLE / SİL
+const addProdTiersCount = document.getElementById("addProdTiersCount");
+const addProdTiersFields = document.getElementById("addProdTiersFields");
 
-  // 5. ADMIN PANEL - DİNAMİK YENİ ÜRÜN VE PAKET EKLEME SİSTEMİ
-  function generateAddProdTiersForm() {
+function generateTiersInputFields() {
     const count = parseInt(addProdTiersCount.value) || 1;
     addProdTiersFields.innerHTML = "";
 
     for (let i = 1; i <= count; i++) {
-      const tierDiv = document.createElement("div");
-      tierDiv.className = "tier-input-group";
-      tierDiv.innerHTML = `
-        <h5>Package ${i}</h5>
-        <div class="form-row-dual" style="margin-bottom: 8px;">
-          <input type="text" class="dashboard-input tier-name-en" placeholder="Name (EN)" required>
-          <input type="text" class="dashboard-input tier-name-tr" placeholder="Adı (TR)" required>
-        </div>
-        <div class="form-row-dual" style="margin-bottom: 8px;">
-          <input type="text" class="dashboard-input tier-price-en" placeholder="Price (EN) e.g. 10$" required>
-          <input type="text" class="dashboard-input tier-price-tr" placeholder="Fiyat (TR) örn: 300 TL" required>
-        </div>
-        <div class="form-row-dual">
-          <input type="text" class="dashboard-input tier-desc-en" placeholder="Desc (EN)" required>
-          <input type="text" class="dashboard-input tier-desc-tr" placeholder="Açıklama (TR)" required>
-        </div>
-      `;
-      addProdTiersFields.appendChild(tierDiv);
+        addProdTiersFields.innerHTML += `
+            <div class="tier-input-group" style="background:rgba(255,255,255,0.02); padding:10px; border-radius:8px; margin-bottom:10px; border:1px solid rgba(255,255,255,0.05);">
+                <label style="display:block; color:var(--purple-hover); font-size:0.8rem; margin-bottom:5px;">Package ${i}</label>
+                <div class="form-row-dual">
+                    <input type="text" class="dashboard-input t-name-en" placeholder="Name (EN)" required>
+                    <input type="text" class="dashboard-input t-name-tr" placeholder="Ad (TR)" required>
+                </div>
+                <div class="form-row-dual">
+                    <input type="text" class="dashboard-input t-price-en" placeholder="Price (EN) 10$" required>
+                    <input type="text" class="dashboard-input t-price-tr" placeholder="Fiyat (TR) 100 TL" required>
+                </div>
+                <div class="form-row-dual">
+                    <input type="text" class="dashboard-input t-desc-en" placeholder="Desc (EN)" required>
+                    <input type="text" class="dashboard-input t-desc-tr" placeholder="Açıklama (TR)" required>
+                </div>
+            </div>
+        `;
     }
-  }
+}
+addProdTiersCount.addEventListener("input", generateTiersInputFields);
 
-  if (addProdTiersCount) {
-    addProdTiersCount.addEventListener("input", () => {
-      generateAddProdTiersForm();
-    });
-  }
+document.getElementById("addProductBtn").addEventListener("click", () => {
+    const key = document.getElementById("addProdKey").value.trim().toLowerCase().replace(/\s+/g, '_');
+    if (!key) return showToast("Product ID cannot be empty!", "error");
+    if (pricingData[key]) return showToast("This Product ID already exists!", "error");
 
-  // ÜRÜN OLUŞTURMA TETİKLEYİCİSİ
-  addProductBtn.addEventListener("click", () => {
-    const key = addProdKey.value.trim().toLowerCase().replace(/\s+/g, '_');
-    const titleEn = addProdTitleEn.value.trim();
-    const titleTr = addProdTitleTr.value.trim();
-    const descEn = addProdDescEn.value.trim();
-    const descTr = addProdDescTr.value.trim();
-    const category = addProdCategory.value;
-    const icon = addProdIcon.value.trim();
-
-    if (!key || !titleEn || !titleTr || !descEn || !descTr || !icon) {
-      alert("Please fill in all general fields! / Lütfen tüm ana alanları doldurun!");
-      return;
-    }
-
-    if (pricingData[key]) {
-      alert("This product ID already exists! / Bu ürün kimliği zaten mevcut!");
-      return;
-    }
-
-    const groups = addProdTiersFields.querySelectorAll(".tier-input-group");
+    const tierGroups = addProdTiersFields.querySelectorAll(".tier-input-group");
     const tiers = [];
+    let isTiersValid = true;
 
-    let hasEmptyFields = false;
-    groups.forEach(group => {
-      const nameEn = group.querySelector(".tier-name-en").value.trim();
-      const nameTr = group.querySelector(".tier-name-tr").value.trim();
-      const priceEn = group.querySelector(".tier-price-en").value.trim();
-      const priceTr = group.querySelector(".tier-price-tr").value.trim();
-      const descEn = group.querySelector(".tier-desc-en").value.trim();
-      const descTr = group.querySelector(".tier-desc-tr").value.trim();
-
-      if (!nameEn || !nameTr || !priceEn || !priceTr || !descEn || !descTr) {
-        hasEmptyFields = true;
-      }
-
-      tiers.push({
-        name: { en: nameEn, tr: nameTr },
-        price: { en: priceEn, tr: priceTr },
-        desc: { en: descEn, tr: descTr }
-      });
+    tierGroups.forEach(group => {
+        const nameEn = group.querySelector(".t-name-en").value;
+        if(!nameEn) isTiersValid = false;
+        tiers.push({
+            name: { en: nameEn, tr: group.querySelector(".t-name-tr").value },
+            price: { en: group.querySelector(".t-price-en").value, tr: group.querySelector(".t-price-tr").value },
+            desc: { en: group.querySelector(".t-desc-en").value, tr: group.querySelector(".t-desc-tr").value }
+        });
     });
 
-    if (hasEmptyFields) {
-      alert("Please fill in all package details! / Lütfen tüm paket detaylarını doldurun!");
-      return;
-    }
+    if(!isTiersValid) return showToast("Please fill all package names!", "error");
 
     pricingData[key] = {
-      category: category,
-      icon: icon,
-      title: { en: titleEn, tr: titleTr },
-      desc: { en: descEn, tr: descTr },
-      tiers: tiers
+        category: document.getElementById("addProdCategory").value, 
+        icon: document.getElementById("addProdIcon").value || "fas fa-box",
+        title: { en: document.getElementById("addProdTitleEn").value, tr: document.getElementById("addProdTitleTr").value },
+        desc: { en: document.getElementById("addProdDescEn").value, tr: document.getElementById("addProdDescTr").value },
+        tiers: tiers
     };
 
     localStorage.setItem("kineticPricingDB", JSON.stringify(pricingData));
+    showToast("New product integrated to the global hub!", "success");
     
-    // Formları temizle
-    addProdKey.value = "";
-    addProdTitleEn.value = "";
-    addProdTitleTr.value = "";
-    addProdDescEn.value = "";
-    addProdDescTr.value = "";
-    addProdIcon.value = "";
-    addProdTiersCount.value = 1;
-    generateAddProdTiersForm();
+    // Formu temizle
+    document.querySelectorAll(".add-product-form input[type='text']").forEach(i => i.value = "");
+    addProdTiersCount.value = 1; generateTiersInputFields();
+    
+    renderServices(document.getElementById("searchInput") ? document.getElementById("searchInput").value : "");
+    refreshAdminDashboardData();
+});
 
-    const currentLang = localStorage.getItem("preferredLang") || "en";
-    applyLanguage(currentLang);
-    loadAdminSelect();
-    renderAdminProductList();
-
-    alert("Product created successfully! / Ürün başarıyla oluşturuldu!");
-  });
-
-
-  // 6. ADMIN PANEL - ÜRÜN SİLME (DELETE PRODUCTS - FIXED)
-  function renderAdminProductList() {
-    if (!adminProductList) return;
-    adminProductList.innerHTML = "";
+function loadAdminProductList() {
+    const ul = document.getElementById("adminProductList");
+    ul.innerHTML = "";
     Object.keys(pricingData).forEach(key => {
-      const item = pricingData[key];
-      const titleText = item.title["en"] || item.title;
-      const li = document.createElement("li");
-      li.className = "staff-list-item";
-      li.innerHTML = `
-        <span>${titleText}</span>
-        <button class="remove-product-btn" data-key="${key}"><i class="fas fa-trash"></i></button>
-      `;
-      adminProductList.appendChild(li);
+        const title = pricingData[key].title.en || pricingData[key].title;
+        ul.innerHTML += `
+            <li class="staff-list-item">
+                <span>${title} <span style="font-size:0.7rem; color:var(--text-muted); opacity:0.5;">(${key})</span></span>
+                <button class="remove-product-btn" onclick="deleteProduct('${key}')"><i class="fas fa-trash"></i></button>
+            </li>
+        `;
     });
+}
 
-    const removeProdBtns = adminProductList.querySelectorAll(".remove-product-btn");
-    removeProdBtns.forEach(btn => {
-      btn.addEventListener("click", () => {
-        const key = btn.getAttribute("data-key");
-        if (confirm(`Are you sure you want to delete "${key}"? / Bu ürünü tamamen silmek istediğinizden emin misiniz?`)) {
-          delete pricingData[key];
-          localStorage.setItem("kineticPricingDB", JSON.stringify(pricingData));
-          
-          const currentLang = localStorage.getItem("preferredLang") || "en";
-          applyLanguage(currentLang);
-          loadAdminSelect();
-          renderAdminProductList();
-        }
-      });
-    });
-  }
+window.deleteProduct = function(key) {
+    delete pricingData[key];
+    localStorage.setItem("kineticPricingDB", JSON.stringify(pricingData));
+    showToast(`Product [${key}] eradicated from database.`, "info");
+    renderServices(document.getElementById("searchInput") ? document.getElementById("searchInput").value : "");
+    refreshAdminDashboardData();
+};
 
-
-  // 7. ADMIN PANEL - YETKİLİ (STAFF) KADROSU YÖNETİMİ
-  function renderStaffList() {
-    if (!staffList) return;
-    staffList.innerHTML = "";
+// STAFF YÖNETİMİ
+function loadStaffList() {
+    const ul = document.getElementById("staffList");
+    ul.innerHTML = "";
     officialStaff.forEach((username, index) => {
-      const li = document.createElement("li");
-      li.className = "staff-list-item";
-      li.innerHTML = `
-        <span>@${username}</span>
-        <button class="remove-staff-btn" data-index="${index}"><i class="fas fa-trash"></i></button>
-      `;
-      staffList.appendChild(li);
+        ul.innerHTML += `
+            <li class="staff-list-item">
+                <span>@${username}</span>
+                <button class="remove-staff-btn" onclick="removeStaff(${index})"><i class="fas fa-user-minus"></i></button>
+            </li>
+        `;
     });
+}
 
-    const removeBtns = staffList.querySelectorAll(".remove-staff-btn");
-    removeBtns.forEach(btn => {
-      btn.addEventListener("click", () => {
-        const index = btn.getAttribute("data-index");
-        officialStaff.splice(index, 1);
-        localStorage.setItem("kineticStaffDB", JSON.stringify(officialStaff));
-        renderStaffList();
-      });
-    });
-  }
+document.getElementById("addStaffBtn").addEventListener("click", () => {
+    const input = document.getElementById("newStaffInput");
+    const val = input.value.trim().toLowerCase();
+    
+    if (!val) return;
+    if (officialStaff.includes(val)) return showToast("User is already in the registry.", "error");
 
-  addStaffBtn.addEventListener("click", () => {
-    const newStaff = newStaffInput.value.trim().toLowerCase();
-    if (newStaff === "") return;
-
-    if (officialStaff.includes(newStaff)) {
-      alert("This username is already added! / Bu kullanıcı zaten ekli!");
-      return;
-    }
-
-    officialStaff.push(newStaff);
+    officialStaff.push(val);
     localStorage.setItem("kineticStaffDB", JSON.stringify(officialStaff));
-    newStaffInput.value = "";
-    renderStaffList();
-  });
+    input.value = "";
+    refreshAdminDashboardData();
+    showToast("Staff registry updated.", "success");
+});
 
+window.removeStaff = function(index) {
+    officialStaff.splice(index, 1);
+    localStorage.setItem("kineticStaffDB", JSON.stringify(officialStaff));
+    refreshAdminDashboardData();
+    showToast("Staff access revoked.", "info");
+};
 
-  // 8. DATABASE EXPORT (EŞİTLEME İÇİN GÜNCEL PRODUCTS.JSON İNDİRME)
-  if (exportDbBtn) {
-    exportDbBtn.addEventListener("click", () => {
-      const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(pricingData, null, 2));
-      const downloadAnchor = document.createElement('a');
-      downloadAnchor.setAttribute("href", dataStr);
-      downloadAnchor.setAttribute("download", "products.json"); // Mutlaka products.json olarak insin
-      document.body.appendChild(downloadAnchor);
-      downloadAnchor.click();
-      downloadAnchor.remove();
-    });
-  }
+// VERİTABANI İNDİRME VE İÇE AKTARMA (JSON EXPORT & IMPORT)
+document.getElementById("exportDbBtn").addEventListener("click", () => {
+    const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(pricingData, null, 2));
+    const dlAnchorElem = document.createElement('a');
+    dlAnchorElem.setAttribute("href", dataStr); dlAnchorElem.setAttribute("download", "products.json");
+    document.body.appendChild(dlAnchorElem); dlAnchorElem.click(); dlAnchorElem.remove();
+    showToast("JSON successfully generated for GitHub sync.", "success");
+});
 
+const importDbBtn = document.getElementById("importDbBtn");
+const importDbFile = document.getElementById("importDbFile");
 
-  // 9. HİZMET FİLTRELEME (SOFTWARE / GAMES)
-  const filterButtons = document.querySelectorAll(".filter-btn");
+importDbBtn.addEventListener("click", () => importDbFile.click());
 
-  filterButtons.forEach((button) => {
-    button.addEventListener("click", () => {
-      filterButtons.forEach((btn) => btn.classList.remove("active"));
-      button.classList.add("active");
+importDbFile.addEventListener("change", (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
 
-      const filterValue = button.getAttribute("data-filter");
-      const serviceCards = document.querySelectorAll(".service-card");
-
-      serviceCards.forEach((card) => {
-        const category = card.getAttribute("data-category");
-
-        if (filterValue === "all" || category === filterValue) {
-          card.style.display = "flex";
-          setTimeout(() => {
-            card.style.opacity = "1";
-            card.style.transform = "scale(1)";
-          }, 50);
-        } else {
-          card.style.opacity = "0";
-          card.style.transform = "scale(0.95)";
-          setTimeout(() => {
-            card.style.display = "none";
-          }, 250);
+    const reader = new FileReader();
+    reader.onload = function(evt) {
+        try {
+            const importedData = JSON.parse(evt.target.result);
+            if (typeof importedData === "object" && importedData !== null) {
+                pricingData = importedData;
+                localStorage.setItem("kineticPricingDB", JSON.stringify(pricingData));
+                renderServices(document.getElementById("searchInput") ? document.getElementById("searchInput").value : "");
+                refreshAdminDashboardData();
+                showToast("Database successfully restored from JSON!", "success");
+            } else { throw new Error("Invalid format"); }
+        } catch (error) {
+            showToast("Failed to import! The JSON file is corrupted or invalid.", "error");
         }
-      });
-    });
-  });
-
-  // 10. YETKİLİ DOĞRULAMA (STAFF VERIFICATION)
-  verifyBtn.addEventListener("click", () => {
-    const inputVal = staffInput.value.trim().toLowerCase();
-    const currentLang = localStorage.getItem("preferredLang") || "en";
-
-    if (inputVal === "") {
-      verifyResult.style.display = "none";
-      return;
-    }
-
-    verifyResult.style.display = "block";
-
-    if (officialStaff.includes(inputVal)) {
-      verifyResult.className = "verify-result verify-success";
-      if (currentLang === "tr") {
-        verifyResult.innerHTML = `<i class="fas fa-check-circle"></i> ONAYLANDI: <strong>${inputVal}</strong> resmi bir True Kinetic yetkilisidir.`;
-      } else {
-        verifyResult.innerHTML = `<i class="fas fa-check-circle"></i> VERIFIED: <strong>${inputVal}</strong> is an official True Kinetic team member.`;
-      }
-    } else {
-      verifyResult.className = "verify-result verify-fail";
-      if (currentLang === "tr") {
-        verifyResult.innerHTML = `<i class="fas fa-exclamation-triangle"></i> UYARI: <strong>${inputVal}</strong> kayıtlı bir yetkilimiz değildir. Bilgilerinizi paylaşmayın!`;
-      } else {
-        verifyResult.innerHTML = `<i class="fas fa-exclamation-triangle"></i> WARNING: <strong>${inputVal}</strong> is NOT a registered team member. Do not share your details!`;
-      }
-    }
-  });
-
-  // 11. FAQ (S.S.S.) AKORDEON YAPISI
-  const faqItems = document.querySelectorAll(".faq-item");
-
-  faqItems.forEach((item) => {
-    const question = item.querySelector(".faq-question");
-    const answer = item.querySelector(".faq-answer");
-
-    question.addEventListener("click", () => {
-      const isActive = item.classList.contains("active");
-
-      faqItems.forEach((otherItem) => {
-        otherItem.classList.remove("active");
-        otherItem.querySelector(".faq-answer").style.maxHeight = null;
-      });
-
-      if (!isActive) {
-                item.classList.add("active");
-                answer.style.maxHeight = answer.scrollHeight + "px";
-      } else {
-        item.classList.remove("active");
-        answer.style.maxHeight = null;
-      }
-    });
-  });
-
-  // Ortak dış tık kapatma (Sadece fiyat pop-up'ı için aktif, Admin paneli için devre dışı!)
-  window.addEventListener("click", (e) => {
-    if (e.target === pricingModal) {
-      pricingModal.classList.remove("open");
-      currentOpenService = null;
-      document.body.style.overflow = "auto";
-    }
-  });
+    };
+    reader.readAsText(file);
+    // Reset file input
+    e.target.value = '';
 });
