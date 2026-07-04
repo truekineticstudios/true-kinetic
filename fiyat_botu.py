@@ -7,14 +7,14 @@ from bs4 import BeautifulSoup
 FILE_PATH = 'products.json'
 
 # ==========================================================================
-# ⚙️ SENİN KÂR AYARLARIN (Buradaki rakamları istediğin gibi değiştirebilirsin)
+# ⚙️ SENİN KÂR AYARLARI (Rakamları istediğin gibi değiştirebilirsin)
 # ==========================================================================
-PROFIT_UNDER_150 = 10   # 150 TL altı ürünlerden kazanmak istediğin NET para
-PROFIT_150_TO_400 = 15  # 150-400 TL arası ürünlerden kazanmak istediğin NET para
-PROFIT_400_TO_1000 = 25 # 400-1000 TL arası ürünlerden kazanmak istediğin NET para
+PROFIT_UNDER_150 = 5   # 150 TL altı ürünlerden kazanmak istediğin NET para
+PROFIT_150_TO_400 = 10  # 150-400 TL arası ürünlerden kazanmak istediğin NET para
+PROFIT_400_TO_1000 = 15 # 400-1000 TL arası ürünlerden kazanmak istediğin NET para
 
-# --- SHOPIER VE VERGİ AYARLARI ---
-SHOPIER_COMMISSION_RATE = 0.0499  # %4.99 Shopier standart komisyon oranı
+# --- SHOPIER VE VERGİ AYARLARI (%7 OLARAK GÜNCELLENDİ) ---
+SHOPIER_COMMISSION_RATE = 0.0700  # Kafa rahat olsun diye komisyonu tam %7 yaptık
 KDV_RATE = 0.20                 # %20 KDV oranı (Komisyon ve sabit ücret için)
 SHOPIER_FIXED_FEE = 0.49         # İşlem başı 0.49 TL sabit ücret
 
@@ -33,13 +33,13 @@ def get_profit_margin(cost):
 
 def calculate_shopier_price(cost):
     """
-    Shopier kesintilerini hesaplayarak kuruşu kuruşuna nihai satış fiyatını bulur.
+    Shopier kesintilerini %7 üzerinden hesaplayarak nihai satış fiyatını bulur.
     """
     profit = get_profit_margin(cost)
     target_payout = cost + profit # Cebimize kalmasını istediğimiz net para
     
     # KDV Dahil Komisyon Oranı ve Sabit Ücret
-    comm_factor = SHOPIER_COMMISSION_RATE * (1 + KDV_RATE)       # ~0.05988
+    comm_factor = SHOPIER_COMMISSION_RATE * (1 + KDV_RATE)       # %7.0 + %20 KDV = %8.4 Efektif Kesinti
     fixed_fee_with_kdv = SHOPIER_FIXED_FEE * (1 + KDV_RATE)      # ~0.588
     
     # Shopier Ters Komisyon Formülü
@@ -88,14 +88,14 @@ def get_hesap_com_price(url, keyword, min_val):
         # Bulunan her elementten yukarı doğru tırmanıp fiyat ara
         for el in elements:
             parent = el.parent
-            # 1800 UC için tırmanış seviyesini 4 yaptık
+            # Tırmanış seviyesini 4 seviyeyle sınırlandırıyoruz (1800 UC kartı için ideal)
             for _ in range(4):
                 if not parent:
                     break
                 text = parent.get_text()
                 
-                # Karakter uzunluk sınırını 350 yaptık (1800 UC'nin geniş kart yapısı için)
-                if len(text) > 350:
+                # Karakter sınırını 500 yaptık (1800 UC'nin geniş yazıları hata vermesin diye)
+                if len(text) > 500:
                     break
                     
                 prices = re.findall(r'(\d+(?:[.,]\d+)?)\s*(?:TL|₺)', text)
@@ -112,7 +112,7 @@ def get_hesap_com_price(url, keyword, min_val):
                             continue
                     
                     if clean_prices:
-                        # Sadece beklediğimiz minimum fiyattan (eşik değerden) büyük fiyatları al
+                        # Sadece beklediğimiz minimum fiyattan büyük fiyatları al
                         valid_prices = [v for v in clean_prices if v >= min_val]
                         if valid_prices:
                             return min(valid_prices) # Karttaki indirimli/güncel fiyatı dön
@@ -146,7 +146,7 @@ def main():
     pubg_uc_targets = [
         {"keyword": "325 UC", "index": 0, "min_val": 150},   # 325 UC en az 150 TL olmalı
         {"keyword": "660 UC", "index": 1, "min_val": 300},   # 660 UC en az 300 TL olmalı
-        {"keyword": "1800 UC", "index": 2, "min_val": 650}   # Eşik değeri 650 TL'ye çekerek garantiledik
+        {"keyword": "1800 UC", "index": 2, "min_val": 650}   # 1800 UC en az 650 TL olmalı
     ]
     for target in pubg_uc_targets:
         cost = get_hesap_com_price("https://www.hesap.com.tr/urunler/pubg-mobile-uc-satin-al", target["keyword"], target["min_val"])
