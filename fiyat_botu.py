@@ -74,6 +74,7 @@ def get_hesap_com_price(url, keyword, min_val):
                 continue
                 
             text_content = tag.get_text().strip()
+            # Makul uzunluktaki ve aradığımız anahtar kelimeyi içeren etiketleri yakala (örn: "PUBG Mobile 325 UC")
             if text_content and len(text_content) < 120:
                 if re.search(regex_pattern, text_content, re.IGNORECASE):
                     elements.append(tag)
@@ -81,10 +82,16 @@ def get_hesap_com_price(url, keyword, min_val):
         # Bulunan her elementten yukarı doğru tırmanıp fiyat ara
         for el in elements:
             parent = el.parent
-            for _ in range(4):
+            # EN KRİTİK YER: Tırmanış seviyesini maksimum 3 seviyeyle sınırlandırıyoruz (böylece diğer yan kartlara bulaşmıyor)
+            for _ in range(3):
                 if not parent:
                     break
                 text = parent.get_text()
+                
+                # EN KRİTİK YER 2: Eğer okunan metin çok uzadıysa (280 karakterden fazla), yan bölge sekmelerine bulaşmışız demektir, tırmanmayı durdur!
+                if len(text) > 280:
+                    break
+                    
                 prices = re.findall(r'(\d+(?:[.,]\d+)?)\s*(?:TL|₺)', text)
                 if prices:
                     clean_prices = []
@@ -99,7 +106,7 @@ def get_hesap_com_price(url, keyword, min_val):
                             continue
                     
                     if clean_prices:
-                        # EN KRİTİK YER: Sadece beklediğimiz minimum fiyattan (eşik değerden) büyük fiyatları al
+                        # Sadece beklediğimiz minimum fiyattan (eşik değerden) büyük fiyatları al
                         valid_prices = [v for v in clean_prices if v >= min_val]
                         if valid_prices:
                             return min(valid_prices) # Karttaki indirimli/güncel fiyatı dön
