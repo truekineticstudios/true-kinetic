@@ -1,7 +1,7 @@
 import json
 import os
 import re
-import cloudscraper  # Cloudflare korumasını aşmak için ekledik
+import cloudscraper  # Cloudflare korumasını aşmak için
 from bs4 import BeautifulSoup
 
 FILE_PATH = 'products.json'
@@ -43,7 +43,6 @@ def calculate_shopier_price(cost):
 # --- HESAP.COM.TR CANLI FİYAT ÇEKİCİ (SCRAPER) ---
 def get_hesap_com_price(url, keyword):
     try:
-        # cloudscraper ile normal requests kütüphanesini taklit ediyoruz (Cloudflare bypass)
         scraper = cloudscraper.create_scraper(
             browser={
                 'browser': 'chrome',
@@ -59,33 +58,36 @@ def get_hesap_com_price(url, keyword):
         
         soup = BeautifulSoup(response.text, 'html.parser')
         
-        # Ürün isminin tam geçtiği elementleri tara
-        elements = soup.find_all(string=re.compile(rf"\b{keyword}\b", re.IGNORECASE))
+        # Sitedeki olası ekstra boşlukları/satır başlarını (\n) kaçırmamak için esnek regex şablonu oluştur
+        regex_pattern = re.sub(r'\s+', r'\\s+', keyword)
+        elements = soup.find_all(string=re.compile(regex_pattern, re.IGNORECASE))
         
-        parsed_prices = []
         for el in elements:
             parent = el.parent
+            # Yukarı doğru tırman, fiyat bulduğumuz İLK parent'ta dur ve o fiyati döndür!
             for _ in range(5):
                 if not parent:
                     break
                 text = parent.get_text()
-                # Fiyat formatlarını yakala
+                # Fiyat formatlarını yakala: Örn: "150 TL" veya "150,50 TL" veya "150,00 ₺"
                 prices = re.findall(r'(\d+(?:[.,]\d+)?)\s*(?:TL|₺)', text)
                 if prices:
+                    clean_prices = []
                     for p in prices:
                         clean_p = p.replace('.', '').replace(',', '.')
                         try:
                             val = float(clean_p)
-                            # E-pin fiyatları için mantıklı değer sınırları
-                            if 15 < val < 15000: 
-                                parsed_prices.append(val)
+                            # Fiyatın mantıklı bir aralıkta olduğunu doğrula (15 TL ile 15.000 TL arası)
+                            if 15 < val < 15000:
+                                clean_prices.append(val)
                         except ValueError:
                             continue
+                    
+                    if clean_prices:
+                        # Bu karttaki en düşük fiyatı döndür (genellikle indirimli fiyattır) ve tırmanmayı durdur!
+                        return min(clean_prices)
                 parent = parent.parent
                 
-        if parsed_prices:
-            return min(parsed_prices) # En ucuz seçeneği (asıl fiyatı) dön
-            
     except Exception as e:
         print(f"Hata oluştu ({url} - {keyword}): {e}")
     return None
