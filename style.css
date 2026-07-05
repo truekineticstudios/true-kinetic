@@ -269,3 +269,184 @@ footer { padding: 4rem 5%; border-top: 1px solid rgba(255, 255, 255, 0.05); marg
     .verify-box button { width: 100%; justify-content: center; }
     .dashboard-stats { flex-direction: column; }
 }
+
+/* ==========================================================================
+   13. TRUE KINETIC ESPORTS STİLLERİ
+   ========================================================================== */
+.esports-section {
+    background: radial-gradient(circle at 50% 50%, rgba(168, 85, 247, 0.03), transparent 60%);
+    border-top: 1px solid rgba(255,255,255,0.02);
+}
+
+.es-badge {
+    background: rgba(168, 85, 247, 0.15) !important;
+    border-color: var(--purple-glow) !important;
+}
+
+.esports-container {
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    gap: 40px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* Sol Kart - Logo ve Vizyon */
+.esports-info-card {
+    background: var(--bg-card);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 24px;
+    padding: 3rem 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 2rem;
+    backdrop-filter: blur(10px);
+    transition: var(--transition-smooth);
+}
+.esports-info-card:hover {
+    border-color: var(--border-hover);
+    box-shadow: 0 15px 40px rgba(168, 85, 247, 0.05);
+}
+
+.esports-logo-preview {
+    width: 120px;
+    height: 120px;
+    background: rgba(168, 85, 247, 0.1);
+    border-radius: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 8px 30px rgba(168, 85, 247, 0.2);
+    border: 2px solid rgba(168, 85, 247, 0.3);
+}
+.esports-main-icon {
+    font-size: 3.5rem;
+    color: var(--purple-glow);
+    filter: drop-shadow(0 0 10px var(--purple-glow));
+}
+
+.esports-text-block h3 {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+    color: var(--text-white);
+}
+.esports-text-block p {
+    color: var(--text-muted);
+    font-size: 0.95rem;
+    line-height: 1.7;
+    margin-bottom: 2rem;
+}
+
+.es-social-btn {
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: var(--text-white);
+    padding: 10px 20px;
+    border-radius: 12px;
+    text-decoration: none;
+    font-weight: 700;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: var(--transition-smooth);
+}
+.es-social-btn:hover {
+    background: linear-gradient(135deg, #e1306c, #c13584);
+    border-color: transparent;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(225, 48, 108, 0.3);
+}
+
+/* Sağ Taraf - Kadrolar */
+.esports-rosters {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+.roster-section-title {
+    font-size: 1.5rem;
+    color: var(--text-white);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 0.5rem;
+}
+.roster-section-title i { color: var(--purple-glow); }
+
+.rosters-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.roster-card {
+    background: rgba(255, 255, 255, 0.01);
+    border: 1px solid rgba(255, 255, 255, 0.03);
+    border-radius: 18px;
+    padding: 1.8rem;
+    transition: var(--transition-smooth);
+}
+.roster-card:hover {
+    background: rgba(255, 255, 255, 0.02);
+    border-color: rgba(168, 85, 247, 0.2);
+    transform: translateX(5px);
+}
+
+.roster-header {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 10px;
+}
+.roster-icon {
+    font-size: 1.8rem;
+    color: var(--purple-glow);
+    background: rgba(168, 85, 247, 0.1);
+    width: 45px;
+    height: 45px;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.roster-header h4 {
+    font-size: 1.2rem;
+    color: var(--text-white);
+}
+
+.roster-status {
+    font-size: 0.75rem;
+    font-weight: 800;
+    text-transform: uppercase;
+}
+.active-status {
+    color: #ef4444; /* Canlı kırmızı, alımlar açık */
+    animation: pulseGlow 2s infinite;
+}
+
+.roster-card p {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    margin-bottom: 1.5rem;
+}
+
+.es-apply-btn {
+    padding: 8px 18px;
+    font-size: 0.85rem;
+    border-radius: 8px;
+}
+
+@keyframes pulseGlow {
+    0% { opacity: 0.6; }
+    50% { opacity: 1; }
+    100% { opacity: 0.6; }
+}
+
+@media (max-width: 900px) {
+    .esports-container {
+        grid-template-columns: 1fr;
+    }
+}
