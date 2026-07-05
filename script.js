@@ -1,7 +1,7 @@
 /* ==========================================================================
-   1. GÜVENLİK ANAHTARI VE ŞİFRELİ GİRİŞ SİSTEMİ
+   1. GÜVENLİK ANAHTARI VE ŞİFRELİ GİRİŞ SİSTEMİ (Yeni Kolay Şifre: kineticadmin)
    ========================================================================== */
-const ENCODED_PASS = "eHM3MmtwMXo3NzN0M3AzdDlvNW5jMmY5dWYzcmhxeDN5bGJqZXhkMjNtbWZ0eTJzNXU="; 
+const ENCODED_PASS = "a2luZXRpY2FkbWlu"; 
 function verifyAdminPassword(inputPass) { try { return btoa(inputPass) === ENCODED_PASS; } catch(e) { return false; } }
 
 /* ==========================================================================
