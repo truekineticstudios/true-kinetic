@@ -105,15 +105,22 @@ const importDbFile = document.getElementById("importDbFile");
 const adminLogoutBtn = document.getElementById("adminLogoutBtn");
 
 /* ==========================================================================
-   2. GITHUB'DAN database.json VERİSİNİ ÇEKME
+   2. GITHUB'DAN database.json VERİSİNİ ÇEKME (EZME ENGELLEME KORUMALI)
    ========================================================================== */
 async function fetchLatestDataFromGithub() {
     try {
         const response = await fetch('database.json?t=' + new Date().getTime());
         if (response.ok) {
-            hubDatabase = await response.json();
-            localStorage.setItem("kinetic_hub_db", JSON.stringify(hubDatabase));
-            console.log("Database GitHub'dan başarıyla senkronize edildi!");
+            const githubData = await response.json();
+            
+            // KORUMA: Eğer admin oturumu açıksa, yerel düzenlemelerimizi GitHub verisiyle EZME!
+            if (!isLoggedInAdmin) {
+                hubDatabase = githubData;
+                localStorage.setItem("kinetic_hub_db", JSON.stringify(hubDatabase));
+                console.log("Database GitHub'dan başarıyla senkronize edildi!");
+            } else {
+                console.log("Admin oturumu açık olduğu için yerel düzenlemeler korundu, GitHub verisi ezilmedi.");
+            }
         }
     } catch (e) {
         console.log("GitHub database.json çekilemedi, yerel önbellek kullanılıyor.");
@@ -122,7 +129,6 @@ async function fetchLatestDataFromGithub() {
     renderActiveTournaments();
     renderActiveRecruitments();
 }
-
 /* ==========================================================================
    3. TOAST BİLDİRİM SİSTEMİ
    ========================================================================== */
