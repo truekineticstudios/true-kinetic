@@ -1,8 +1,15 @@
 /* ==========================================================================
-   1. GÜVENLİK ANAHTARI VE ŞİFRELİ GİRİŞ SİSTEMİ (Yeni Kolay Şifre: kineticadmin)
+   1. GÜVENLİK ANAHTARI VE ŞİFRELİ GİRİŞ SİSTEMİ (Yerel ve Güvenli Giriş)
    ========================================================================== */
-const ENCODED_PASS = "TrueKineticAdmin";
-function verifyAdminPassword(inputPass) { try { return btoa(inputPass) === ENCODED_PASS; } catch(e) { return false; } }
+// Şifreni değiştirmek için aşağıdaki "kineticadmin" yazısını silip yeni şifreni yazman yeterlidir!
+const ADMIN_PASSWORD = "kineticadmin"; 
+
+function verifyAdminPassword(inputPass) { 
+    if (!inputPass) return false;
+    // Kopyalama esnasındaki tüm görünmez boşlukları (space) otomatik olarak temizler
+    const cleanedInput = inputPass.trim(); 
+    return cleanedInput === ADMIN_PASSWORD;
+}
 
 /* ==========================================================================
    VARSAYILAN VERİTABANI ŞABLONU (İLK ÇALIŞMADA OTOMATİK OLUŞUR)
@@ -27,6 +34,7 @@ const defaultDatabase = {
 // Yerel Değişkenler ve Veritabanı Yüklemesi
 let hubDatabase = JSON.parse(localStorage.getItem("kinetic_hub_db")) || defaultDatabase;
 let officialStaff = JSON.parse(localStorage.getItem("kineticStaffDB")) || ["owmanxx", "neural_forge.", "someoneelsexd"];
+let tournamentsData = JSON.parse(localStorage.getItem("kineticTournamentsDB")) || [];
 let currentLang = localStorage.getItem("preferredLang") || "en";
 let isLoggedInAdmin = localStorage.getItem("kinetic_admin_session") === "true";
 
@@ -326,7 +334,7 @@ if (toggleAdminPass) {
     });
 }
 
-// Şifreli Giriş (Manuel şifre onayı)
+// Şifreli Giriş (Genişletilmiş Boşluk Korumalı Kararlı Sistem)
 if (submitAdminBtn) {
     submitAdminBtn.addEventListener("click", () => {
         const pass = document.getElementById("adminPassInput").value;
@@ -343,7 +351,6 @@ if (submitAdminBtn) {
     });
 }
 
-// Oturum Kapat (Logout)
 if (adminLogoutBtn) {
     adminLogoutBtn.addEventListener("click", () => {
         isLoggedInAdmin = false;
