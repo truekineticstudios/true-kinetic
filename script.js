@@ -28,6 +28,15 @@ const translations = {
         footer_community_title: "True Kinetic Studios", footer_community_desc: "This web project is managed via the official True Kinetic Studios Discord page.", footer_sub: "This website and provided services are independently operated by the True Kinetic Team."
     },
     tr: {
+        nav_esports: "TK E-Spor",
+        esports_title: "True Kinetic E-Spor",
+        esports_desc: "Rekabetçi oyun dünyasına resmi adımımızı atıyoruz! Blood Strike ve PUBG Mobile arenalarında fırtına gibi esmek için sahadayız.",
+        esports_vision_title: "Vizyonumuz",
+        esports_vision_text: "Vizyonumuz sadece oynamak değil, oyun dünyasında kalıcı bir iz bırakmak. True Kinetic çatısı altında profesyonel espor kültürünü büyütmek için buradayız!",
+        roster_recruiting: "🔴 Başvurular Açık",
+        roster_pubg_desc: "Turnuvalarda zirveye oynamak ve topluluk scrimlerinde fırtına estirmek için kurulan profesyonel kadromuz.",
+        roster_bs_desc: "Savaş alanını üstün koordinasyon ve taktik becerileriyle domine eden yüksek tempolu nişancı kadromuz.",
+        btn_apply_roster: "Kadroya Başvur",
         nav_home: "Ana Sayfa", nav_how: "Nasıl Çalışır", nav_services: "Hizmetler", nav_reviews: "Yorumlar", nav_faq: "S.S.S.", nav_admin: "Admin",
         announcement: "🚀 Yaz İndirimleri: Özel indirimler için Discord sunucumuza katılın!",
         search_placeholder: "Hizmetlerde ara...",
