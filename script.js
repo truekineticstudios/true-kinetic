@@ -1,112 +1,70 @@
 /* ==========================================================================
-   1. TRANSLATIONS (DİL SÖZLÜĞÜ)
+   1. GÜVENLİK ANAHTARI VE ŞİFRELİ GİRİŞ SİSTEMİ
    ========================================================================== */
-const translations = {
-    en: {
-        nav_home: "Home", nav_how: "How It Works", nav_services: "Services", nav_reviews: "Reviews", nav_faq: "FAQ", nav_admin: "Admin",
-        nav_community: "Community", nav_esports: "TK Esports",
-        announcement: "🏆 TK Esports Roster Recruitment is Officially OPEN!",
-        search_placeholder: "Search services...",
-        hero_title: "Welcome to True Kinetic Ecosystem", 
-        hero_desc: "Join our massive Discord community, participate in our custom esports tournaments, and discover our digital services all in one place.", 
-        hero_btn_explore: "Discover Esports", hero_btn_discord: "Join Community",
-        how_title: "How It Works?", step1_title: "Join Discord", step1_desc: "Enter our official Discord server safely using any join button on our website.", step2_title: "Open a Ticket", step2_desc: "Create an order or inquiry ticket through our dedicated support channels.", step3_title: "Safe Delivery", step3_desc: "Our team members will assist you shortly and deliver your order securely.",
-        trust_title: "Our Background & Sales", trust_desc: "Please note that while our Discord-based shop is a newly established hub, our primary developer operations and sales history are rooted in the official Roblox Creator Marketplace and other verified platforms.",
-        services_title: "Our Services & Products", services_subtitle: "You can filter our current catalogs using the quick tabs below.", filter_all: "All", filter_software: "Software & Server", filter_games: "Game Currencies",
-        btn_order: "Order Now", btn_info: "Get Info", btn_view_prices: "View Prices", btn_order_on_discord: "Order via Discord",
-        reviews_title: "Client Testimonials", reviews_subtitle: "What our community says about our secure services.",
-        sec_desc: "Ensure you are talking to a real True Kinetic official. Enter their Discord Username below to verify them.", sec_btn: "Verify Staff",
-        faq_title: "Frequently Asked Questions", faq_q1_title: "How can I make payments?", faq_q1_desc: "You can easily complete payments by opening a ticket on our Discord server. We support various secure options like Bank Transfer, Papara, and major secure local payment networks.", faq_q3_title: "Why is everything based on Discord?", faq_q3_desc: "To offer personal assistance, address specific inquiries directly, and maintain direct secure support, we manage all purchases personally through our Discord ticket system.",
-        roles_title: "Discord Server Roles", roles_subtitle: "Information about the roles and ranks available on our Discord server.", role_col_staff: "Management & Staff", role_col_ranks: "Purchase Ranks", role_col_members: "Community & Teams",
-        r_founder_desc: "Official server founder and owner.", r_coleader_desc: "Official server Co-Leader.", r_headadmin_desc: "Ban requests, partnership applications, staff recruitment, and bot administration.", r_mod_desc: "Moderation staff member, log viewing, and report priority.", r_legendary_desc: "Requires making a total of 100+ purchases.", r_master_desc: "Requires making a total of 50+ purchases.", r_diamond_desc: "Requires making a total of 25+ purchases.", r_gold_desc: "Requires making a total of 5+ purchases.", r_partnerteam_desc: "Partner, free advertising authority.", r_developer_desc: "Official development team members.", r_member_desc: "Official server member.", r_esport_desc: "Official professional e-sports players representing TK.",
-        footer_community_title: "True Kinetic Studios", footer_community_desc: "This web project is managed via the official True Kinetic Studios Discord page.", footer_sub: "This website and provided services are independently operated by the True Kinetic Team.",
-        es_community_desc: "We are not a corporate entity; we are a hungry gaming community organizing our own cups and aiming for the top in official arenas!",
-        es_feat_1: "Official Tournaments", es_feat_2: "Community Scrims", es_feat_3: "Custom TK Cups",
-        es_pubg_text: "Join our competitive squad for official tournaments and community scrims.",
-        es_bs_text: "Fast-paced tactical coordination. Step into the battlefield with us.",
-        es_btn_apply: "Apply Now",
-        es_modal_subtitle: "Player Recruitment Requirements & Rules",
-        es_rule1_title: "Communication", es_rule1_desc: "Active microphone usage and Discord presence is strictly required during match times.",
-        es_rule2_title: "Activity & Dedication", es_rule2_desc: "Players must attend scheduled community scrims, training sessions, and official cups.",
-        es_rule3_title: "Respect & Toxicity", es_rule3_desc: "Zero tolerance for toxic behavior. You represent the True Kinetic community.",
-        es_modal_warning: "By proceeding, you agree to follow the community guidelines. You will be redirected to our Discord server to open a recruitment ticket.",
-        es_btn_accept: "I Accept, Open Ticket"
-    },
-    tr: {
-        nav_home: "Ana Sayfa", nav_how: "Nasıl Çalışır", nav_services: "Hizmetler", nav_reviews: "Yorumlar", nav_faq: "S.S.S.", nav_admin: "Admin",
-        nav_community: "Topluluk", nav_esports: "TK E-Spor",
-        announcement: "🏆 TK Esports Kadro Başvuruları RESMEN AÇILDI!",
-        search_placeholder: "Hizmetlerde ara...",
-        hero_title: "True Kinetic Ekosistemine Hoş Geldin", 
-        hero_desc: "Devasa Discord topluluğumuza katıl, özel espor turnuvalarımızda yerini al ve dijital hizmetlerimizi tek bir adreste keşfet.", 
-        hero_btn_explore: "E-Sporu Keşfet", hero_btn_discord: "Topluluğa Katıl",
-        how_title: "Nasıl Satın Alınır?", step1_title: "Discord'a Katılın", step1_desc: "Sitemizdeki butonları kullanarak resmi Discord sunucumuza güvenli bir şekilde giriş yapın.", step2_title: "Talep Açın", step2_desc: "Sunucumuzda yer alan sipariş ve destek kanallarından hizmet için talep oluşturun.", step3_title: "Güvenle Teslim Alın", step3_desc: "Yetkililerimiz talebinizle ilgilenerek siparişinizi güvenli bir şekilde teslim etsin.",
-        trust_title: "Satış Geçmişimiz", trust_desc: "Discord mağazamız henüz yenidir. Ana geliştirici faaliyetlerimiz ve asıl satış geçmişimiz resmi Roblox Creator Marketplace ve diğer yetkili platformlar üzerindedir.",
-        services_title: "Hizmetlerimiz ve Ürünlerimiz", services_subtitle: "Aşağıdaki filtreleri kullanarak aradığınız hizmete hızlıca göz atabilirsiniz.", filter_all: "Tümü", filter_software: "Yazılım & Sunucu", filter_games: "Oyun Paraları",
-        btn_order: "Sipariş Ver", btn_info: "Bilgi Al", btn_view_prices: "Fiyatları Gör", btn_order_on_discord: "Discord ile Sipariş Ver",
-        reviews_title: "Müşteri Yorumları", reviews_subtitle: "Topluluğumuzun güvenli hizmetlerimiz hakkındaki düşünceleri.",
-        sec_desc: "Gerçek bir True Kinetic yetkilisi ile konuştuğunuzdan emin olun. Doğrulamak için aşağıya kullanıcı adını yazın.", sec_btn: "Yetkiliyi Doğrula",
-        faq_title: "Sıkça Sorulan Sorular", faq_q1_title: "Ödemeleri nasıl yapabilirim?", faq_q1_desc: "Ödemelerinizi Discord sunucumuz üzerinden destek talebi açarak güvenli yöntemlerle (Havale/EFT, Papara vb.) gerçekleştirebilirsiniz.", faq_q3_title: "Neden Discord?", faq_q3_desc: "Müşterilerimizle birebir iletişim kurabilmek, doğrudan canlı destek sunabilmek amacıyla tüm süreci Discord üzerinden yönetiyoruz.",
-        roles_title: "Sunucu Rolleri", roles_subtitle: "Sunucumuzda mevcut olan roller ve rütbeler hakkında bilgi.", role_col_staff: "Yönetim & Yetkililer", role_col_ranks: "Aktif Rütbeler", role_col_members: "Topluluk & Takımlar",
-        r_founder_desc: "Resmi sunucu kurucusu, sahibi.", r_coleader_desc: "Resmi sunucu eş lideri.", r_headadmin_desc: "Ban istekleri, ortaklık başvuruları, yetkili alımı ve bot yöneticisi.", r_mod_desc: "Moderasyon ekibi, log görüntüleme.", r_legendary_desc: "Toplamda 100+ satın alma.", r_master_desc: "Toplamda 50+ satın alma.", r_diamond_desc: "Toplamda 25+ satın alma.", r_gold_desc: "Toplamda 5+ satın alma.", r_partnerteam_desc: "İş ortağı, reklam yetkisi.", r_developer_desc: "Geliştirici ekip üyeleri.", r_member_desc: "Resmi sunucu üyesi.", r_esport_desc: "TK'yi temsil eden resmi profesyonel e-spor oyuncuları.",
-        footer_community_title: "True Kinetic Studios", footer_community_desc: "Bu web projesi, resmi True Kinetic Studios Discord sayfasında yayınlanmaktadır.", footer_sub: "Bu web sitesi True Kinetic ekibi tarafından bağımsız olarak yönetilmektedir.",
-        es_community_desc: "Biz bir şirket değiliz; kazanmaya aç, kendi turnuvalarını düzenleyen ve resmi arenalarda zirveyi hedefleyen dev bir oyuncu topluluğuyuz!",
-        es_feat_1: "Resmi Turnuvalar", es_feat_2: "Topluluk Scrimleri", es_feat_3: "Özel TK Turnuvaları",
-        es_pubg_text: "Resmi turnuvalarda ve scrimlerde fırtına estirmek için takımımıza katıl.",
-        es_bs_text: "Taktiksel ve yüksek tempolu savaş alanında omuz omuza çarpışmak için yerini al.",
-        es_btn_apply: "Başvur",
-        es_modal_subtitle: "Oyuncu Alım Şartları ve Topluluk Kuralları",
-        es_rule1_title: "İletişim Şartı", es_rule1_desc: "Maç saatlerinde aktif mikrofon kullanımı ve Discord'da bulunmak zorunludur.",
-        es_rule2_title: "Aktiflik ve Özveri", es_rule2_desc: "Oyuncuların planlanan antrenmanlara, scrimlere ve resmi turnuvalara katılımı beklenir.",
-        es_rule3_title: "Saygı ve Toksisite", es_rule3_desc: "Toksik davranışlara sıfır tolerans. True Kinetic topluluğunu temsil ettiğinizi unutmayın.",
-        es_modal_warning: "Devam ederek topluluk kurallarına uymayı kabul etmiş olursunuz. Başvuru bileti açmak için Discord sunucumuza yönlendirileceksiniz.",
-        es_btn_accept: "Kabul Ediyorum, Bilet Aç"
-    }
-};
-
-/* ==========================================================================
-   2. VERİTABANI BAŞLATMA
-   ========================================================================== */
-const defaultPricingData = {
-  "web": { "title": { "en": "Web Site Design", "tr": "Web Tasarım Paketleri" }, "desc": { "en": "Professional responsive design services.", "tr": "Profesyonel arayüz tasarım hizmetleri." }, "tiers": [ { "name": { "en": "Front-End Web Design", "tr": "Front-End Web Tasarım" }, "price": { "en": "12$", "tr": "400 TL" }, "desc": { "en": "+$5 for each extra page", "tr": "Ek sayfa başına +170 TL" } }, { "name": { "en": "Back-End Design", "tr": "Back-End Tasarım" }, "price": { "en": "Soon", "tr": "Yakında" }, "desc": { "en": "Under development", "tr": "Geliştirilme aşamasında" } }, { "name": { "en": "Full-Stack Design", "tr": "Full-Stack Tasarım" }, "price": { "en": "Soon", "tr": "Yakında" }, "desc": { "en": "Under development", "tr": "Geliştirilme aşamasında" } } ], "category": "software", "icon": "fas fa-code" },
-  "discord": { "title": { "en": "Discord Server Setup", "tr": "Discord Sunucu Yapılandırması" }, "desc": { "en": "Tailored roles, security settings, and professional bot setup.", "tr": "Size özel yetkilendirme, güvenlik yapılandırmaları ve profesyonel botlar." }, "tiers": [ { "name": { "en": "Basic Setup", "tr": "Temel Kurulum" }, "price": { "en": "2$", "tr": "70 TL" }, "desc": { "en": "Perfect starting layout for small communities", "tr": "Küçük topluluklar için standart, temiz kurulum" } }, { "name": { "en": "Advanced Server", "tr": "Gelişmiş Sunucu" }, "price": { "en": "Soon", "tr": "Yakında" }, "desc": { "en": "Under development", "tr": "Geliştirilme aşamasında" } } ], "category": "software", "icon": "fab fa-discord" },
-  "detailed_analysis": { "title": { "en": "Detailed Server Analysis", "tr": "Detaylı Sunucu Analizi" }, "desc": { "en": "Deep inspection into roles, permissions, and security loopholes.", "tr": "Roller, kanal yetkileri ve güvenlik açıklarına yönelik derin analiz." }, "tiers": [ { "name": { "en": "Comprehensive Audit", "tr": "Detaylı İnceleme" }, "price": { "en": "8$", "tr": "270 TL" }, "desc": { "en": "Complete security report sheet", "tr": "Tam kapsamlı güvenlik raporu teslimi" } } ], "category": "software", "icon": "fas fa-chart-line" },
-  "basic_analysis": { "title": { "en": "Basic Server Analysis", "tr": "Temel Sunucu Analizi" }, "desc": { "en": "Overview check-up of server layout safety standards.", "tr": "Sunucu düzeni ve temel güvenlik standartlarının taranması." }, "tiers": [ { "name": { "en": "Standard Audit", "tr": "Temel İnceleme" }, "price": { "en": "3$", "tr": "100 TL" }, "desc": { "en": "Overview permission check", "tr": "Temel izin ve rol denetimi" } } ], "category": "software", "icon": "fas fa-poll" },
-  "pubg_uc": { "title": { "en": "PUBG Mobile UC", "tr": "PUBG Mobile UC Fiyatları" }, "desc": { "en": "In-game Unknown Cash delivered directly with your Player ID.", "tr": "Karakter ID'niz kullanılarak hesabınıza doğrudan yüklenen UC paketleri." }, "tiers": [ { "name": "325 UC", "price": { "en": "4.5$", "tr": "230 TL" }, "desc": { "en": "ID top-up delivery", "tr": "Oyuncu ID'sine doğrudan yükleme" } }, { "name": "660 UC", "price": { "en": "8.5$", "tr": "442 TL" }, "desc": { "en": "ID top-up delivery", "tr": "Oyuncu ID'sine doğrudan yükleme" } }, { "name": "1800 UC", "price": { "en": "22$", "tr": "1100 TL" }, "desc": { "en": "ID top-up delivery", "tr": "Oyuncu ID'sine doğrudan yükleme" } } ], "category": "games", "icon": "fas fa-crosshairs" },
-  "valorant_vp": { "title": { "en": "Valorant VP", "tr": "Valorant VP Fiyatları" }, "desc": { "en": "Secure Valorant Points Pin Codes valid on target regional accounts.", "tr": "Türkiye ve hedef hesaplarda geçerli indirimli Valorant Points e-pin kodları." }, "tiers": [ { "name": "1700 VP", "price": { "en": "7.5$", "tr": "493 TL" }, "desc": { "en": "Riot PIN delivery code", "tr": "Hızlı Riot PIN teslimatı" } }, { "name": { "en": "Other Quantities", "tr": "Diğer Miktarlar" }, "price": { "en": "Varies", "tr": "Değişken" }, "desc": { "en": "Please visit our Discord server for custom amounts", "tr": "Diğer tüm miktarlar için lütfen Discord sunucumuzu ziyaret edin" } } ], "category": "games", "icon": "fas fa-gamepad" },
-  "steam_wallet": { "title": { "en": "Steam Wallet Code", "tr": "Steam Cüzdan Kodları" }, "desc": { "en": "Add funds directly to your digital Steam Wallet.", "tr": "Steam bakiyenize ekleyebileceğiniz güvenli cüzdan kodları." }, "tiers": [ { "name": { "en": "Variable Prices", "tr": "Sabit Fiyat Yoktur" }, "price": { "en": "Contact Us", "tr": "İletişime Geçin" }, "desc": { "en": "No fixed price, please visit our Discord server for details.", "tr": "Ürünün sabit fiyatı bulunmamaktadır. Detaylı bilgi için lütfen sunucumuzu ziyaret edin." } } ], "category": "games", "icon": "fab fa-steam" },
-  "freefire_gem": { "title": { "en": "Free Fire Gem", "tr": "Free Fire Elmas Paketleri" }, "desc": { "en": "Cheapest FF diamonds packages directly loaded into your account.", "tr": "Hesabınıza doğrudan yüklenecek en uygun fiyatlı Free Fire elmas paketleri." }, "tiers": [ { "name": { "en": "231 Diamonds", "tr": "231 Elmas" }, "price": { "en": "2$", "tr": "121 TL" }, "desc": { "en": "Instant in-game top-up", "tr": "Oyun içi doğrudan hızlı yükleme" } }, { "name": { "en": "583 Diamonds", "tr": "583 Elmas" }, "price": { "en": "4.5$", "tr": "300 TL" }, "desc": { "en": "Instant in-game top-up", "tr": "Oyun içi doğrudan hızlı yükleme" } } ], "category": "games", "icon": "fas fa-gem" },
-  "custom_requests": { "title": { "en": "Special Requests", "tr": "Özel İstekler" }, "desc": { "en": "Get in touch for custom, bespoke developer tasks and requests.", "tr": "Size özel yazılım, bot veya arayüz talepleri için bizimle iletişime geçin." }, "tiers": [ { "name": { "en": "Custom Order", "tr": "Özel Talep Formu" }, "price": { "en": "Flexible", "tr": "Esnek Fiyat" }, "desc": { "en": "Visit our server to pitch your custom project guidelines.", "tr": "Özel hizmet istekleriniz ve detaylı görüşme için lütfen sunucumuzu ziyaret edin." } } ], "category": "software", "icon": "fas fa-wand-magic-sparkles" }
-};
-
-let pricingData = JSON.parse(localStorage.getItem("kineticPricingDB")) || defaultPricingData;
-let officialStaff = JSON.parse(localStorage.getItem("kineticStaffDB")) || ["owmanxx", "neural_forge.", "someoneelsexd"];
-let currentLang = localStorage.getItem("preferredLang") || "en";
-
-// GITHUB VERİ ÇEKİMİ
-async function fetchLatestProducts() {
-    try {
-        const response = await fetch('products.json?t=' + new Date().getTime());
-        if (response.ok) {
-            const freshData = await response.json();
-            pricingData = freshData;
-            localStorage.setItem("kineticPricingDB", JSON.stringify(pricingData));
-            renderServices(document.getElementById("searchInput") ? document.getElementById("searchInput").value : "");
-            console.log("Fiyatlar GitHub'dan başarıyla güncellendi!");
-        }
-    } catch (e) {
-        console.log("GitHub verisi çekilemedi, yerel veri kullanılıyor.", e);
-    }
-}
-
-/* ==========================================================================
-   3. GÜVENLİK
-   ========================================================================== */
-const ENCODED_PASS = "eHM3MmtwMXo3NzN0M3AzdDlvNW5jMmY5dWYzcmhxeDN5bGJqZXhkMjNtbWZ0eTJzNXU=";
+const ENCODED_PASS = "eHM3MmtwMXo3NzN0M3AzdDlvNW5jMmY5dWYzcmhxeDN5bGJqZXhkMjNtbWZ0eTJzNXU="; 
 function verifyAdminPassword(inputPass) { try { return btoa(inputPass) === ENCODED_PASS; } catch(e) { return false; } }
 
 /* ==========================================================================
-   4. TOAST SİSTEMİ
+   VARSAYILAN VERİTABANI ŞABLONU (İLK ÇALIŞMADA OTOMATİK OLUŞUR)
+   ========================================================================== */
+const defaultDatabase = {
+    tournaments: [
+        { oyun: "Valorant", baslik: "TK Valorant Cup Season 1", odul: "5000 VP", tarih: "2026-07-20" }
+    ],
+    updates: [
+        { 
+            baslik: { en: "TK Esports PUBG Mobile Roster Recruitment!", tr: "TK Esports PUBG Mobile Kadro Başvuruları!" },
+            desc: { en: "We are officially starting recruitments for our brand-new competitive pubg mobile squad.", tr: "Yeni kuracağımız rekabetçi PUBG Mobile kadromuz için başvuruları resmen başlatıyoruz." },
+            icon: "fas fa-bullhorn"
+        }
+    ],
+    recruitments: [
+        { oyun: "PUBG Mobile", desc: { en: "Faceit lvl 10, Age 18+, Active mic", tr: "Faceit Lvl 10, Yaş 18+, Aktif mikrofon" }, theme: "pubg-theme" },
+        { oyun: "Blood Strike", desc: { en: "Legend rank, Competitive coordination", tr: "Efsane rütbe, Rekabetçi koordinasyon" }, theme: "bs-theme" }
+    ]
+};
+
+// Yerel Değişkenler ve Veritabanı Yüklemesi
+let hubDatabase = JSON.parse(localStorage.getItem("kinetic_hub_db")) || defaultDatabase;
+let officialStaff = JSON.parse(localStorage.getItem("kineticStaffDB")) || ["owmanxx", "neural_forge.", "someoneelsexd"];
+let currentLang = localStorage.getItem("preferredLang") || "en";
+let isLoggedInAdmin = localStorage.getItem("kinetic_admin_session") === "true";
+
+// HTML Eleman Seçicileri
+const openAdminBtn = document.getElementById("openAdminLoginBtn");
+const submitAdminBtn = document.getElementById("submitAdminLoginBtn");
+const toggleAdminPass = document.getElementById("toggleAdminPass");
+const savePricesBtn = document.getElementById("savePricesBtn");
+const addTournamentBtn = document.getElementById("addTournamentBtn");
+const addUpdateBtn = document.getElementById("addUpdateBtn");
+const addRecruitmentBtn = document.getElementById("addRecruitmentBtn");
+const addStaffBtn = document.getElementById("addStaffBtn");
+const exportDbBtn = document.getElementById("exportDbBtn");
+const importDbBtn = document.getElementById("importDbBtn");
+const importDbFile = document.getElementById("importDbFile");
+const adminLogoutBtn = document.getElementById("adminLogoutBtn");
+
+/* ==========================================================================
+   2. GITHUB'DAN database.json VERİSİNİ ÇEKME
+   ========================================================================== */
+async function fetchLatestDataFromGithub() {
+    try {
+        const response = await fetch('database.json?t=' + new Date().getTime());
+        if (response.ok) {
+            hubDatabase = await response.json();
+            localStorage.setItem("kinetic_hub_db", JSON.stringify(hubDatabase));
+            console.log("Database GitHub'dan başarıyla senkronize edildi!");
+        }
+    } catch (e) {
+        console.log("GitHub database.json çekilemedi, yerel önbellek kullanılıyor.");
+    }
+    renderServices(""); // Updates/Haberler Grid
+    renderActiveTournaments();
+    renderActiveRecruitments();
+}
+
+/* ==========================================================================
+   3. TOAST BİLDİRİM SİSTEMİ
    ========================================================================== */
 function showToast(message, type = "info") {
     const container = document.getElementById("toastContainer");
@@ -121,61 +79,127 @@ function showToast(message, type = "info") {
 }
 
 /* ==========================================================================
-   5. ARAMA VE RENDER
+   4. DETAYLI RENDER SİSTEMLERİ (GÜNCELLEMELER, TURNUVALAR, KADRO BAŞVURULARI)
    ========================================================================== */
-function initSpotlight() {
-    const cards = document.querySelectorAll(".service-card");
-    cards.forEach(card => {
-        card.addEventListener("mousemove", e => {
-            const rect = card.getBoundingClientRect();
-            card.style.setProperty("--mouse-x", `${e.clientX - rect.left}px`);
-            card.style.setProperty("--mouse-y", `${e.clientY - rect.top}px`);
-        });
-    });
-}
-
+// Duyurular ve Güncellemeler (Blog Kartları)
 function renderServices(searchQuery = "") {
-    const grid = document.getElementById("servicesGrid");
+    const grid = document.getElementById("updatesGrid");
     if (!grid) return;
     grid.innerHTML = "";
     
-    const activeFilterBtn = document.querySelector(".filter-btn.active");
-    const activeFilter = activeFilterBtn ? activeFilterBtn.getAttribute("data-filter") : "all";
+    if (!hubDatabase.updates || hubDatabase.updates.length === 0) {
+        grid.innerHTML = `<p style="color: var(--text-muted); text-align:center; width:100%; grid-column: 1/-1;">No updates found.</p>`;
+        return;
+    }
 
-    Object.keys(pricingData).forEach(key => {
-        const item = pricingData[key];
-        const titleText = item.title[currentLang] || item.title.en || item.title;
+    hubDatabase.updates.forEach((item, index) => {
+        const titleText = item.baslik[currentLang] || item.baslik.en || item.baslik;
         const descText = item.desc[currentLang] || item.desc.en || item.desc;
-        const btnText = item.category === "software" ? translations[currentLang].btn_info : translations[currentLang].btn_view_prices;
+        const iconClass = item.icon || "fas fa-bullhorn";
 
-        const matchesCategory = (activeFilter === "all" || item.category === activeFilter);
-        const matchesSearch = titleText.toLowerCase().includes(searchQuery.toLowerCase()) || descText.toLowerCase().includes(searchQuery.toLowerCase());
-
-        if (matchesCategory && matchesSearch) {
-            let iconHTML = item.icon.includes("http") ? `<img src="${item.icon}" alt="${titleText}">` : `<i class="${item.icon}"></i>`;
+        if (titleText.toLowerCase().includes(searchQuery.toLowerCase()) || descText.toLowerCase().includes(searchQuery.toLowerCase())) {
             const card = document.createElement("div");
             card.className = "service-card";
-            card.setAttribute("data-category", item.category || "software");
             card.innerHTML = `
-                <div class="card-icon">${iconHTML}</div>
+                <div class="card-icon"><i class="${iconClass}"></i></div>
                 <h3>${titleText}</h3>
                 <p>${descText}</p>
-                <button class="card-action-btn" onclick="openPricingModal('${key}')">
-                    <span>${btnText}</span> <i class="fas fa-arrow-right"></i>
-                </button>
             `;
             grid.appendChild(card);
         }
     });
+}
 
-    if (grid.innerHTML === "") {
-        grid.innerHTML = `<p style="color: var(--text-muted); text-align:center; width:100%; grid-column: 1 / -1;">No matching services found.</p>`;
+// Canlı Turnuvaları Ekrana Basma
+function renderActiveTournaments() {
+    const grid = document.getElementById("activeTournamentsGrid");
+    const adminList = document.getElementById("adminTournamentList");
+    if (grid) grid.innerHTML = "";
+    if (adminList) adminList.innerHTML = "";
+
+    if ((!hubDatabase.tournaments || hubDatabase.tournaments.length === 0) && grid) {
+        grid.innerHTML = `<p style="color: var(--text-muted); font-size:0.95rem; grid-column: 1/-1;">No active tournaments currently. Stay tuned!</p>`;
     }
-    initSpotlight();
+
+    if (hubDatabase.tournaments) {
+        hubDatabase.tournaments.forEach((t, index) => {
+            if (grid) {
+                grid.innerHTML += `
+                    <div class="es-roster-card bs-theme" style="border-color: var(--purple-glow);">
+                        <div class="es-roster-bg" style="background: var(--purple-glow);"></div>
+                        <div class="es-roster-content">
+                            <div class="es-roster-head">
+                                <h3>${t.oyun ? t.oyun.toUpperCase() : "GAME"}</h3>
+                                <span class="pulse-tag" style="background:rgba(168,85,247,0.15); color:var(--purple-hover); border-color:rgba(168,85,247,0.3);">ACTIVE</span>
+                            </div>
+                            <h4 style="color:white; font-size:1.2rem; margin-bottom: 5px;">${t.baslik || "Tournament"}</h4>
+                            <p style="margin-bottom: 1.5rem; font-size:0.9rem;">🎁 <b>Reward:</b> ${t.odul || "TBD"} <br> 📅 <b>Date:</b> ${t.tarih || "TBD"}</p>
+                            <button class="es-action-btn" onclick="openEsportsModal('${t.baslik || "Tournament"}')">
+                                <span data-i18n="es_btn_apply">Apply Now</span> <i class="fas fa-chevron-right"></i>
+                            </button>
+                        </div>
+                    </div>
+                `;
+            }
+
+            if (adminList) {
+                adminList.innerHTML += `
+                    <li class="staff-list-item">
+                        <span><b>[${t.oyun.toUpperCase()}]</b> ${t.baslik}</span>
+                        <button class="remove-product-btn" onclick="deleteTournament(${index})"><i class="fas fa-trash"></i></button>
+                    </li>
+                `;
+            }
+        });
+    }
+}
+
+// Canlı Kadro Alımlarını Ekrana Basma
+function renderActiveRecruitments() {
+    const grid = document.getElementById("activeRecruitmentsGrid");
+    const adminList = document.getElementById("adminRecruitmentList");
+    if (grid) grid.innerHTML = "";
+    if (adminList) adminList.innerHTML = "";
+
+    if ((!hubDatabase.recruitments || hubDatabase.recruitments.length === 0) && grid) {
+        grid.innerHTML = `<p style="color: var(--text-muted); font-size:0.95rem;">No active recruitments currently.</p>`;
+    }
+
+    if (hubDatabase.recruitments) {
+        hubDatabase.recruitments.forEach((r, index) => {
+            const descText = r.desc[currentLang] || r.desc.en || r.desc;
+            if (grid) {
+                grid.innerHTML += `
+                    <div class="es-roster-card ${r.theme || 'software'}">
+                        <div class="es-roster-bg"></div>
+                        <div class="es-roster-content">
+                            <div class="es-roster-head">
+                                <h3>${r.oyun ? r.oyun.toUpperCase() : "GAME"}</h3>
+                                <span class="pulse-tag">RECRUITING</span>
+                            </div>
+                            <p>${descText}</p>
+                            <button class="es-action-btn" onclick="openEsportsModal('${r.oyun}')">
+                                <span data-i18n="es_btn_apply">Apply Now</span> <i class="fas fa-chevron-right"></i>
+                            </button>
+                        </div>
+                    </div>
+                `;
+            }
+
+            if (adminList) {
+                adminList.innerHTML += `
+                    <li class="staff-list-item">
+                        <span><b>[${r.oyun.toUpperCase()}]</b> alımı</span>
+                        <button class="remove-product-btn" onclick="deleteRecruitment(${index})"><i class="fas fa-trash"></i></button>
+                    </li>
+                `;
+            }
+        });
+    }
 }
 
 /* ==========================================================================
-   6. DİL / ÇEVİRİ YÖNETİMİ
+   5. ÇEVİRİ VE DİL DESTEĞİ
    ========================================================================== */
 function applyLanguage(lang) {
     currentLang = lang;
@@ -191,15 +215,15 @@ function applyLanguage(lang) {
         const key = element.getAttribute("data-i18n-placeholder");
         if (translations[lang] && translations[lang][key]) element.setAttribute("placeholder", translations[lang][key]);
     });
-    renderServices(document.getElementById("searchInput") ? document.getElementById("searchInput").value : "");
+    renderServices("");
 }
 
 /* ==========================================================================
-   7. UI ETKİLEŞİMLERİ
+   6. UI ETKİLEŞİMLERİ VE GENEL OLAYLAR
    ========================================================================== */
 document.addEventListener("DOMContentLoaded", () => {
     applyLanguage(currentLang);
-    fetchLatestProducts();
+    fetchLatestDataFromGithub();
 
     window.addEventListener("scroll", () => {
         const nav = document.getElementById("navbar");
@@ -258,40 +282,41 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    window.addEventListener("click", (e) => { if (e.target.classList.contains("modal-overlay")) e.target.classList.remove("active"); });
+    window.addEventListener("click", (e) => { 
+        if (e.target.classList.contains("modal-overlay")) {
+            if (e.target.id !== "adminDashboard") {
+                e.target.classList.remove("active"); 
+            }
+        } 
+    });
 });
 
 /* ==========================================================================
-   8. MODALLAR (PRICING & ADMIN)
+   7. MODALLAR VE GLOBAL PENCERE BAĞLANTILARI
    ========================================================================== */
 document.querySelectorAll(".close-modal-btn").forEach(btn => {
     btn.addEventListener("click", () => btn.closest(".modal-overlay").classList.remove("active"));
 });
 
-window.openPricingModal = function(key) {
-    const data = pricingData[key];
-    if (!data) return;
-    document.getElementById("pricingTitle").textContent = data.title[currentLang] || data.title.en;
-    document.getElementById("pricingDesc").textContent = data.desc[currentLang] || data.desc.en;
-    const tiersDiv = document.getElementById("pricingTiers");
-    if (tiersDiv) {
-        tiersDiv.innerHTML = "";
-        data.tiers.forEach(tier => {
-            const tName = typeof tier.name === "string" ? tier.name : (tier.name[currentLang] || tier.name.en);
-            const tPrice = typeof tier.price === "string" ? tier.price : (tier.price[currentLang] || tier.price.en);
-            const tDesc = typeof tier.desc === "string" ? tier.desc : (tier.desc[currentLang] || tier.desc.en);
-            tiersDiv.innerHTML += `
-                <div class="tier-card"><h4>${tName}</h4><div class="tier-price">${tPrice}</div><p class="tier-desc">${tDesc}</p></div>
-            `;
-        });
+window.openEsportsModal = function(gameName) {
+    const modal = document.getElementById("esportsApplyModal");
+    const title = document.getElementById("esModalGameTitle");
+    if(modal && title) {
+        title.innerHTML = `TK Esports - <span style="color:var(--purple-hover);">${gameName}</span>`;
+        modal.classList.add("active");
     }
-    document.getElementById("pricingModal").classList.add("active");
 };
 
-const openAdminBtn = document.getElementById("openAdminLoginBtn");
-if (openAdminBtn) { openAdminBtn.addEventListener("click", () => document.getElementById("adminAuthModal").classList.add("active")); }
+if (openAdminBtn) { 
+    openAdminBtn.addEventListener("click", () => {
+        if (isLoggedInAdmin) {
+            openAdminDashboard();
+        } else {
+            document.getElementById("adminAuthModal").classList.add("active"); 
+        }
+    }); 
+}
 
-const toggleAdminPass = document.getElementById("toggleAdminPass");
 if (toggleAdminPass) {
     toggleAdminPass.addEventListener("click", () => {
         const inp = document.getElementById("adminPassInput");
@@ -301,12 +326,13 @@ if (toggleAdminPass) {
     });
 }
 
-const submitAdminBtn = document.getElementById("submitAdminLoginBtn");
+// Şifreli Giriş (Manuel şifre onayı)
 if (submitAdminBtn) {
     submitAdminBtn.addEventListener("click", () => {
-        const inpVal = document.getElementById("adminPassInput").value;
-        const isValid = verifyAdminPassword(inpVal);
-        if (isValid) {
+        const pass = document.getElementById("adminPassInput").value;
+        if (verifyAdminPassword(pass)) {
+            isLoggedInAdmin = true;
+            localStorage.setItem("kinetic_admin_session", "true");
             document.getElementById("adminAuthModal").classList.remove("active");
             document.getElementById("adminPassInput").value = "";
             showToast("Access Granted! Welcome to Command Center.", "success");
@@ -317,9 +343,19 @@ if (submitAdminBtn) {
     });
 }
 
+// Oturum Kapat (Logout)
+if (adminLogoutBtn) {
+    adminLogoutBtn.addEventListener("click", () => {
+        isLoggedInAdmin = false;
+        localStorage.removeItem("kinetic_admin_session");
+        showToast("Oturum başarıyla kapatıldı.", "success");
+        document.getElementById("adminDashboard").classList.remove("active");
+    });
+}
+
 /* ==========================================================================
-   10. ADMIN DASHBOARD İŞLEVLERİ
-   ========================================================================== */
+   8. ADMIN PANELİ YÖNETİM İŞLEVLERİ (LOCAL STORAGE VERİ DEĞİŞİKLİKLERİ)
+   ========================================================================= */
 function openAdminDashboard() {
     document.getElementById("adminDashboard").classList.add("active");
     const tabBtns = document.querySelectorAll("#adminDashboard .tab-btn");
@@ -336,135 +372,147 @@ function openAdminDashboard() {
 }
 
 function refreshAdminDashboardData() {
-    const totalProdEl = document.getElementById("statTotalProducts");
-    const totalStaffEl = document.getElementById("statTotalStaff");
-    if(totalProdEl) totalProdEl.textContent = Object.keys(pricingData).length;
-    if(totalStaffEl) totalStaffEl.textContent = officialStaff.length;
-    loadEditorSelect(); loadAdminProductList(); loadStaffList(); generateTiersInputFields();
+    // Toplam İstatistikler
+    document.getElementById("statTotalTournaments").textContent = hubDatabase.tournaments ? hubDatabase.tournaments.length : 0;
+    document.getElementById("statTotalUpdates").textContent = hubDatabase.updates ? hubDatabase.updates.length : 0;
+    document.getElementById("statTotalRecruitments").textContent = hubDatabase.recruitments ? hubDatabase.recruitments.length : 0;
+    
+    renderActiveTournaments();
+    renderActiveRecruitments();
+    loadAdminUpdates();
+    loadStaffList();
 }
 
-const editorSelect = document.getElementById("editorServiceSelect");
-const editorContainer = document.getElementById("editorTiersContainer");
+// 8.1 Turnuva Ekleme/Silme
+if (addTournamentBtn) {
+    addTournamentBtn.addEventListener("click", () => {
+        const oyun = document.getElementById("tourOyun").value.trim();
+        const baslik = document.getElementById("tourBaslik").value.trim();
+        const odul = document.getElementById("tourOdul").value.trim();
+        const tarih = document.getElementById("tourTarih").value;
 
-function loadEditorSelect() {
-    if(!editorSelect) return;
-    editorSelect.innerHTML = "";
-    Object.keys(pricingData).forEach(key => { editorSelect.innerHTML += `<option value="${key}">${pricingData[key].title.en || pricingData[key].title}</option>`; });
-    if(Object.keys(pricingData).length > 0) loadTiersIntoEditor(editorSelect.value);
-}
+        if (!oyun || !baslik || !odul || !tarih) {
+            return showToast("Please fill all tournament fields!", "error");
+        }
 
-if(editorSelect) { editorSelect.addEventListener("change", (e) => loadTiersIntoEditor(e.target.value)); }
-
-function loadTiersIntoEditor(serviceKey) {
-    const data = pricingData[serviceKey];
-    if(!editorContainer) return;
-    editorContainer.innerHTML = "";
-    if (!data) return;
-    data.tiers.forEach((tier, index) => {
-        const tName = typeof tier.name === "string" ? tier.name : (tier.name.en || tier.name.tr);
-        const pEn = typeof tier.price === "string" ? tier.price : tier.price.en;
-        const pTr = typeof tier.price === "string" ? tier.price : tier.price.tr;
-        editorContainer.innerHTML += `
-            <div class="tier-edit-row">
-                <label>${tName} (Package ${index + 1})</label>
-                <div class="form-row-dual"><input type="text" class="dashboard-input edit-p-en" value="${pEn}" placeholder="Price (EN)"><input type="text" class="dashboard-input edit-p-tr" value="${pTr}" placeholder="Fiyat (TR)"></div>
-            </div>`;
-    });
-}
-
-const savePricesBtn = document.getElementById("savePricesBtn");
-if(savePricesBtn) {
-    savePricesBtn.addEventListener("click", () => {
-        const key = editorSelect.value;
-        if(!pricingData[key]) return;
-        const rows = editorContainer.querySelectorAll(".tier-edit-row");
-        rows.forEach((row, index) => {
-            const enVal = row.querySelector(".edit-p-en").value;
-            const trVal = row.querySelector(".edit-p-tr").value;
-            pricingData[key].tiers[index].price = { en: enVal, tr: trVal };
-        });
-        localStorage.setItem("kineticPricingDB", JSON.stringify(pricingData));
-        renderServices(document.getElementById("searchInput") ? document.getElementById("searchInput").value : "");
-        showToast("Global pricing configuration updated!", "success");
-    });
-}
-
-const addProdTiersCount = document.getElementById("addProdTiersCount");
-const addProdTiersFields = document.getElementById("addProdTiersFields");
-
-function generateTiersInputFields() {
-    if(!addProdTiersCount || !addProdTiersFields) return;
-    const count = parseInt(addProdTiersCount.value) || 1;
-    addProdTiersFields.innerHTML = "";
-    for (let i = 1; i <= count; i++) {
-        addProdTiersFields.innerHTML += `
-            <div class="tier-input-group" style="background:rgba(255,255,255,0.02); padding:10px; border-radius:8px; margin-bottom:10px; border:1px solid rgba(255,255,255,0.05);">
-                <label style="display:block; color:var(--purple-hover); font-size:0.8rem; margin-bottom:5px;">Package ${i}</label>
-                <div class="form-row-dual"><input type="text" class="dashboard-input t-name-en" placeholder="Name (EN)" required><input type="text" class="dashboard-input t-name-tr" placeholder="Ad (TR)" required></div>
-                <div class="form-row-dual"><input type="text" class="dashboard-input t-price-en" placeholder="Price (EN) 10$" required><input type="text" class="dashboard-input t-price-tr" placeholder="Fiyat (TR) 100 TL" required></div>
-                <div class="form-row-dual"><input type="text" class="dashboard-input t-desc-en" placeholder="Desc (EN)" required><input type="text" class="dashboard-input t-desc-tr" placeholder="Açıklama (TR)" required></div>
-            </div>`;
-    }
-}
-if(addProdTiersCount) addProdTiersCount.addEventListener("input", generateTiersInputFields);
-
-const addProductBtn = document.getElementById("addProductBtn");
-if(addProductBtn) {
-    addProductBtn.addEventListener("click", () => {
-        const key = document.getElementById("addProdKey").value.trim().toLowerCase().replace(/\s+/g, '_');
-        if (!key) return showToast("Product ID cannot be empty!", "error");
-        if (pricingData[key]) return showToast("This Product ID already exists!", "error");
-
-        const tierGroups = addProdTiersFields.querySelectorAll(".tier-input-group");
-        const tiers = [];
-        let isTiersValid = true;
-
-        tierGroups.forEach(group => {
-            const nameEn = group.querySelector(".t-name-en").value;
-            if(!nameEn) isTiersValid = false;
-            tiers.push({
-                name: { en: nameEn, tr: group.querySelector(".t-name-tr").value },
-                price: { en: group.querySelector(".t-price-en").value, tr: group.querySelector(".t-price-tr").value },
-                desc: { en: group.querySelector(".t-desc-en").value, tr: group.querySelector(".t-desc-tr").value }
-            });
-        });
-        if(!isTiersValid) return showToast("Please fill all package names!", "error");
-
-        pricingData[key] = {
-            category: document.getElementById("addProdCategory").value, 
-            icon: document.getElementById("addProdIcon").value || "fas fa-box",
-            title: { en: document.getElementById("addProdTitleEn").value, tr: document.getElementById("addProdTitleTr").value },
-            desc: { en: document.getElementById("addProdDescEn").value, tr: document.getElementById("addProdDescTr").value },
-            tiers: tiers
-        };
-        localStorage.setItem("kineticPricingDB", JSON.stringify(pricingData));
-        showToast("New product integrated to the global hub!", "success");
+        if(!hubDatabase.tournaments) hubDatabase.tournaments = [];
+        hubDatabase.tournaments.push({ oyun, baslik, odul, tarih });
         
-        document.querySelectorAll(".add-product-form input[type='text']").forEach(i => i.value = "");
-        addProdTiersCount.value = 1; generateTiersInputFields();
-        renderServices(document.getElementById("searchInput") ? document.getElementById("searchInput").value : "");
+        localStorage.setItem("kinetic_hub_db", JSON.stringify(hubDatabase));
+        showToast("Tournament officially launched! Remember to export JSON.", "success");
+        
+        document.getElementById("tourOyun").value = "";
+        document.getElementById("tourBaslik").value = "";
+        document.getElementById("tourOdul").value = "";
+        document.getElementById("tourTarih").value = "";
+        
         refreshAdminDashboardData();
     });
 }
 
-function loadAdminProductList() {
-    const ul = document.getElementById("adminProductList");
-    if(!ul) return;
-    ul.innerHTML = "";
-    Object.keys(pricingData).forEach(key => {
-        const title = pricingData[key].title.en || pricingData[key].title;
-        ul.innerHTML += `<li class="staff-list-item"><span>${title} <span style="font-size:0.7rem; color:var(--text-muted); opacity:0.5;">(${key})</span></span><button class="remove-product-btn" onclick="deleteProduct('${key}')"><i class="fas fa-trash"></i></button></li>`;
+window.deleteTournament = function(index) {
+    if (confirm("Are you sure you want to end and delete this tournament?")) {
+        hubDatabase.tournaments.splice(index, 1);
+        localStorage.setItem("kinetic_hub_db", JSON.stringify(hubDatabase));
+        showToast("Tournament closed locally.", "info");
+        refreshAdminDashboardData();
+    }
+};
+
+// 8.2 Güncelleme/Duyuru Ekleme/Silme
+if (addUpdateBtn) {
+    addUpdateBtn.addEventListener("click", () => {
+        const baslikEn = document.getElementById("upBaslikEn").value.trim();
+        const baslikTr = document.getElementById("upBaslikTr").value.trim();
+        const descEn = document.getElementById("upDescEn").value.trim();
+        const descTr = document.getElementById("upDescTr").value.trim();
+        const icon = document.getElementById("upIcon").value.trim() || "fas fa-bullhorn";
+
+        if (!baslikEn || !baslikTr || !descEn || !descTr) {
+            return showToast("Please fill all update fields!", "error");
+        }
+
+        if(!hubDatabase.updates) hubDatabase.updates = [];
+        hubDatabase.updates.push({
+            baslik: { en: baslikEn, tr: baslikTr },
+            desc: { en: descEn, tr: descTr },
+            icon: icon
+        });
+
+        localStorage.setItem("kinetic_hub_db", JSON.stringify(hubDatabase));
+        showToast("Update published locally! Remember to export JSON.", "success");
+        
+        document.getElementById("upBaslikEn").value = "";
+        document.getElementById("upBaslikTr").value = "";
+        document.getElementById("upDescEn").value = "";
+        document.getElementById("upDescTr").value = "";
+        document.getElementById("upIcon").value = "";
+
+        refreshAdminDashboardData();
     });
 }
 
-window.deleteProduct = function(key) {
-    delete pricingData[key];
-    localStorage.setItem("kineticPricingDB", JSON.stringify(pricingData));
-    showToast(`Product [${key}] eradicated from database.`, "info");
-    renderServices(document.getElementById("searchInput") ? document.getElementById("searchInput").value : "");
-    refreshAdminDashboardData();
+function loadAdminUpdates() {
+    const ul = document.getElementById("adminUpdateList");
+    if(!ul) return;
+    ul.innerHTML = "";
+    if (hubDatabase.updates) {
+        hubDatabase.updates.forEach((item, index) => {
+            const title = item.baslik.en || item.baslik;
+            ul.innerHTML += `<li class="staff-list-item"><span>${title}</span><button class="remove-product-btn" onclick="deleteUpdate(${index})"><i class="fas fa-trash"></i></button></li>`;
+        });
+    }
+}
+
+window.deleteUpdate = function(index) {
+    if(confirm("Are you sure you want to delete this update?")) {
+        hubDatabase.updates.splice(index, 1);
+        localStorage.setItem("kinetic_hub_db", JSON.stringify(hubDatabase));
+        showToast("Update removed locally.", "info");
+        refreshAdminDashboardData();
+    }
 };
 
+// 8.3 Kadro Başvurusu Açma/Kapatma
+if (addRecruitmentBtn) {
+    addRecruitmentBtn.addEventListener("click", () => {
+        const oyun = document.getElementById("recOyun").value.trim();
+        const descEn = document.getElementById("recDescEn").value.trim();
+        const descTr = document.getElementById("recDescTr").value.trim();
+        const theme = document.getElementById("recTheme").value;
+
+        if (!oyun || !descEn || !descTr) {
+            return showToast("Please fill all recruitment fields!", "error");
+        }
+
+        if(!hubDatabase.recruitments) hubDatabase.recruitments = [];
+        hubDatabase.recruitments.push({
+            oyun: oyun,
+            desc: { en: descEn, tr: descTr },
+            theme: theme
+        });
+
+        localStorage.setItem("kinetic_hub_db", JSON.stringify(hubDatabase));
+        showToast("Recruitment roster launched locally!", "success");
+        
+        document.getElementById("recOyun").value = "";
+        document.getElementById("recDescEn").value = "";
+        document.getElementById("recDescTr").value = "";
+
+        refreshAdminDashboardData();
+    });
+}
+
+window.deleteRecruitment = function(index) {
+    if (confirm("Are you sure you want to close this recruitment?")) {
+        hubDatabase.recruitments.splice(index, 1);
+        localStorage.setItem("kinetic_hub_db", JSON.stringify(hubDatabase));
+        showToast("Recruitment closed locally.", "info");
+        refreshAdminDashboardData();
+    }
+};
+
+// 8.4 Yetkili Yönetimi (Local Storage)
 function loadStaffList() {
     const ul = document.getElementById("staffList");
     if(!ul) return;
@@ -474,7 +522,6 @@ function loadStaffList() {
     });
 }
 
-const addStaffBtn = document.getElementById("addStaffBtn");
 if(addStaffBtn) {
     addStaffBtn.addEventListener("click", () => {
         const input = document.getElementById("newStaffInput");
@@ -486,30 +533,31 @@ if(addStaffBtn) {
         localStorage.setItem("kineticStaffDB", JSON.stringify(officialStaff));
         input.value = "";
         refreshAdminDashboardData();
-        showToast("Staff registry updated.", "success");
+        showToast("Staff registry updated locally.", "success");
     });
 }
 
 window.removeStaff = function(index) {
-    officialStaff.splice(index, 1);
-    localStorage.setItem("kineticStaffDB", JSON.stringify(officialStaff));
-    refreshAdminDashboardData();
-    showToast("Staff access revoked.", "info");
+    if (confirm("Revoke this staff member's verification?")) {
+        officialStaff.splice(index, 1);
+        localStorage.setItem("kineticStaffDB", JSON.stringify(officialStaff));
+        refreshAdminDashboardData();
+        showToast("Staff access revoked locally.", "info");
+    }
 };
 
-const exportDbBtn = document.getElementById("exportDbBtn");
+// 8.5 Export Database (Yedek Alma)
 if(exportDbBtn) {
     exportDbBtn.addEventListener("click", () => {
-        const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(pricingData, null, 2));
+        const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(hubDatabase, null, 2));
         const dlAnchorElem = document.createElement('a');
-        dlAnchorElem.setAttribute("href", dataStr); dlAnchorElem.setAttribute("download", "products.json");
+        dlAnchorElem.setAttribute("href", dataStr); dlAnchorElem.setAttribute("download", "database.json");
         document.body.appendChild(dlAnchorElem); dlAnchorElem.click(); dlAnchorElem.remove();
-        showToast("JSON successfully generated for GitHub sync.", "success");
+        showToast("database.json successfully generated! Push to GitHub to apply.", "success");
     });
 }
 
-const importDbBtn = document.getElementById("importDbBtn");
-const importDbFile = document.getElementById("importDbFile");
+// Import Database (Yedek Geri Yükleme)
 if(importDbBtn && importDbFile) {
     importDbBtn.addEventListener("click", () => importDbFile.click());
     importDbFile.addEventListener("change", (e) => {
@@ -520,11 +568,11 @@ if(importDbBtn && importDbFile) {
             try {
                 const importedData = JSON.parse(evt.target.result);
                 if (typeof importedData === "object" && importedData !== null) {
-                    pricingData = importedData;
-                    localStorage.setItem("kineticPricingDB", JSON.stringify(pricingData));
-                    renderServices(document.getElementById("searchInput") ? document.getElementById("searchInput").value : "");
+                    hubDatabase = importedData;
+                    localStorage.setItem("kinetic_hub_db", JSON.stringify(hubDatabase));
+                    renderServices("");
                     refreshAdminDashboardData();
-                    showToast("Database successfully restored from JSON!", "success");
+                    showToast("Database successfully restored locally!", "success");
                 } else { throw new Error("Invalid format"); }
             } catch (error) {
                 showToast("Failed to import! The JSON file is corrupted or invalid.", "error");
@@ -534,15 +582,3 @@ if(importDbBtn && importDbFile) {
         e.target.value = '';
     });
 }
-
-/* ==========================================================================
-   11. ESPORTS MODAL YÖNETİMİ
-   ========================================================================== */
-window.openEsportsModal = function(gameName) {
-    const modal = document.getElementById("esportsApplyModal");
-    const title = document.getElementById("esModalGameTitle");
-    if(modal && title) {
-        title.innerHTML = `TK Esports - <span style="color:var(--purple-hover);">${gameName}</span>`;
-        modal.classList.add("active");
-    }
-};
