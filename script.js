@@ -3,6 +3,15 @@
    ========================================================================== */
 const translations = {
     en: {
+        nav_esports: "TK E-Sports",
+        esports_title: "True Kinetic E-Sports",
+        esports_desc: "We are stepping into the competitive gaming arena. Blood Strike and PUBG Mobile rosters are ready to dominate!",
+        esports_vision_title: "Our Vision",
+        esports_vision_text: "Our vision is not just to play, but to leave a permanent mark in the esports scene. We are here to build a professional competitive culture under the True Kinetic brand!",
+        roster_recruiting: "🔴 Recruitment Open",
+        roster_pubg_desc: "Professional competitive squad built for tournament dominance and scrims.",
+        roster_bs_desc: "High-velocity tactical shooters squad taking on the battlefield with supreme coordination.",
+        btn_apply_roster: "Apply for Roster",
         nav_home: "Home", nav_how: "How It Works", nav_services: "Services", nav_reviews: "Reviews", nav_faq: "FAQ", nav_admin: "Admin",
         announcement: "🚀 Summer Sale: Join our Discord for special discounts!",
         search_placeholder: "Search services...",
