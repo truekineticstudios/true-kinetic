@@ -1,5 +1,5 @@
 /* ==========================================================================
-   1. GÜVENLİK ANAHTARI VE ŞİFRELİ GİRİŞ SİSTEMİ (Yeni Kolay Şifre: kineticadmin)
+   1. GÜVENLİK ANAHTARI VE ŞİFRELİ GİRİŞ SİSTEMİ (Şifre: kineticadmin)
    ========================================================================== */
 const ADMIN_PASSWORD = "TK-ADMINASTOR"; 
 
@@ -10,15 +10,12 @@ function verifyAdminPassword(inputPass) {
 }
 
 /* ==========================================================================
-   DİL SÖZLÜĞÜ (TRANSLATIONS - Ana Sayfayı Canlandıran Bölüm)
+   DİL SÖZLÜĞÜ (TRANSLATIONS)
    ========================================================================== */
 const translations = {
     en: {
-        epin_title: "💎 E-Pin & Game Currencies",
-        epin_desc: "Although we have removed our website catalog, our safe and fast E-Pin (Valorant VP, PUBG Mobile UC, Steam Wallet, etc.) sales are still actively running! You can easily place an order by opening a support ticket on our Discord server.",
-        epin_btn: "Join Discord & Order Now",
         nav_home: "Home", nav_how: "How It Works", nav_services: "Services", nav_reviews: "Reviews", nav_faq: "FAQ", nav_admin: "Admin",
-        nav_community: "Community", nav_esports: "TK Esports", nav_updates: "Updates",
+        nav_community: "Community", nav_esports: "TK Esports", nav_updates: "Updates", nav_roster: "Roster",
         announcement: "🏆 TK Esports Recruitment is Officially OPEN!",
         search_placeholder: "Search...",
         hero_title: "Welcome to True Kinetic Ecosystem", 
@@ -38,14 +35,16 @@ const translations = {
         es_rule2_title: "Activity & Dedication", es_rule2_desc: "Players must attend scheduled community scrims, training sessions, and official cups.",
         es_rule3_title: "Respect & Toxicity", es_rule3_desc: "Zero tolerance for toxic behavior. You represent the True Kinetic community.",
         es_modal_warning: "By proceeding, you agree to follow the community guidelines. You will be redirected to our Discord server to open a recruitment ticket.",
-        es_btn_accept: "I Accept, Open Ticket"
+        es_btn_accept: "I Accept, Open Ticket",
+        epin_title: "💎 E-Pin & Game Currencies",
+        epin_desc: "Although we have removed our website catalog, our safe and fast E-Pin (Valorant VP, PUBG Mobile UC, Steam Wallet, etc.) sales are still actively running! You can easily place an order by opening a support ticket on our Discord server.",
+        epin_btn: "Join Discord & Order Now",
+        roster_title: "👥 Active Game Rosters",
+        roster_subtitle: "Our active competitive squads representing True Kinetic across various titles."
     },
     tr: {
-        epin_title: "💎 E-Pin & Oyun Parası Satışları",
-        epin_desc: "Web sitemizdeki ürün kataloğunu kaldırmış olsak da; güvenli ve hızlı E-Pin (Valorant VP, PUBG Mobile UC, Steam Cüzdan vb.) satışlarımız kesintisiz olarak devam ediyor! Discord sunucumuza katılarak kolayca sipariş oluşturabilirsiniz.",
-        epin_btn: "Katıl & Sipariş Ver",
         nav_home: "Ana Sayfa", nav_how: "Nasıl Çalışır", nav_services: "Hizmetler", nav_reviews: "Yorumlar", nav_faq: "S.S.S.", nav_admin: "Admin",
-        nav_community: "Topluluk", nav_esports: "TK E-Spor", nav_updates: "Gelişmeler",
+        nav_community: "Topluluk", nav_esports: "TK E-Spor", nav_updates: "Gelişmeler", nav_roster: "Kadro",
         announcement: "🏆 TK Esports Kadro Başvuruları RESMEN AÇILDI!",
         search_placeholder: "Ara...",
         hero_title: "True Kinetic Ekosistemine Hoş Geldin", 
@@ -65,7 +64,12 @@ const translations = {
         es_rule2_title: "Aktiflik ve Özveri", es_rule2_desc: "Oyuncuların planlanan antrenmanlara, scrimlere ve resmi turnuvalara katılımı beklenir.",
         es_rule3_title: "Saygı ve Toksisite", es_rule3_desc: "Toksik davranışlara sıfır tolerans. True Kinetic topluluğunu temsil ettiğinizi unutmayın.",
         es_modal_warning: "Devam ederek topluluk kurallarına uymayı kabul etmiş olursunuz. Başvuru bilet açmak için Discord sunucumuza yönlendirileceksiniz.",
-        es_btn_accept: "Kabul Ediyorum, Bilet Aç"
+        es_btn_accept: "Kabul Ediyorum, Bilet Aç",
+        epin_title: "💎 E-Pin & Oyun Parası Satışları",
+        epin_desc: "Web sitemizdeki ürün kataloğunu kaldırmış olsak da; güvenli ve hızlı E-Pin (Valorant VP, PUBG Mobile UC, Steam Cüzdan vb.) satışlarımız kesintisiz olarak devam ediyor! Discord sunucumuza katılarak kolayca sipariş oluşturabilirsiniz.",
+        epin_btn: "Katıl & Sipariş Ver",
+        roster_title: "👥 Aktif Oyun Kadroları",
+        roster_subtitle: "True Kinetic adını farklı arenalarda temsil eden rekabetçi aktif kadrolarımız."
     }
 };
 
@@ -86,13 +90,16 @@ const defaultDatabase = {
     recruitments: [
         { oyun: "PUBG Mobile", desc: { en: "Faceit lvl 10, Age 18+, Active mic", tr: "Faceit Lvl 10, Yaş 18+, Aktif mikrofon" }, theme: "pubg-theme" },
         { oyun: "Blood Strike", desc: { en: "Legend rank, Competitive coordination", tr: "Efsane rütbe, Rekabetçi koordinasyon" }, theme: "bs-theme" }
+    ],
+    roster: [
+        { oyun: "PUBG Mobile", ad: "neural_forge", rol: "IGL / Sniper", yas: "20" },
+        { oyun: "PUBG Mobile", ad: "owmanxx", rol: "Entry Fragger", yas: "19" }
     ]
 };
 
 // Yerel Değişkenler ve Veritabanı Yüklemesi
 let hubDatabase = JSON.parse(localStorage.getItem("kinetic_hub_db")) || defaultDatabase;
 let officialStaff = JSON.parse(localStorage.getItem("kineticStaffDB")) || ["owmanxx", "neural_forge.", "someoneelsexd"];
-let tournamentsData = JSON.parse(localStorage.getItem("kineticTournamentsDB")) || [];
 let currentLang = localStorage.getItem("preferredLang") || "en";
 let isLoggedInAdmin = localStorage.getItem("kinetic_admin_session") === "true";
 
@@ -104,6 +111,7 @@ const savePricesBtn = document.getElementById("savePricesBtn");
 const addTournamentBtn = document.getElementById("addTournamentBtn");
 const addUpdateBtn = document.getElementById("addUpdateBtn");
 const addRecruitmentBtn = document.getElementById("addRecruitmentBtn");
+const addRosterBtn = document.getElementById("addRosterBtn"); // Kadro ekleme butonu
 const addStaffBtn = document.getElementById("addStaffBtn");
 const exportDbBtn = document.getElementById("exportDbBtn");
 const importDbBtn = document.getElementById("importDbBtn");
@@ -134,7 +142,9 @@ async function fetchLatestDataFromGithub() {
     renderServices(""); // Updates/Haberler Grid
     renderActiveTournaments();
     renderActiveRecruitments();
+    renderActiveRosters(); // Kadro Grid
 }
+
 /* ==========================================================================
    3. TOAST BİLDİRİM SİSTEMİ
    ========================================================================== */
@@ -151,7 +161,7 @@ function showToast(message, type = "info") {
 }
 
 /* ==========================================================================
-   4. DETAYLI RENDER SİSTEMLERİ (GÜNCELLEMELER, TURNUVALAR, KADRO BAŞVURULARI)
+   4. DETAYLI RENDER SİSTEMLERİ (GÜNCELLEMELER, TURNUVALAR, KADRO BAŞVURULARI, OYUNCULAR)
    ========================================================================== */
 // Duyurular ve Güncellemeler (Blog Kartları)
 function renderServices(searchQuery = "") {
@@ -270,6 +280,69 @@ function renderActiveRecruitments() {
     }
 }
 
+// 4.1 CANLI OYUNCU KADROLARINI RENDER ETME VE GRUPLAMA (DİNAMİK ROSTER)
+function renderActiveRosters() {
+    const container = document.getElementById("activeRostersContainer");
+    const adminList = document.getElementById("adminRosterList");
+    if (container) container.innerHTML = "";
+    if (adminList) adminList.innerHTML = "";
+
+    if ((!hubDatabase.roster || hubDatabase.roster.length === 0) && container) {
+        container.innerHTML = `<p style="color: var(--text-muted); text-align:center; width:100%;">Henüz kadrolara oyuncu eklenmedi.</p>`;
+        return;
+    }
+
+    // Oyun türlerine göre oyuncuları grupla (PUBG, Valorant vb.)
+    const groups = {};
+    if (hubDatabase.roster) {
+        hubDatabase.roster.forEach((p, index) => {
+            const gameKey = p.oyun ? p.oyun.trim().toUpperCase() : "DİĞER";
+            if (!groups[gameKey]) groups[gameKey] = [];
+            groups[gameKey].push({ player: p, originalIndex: index });
+        });
+    }
+
+    // Grupları ekrana bas (Sitenin parlayan mor kartlarıyla uyumlu)
+    Object.keys(groups).forEach(game => {
+        if (container) {
+            let playerHtml = "";
+            groups[game].forEach(item => {
+                const p = item.player;
+                playerHtml += `
+                    <div class="step-card" style="padding: 1.5rem; flex: 1 1 220px; border-color: rgba(168, 85, 247, 0.2);">
+                        <div class="step-num" style="font-size: 3rem; top: -5px; right: 10px; opacity:0.12;">🎮</div>
+                        <h4 style="color: white; font-size: 1.3rem; margin-bottom: 5px;">${p.ad}</h4>
+                        <span class="role-badge r-esport" style="margin-bottom: 8px;">${p.rol}</span>
+                        <p style="color: var(--text-muted); font-size: 0.85rem; font-family: var(--font-mono); margin-top: 5px;">Age: ${p.yas}</p>
+                    </div>
+                `;
+            });
+
+            container.innerHTML += `
+                <div class="roster-game-group reveal-on-scroll active" style="background: rgba(255,255,255,0.01); padding: 25px; border-radius: 16px; border: 1px solid rgba(255,255,255,0.03);">
+                    <h3 style="font-family: var(--font-mono); font-size: 1.4rem; color: var(--purple-glow); margin-bottom: 20px; border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 10px;">${game}</h3>
+                    <div style="display: flex; flex-wrap: wrap; gap: 20px;">
+                        ${playerHtml}
+                    </div>
+                </div>
+            `;
+        }
+
+        // Admin Panel Listesini Doldur
+        groups[game].forEach(item => {
+            const p = item.player;
+            if (adminList) {
+                adminList.innerHTML += `
+                    <li class="staff-list-item">
+                        <span><b>[${game}]</b> ${p.ad} (${p.rol})</span>
+                        <button class="remove-product-btn" onclick="deleteRosterMember(${item.originalIndex})"><i class="fas fa-trash"></i></button>
+                    </li>
+                `;
+            }
+        });
+    });
+}
+
 /* ==========================================================================
    5. ÇEVİRİ VE DİL DESTEĞİ
    ========================================================================== */
@@ -354,6 +427,7 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
+    // Modal dışına tıklayınca kapanma mantığı (Admin Paneli Hariç Tutuldu!)
     window.addEventListener("click", (e) => { 
         if (e.target.classList.contains("modal-overlay")) {
             if (e.target.id !== "adminDashboard") {
@@ -379,6 +453,7 @@ window.openEsportsModal = function(gameName) {
     }
 };
 
+// Admin butonuna tıklanınca yapılacak kontrol (Giriş yapılmışsa doğrudan paneli açar, yapılmamışsa şifre sorar)
 if (openAdminBtn) { 
     openAdminBtn.addEventListener("click", () => {
         if (isLoggedInAdmin) {
@@ -398,7 +473,7 @@ if (toggleAdminPass) {
     });
 }
 
-// Şifreli Giriş (Manuel şifre onayı)
+// Şifreli Giriş (Manuel şifre onayı - doğrudan paneli açar)
 if (submitAdminBtn) {
     submitAdminBtn.addEventListener("click", () => {
         const pass = document.getElementById("adminPassInput").value;
@@ -408,7 +483,7 @@ if (submitAdminBtn) {
             document.getElementById("adminAuthModal").classList.remove("active");
             document.getElementById("adminPassInput").value = "";
             showToast("Access Granted! Welcome to Command Center.", "success");
-            openAdminDashboard();
+            openAdminDashboard(); // Doğrudan paneli açıyoruz
         } else {
             showToast("Authentication Failed! Invalid Security Key.", "error");
         }
@@ -426,7 +501,7 @@ if (adminLogoutBtn) {
 }
 
 /* ==========================================================================
-   10. ADMIN PANELİ YÖNETİM İŞLEVLERİ (LOCAL STORAGE VERİ DEĞİŞİKLİKLERİ)
+   8. ADMIN PANELİ YÖNETİM İŞLEVLERİ (LOCAL STORAGE VERİ DEĞİŞİKLİKLERİ)
    ========================================================================= */
 function openAdminDashboard() {
     document.getElementById("adminDashboard").classList.add("active");
@@ -448,9 +523,11 @@ function refreshAdminDashboardData() {
     document.getElementById("statTotalTournaments").textContent = hubDatabase.tournaments ? hubDatabase.tournaments.length : 0;
     document.getElementById("statTotalUpdates").textContent = hubDatabase.updates ? hubDatabase.updates.length : 0;
     document.getElementById("statTotalRecruitments").textContent = hubDatabase.recruitments ? hubDatabase.recruitments.length : 0;
+    document.getElementById("statTotalRoster").textContent = hubDatabase.roster ? hubDatabase.roster.length : 0;
     
     renderActiveTournaments();
     renderActiveRecruitments();
+    renderActiveRosters();
     loadAdminUpdates();
     loadStaffList();
 }
@@ -584,7 +661,73 @@ window.deleteRecruitment = function(index) {
     }
 };
 
-// 8.4 Yetkili Yönetimi (Local Storage)
+// 8.4 DİNAMİK ROSTER OYUNCU EKLEME VE SİLME (LOCAL STORAGE TABANLI)
+if (addRosterBtn) {
+    addRosterBtn.addEventListener("click", () => {
+        const oyun = document.getElementById("recOyun") ? "" : document.getElementById("tourOyun").value.trim(); // Yedek koruma
+        const rOyun = document.getElementById("memberOyun").value.trim();
+        const rAd = document.getElementById("memberName").value.trim();
+        const rRol = document.getElementById("memberRol").value.trim();
+        const rYas = document.getElementById("memberYas").value.trim();
+
+        if (!rOyun || !rAd || !rRol || !rYas) {
+            return showToast("Please fill all member fields!", "error");
+        }
+
+        if(!hubDatabase.roster) hubDatabase.roster = [];
+        hubDatabase.roster.push({
+            oyun: rOyun,
+            ad: rAd,
+            rol: rRol,
+            yas: rYas
+        });
+
+        localStorage.setItem("kinetic_hub_db", JSON.stringify(hubDatabase));
+        showToast("Player added to the team roster locally!", "success");
+
+        document.getElementById("memberOyun").value = "";
+        document.getElementById("memberName").value = "";
+        document.getElementById("memberRol").value = "";
+        document.getElementById("memberYas").value = "";
+
+        refreshAdminDashboardData();
+    });
+}
+
+window.deleteRosterMember = function(index) {
+    if (confirm("Remove this player from the roster?")) {
+        hubDatabase.roster.splice(index, 1);
+        localStorage.setItem("kinetic_hub_db", JSON.stringify(hubDatabase));
+        showToast("Player removed locally. Export database.json to apply!", "info");
+        refreshAdminDashboardData();
+    }
+};
+
+// Akıllı "Export Tournaments JSON" Butonu Ekleme
+const tourListSection = document.getElementById("adminTournamentList")?.parentElement;
+if (tourListSection && !document.getElementById("exportTournamentsBtn")) {
+    const btn = document.createElement("button");
+    btn.id = "exportTournamentsBtn";
+    btn.className = "primary-btn";
+    btn.style.marginTop = "15px";
+    btn.style.width = "100%";
+    btn.style.background = "#2ecc71";
+    btn.style.color = "#000";
+    btn.innerHTML = `<i class="fas fa-download"></i> Export Tournaments (JSON)`;
+    tourListSection.appendChild(btn);
+    
+    btn.addEventListener("click", () => {
+        const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(tournamentsData, null, 2));
+        const dlAnchorElem = document.createElement('a');
+        dlAnchorElem.setAttribute("href", dataStr); dlAnchorElem.setAttribute("download", "tournaments.json");
+        document.body.appendChild(dlAnchorElem); dlAnchorElem.click(); dlAnchorElem.remove();
+        showToast("tournaments.json successfully generated! Push to GitHub to apply.", "success");
+    });
+}
+
+/* ==========================================================================
+   8.5 YETKİLİ VE YEDEK YÖNETİMİ
+   ========================================================================== */
 function loadStaffList() {
     const ul = document.getElementById("staffList");
     if(!ul) return;
@@ -618,7 +761,7 @@ window.removeStaff = function(index) {
     }
 };
 
-// 8.5 Export Database (Yedek Alma)
+// Export Products Database (Yedek Alma)
 if(exportDbBtn) {
     exportDbBtn.addEventListener("click", () => {
         const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(hubDatabase, null, 2));
@@ -629,7 +772,7 @@ if(exportDbBtn) {
     });
 }
 
-// Import Database (Yedek Geri Yükleme)
+// Import Products Database (Yedek Geri Yükleme)
 if(importDbBtn && importDbFile) {
     importDbBtn.addEventListener("click", () => importDbFile.click());
     importDbFile.addEventListener("change", (e) => {
