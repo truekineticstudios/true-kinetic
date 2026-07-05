@@ -1,0 +1,41 @@
+{
+  "tournaments": [
+    {
+      "oyun": "Blood Strike SQUAD FIGHT",
+      "baslik": "Blood Strike Turkey City League",
+      "odul": "1000 Gold",
+      "tarih": "2026-07-20"
+    }
+  ],
+  "updates": [
+    {
+      "baslik": {
+        "en": "TK Esports PUBG Mobile Roster Recruitment!",
+        "tr": "TK Esports PUBG Mobile Kadro Başvuruları!"
+      },
+      "desc": {
+        "en": "We are officially starting recruitments for our brand-new competitive pubg mobile squad.",
+        "tr": "Yeni kuracağımız rekabetçi PUBG Mobile kadromuz için başvuruları resmen başlatıyoruz."
+      },
+      "icon": "fas fa-bullhorn"
+    }
+  ],
+  "recruitments": [
+    {
+      "oyun": "PUBG Mobile",
+      "desc": {
+        "en": "Faceit lvl 10, Age 15+, Active mic",
+        "tr": "Faceit Lvl 10, Yaş 15+, Aktif mikrofon"
+      },
+      "theme": "pubg-theme"
+    },
+    {
+      "oyun": "Blood Strike",
+      "desc": {
+        "en": "Legend rank, Competitive coordination",
+        "tr": "Efsane rütbe, Rekabetçi koordinasyon"
+      },
+      "theme": "bs-theme"
+    }
+  ]
+}
