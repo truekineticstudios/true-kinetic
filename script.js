@@ -1,7 +1,7 @@
 /* ==========================================================================
    1. GÜVENLİK ANAHTARI VE ŞİFRELİ GİRİŞ SİSTEMİ (Yeni Kolay Şifre: kineticadmin)
    ========================================================================== */
-const ADMIN_PASSWORD = "kineticadmin"; 
+const ADMIN_PASSWORD = "TK-ADMINASTOR"; 
 
 function verifyAdminPassword(inputPass) { 
     if (!inputPass) return false;
@@ -14,6 +14,9 @@ function verifyAdminPassword(inputPass) {
    ========================================================================== */
 const translations = {
     en: {
+        epin_title: "💎 E-Pin & Game Currencies",
+        epin_desc: "Although we have removed our website catalog, our safe and fast E-Pin (Valorant VP, PUBG Mobile UC, Steam Wallet, etc.) sales are still actively running! You can easily place an order by opening a support ticket on our Discord server.",
+        epin_btn: "Join Discord & Order Now",
         nav_home: "Home", nav_how: "How It Works", nav_services: "Services", nav_reviews: "Reviews", nav_faq: "FAQ", nav_admin: "Admin",
         nav_community: "Community", nav_esports: "TK Esports", nav_updates: "Updates",
         announcement: "🏆 TK Esports Recruitment is Officially OPEN!",
@@ -38,6 +41,9 @@ const translations = {
         es_btn_accept: "I Accept, Open Ticket"
     },
     tr: {
+        epin_title: "💎 E-Pin & Oyun Parası Satışları",
+        epin_desc: "Web sitemizdeki ürün kataloğunu kaldırmış olsak da; güvenli ve hızlı E-Pin (Valorant VP, PUBG Mobile UC, Steam Cüzdan vb.) satışlarımız kesintisiz olarak devam ediyor! Discord sunucumuza katılarak kolayca sipariş oluşturabilirsiniz.",
+        epin_btn: "Katıl & Sipariş Ver",
         nav_home: "Ana Sayfa", nav_how: "Nasıl Çalışır", nav_services: "Hizmetler", nav_reviews: "Yorumlar", nav_faq: "S.S.S.", nav_admin: "Admin",
         nav_community: "Topluluk", nav_esports: "TK E-Spor", nav_updates: "Gelişmeler",
         announcement: "🏆 TK Esports Kadro Başvuruları RESMEN AÇILDI!",
