@@ -81,20 +81,7 @@
             ]
         }
     ],
-    "tournaments": [
-        {
-            "name_tr": "True Kinetic Haftalık Espor Kupası",
-            "name_en": "True Kinetic Weekly Esport Cup",
-            "start_date_tr": "15 Temmuz",
-            "start_date_en": "July 15",
-            "end_date_tr": "20 Temmuz",
-            "end_date_en": "July 20",
-            "prizes_tr": "1.lik: 5.000 TL\n2.lik: 2.500 TL\nİlk 10'a: Özel Discord Rolü",
-            "prizes_en": "1st: $150\n2nd: $75\nTop 10: Special Discord Role",
-            "rules_tr": "1. Hile ve 3. parti yazılım kullanımı kesinlikle yasaktır.\n2. Maç saatinde mazeretsiz hazır olmayan takımlar hükmen mağlup sayılır.\n3. Toxic davranış sergileyen oyuncular diskalifiye edilir.",
-            "rules_en": "1. Cheating and 3rd-party software usage are strictly prohibited.\n2. Teams not ready at match time without an excuse are forfeited.\n3. Players exhibiting toxic behavior will be disqualified."
-        }
-    ],
+    "tournaments": [],
     "recruitments": [
         {
             "name_tr": "Valorant Takım Alımı",
