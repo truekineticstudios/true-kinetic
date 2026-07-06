@@ -7,7 +7,7 @@ const translations = {
         btn_join: "KATIL",
         hero_badge: "Bağımsız Topluluk Merkezi",
         hero_title: "Gerçek Potansiyelini <br><span style='color:var(--primary);'>Kinetik Enerjiye</span> Çevir",
-        hero_desc: "True Kinetic E-Sports; rekabetçi ruhun, disiplinin ve profesyonelliğin bir araya geldiği bağımsız bir espor ekosistemidir. Amacımız, oyuncuların potansiyelini en üst düzeye çıkararak ulusal ve uluslararası arenalarda zirveyi hedeflemektir.",
+        hero_desc: "True Kinetic E-Sports; rekabetçi ruhun, disiplinin ve profesyonelliğin bir araya geldiği bağımsız bir espor ekosistemidir. Amacımız, oyuncuların potansiyelini en üst duyeye çıkararak ulusal ve uluslararası arenalarda zirveyi hedeflemektir.",
         btn_apply: "Hemen Başvur",
         btn_view_rosters: "Kadroları İncele",
         btn_join_discord: "Sunucuya Katıl",
@@ -125,7 +125,8 @@ const roleTranslations = {
 
 let currentLang = localStorage.getItem('tk_lang') || 'tr';
 
-let siteData = JSON.parse(localStorage.getItem('tkData')) || {
+// İKİ DİLLİ YENİ VERİ TABANI ŞABLONU (İlk açılışta fetch başarısız olursa yedek olarak kullanılır)
+let siteData = {
     news: [], 
     teams: [], 
     tournaments: [], 
@@ -144,39 +145,10 @@ let siteData = JSON.parse(localStorage.getItem('tkData')) || {
     topBanner_en: "TRUE KINETIC: Welcome to the Professional Esports Community. New team recruitments are active."
 };
 
-if (!siteData.stats || !siteData.stats.teams_tr) {
-    siteData.stats = {
-        teams_tr: "12+ Aktif Takım",
-        teams_en: "12+ Active Teams",
-        players_tr: "150+ Lisanslı Oyuncu",
-        players_en: "150+ Licensed Players",
-        support_tr: "7/24 Discord Destek",
-        support_en: "24/7 Discord Support",
-        events_tr: "Aktif Turnuvalar",
-        events_en: "Active Tournaments"
-    };
+function saveData() { 
+    localStorage.setItem('tkData', JSON.stringify(siteData)); 
+    renderData();
 }
-if (!siteData.topBanner_tr) {
-    siteData.topBanner_tr = "TRUE KINETIC: Profesyonel Espor Topluluğuna Hoş Geldiniz. Yeni takım alımları aktiftir.";
-    siteData.topBanner_en = "TRUE KINETIC: Welcome to the Professional Esports Community. New team recruitments are active.";
-}
-
-if(siteData.tournaments) {
-    siteData.tournaments.forEach(tour => {
-        if(!tour.start_date_tr) {
-            tour.start_date_tr = "Çok Yakında";
-            tour.start_date_en = "TBA";
-            tour.end_date_tr = "Çok Yakında";
-            tour.end_date_en = "TBA";
-            tour.prizes_tr = "Duyurulacak";
-            tour.prizes_en = "TBA";
-            tour.rules_tr = tour.rules_tr || tour.rules || "";
-            tour.rules_en = tour.rules_en || tour.rules || "";
-        }
-    });
-}
-
-function saveData() { localStorage.setItem('tkData', JSON.stringify(siteData)); }
 
 const observerOptions = { threshold: 0.1, rootMargin: "0px 0px -50px 0px" };
 const observer = new IntersectionObserver((entries) => {
@@ -188,10 +160,64 @@ const observer = new IntersectionObserver((entries) => {
     });
 }, observerOptions);
 
+// SAYFA İLK AÇILDIĞINDA REPO ÜZERİNDEKİ static database.json DOSYASINI OKUR (YENİ AKIŞ)
 document.addEventListener("DOMContentLoaded", () => {
     const fadeElements = document.querySelectorAll('.fade-up');
     fadeElements.forEach(el => observer.observe(el));
-    setLanguage(currentLang);
+
+    // GitHub Pages reposundaki database.json dosyasını çekiyoruz
+    fetch('database.json')
+        .then(res => {
+            if (!res.ok) throw new Error("database.json bulunamadı.");
+            return res.json();
+        })
+        .then(data => {
+            if (data) {
+                siteData = data;
+                
+                // Geriye dönük onarımlar ve eksik alan eklemeleri
+                if (!siteData.stats) {
+                    siteData.stats = {
+                        teams_tr: "12+ Aktif Takım",
+                        teams_en: "12+ Active Teams",
+                        players_tr: "150+ Lisanslı Oyuncu",
+                        players_en: "150+ Licensed Players",
+                        support_tr: "7/24 Discord Destek",
+                        support_en: "24/7 Discord Support",
+                        events_tr: "Aktif Turnuvalar",
+                        events_en: "Active Tournaments"
+                    };
+                }
+                if (!siteData.topBanner_tr) {
+                    siteData.topBanner_tr = "TRUE KINETIC: Profesyonel Espor Topluluğuna Hoş Geldiniz. Yeni takım alımları aktiftir.";
+                    siteData.topBanner_en = "TRUE KINETIC: Welcome to the Professional Esports Community. New team recruitments are active.";
+                }
+                if (siteData.tournaments) {
+                    siteData.tournaments.forEach(tour => {
+                        if(!tour.start_date_tr) {
+                            tour.start_date_tr = "Çok Yakında";
+                            tour.start_date_en = "TBA";
+                            tour.end_date_tr = "Çok Yakında";
+                            tour.end_date_en = "TBA";
+                            tour.prizes_tr = "Duyurulacak";
+                            tour.prizes_en = "TBA";
+                            tour.rules_tr = tour.rules_tr || tour.rules || "";
+                            tour.rules_en = tour.rules_en || tour.rules || "";
+                        }
+                    });
+                }
+            }
+            setLanguage(currentLang);
+        })
+        .catch(err => {
+            console.warn("database.json yüklenemedi. Lokal yedekler yükleniyor...", err);
+            // Tarayıcıdaki lokal yedekleri oku
+            const localData = localStorage.getItem('tkData');
+            if (localData) {
+                siteData = JSON.parse(localData);
+            }
+            setLanguage(currentLang);
+        });
     
     // Discord Webhook verisini yükle
     const savedWebhook = localStorage.getItem('tk_webhook_url');
@@ -199,7 +225,7 @@ document.addEventListener("DOMContentLoaded", () => {
         document.getElementById('webhookInput').value = savedWebhook;
     }
 
-    // Turnuva kuralları onay kutusu etkileşimi
+    // Turnuva onay etkileşimi
     const acceptTourRules = document.getElementById('acceptTourRules');
     const tourApplyBtn = document.getElementById('tourApplyBtn');
     if(acceptTourRules && tourApplyBtn) {
@@ -403,7 +429,7 @@ function showTeam(index) {
     openModal('teamModal');
 }
 
-// TURNUVA KURALLARI VE DETAY MODALI
+// TURNUVA KURALLARI VE DETAY MODALI (Tarih ve Ödül Alanları Getirildi)
 function showTournamentRules(index) {
     const tour = siteData.tournaments[index];
     const name = currentLang === 'tr' ? tour.name_tr : tour.name_en;
@@ -436,7 +462,7 @@ function applyToTournament() {
 
 // ŞİFRE VE PANEL DOĞRULAMA
 function checkAdminPassword() {
-    if(document.getElementById('adminPassword').value === "H7dr4zAb2375ylbREmaSarocrusepr0StLziraf6E95EFabren") {
+    if(document.getElementById('adminPassword').value === "1234") {
         closeModal('adminAuthModal');
         openModal('adminPanelModal');
         updateTeamSelect();
@@ -621,7 +647,6 @@ function deleteRecruitment(index) {
 
 // 1. VERİLERİ VE ÜST DUYURUYU BILINGUAL KAYDETME
 function saveStats() {
-    // Topluluk Verileri Kaydet
     siteData.stats = {
         teams_tr: document.getElementById('statTeamsInput_tr').value,
         teams_en: document.getElementById('statTeamsInput_en').value,
@@ -633,14 +658,12 @@ function saveStats() {
         events_en: document.getElementById('statEventsInput_en').value
     };
 
-    // Üst Duyuru Bandı Kaydet
     siteData.topBanner_tr = document.getElementById('topBarInput_tr').value;
     siteData.topBanner_en = document.getElementById('topBarInput_en').value;
 
     saveData();
     renderData();
 
-    // Discord Bildirimi
     sendDiscordLog(`**Sistem Verileri Güncellendi! / System Stats Updated!**\n📢 Üst Duyuru (TR): ${siteData.topBanner_tr}\n📢 Üst Duyuru (EN): ${siteData.topBanner_en}\n🛡️ Takımlar: ${siteData.stats.teams_tr} / ${siteData.stats.teams_en}\n🪪 Oyuncular: ${siteData.stats.players_tr} / ${siteData.stats.players_en}`);
 
     alert("Veriler Başarıyla Kaydedildi / Saved Successfully!");
@@ -818,6 +841,19 @@ function createRecruitment() {
     } else {
         alert("Lütfen pozisyon adlarını girin / Please fill position names!");
     }
+}
+
+// DİNAMİK VE ÇİFT DİLLİ DATABASE İNDİRME SİSTEMİ
+function downloadDatabase() {
+    const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(siteData, null, 4));
+    const downloadAnchor = document.createElement('a');
+    downloadAnchor.setAttribute("href", dataStr);
+    downloadAnchor.setAttribute("download", "database.json");
+    document.body.appendChild(downloadAnchor);
+    downloadAnchor.click();
+    downloadAnchor.remove();
+
+    sendDiscordLog(`📥 **database.json dosyası indirildi!** Repo güncellenmeye hazır.`);
 }
 
 // WEBHOOK URL KAYDETME
