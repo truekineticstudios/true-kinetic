@@ -1,5 +1,5 @@
 /* ==========================================================================
-   1. GÜVENLİK ANAHTARI VE ŞİFRELİ GİRİŞ SİSTEMİ (Şifre: kineticadmin)
+   1. GÜVENLİK ANAHTARI VE ŞİFRELİ GİRİŞ SİSTEMİ (Yeni Kolay Şifre: kineticadmin)
    ========================================================================== */
 const ADMIN_PASSWORD = "TK-ADMINASTOR"; 
 
@@ -111,7 +111,7 @@ const savePricesBtn = document.getElementById("savePricesBtn");
 const addTournamentBtn = document.getElementById("addTournamentBtn");
 const addUpdateBtn = document.getElementById("addUpdateBtn");
 const addRecruitmentBtn = document.getElementById("addRecruitmentBtn");
-const addRosterBtn = document.getElementById("addRosterBtn"); // Kadro ekleme butonu
+const addRosterBtn = document.getElementById("addRosterBtn"); 
 const addStaffBtn = document.getElementById("addStaffBtn");
 const exportDbBtn = document.getElementById("exportDbBtn");
 const importDbBtn = document.getElementById("importDbBtn");
@@ -161,9 +161,129 @@ function showToast(message, type = "info") {
 }
 
 /* ==========================================================================
-   4. DETAYLI RENDER SİSTEMLERİ (GÜNCELLEMELER, TURNUVALAR, KADRO BAŞVURULARI, OYUNCULAR)
+   4. DETAYLI RENDER SİSTEMLERİ (ÇÖKME KORUMALI)
    ========================================================================== */
-// 4.1 CANLI OYUNCU KADROLARINI RENDER ETME VE GRUPLAMA (DİNAMİK ROSTER)
+// Duyurular ve Güncellemeler (Çökme Korumalı)
+function renderServices(searchQuery = "") {
+    const grid = document.getElementById("updatesGrid");
+    if (!grid) return;
+    grid.innerHTML = "";
+    
+    if (!hubDatabase.updates || hubDatabase.updates.length === 0) {
+        grid.innerHTML = `<p style="color: var(--text-muted); text-align:center; width:100%; grid-column: 1/-1;">No updates found.</p>`;
+        return;
+    }
+
+    hubDatabase.updates.forEach((item, index) => {
+        if (!item) return;
+        // Çökme koruması: başlık veya açıklama tanımsızsa hata vermez
+        const titleText = !item.baslik ? "No Title" : (typeof item.baslik === "string" ? item.baslik : (item.baslik[currentLang] || item.baslik.en || item.baslik.tr || "No Title"));
+        const descText = !item.desc ? "" : (typeof item.desc === "string" ? item.desc : (item.desc[currentLang] || item.desc.en || item.desc.tr || ""));
+        const iconClass = item.icon || "fas fa-bullhorn";
+
+        if (titleText.toLowerCase().includes(searchQuery.toLowerCase()) || descText.toLowerCase().includes(searchQuery.toLowerCase())) {
+            const card = document.createElement("div");
+            card.className = "service-card";
+            card.innerHTML = `
+                <div class="card-icon"><i class="${iconClass}"></i></div>
+                <h3>${titleText}</h3>
+                <p>${descText}</p>
+            `;
+            grid.appendChild(card);
+        }
+    });
+}
+
+// Canlı Turnuvaları Ekrana Basma
+function renderActiveTournaments() {
+    const grid = document.getElementById("activeTournamentsGrid");
+    const adminList = document.getElementById("adminTournamentList");
+    if (grid) grid.innerHTML = "";
+    if (adminList) adminList.innerHTML = "";
+
+    if ((!hubDatabase.tournaments || hubDatabase.tournaments.length === 0) && grid) {
+        grid.innerHTML = `<p style="color: var(--text-muted); font-size:0.95rem; grid-column: 1/-1;">No active tournaments currently. Stay tuned!</p>`;
+    }
+
+    if (hubDatabase.tournaments) {
+        hubDatabase.tournaments.forEach((t, index) => {
+            if (grid) {
+                grid.innerHTML += `
+                    <div class="es-roster-card bs-theme" style="border-color: var(--purple-glow);">
+                        <div class="es-roster-bg" style="background: var(--purple-glow);"></div>
+                        <div class="es-roster-content">
+                            <div class="es-roster-head">
+                                <h3>${t.oyun ? t.oyun.toUpperCase() : "GAME"}</h3>
+                                <span class="pulse-tag" style="background:rgba(168,85,247,0.15); color:var(--purple-hover); border-color:rgba(168,85,247,0.3);">ACTIVE</span>
+                            </div>
+                            <h4 style="color:white; font-size:1.2rem; margin-bottom: 5px;">${t.baslik || "Tournament"}</h4>
+                            <p style="margin-bottom: 1.5rem; font-size:0.9rem;">🎁 <b>Reward:</b> ${t.odul || "TBD"} <br> 📅 <b>Date:</b> ${t.tarih || "TBD"}</p>
+                            <button class="es-action-btn" onclick="openEsportsModal('${t.baslik || "Tournament"}')">
+                                <span data-i18n="es_btn_apply">Apply Now</span> <i class="fas fa-chevron-right"></i>
+                            </button>
+                        </div>
+                    </div>
+                `;
+            }
+
+            if (adminList) {
+                adminList.innerHTML += `
+                    <li class="staff-list-item">
+                        <span><b>[${t.oyun ? t.oyun.toUpperCase() : "GAME"}]</b> ${t.baslik || "Tournament"}</span>
+                        <button class="remove-product-btn" onclick="deleteTournament(${index})"><i class="fas fa-trash"></i></button>
+                    </li>
+                `;
+            }
+        });
+    }
+}
+
+// Canlı Kadro Alımlarını Ekrana Basma (Çökme Korumalı)
+function renderActiveRecruitments() {
+    const grid = document.getElementById("activeRecruitmentsGrid");
+    const adminList = document.getElementById("adminRecruitmentList");
+    if (grid) grid.innerHTML = "";
+    if (adminList) adminList.innerHTML = "";
+
+    if ((!hubDatabase.recruitments || hubDatabase.recruitments.length === 0) && grid) {
+        grid.innerHTML = `<p style="color: var(--text-muted); font-size:0.95rem;">No active recruitments currently.</p>`;
+    }
+
+    if (hubDatabase.recruitments) {
+        hubDatabase.recruitments.forEach((r, index) => {
+            if (!r) return;
+            const descText = !r.desc ? "" : (typeof r.desc === "string" ? r.desc : (r.desc[currentLang] || r.desc.en || r.desc.tr || ""));
+            if (grid) {
+                grid.innerHTML += `
+                    <div class="es-roster-card ${r.theme || 'software'}">
+                        <div class="es-roster-bg"></div>
+                        <div class="es-roster-content">
+                            <div class="es-roster-head">
+                                <h3>${r.oyun ? r.oyun.toUpperCase() : "GAME"}</h3>
+                                <span class="pulse-tag">RECRUITING</span>
+                            </div>
+                            <p>${descText}</p>
+                            <button class="es-action-btn" onclick="openEsportsModal('${r.oyun}')">
+                                <span data-i18n="es_btn_apply">Apply Now</span> <i class="fas fa-chevron-right"></i>
+                            </button>
+                        </div>
+                    </div>
+                `;
+            }
+
+            if (adminList) {
+                adminList.innerHTML += `
+                    <li class="staff-list-item">
+                        <span><b>[${r.oyun ? r.oyun.toUpperCase() : "GAME"}]</b> alımı</span>
+                        <button class="remove-product-btn" onclick="deleteRecruitment(${index})"><i class="fas fa-trash"></i></button>
+                    </li>
+                `;
+            }
+        });
+    }
+}
+
+// Canlı Oyuncu Kadrolarını Render Etme (Çökme Korumalı)
 function renderActiveRosters() {
     const container = document.getElementById("activeRostersContainer");
     const adminList = document.getElementById("adminRosterList");
@@ -175,7 +295,6 @@ function renderActiveRosters() {
         return;
     }
 
-    // Oyun türlerine göre oyuncuları grupla (PUBG, Valorant vb.)
     const groups = {};
     if (hubDatabase.roster) {
         hubDatabase.roster.forEach((p, index) => {
@@ -185,7 +304,6 @@ function renderActiveRosters() {
         });
     }
 
-    // Grupları ekrana bas (Yeni Roster Sınıflarıyla)
     Object.keys(groups).forEach(game => {
         if (container) {
             let playerHtml = "";
@@ -210,7 +328,6 @@ function renderActiveRosters() {
             `;
         }
 
-        // Admin Panel Listesini Doldur
         groups[game].forEach(item => {
             const p = item.player;
             if (adminList) {
@@ -309,7 +426,6 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    // Modal dışına tıklayınca kapanma mantığı (Admin Paneli Hariç Tutuldu!)
     window.addEventListener("click", (e) => { 
         if (e.target.classList.contains("modal-overlay")) {
             if (e.target.id !== "adminDashboard") {
@@ -335,7 +451,6 @@ window.openEsportsModal = function(gameName) {
     }
 };
 
-// Admin butonuna tıklanınca yapılacak kontrol (Giriş yapılmışsa doğrudan paneli açar, yapılmamışsa şifre sorar)
 if (openAdminBtn) { 
     openAdminBtn.addEventListener("click", () => {
         if (isLoggedInAdmin) {
@@ -383,7 +498,7 @@ if (adminLogoutBtn) {
 }
 
 /* ==========================================================================
-   8. ADMIN PANELİ YÖNETİM İŞLEVLERİ (LOCAL STORAGE VERİ DEĞİŞİKLİKLERİ)
+   10. ADMIN PANELİ YÖNETİM İŞLEVLERİ (LOCAL STORAGE VERİ DEĞİŞİKLİKLERİ)
    ========================================================================= */
 function openAdminDashboard() {
     document.getElementById("adminDashboard").classList.add("active");
@@ -654,7 +769,7 @@ if(exportDbBtn) {
     });
 }
 
-// Import Products Database (Yedek Geri Yükleme)
+// Import Database (Yedek Geri Yükleme)
 if(importDbBtn && importDbFile) {
     importDbBtn.addEventListener("click", () => importDbFile.click());
     importDbFile.addEventListener("change", (e) => {
