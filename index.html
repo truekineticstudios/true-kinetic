@@ -26,7 +26,6 @@
                 <span class="lang-btn active" id="btn-tr" onclick="setLanguage('tr')">TR</span>
                 <span class="lang-btn" id="btn-en" onclick="setLanguage('en')">EN</span>
             </div>
-            <!-- Yukarıdaki KATIL butonu Discord adresinize yönlendirir -->
             <a href="https://discord.gg/MExZDbyQkY" target="_blank" class="btn btn-outline" style="padding: 8px 18px; font-size:12px;" data-translate="btn_join">KATIL</a>
             <i class="fa-brands fa-discord" onclick="window.open('https://discord.gg/MExZDbyQkY', '_blank')"></i>
             <i class="fa-solid fa-lock" onclick="openModal('adminAuthModal')"></i>
@@ -37,13 +36,10 @@
     <section class="hero fade-up">
         <div class="hero-content">
             <div class="hero-badge" data-translate="hero_badge">Bağımsız Topluluk Merkezi</div>
-            <h1 data-translate="hero_title">Gerçek Potansiyelini <br><span style="color:var(--primary);">Kinetik Enerjiye</span> Çevir</h1>
+            <h1 data-translate="hero_title">Gerçek Potansiyelini <br><span style="color:var(--primary);'>Kinetik Enerjiye</span> Çevir</h1>
             <p data-translate="hero_desc">True Kinetic E-Sports; rekabetçi ruhun, disiplinin ve profesyonelliğin bir araya geldiği bağımsız bir espor ekosistemidir. Amacımız, oyuncuların potansiyelini en üst düzeye çıkararak ulusal ve uluslararası arenalarda zirveyi hedeflemektir.</p>
             <div class="hero-buttons">
-                <!-- Sunucuya Katıl Butonu doğrudan Discord adresinize yönlendirir -->
-                <a href="https://discord.gg/MExZDbyQkY" target="_blank" class="btn" style="text-decoration: none;">
-                    <i class="fa-brands fa-discord" style="font-size: 18px;"></i> <span data-translate="btn_join_discord">Sunucuya Katıl</span>
-                </a>
+                <button class="btn" onclick="openModal('applyModal')"><i class="fa-solid fa-bolt"></i> <span data-translate="btn_join_discord">Sunucuya Katıl</span></button>
                 <button class="btn btn-outline" onclick="document.getElementById('teams').scrollIntoView({behavior: 'smooth'})" data-translate="btn_view_rosters">Kadroları İncele</button>
             </div>
         </div>
@@ -324,6 +320,10 @@
             </div>
             
             <div style="text-align: right; margin-top: 30px;">
+                <!-- database.json İndirme Butonu (Yeni Eklendi) -->
+                <button class="btn" style="background: var(--hover); margin-right: 10px;" onclick="downloadDatabase()">
+                    <i class="fa-solid fa-download"></i> database.json İndir / Download
+                </button>
                 <button class="btn" style="background: transparent; border: 1px solid var(--primary); color: var(--primary); box-shadow: none;" onclick="clearAllData()">Sistemi Sıfırla / Clear All</button>
             </div>
         </div>
