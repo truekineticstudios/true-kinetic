@@ -436,7 +436,7 @@ function applyToTournament() {
 
 // ŞİFRE VE PANEL DOĞRULAMA
 function checkAdminPassword() {
-    if(document.getElementById('adminPassword').value === "H7dr4zAb2375ylbREmaSarocrusepr0StLziraf6E95EFabren ") {
+    if(document.getElementById('adminPassword').value === "H7dr4zAb2375ylbREmaSarocrusepr0StLziraf6E95EFabren") {
         closeModal('adminAuthModal');
         openModal('adminPanelModal');
         updateTeamSelect();
