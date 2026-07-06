@@ -4,7 +4,6 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     
-    <!-- SEO & Discord Open Graph Etiketleri -->
     <title>True Kinetic | Esports & Community Hub</title>
     <meta name="description" content="Official True Kinetic Esports and Gaming Community Hub.">
     <meta property="og:title" content="True Kinetic | Esports & Community Hub" />
@@ -17,7 +16,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
     
-    <!-- Harici CSS Dosyası -->
     <link rel="stylesheet" href="style.css" />
 </head>
 <body>
@@ -51,8 +49,6 @@
                 <a href="#esports" data-i18n="nav_esports">E-Sports</a>
                 <a href="#rosters" data-i18n="nav_roster">Roster</a>
                 <a href="#updates" data-i18n="nav_updates">Updates</a>
-                <a href="#server-roles" data-i18n="nav_community">Community</a>
-                <a href="#faq" data-i18n="nav_faq">FAQ</a>
             </nav>
 
             <div class="nav-actions">
@@ -64,7 +60,7 @@
                     </select>
                 </div>
 
-                <!-- Bağımsız Admin Paneline Yönlendiren Buton (Güvenli ve İzole) -->
+                <!-- Bağımsız Admin Paneli Bağlantısı -->
                 <a href="pages/admin.html" class="nav-admin-btn">
                     <i class="fas fa-user-shield"></i>
                     <span data-i18n="nav_admin">Admin</span>
@@ -82,7 +78,7 @@
         <div class="hero-content reveal-on-scroll">
             <span class="badge"><i class="fas fa-users"></i> Gaming & Esports Community</span>
             <h1 data-i18n="hero_title">Welcome to True Kinetic Ecosystem</h1>
-            <p data-i18n="hero_desc">Join our Discord community, participate in our custom esports tournaments, and read our latest community updates all in one place.</p>
+            <p data-i18n="hero_desc">Join our Discord community, participate in our custom esports tournaments, and read our latest updates all in one place.</p>
             <div class="hero-buttons">
                 <a href="#esports" class="primary-btn"><i class="fas fa-trophy"></i> <span data-i18n="hero_btn_explore">Discover Esports</span></a>
                 <a href="https://discord.gg/tqsKHt6qSS" target="_blank" rel="noopener noreferrer" class="secondary-btn">
@@ -96,7 +92,7 @@
     <section id="esports" class="esports-battle-section content-section">
         <div class="esports-battle-container reveal-on-scroll">
             
-            <!-- Sol Sütun: Kulüp Ruhu (Parlayan Kupa) -->
+            <!-- Sol Sütun: Kulüp Ruhu -->
             <div class="es-brand-side">
                 <div class="es-glow-ring">
                     <i class="fas fa-trophy" style="font-size: 3.5rem; color: var(--purple-glow); filter: drop-shadow(0 0 12px var(--purple-glow));"></i>
@@ -110,13 +106,13 @@
                 </div>
             </div>
 
-            <!-- Sağ Sütun: Dinamik Kadro Başvuruları (Veritabanından Gelen Alımlar) -->
+            <!-- Sağ Sütun: Dinamik Kadro Başvuruları -->
             <div class="es-roster-side">
                 <h3 style="font-family: var(--font-mono); font-size: 1.5rem; margin-bottom: 20px; color: white; display: flex; align-items: center; gap: 10px;">
                     <i class="fas fa-users-gear" style="color: var(--neon-cyan);"></i> ACTIVE RECRUITMENTS
                 </h3>
                 <div id="activeRecruitmentsGrid" style="display: flex; flex-direction: column; gap: 20px;">
-                    <!-- Veritabanındaki alımlar buraya otomatik dolacak -->
+                    <!-- Alımlar buraya otomatik dolacak -->
                 </div>
             </div>
 
@@ -124,7 +120,7 @@
             <div style="flex: 1 1 100%; margin-top: 50px;">
                 <h3 style="font-family: var(--font-mono); font-size: 1.8rem; margin-bottom: 25px; border-left: 4px solid var(--purple-glow); padding-left: 15px; color: white;">🏆 ACTIVE TOURNAMENTS</h3>
                 <div id="activeTournamentsGrid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 24px;">
-                    <!-- Veritabanındaki turnuvalar buraya otomatik dolacak -->
+                    <!-- Turnuvalar buraya otomatik dolacak -->
                 </div>
             </div>
 
@@ -138,15 +134,13 @@
             <p class="section-subtitle" data-i18n="roster_subtitle">Our active competitive squads representing True Kinetic across various titles.</p>
         </div>
 
-        <!-- OYUN SEKMELERİ (Tasarımı Aşırı Sadeleştiren Tabs Bar) -->
+        <!-- OYUN SEKMELERİ (Dinamik Tabs Bar) -->
         <div class="filter-wrapper reveal-on-scroll" style="margin-bottom: 3rem;">
-            <div id="rosterTabsBar" class="filter-container">
-                <!-- Javascript veritabanındaki oyun isimlerine göre buraya otomatik butonlar üretecek -->
-            </div>
+            <div id="rosterTabsBar" class="filter-container"></div>
         </div>
 
         <!-- Oyuncu Kartları Grid Alanı -->
-        <div id="activeRostersGrid" style="max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 25px;">
+        <div id="activeRostersGrid" style="max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 25px;">
             <!-- Seçili sekmeye ait oyuncular buraya dinamik dolacak -->
         </div>
     </section>
@@ -178,74 +172,6 @@
         </div>
     </section>
 
-    <!-- DISCORD ROLLERİ -->
-    <section id="server-roles" class="roles-section content-section">
-        <div class="section-header reveal-on-scroll">
-            <h2 class="section-title" data-i18n="roles_title">Discord Server Roles</h2>
-            <p class="section-subtitle" data-i18n="roles_subtitle">Information about the roles and ranks available on our Discord server.</p>
-        </div>
-
-        <div class="roles-grid reveal-on-scroll">
-            <div class="roles-column">
-                <h3 class="column-title"><i class="fas fa-user-shield"></i> <span data-i18n="role_col_staff">Management & Staff</span></h3>
-                <div class="role-list">
-                    <div class="role-item"><span class="role-badge r-founder">@Founder</span><p data-i18n="r_founder_desc">Official server founder, owner.</p></div>
-                    <div class="role-item"><span class="role-badge r-coleader">@Co-Leader</span><p data-i18n="r_coleader_desc">Official server Co-Lead.</p></div>
-                    <div class="role-item"><span class="role-badge r-headadmin">@Head Administration</span><p data-i18n="r_headadmin_desc">Ban requests, applications, bot admin.</p></div>
-                    <div class="role-item"><span class="role-badge r-mod">@Moderation Team</span><p data-i18n="r_mod_desc">Moderation staff member, log viewing.</p></div>
-                </div>
-            </div>
-            <div class="roles-column">
-                <h3 class="column-title"><i class="fas fa-users"></i> <span data-i18n="role_col_members">Community & Teams</span></h3>
-                <div class="role-list">
-                    <div class="role-item"><span class="role-badge r-esport">@E-Sport Team</span><p data-i18n="r_esport_desc">Official professional e-sports players representing TK.</p></div>
-                    <div class="role-item"><span class="role-badge r-developer">@Developer</span><p data-i18n="r_developer_desc">Official development team members.</p></div>
-                    <div class="role-item"><span class="role-badge r-partnerteam">@Official Partner</span><p data-i18n="r_partnerteam_desc">Partner, free advertising authority.</p></div>
-                    <div class="role-item"><span class="role-badge r-member">@Member</span><p data-i18n="r_member_desc">Official server member.</p></div>
-                </div>
-            </div>
-            <div class="roles-column">
-                <h3 class="column-title"><i class="fas fa-shopping-cart"></i> <span data-i18n="role_col_ranks">Purchase Ranks</span></h3>
-                <div class="role-list">
-                    <div class="role-item"><span class="role-badge r-legendary">@Legendary</span><p data-i18n="r_legendary_desc">Requires making a total of 100+ purchases.</p></div>
-                    <div class="role-item"><span class="role-badge r-master">@Master</span><p data-i18n="r_master_desc">Requires making a total of 50+ purchases.</p></div>
-                    <div class="role-item"><span class="role-badge r-diamond">@Diamond</span><p data-i18n="r_diamond_desc">Requires making a total of 25+ purchases.</p></div>
-                    <div class="role-item"><span class="role-badge r-gold">@Gold</span><p data-i18n="r_gold_desc">Requires making a total of 5+ purchases.</p></div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- S.S.S. -->
-    <section id="faq" class="faq-section content-section">
-        <div class="section-header reveal-on-scroll">
-            <h2 class="section-title" data-i18n="faq_title">Frequently Asked Questions</h2>
-        </div>
-        <div class="faq-container reveal-on-scroll">
-            <div class="faq-item">
-                <button class="faq-question"><span data-i18n="faq_q1_title">How can I make payments?</span><i class="fas fa-chevron-down"></i></button>
-                <div class="faq-answer"><p data-i18n="faq_q1_desc">You can easily complete payments by opening a ticket on our Discord server. We support various secure options like Bank Transfer, Papara, and major secure local payment networks.</p></div>
-            </div>
-            <div class="faq-item">
-                <button class="faq-question"><span data-i18n="faq_q3_title">Why is everything based on Discord?</span><i class="fas fa-chevron-down"></i></button>
-                <div class="faq-answer"><p data-i18n="faq_q3_desc">To offer personal assistance, address specific inquiries directly, and maintain direct secure support, we manage all purchases personally through our Discord ticket system.</p></div>
-            </div>
-        </div>
-    </section>
-
-    <!-- YETKİLİ DOĞRULAMA -->
-    <section class="security-check content-section">
-        <div class="security-container reveal-on-scroll">
-            <h2><i class="fas fa-shield-halved"></i> Staff Verification Tool</h2>
-            <p data-i18n="sec_desc">Ensure you are talking to a real True Kinetic official. Enter their Discord Username below to verify them.</p>
-            <div class="verify-box">
-                <input type="text" id="staffInput" placeholder="Discord Username..." />
-                <button id="verifyBtn" class="primary-btn" data-i18n="sec_btn">Verify Staff</button>
-            </div>
-            <div id="verifyResult" class="verify-result"></div>
-        </div>
-    </section>
-
     <!-- FOOTER -->
     <footer>
         <div class="footer-container">
@@ -270,7 +196,7 @@
         </div>
     </footer>
 
-    <!-- MODALLAR (POPUPS) -->
+    <!-- BİLDİRİM TOAST ALANI -->
     <div id="toastContainer"></div>
 
     <!-- E-Spor Başvuru Kuralları Modalı -->
@@ -296,7 +222,7 @@
         </div>
     </div>
 
-    <!-- Script çağrısı normale döndürüldü -->
+    <!-- Pürüzsüz statik JS -->
     <script src="script.js"></script>
 </body>
 </html>
