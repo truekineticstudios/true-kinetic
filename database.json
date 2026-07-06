@@ -1,0 +1,142 @@
+{
+    "news": [
+        {
+            "title_tr": "TAKIMLAR KURULUYOR!",
+            "title_en": "TEAMS ARE FORMING!",
+            "content_tr": "Salih [Kurucu], kulüp dışında ekipler kurma sürecini resmen başlattı!",
+            "content_en": "Salih [Founder] has officially started the process of forming teams outside the club!"
+        },
+        {
+            "title_tr": "ALIMLAR BAŞLADI!",
+            "title_en": "RECRUITMENTS STARTED!",
+            "content_tr": "True Kinetic ekipleri için alımlar başladı! Hemen katılmak üzere ekip alım bölümüne göz atın!",
+            "content_en": "Recruitments have started for True Kinetic teams! Check out our recruitment section to join now!"
+        }
+    ],
+    "teams": [
+        {
+            "name_tr": "ONEX",
+            "name_en": "ONEX",
+            "game_tr": "Blood Strike MENA & EU",
+            "game_en": "Blood Strike MENA & EU",
+            "roster": [
+                {
+                    "role": "captain",
+                    "nickname": "owmanxx",
+                    "realname": "Salih",
+                    "rank": "Legend 3"
+                },
+                {
+                    "role": "player",
+                    "nickname": "ursinhopapao",
+                    "realname": "Yusuf",
+                    "rank": "Legend 4"
+                }
+            ]
+        },
+        {
+            "name_tr": "REG",
+            "name_en": "REG",
+            "game_tr": "PUBG Mobil",
+            "game_en": "PUBG Mobile",
+            "roster": [
+                {
+                    "role": "captain",
+                    "nickname": "REG|VØRTEX",
+                    "realname": "Hamza",
+                    "rank": "Ace 2"
+                },
+                {
+                    "role": "player",
+                    "nickname": "TheConquiror",
+                    "realname": "Umut",
+                    "rank": "Gold 3"
+                }
+            ]
+        },
+        {
+            "name_tr": "CRAYZ ESPOR",
+            "name_en": "CRAYZ ESPORTS",
+            "game_tr": "Mobile Legends: Bang Bang",
+            "game_en": "Mobile Legends: Bang Bang",
+            "roster": [
+                {
+                    "role": "captain",
+                    "nickname": "ÇILGINÇLGyt",
+                    "realname": "Efe",
+                    "rank": "Epic III"
+                },
+                {
+                    "role": "player",
+                    "nickname": "v_lenin_tandr",
+                    "realname": "Salih",
+                    "rank": "Epic V"
+                },
+                {
+                    "role": "player",
+                    "nickname": "Eminkral2",
+                    "realname": "Mehmet Emin",
+                    "rank": "Mythical Honor"
+                }
+            ]
+        }
+    ],
+    "tournaments": [
+        {
+            "name_tr": "True Kinetic Haftalık Espor Kupası",
+            "name_en": "True Kinetic Weekly Esport Cup",
+            "start_date_tr": "15 Temmuz",
+            "start_date_en": "July 15",
+            "end_date_tr": "20 Temmuz",
+            "end_date_en": "July 20",
+            "prizes_tr": "1.lik: 5.000 TL\n2.lik: 2.500 TL\nİlk 10'a: Özel Discord Rolü",
+            "prizes_en": "1st: $150\n2nd: $75\nTop 10: Special Discord Role",
+            "rules_tr": "1. Hile ve 3. parti yazılım kullanımı kesinlikle yasaktır.\n2. Maç saatinde mazeretsiz hazır olmayan takımlar hükmen mağlup sayılır.\n3. Toxic davranış sergileyen oyuncular diskalifiye edilir.",
+            "rules_en": "1. Cheating and 3rd-party software usage are strictly prohibited.\n2. Teams not ready at match time without an excuse are forfeited.\n3. Players exhibiting toxic behavior will be disqualified."
+        }
+    ],
+    "recruitments": [
+        {
+            "name_tr": "Valorant Takım Alımı",
+            "name_en": "Valorant Team Recruitment",
+            "requiresLicense": false
+        },
+        {
+            "name_tr": "PUBG Mobile REG Takım Alımı",
+            "name_en": "PUBG Mobile REG Team Recruitment",
+            "requiresLicense": false
+        },
+        {
+            "name_tr": "Blood Strike ONEX Takım Alımı",
+            "name_en": "Blood Strike ONEX Team Recruitment",
+            "requiresLicense": false
+        },
+        {
+            "name_tr": "Mobile Legends: Bang Bang CRAYZ Takım Alımı",
+            "name_en": "Mobile Legends: Bang Bang CRAYZ Team Recruitment",
+            "requiresLicense": false
+        },
+        {
+            "name_tr": "Brawl Stars Takım Alımı",
+            "name_en": "Brawl Stars Team Recruitment",
+            "requiresLicense": false
+        },
+        {
+            "name_tr": "Brawl Stars Aşamalı Oyuncu Espor Takım Alımı",
+            "name_en": "Brawl Stars Ranked Player Esports Team Recruitment",
+            "requiresLicense": true
+        }
+    ],
+    "stats": {
+        "teams_tr": "3 Aktif Takım",
+        "teams_en": "3 Active Teams",
+        "players_tr": "1 Lisanslı Oyuncu, 3 Lisanssız Oyuncu",
+        "players_en": "1 Licensed Player, 3 Unlicensed Players",
+        "support_tr": "7/24 Discord Destek",
+        "support_en": "24/7 Discord Support",
+        "events_tr": "Aktif Turnuvalar",
+        "events_en": "Active Tournaments"
+    },
+    "topBanner_tr": "TRUE KINETİC ESPORTS TURNUVA MERKEZİ'NE HOŞ GELDİNİZ! TAKIMLARIMIZA OYUNCU ALIMI BAŞLADI!",
+    "topBanner_en": "WELCOME TO TRUE KINETIC ESPORTS TOURNAMENT CENTER! PLAYER RECRUITMENT FOR OUR TEAMS HAS STARTED!"
+}
