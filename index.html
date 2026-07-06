@@ -1,228 +1,332 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    
-    <title>True Kinetic | Esports & Community Hub</title>
-    <meta name="description" content="Official True Kinetic Esports and Gaming Community Hub.">
-    <meta property="og:title" content="True Kinetic | Esports & Community Hub" />
-    <meta property="og:description" content="Official True Kinetic Esports, community tournaments, and digital services hub." />
-    <meta property="og:image" content="https://images.unsplash.com/photo-1614680376573-df3480f0c6ff?q=80&w=1200&auto=format&fit=crop" />
-    <meta property="og:url" content="https://truekinetichub.com" />
-    <meta name="theme-color" content="#bd5cfa">
-
-    <!-- Özel Fontlar ve İkonlar -->
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
-    
-    <link rel="stylesheet" href="style.css?v=2.5" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>True Kinetic ESPORT</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <!-- SİBER NEON ARKA PLAN ANİMASYONLARI (Canlı Renk Küreleri) -->
-    <div class="animated-bg-elements">
-        <div class="glow-orb orb-1"></div>
-        <div class="glow-orb orb-2"></div>
-        <div class="glow-orb orb-3"></div>
+    <div class="top-bar" id="dynamic-top-bar">
+        Yükleniyor... / Loading...
     </div>
 
-    <!-- DUYURU ÇUBUĞU -->
-    <div class="announcement-bar">
-        <span data-i18n="announcement">🏆 TK Esports Recruitment is Officially OPEN!</span>
-    </div>
-
-    <!-- HEADER & NAVBAR -->
-    <header class="navbar" id="navbar">
-        <div class="logo-area">
-            <span class="logo-true">TRUE</span>
-            <span class="logo-kinetic"> KINETIC</span>
+    <header>
+        <div class="logo" onclick="window.scrollTo(0,0)">
+            <span>TRUE KINETIC</span><span> E-SPORTS</span>
         </div>
-
-        <div class="mobile-toggle" id="mobileToggle">
-            <i class="fas fa-bars"></i>
-        </div>
-
-        <div class="nav-container" id="navContainer">
-            <nav>
-                <a href="#home" data-i18n="nav_home">Home</a>
-                <a href="#esports" data-i18n="nav_esports">E-Sports</a>
-                <a href="#rosters" data-i18n="nav_roster">Roster</a>
-                <a href="#updates" data-i18n="nav_updates">Updates</a>
-            </nav>
-
-            <div class="nav-actions">
-                <!-- Dil Seçici -->
-                <div class="lang-selector">
-                    <select id="langSelect">
-                        <option value="en">EN</option>
-                        <option value="tr">TR</option>
-                    </select>
-                </div>
-
-                <!-- Bağımsız Admin Paneli Bağlantısı -->
-                <a href="pages/admin.html" class="nav-admin-btn">
-                    <i class="fas fa-user-shield"></i>
-                    <span data-i18n="nav_admin">Admin</span>
-                </a>
-
-                <a href="https://discord.gg/tqsKHt6qSS" target="_blank" rel="noopener noreferrer" class="nav-discord-btn">
-                    <i class="fab fa-discord"></i> Discord
-                </a>
+        <nav>
+            <a href="#teams" data-translate="nav_teams">Takımlar</a>
+            <a href="#tournaments" data-translate="nav_services">Hizmetler</a>
+            <a href="#stats-section" data-translate="stats_title">Topluluk Verileri</a>
+        </nav>
+        <div class="nav-icons">
+            <div class="lang-switcher">
+                <span class="lang-btn active" id="btn-tr" onclick="setLanguage('tr')">TR</span>
+                <span class="lang-btn" id="btn-en" onclick="setLanguage('en')">EN</span>
             </div>
+            <a href="https://discord.gg/senindiscordlinkin" target="_blank" class="btn btn-outline" style="padding: 8px 18px; font-size:12px;" data-translate="btn_join">KATIL</a>
+            <i class="fa-brands fa-discord" onclick="window.open('https://discord.gg/senindiscordlinkin', '_blank')"></i>
+            <i class="fa-solid fa-lock" onclick="openModal('adminAuthModal')"></i>
         </div>
     </header>
 
-    <!-- HERO SECTION (Canlı Karşılama Alanı) -->
-    <section id="home" class="hero">
-        <div class="hero-content reveal-on-scroll">
-            <span class="badge"><i class="fas fa-users"></i> Gaming & Esports Community</span>
-            <h1 data-i18n="hero_title">Welcome to True Kinetic Ecosystem</h1>
-            <p data-i18n="hero_desc">Join our Discord community, participate in our custom esports tournaments, and read our latest updates all in one place.</p>
+    <!-- HERO SECTION -->
+    <section class="hero fade-up">
+        <div class="hero-content">
+            <div class="hero-badge" data-translate="hero_badge">Bağımsız Topluluk Merkezi</div>
+            <h1 data-translate="hero_title">Gerçek Potansiyelini <br><span style="color:var(--primary);">Kinetik Enerjiye</span> Çevir</h1>
+            <p data-translate="hero_desc">True Kinetic E-Sports; rekabetçi ruhun, disiplinin ve profesyonelliğin bir araya geldiği bağımsız bir espor ekosistemidir. Amacımız, oyuncuların potansiyelini en üst düzeye çıkararak ulusal ve uluslararası arenalarda zirveyi hedeflemektir.</p>
             <div class="hero-buttons">
-                <a href="#esports" class="primary-btn"><i class="fas fa-trophy"></i> <span data-i18n="hero_btn_explore">Discover Esports</span></a>
-                <a href="https://discord.gg/tqsKHt6qSS" target="_blank" rel="noopener noreferrer" class="secondary-btn">
-                    <i class="fab fa-discord"></i> <span data-i18n="hero_btn_discord">Join Community</span>
-                </a>
+                <button class="btn" onclick="openModal('applyModal')"><i class="fa-solid fa-bolt"></i> <span data-translate="btn_join_discord">Sunucuya Katıl</span></button>
+                <button class="btn btn-outline" onclick="document.getElementById('teams').scrollIntoView({behavior: 'smooth'})" data-translate="btn_view_rosters">Kadroları İncele</button>
             </div>
         </div>
-    </section>
-
-    <!-- TRUE KINETIC ESPORTS & KADRO BAŞVURULARI -->
-    <section id="esports" class="esports-battle-section content-section">
-        <div class="esports-battle-container reveal-on-scroll">
-            
-            <!-- Sol Sütun: Kulüp Ruhu -->
-            <div class="es-brand-side">
-                <div class="es-glow-ring">
-                    <i class="fas fa-trophy" style="font-size: 3.5rem; color: var(--purple-glow); filter: drop-shadow(0 0 12px var(--purple-glow));"></i>
-                </div>
-                <h2 class="es-hero-title">TRUE KINETIC <span>ESPORTS</span></h2>
-                <p class="es-hero-desc" data-i18n="es_community_desc">Kendi turnuvalarını düzenleyen, rekabetçi arenalarda yer almayı hedefleyen aktif ve gelişmekte olan bir oyuncu topluluğuyuz.</p>
-                <div class="es-features">
-                    <span><i class="fas fa-trophy"></i> <span data-i18n="es_feat_1">Official Tournaments</span></span>
-                    <span><i class="fas fa-users"></i> <span data-i18n="es_feat_2">Community Scrims</span></span>
-                    <span><i class="fas fa-medal"></i> <span data-i18n="es_feat_3">Custom TK Cups</span></span>
+        
+        <!-- Sağ Sütun: Sistem Duyuruları (Haberler) Paneli -->
+        <div class="hero-visual">
+            <div class="news-panel">
+                <h3 data-translate="sec_news_title">Sistem Duyuruları</h3>
+                <div class="news-feed" id="hero-news-feed">
+                    <!-- Dinamik haber akışı script.js tarafından buraya yazılır -->
                 </div>
             </div>
-
-            <!-- Sağ Sütun: Dinamik Kadro Başvuruları -->
-            <div class="es-roster-side">
-                <h3 style="font-family: var(--font-mono); font-size: 1.5rem; margin-bottom: 20px; color: white; display: flex; align-items: center; gap: 10px;">
-                    <i class="fas fa-users-gear" style="color: var(--neon-cyan);"></i> ACTIVE RECRUITMENTS
-                </h3>
-                <div id="activeRecruitmentsGrid" style="display: flex; flex-direction: column; gap: 20px;">
-                    <!-- Alımlar buraya otomatik dolacak -->
-                </div>
-            </div>
-
-            <!-- DİNAMİK TURNUVA ALANI -->
-            <div style="flex: 1 1 100%; margin-top: 50px;">
-                <h3 style="font-family: var(--font-mono); font-size: 1.8rem; margin-bottom: 25px; border-left: 4px solid var(--purple-glow); padding-left: 15px; color: white;">🏆 ACTIVE TOURNAMENTS</h3>
-                <div id="activeTournamentsGrid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 24px;">
-                    <!-- Turnuvalar buraya otomatik dolacak -->
-                </div>
-            </div>
-
         </div>
     </section>
 
-    <!-- ACTIVE ROSTERS SECTION (Dinamik ve Sekmeli Oyuncu Kadroları) -->
-    <section id="rosters" class="content-section" style="border-top: 1px solid rgba(255,255,255,0.03);">
-        <div class="section-header reveal-on-scroll">
-            <h2 class="section-title" data-i18n="roster_title">👥 Active Game Rosters</h2>
-            <p class="section-subtitle" data-i18n="roster_subtitle">Our active competitive squads representing True Kinetic across various titles.</p>
+    <!-- TAKIMLAR SECTIONS -->
+    <section id="teams" class="section">
+        <div class="section-header fade-up">
+            <h2 data-translate="sec_teams_title">Aktif Kadrolar</h2>
+            <p data-translate="sec_teams_desc">True Kinetic bünyesinde mücadele eden resmi ve topluluk takımlarımız.</p>
         </div>
+        <div class="grid" id="teams-container"></div>
+    </section>
 
-        <!-- OYUN SEKMELERİ (Dinamik Tabs Bar) -->
-        <div class="filter-wrapper reveal-on-scroll" style="margin-bottom: 3rem;">
-            <div id="rosterTabsBar" class="filter-container"></div>
+    <!-- TURNUVALAR VE AKTİF ALIMLAR -->
+    <section id="tournaments" class="section">
+        <div class="section-header fade-up">
+            <h2 data-translate="sec_events_title">Etkinlik ve Aktif Alımlar</h2>
+            <p data-translate="sec_events_desc">Topluluk turnuvaları ve aktif alım süreçleri.</p>
         </div>
-
-        <!-- Oyuncu Kartları Grid Alanı -->
-        <div id="activeRostersGrid" style="max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 25px;">
-            <!-- Seçili sekmeye ait oyuncular buraya dinamik dolacak -->
+        <div class="grid" style="grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));">
+            <div id="tournaments-container" class="fade-up info-box-glass"></div>
+            <div id="recruitments-container" class="fade-up info-box-glass"></div>
         </div>
     </section>
 
-    <!-- E-PIN SATIŞ DUYURU BÖLÜMÜ (Uçan Elmas Tasarımlı Banner) -->
-    <section id="epin-announcement" class="content-section">
-        <div class="epin-banner reveal-on-scroll">
-            <div class="epin-banner-content">
-                <i class="fas fa-gem"></i>
-                <h2 data-i18n="epin_title">💎 E-Pin & Game Currencies</h2>
-                <p data-i18n="epin_desc">
-                    Although we have removed our website catalog, our safe and fast E-Pin (Valorant VP, PUBG UC, Steam Wallet, etc.) sales are still actively running! You can easily place an order by opening a support ticket on our Discord server.
-                </p>
-                <a href="https://discord.gg/tqsKHt6qSS" target="_blank" rel="noopener noreferrer" class="primary-btn">
-                    <i class="fab fa-discord"></i> <span data-i18n="epin_btn">Join Discord & Order Now</span>
-                </a>
-            </div>
+    <!-- TOPLULUK VERİLERİ -->
+    <section id="stats-section" class="section">
+        <div class="section-header fade-up">
+            <h2 data-translate="stats_title">Topluluk Verileri</h2>
+            <p data-translate="stats_desc">True Kinetic bünyesindeki büyüme ve aktif oyuncu istatistikleri.</p>
+        </div>
+        <div class="grid" id="stats-container" style="grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 25px;">
+            <!-- Dinamik veriler script.js ile buraya yazılır -->
         </div>
     </section>
 
-    <!-- ANNOUNCEMENTS & UPDATES SECTION (Haberler & Gelişmeler) -->
-    <section id="updates" class="updates-section content-section">
-        <div class="section-header reveal-on-scroll">
-            <h2 class="section-title" data-i18n="nav_updates">Announcements & Updates</h2>
-            <p class="section-subtitle">Stay up-to-date with our latest community developments, rosters, and news.</p>
-        </div>
-        <div id="updatesGrid" class="services-grid">
-            <!-- Gelişmeler buraya dinamik dolacak -->
-        </div>
-    </section>
-
-    <!-- FOOTER -->
     <footer>
-        <div class="footer-container">
-            <div class="footer-community">
-                <div class="community-info">
-                    <div class="community-logo-wrapper">
-                        <span class="logo-true" style="font-weight: 900; font-size: 0.8rem;">T</span><span class="logo-kinetic" style="font-weight: 900; font-size: 0.8rem; color:var(--purple-glow)">K</span>
-                    </div>
-                    <div class="community-text">
-                        <h4 data-i18n="footer_community_title">True Kinetic Studios</h4>
-                        <p data-i18n="footer_community_desc">This web project is managed via the official True Kinetic Studios Discord page.</p>
-                    </div>
-                </div>
-                <a href="https://discord.gg/tqsKHt6qSS" target="_blank" class="community-btn">
-                    Join Server <i class="fas fa-arrow-right"></i>
-                </a>
-            </div>
-            <div class="footer-content">
-                <p>&copy; 2026 True Kinetic. Community Built.</p>
-                <p class="footer-sub" data-i18n="footer_sub">This website and provided services are independently operated by the True Kinetic Team.</p>
-            </div>
-        </div>
+        <div class="logo" style="font-size: 18px;"><span>TRUE KINETIC</span><span> E-SPORTS</span></div>
+        <p data-translate="footer_text">© 2026 True Kinetic Esport Topluluğu.</p>
     </footer>
 
-    <!-- BİLDİRİM TOAST ALANI -->
-    <div id="toastContainer"></div>
+    <!-- ================= MODALS ================= -->
 
-    <!-- E-Spor Başvuru Kuralları Modalı -->
-    <div id="esportsApplyModal" class="modal-overlay">
-        <div class="modal-content esports-modal-content">
-            <span class="close-modal-btn" onclick="document.getElementById('esportsApplyModal').classList.remove('active')">&times;</span>
-            <div class="es-modal-header">
-                <i class="fas fa-clipboard-list"></i>
-                <h2 id="esModalGameTitle">TK Esports</h2>
-                <p data-i18n="es_modal_subtitle">Player Recruitment Requirements & Rules</p>
+    <!-- TAKIM DETAY MODALI -->
+    <div class="modal-overlay" id="teamModal">
+        <div class="modal-box" style="max-width: 800px;">
+            <i class="fa-solid fa-xmark close-btn" onclick="closeModal('teamModal')"></i>
+            <h2 id="modal-team-name" style="font-size: 2.2rem; margin-bottom: 5px;">Takım Adı</h2>
+            <p id="modal-team-game" style="color: var(--hover); font-weight:600; margin-bottom: 25px; text-transform: uppercase;">Oyun</p>
+            <table>
+                <thead>
+                    <tr>
+                        <th data-translate="tbl_role">Rol</th>
+                        <th data-translate="tbl_ign">Oyun İçi (IGN)</th>
+                        <th data-translate="tbl_name">Ad Soyad</th>
+                        <th data-translate="tbl_rank">Derece</th>
+                    </tr>
+                </thead>
+                <tbody id="modal-roster-body"></tbody>
+            </table>
+            <button class="btn" style="width: 100%; margin-top: 30px;" onclick="closeModal('teamModal'); openModal('applyModal');">
+                <i class="fa-solid fa-file-signature"></i> <span data-translate="btn_apply_team">Takıma Başvur</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- TURNUVA KURALLARI VE DETAY MODALI (Geliştirildi) -->
+    <div class="modal-overlay" id="tournamentRulesModal">
+        <div class="modal-box" style="max-width: 580px;">
+            <i class="fa-solid fa-xmark close-btn" onclick="closeModal('tournamentRulesModal')"></i>
+            <h2 id="modal-tour-name" style="font-size: 1.8rem; margin-bottom: 15px;">Turnuva Adı</h2>
+            <p id="modal-tour-title" style="color: var(--hover); font-weight:700; margin-bottom: 25px; text-transform: uppercase;" data-translate="rules_title_modal">TURNUVA DETAYLARI</p>
+            
+            <!-- Tarihler & Ödüller Blokları -->
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 20px;">
+                <div style="background: rgba(255,255,255,0.02); padding: 15px; border-radius: 6px; border: 1px solid var(--border-color);">
+                    <span style="font-size: 11px; font-weight: 700; color: var(--hover); text-transform: uppercase;" data-translate="label_dates">TARİHLER</span>
+                    <p id="modal-tour-dates" style="font-size: 13px; color: var(--text-bright); margin-top: 5px; font-weight: 600;">-</p>
+                </div>
+                <div style="background: rgba(255,255,255,0.02); padding: 15px; border-radius: 6px; border: 1px solid var(--border-color);">
+                    <span style="font-size: 11px; font-weight: 700; color: var(--primary); text-transform: uppercase;" data-translate="label_prizes">ÖDÜLLER</span>
+                    <p id="modal-tour-prizes" style="font-size: 13px; color: var(--text-bright); margin-top: 5px; font-weight: 600; white-space: pre-line; line-height: 1.5;">-</p>
+                </div>
             </div>
-            <div class="es-rules-list">
-                <div class="es-rule-item"><i class="fas fa-microphone"></i><div><h4 data-i18n="es_rule1_title">Communication</h4><p data-i18n="es_rule1_desc">Active microphone usage and Discord presence is strictly required during match times.</p></div></div>
-                <div class="es-rule-item"><i class="fas fa-user-clock"></i><div><h4 data-i18n="es_rule2_title">Activity & Dedication</h4><p data-i18n="es_rule2_desc">Players must attend scheduled community scrims, training sessions, and official cups.</p></div></div>
-                <div class="es-rule-item"><i class="fas fa-handshake"></i><div><h4 data-i18n="es_rule3_title">Respect & Toxicity</h4><p data-i18n="es_rule3_desc">Zero tolerance for toxic behavior. You represent the True Kinetic community.</p></div></div>
+
+            <span style="font-size: 11px; font-weight: 700; color: rgba(255,255,255,0.4); text-transform: uppercase; display: block; margin-bottom: 8px;" data-translate="label_rules">KURALLAR</span>
+            <div id="modal-tour-rules-body" style="background: rgba(0,0,0,0.4); padding: 20px; border-radius: 8px; line-height: 1.8; color: var(--text-muted); font-size: 14px; white-space: pre-line; max-height: 200px; overflow-y: auto; margin-bottom: 20px;">
+                Kurallar yükleniyor...
             </div>
-            <div class="es-modal-footer">
-                <p class="es-warning-text" data-i18n="es_modal_warning">By proceeding, you agree to follow the community guidelines. You will be redirected to our Discord server to open a recruitment ticket.</p>
-                <a href="https://discord.gg/tqsKHt6qSS" target="_blank" class="es-accept-btn">
-                    <i class="fab fa-discord"></i> <span data-i18n="es_btn_accept">I Accept, Open Ticket</span>
-                </a>
+            
+            <!-- Turnuva Onay Kutucuğu ve Başvur Butonu -->
+            <label style="display: flex; gap: 15px; cursor: pointer; align-items: center; margin-top: 15px; margin-bottom: 25px; font-weight: 500; font-size: 14px; color: var(--text-bright);">
+                <input type="checkbox" id="acceptTourRules" style="width: 20px; height: 20px; accent-color: var(--primary);">
+                <span data-translate="checkbox_tour_rules">Kuralları kabul ediyorum ve turnuvaya katılmak istiyorum.</span>
+            </label>
+            <button id="tourApplyBtn" class="btn" style="width:100%; opacity:0.4; pointer-events:none;" onclick="applyToTournament()">
+                <i class="fa-solid fa-trophy"></i> <span data-translate="btn_apply">Başvur</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- BAŞVURU KURALLARI MODALI (Takım ve Alım Başvurularında Ortak) -->
+    <div class="modal-overlay" id="applyModal">
+        <div class="modal-box">
+            <i class="fa-solid fa-xmark close-btn" onclick="closeModal('applyModal')"></i>
+            <h2 style="font-size: 2rem; margin-bottom: 25px;"><span data-translate="rules_title_1">Başvuru</span> <span style="color:var(--primary);" data-translate="rules_title_2">Kuralları</span></h2>
+            <div style="background: rgba(0,0,0,0.4); padding: 25px; border-radius: 8px; margin-bottom: 30px; border-left: 3px solid var(--primary); line-height: 1.8;">
+                <p><strong data-translate="rule_1_num">1.</strong> <span data-translate="rule_1">Toksik davranışlar ve 3. parti yazılımlar kesinlikle yasaktır.</span></p>
+                <p><strong data-translate="rule_2_num">2.</strong> <span data-translate="rule_2">Antrenman ve maçlara mazeretsiz katılım sağlamamak uzaklaştırma sebebidir.</span></p>
+                <p><strong data-translate="rule_3_num">3.</strong> <span data-translate="rule_3">Tüm başvuru ve mülakat süreçleri Discord "Destek" sistemi üzerinden yürütülür.</span></p>
+            </div>
+            <label style="display: flex; gap: 15px; cursor: pointer; align-items: center; margin-bottom: 30px; font-weight: 500; font-size: 14px;">
+                <input type="checkbox" id="acceptRules" style="width: 20px; height: 20px; accent-color: var(--primary);">
+                <span data-translate="checkbox_rules">Tüm kuralları anladım ve sorumlulukları kabul ediyorum.</span>
+            </label>
+            <button id="applyBtn" class="btn" style="width:100%; opacity:0.4; pointer-events:none;" onclick="window.location.href='https://discord.gg/senindiscordlinkin'">
+                <i class="fa-brands fa-discord" style="font-size: 20px;"></i> <span data-translate="btn_discord_ticket">DISCORD TICKET OLUŞTUR</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- ADMIN AUTH -->
+    <div class="modal-overlay" id="adminAuthModal">
+        <div class="modal-box" style="max-width: 450px;">
+            <i class="fa-solid fa-xmark close-btn" onclick="closeModal('adminAuthModal')"></i>
+            <h2 style="margin-bottom: 10px;" data-translate="admin_auth_title">Sistem Doğrulama</h2>
+            <p style="font-size:14px; margin-bottom:30px; color:rgba(255,255,255,0.6);" data-translate="admin_auth_desc">Lütfen yönetici şifrenizi giriniz.</p>
+            <input type="password" id="adminPassword" class="form-input" placeholder="••••••••">
+            <button class="btn" style="width:100%;" onclick="checkAdminPassword()" data-translate="admin_auth_btn">Oturum Aç</button>
+        </div>
+    </div>
+
+    <!-- ADMIN PANEL -->
+    <div class="modal-overlay" id="adminPanelModal">
+        <div class="modal-box" style="max-width: 950px;">
+            <i class="fa-solid fa-xmark close-btn" onclick="closeModal('adminPanelModal'); location.reload();"></i>
+            <h2 style="margin-bottom: 30px;">Kontrol <span style="color:var(--hover);">Merkezi (Bilingual)</span></h2>
+            
+            <div class="grid" style="gap: 25px; grid-template-columns: 1fr 1fr;">
+                
+                <!-- Webhook Ayarları -->
+                <div style="background: rgba(0,0,0,0.3); padding: 25px; border-radius: 8px; border: 1px solid var(--border-color); grid-column: 1 / -1;">
+                    <h3 style="margin-bottom:15px; font-size:18px; color:#fff;"><i class="fa-brands fa-discord" style="color: #5865F2;"></i> Discord Webhook Ayarı</h3>
+                    <input type="text" id="webhookInput" class="form-input" style="margin:0;" placeholder="https://discord.com/api/webhooks/...">
+                </div>
+
+                <!-- TOPLULUK VERİLERİNİ GÜNCELLE -->
+                <div style="background: rgba(0,0,0,0.3); padding: 25px; border-radius: 8px; border: 1px solid var(--border-color); grid-column: 1 / -1;">
+                    <h3 style="margin-bottom:15px; font-size:18px; color:#fff;"><i class="fa-solid fa-chart-simple" style="color: var(--primary);"></i> Verileri & Üst Duyuruyu Güncelle</h3>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 15px;">
+                        <div>
+                            <p style="color: #fff; font-size:12px; margin-bottom: 6px;">Türkçe Değerler (TR)</p>
+                            <input type="text" id="statTeamsInput_tr" class="form-input" placeholder="Aktif Takım (TR)">
+                            <input type="text" id="statPlayersInput_tr" class="form-input" placeholder="Lisanslı Oyuncu (TR)">
+                            <input type="text" id="statSupportInput_tr" class="form-input" placeholder="Discord Destek (TR)">
+                            <input type="text" id="statEventsInput_tr" class="form-input" placeholder="Turnuva Bilgisi (TR)">
+                            <input type="text" id="topBarInput_tr" class="form-input" style="border-color: var(--primary);" placeholder="Kayan Üst Duyuru Bandı Metni (TR)">
+                        </div>
+                        <div>
+                            <p style="color: #fff; font-size:12px; margin-bottom: 6px;">English Values (EN)</p>
+                            <input type="text" id="statTeamsInput_en" class="form-input" placeholder="Active Teams (EN)">
+                            <input type="text" id="statPlayersInput_en" class="form-input" placeholder="Licensed Players (EN)">
+                            <input type="text" id="statSupportInput_en" class="form-input" placeholder="Discord Support (EN)">
+                            <input type="text" id="statEventsInput_en" class="form-input" placeholder="Tournament Info (EN)">
+                            <input type="text" id="topBarInput_en" class="form-input" style="border-color: var(--hover);" placeholder="Top Sliding Announcement Text (EN)">
+                        </div>
+                    </div>
+                    <button class="btn" style="width: 100%;" onclick="saveStats()">Verileri Kaydet / Save Stats</button>
+                </div>
+
+                <!-- Takım Kur -->
+                <div style="background: rgba(0,0,0,0.2); padding: 25px; border-radius: 8px; border: 1px solid var(--border-color);">
+                    <h3 style="margin-bottom:20px; font-size:18px;">Takım Kur / Create Team</h3>
+                    <input type="text" id="teamName_tr" class="form-input" placeholder="Takım Adı (TR)">
+                    <input type="text" id="teamName_en" class="form-input" placeholder="Team Name (EN)">
+                    <input type="text" id="teamGame_tr" class="form-input" placeholder="Oyun (TR)">
+                    <input type="text" id="teamGame_en" class="form-input" placeholder="Game (EN)">
+                    <button class="btn btn-outline" style="width: 100%;" onclick="createTeam()">Oluştur / Create</button>
+                </div>
+
+                <!-- Haber Yayınla -->
+                <div style="background: rgba(0,0,0,0.2); padding: 25px; border-radius: 8px; border: 1px solid var(--border-color);">
+                    <h3 style="margin-bottom:20px; font-size:18px;">Haber Yayınla / Publish News</h3>
+                    <input type="text" id="newsTitle_tr" class="form-input" placeholder="Başlık (TR)">
+                    <input type="text" id="newsTitle_en" class="form-input" placeholder="Title (EN)">
+                    <input type="text" id="newsContent_tr" class="form-input" placeholder="İçerik (TR)">
+                    <input type="text" id="newsContent_en" class="form-input" placeholder="Content (EN)">
+                    <button class="btn btn-outline" style="width: 100%;" onclick="addNews()">Yayınla / Publish</button>
+                </div>
+
+                <!-- Turnuva Ekle (Dates ve Prizes Input Alanları Eklendi) -->
+                <div style="background: rgba(0,0,0,0.2); padding: 25px; border-radius: 8px; border: 1px solid var(--border-color);">
+                    <h3 style="margin-bottom:20px; font-size:18px;">Turnuva Ekle / Add Tournament</h3>
+                    <input type="text" id="tournamentName_tr" class="form-input" placeholder="Turnuva Adı (TR)">
+                    <input type="text" id="tournamentName_en" class="form-input" placeholder="Tournament Name (EN)">
+                    
+                    <!-- Tarih Alanları -->
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                        <input type="text" id="tournamentStartDate_tr" class="form-input" placeholder="Başlangıç Tarihi (TR) (Örn: 15 Tem)">
+                        <input type="text" id="tournamentStartDate_en" class="form-input" placeholder="Start Date (EN) (Örn: July 15)">
+                    </div>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                        <input type="text" id="tournamentEndDate_tr" class="form-input" placeholder="Bitiş Tarihi (TR) (Örn: 20 Tem)">
+                        <input type="text" id="tournamentEndDate_en" class="form-input" placeholder="End Date (EN) (Örn: July 20)">
+                    </div>
+                    
+                    <!-- Ödül Alanları (Çok Satırlı Esnek Alan) -->
+                    <textarea id="tournamentPrizes_tr" class="form-input" style="height: 80px; resize: none;" placeholder="Ödüller (TR) (Örn:&#10;1. 5000TL&#10;İlk 10'a Özel Rol)"></textarea>
+                    <textarea id="tournamentPrizes_en" class="form-input" style="height: 80px; resize: none;" placeholder="Prizes (EN) (Örn:&#10;1st: $500&#10;Top 10: Special Role)"></textarea>
+
+                    <textarea id="tournamentRules_tr" class="form-input" style="height: 100px; resize: none;" placeholder="Kurallar (TR)"></textarea>
+                    <textarea id="tournamentRules_en" class="form-input" style="height: 100px; resize: none;" placeholder="Rules (EN)"></textarea>
+                    <button class="btn btn-outline" style="width: 100%;" onclick="createTournament()">Ekle / Add</button>
+                </div>
+
+                <!-- Aktif Alım Ekle -->
+                <div style="background: rgba(0,0,0,0.2); padding: 25px; border-radius: 8px; border: 1px solid var(--border-color);">
+                    <h3 style="margin-bottom:20px; font-size:18px;">Aktif Alım Ekle / Add Recruitment</h3>
+                    <input type="text" id="recruitmentName_tr" class="form-input" placeholder="Pozisyon (TR)">
+                    <input type="text" id="recruitmentName_en" class="form-input" placeholder="Position (EN)">
+                    <label style="display: flex; gap: 10px; cursor: pointer; align-items: center; margin-bottom: 20px; color: #fff; font-size: 14px;">
+                        <input type="checkbox" id="recruitmentLicense" style="width: 18px; height: 18px; accent-color: var(--primary);">
+                        Lisans Gerektirir / Requires License
+                    </label>
+                    <button class="btn btn-outline" style="width: 100%;" onclick="createRecruitment()">Ekle / Add</button>
+                </div>
+
+                <!-- Oyuncu Ekle -->
+                <div style="background: rgba(0,0,0,0.2); padding: 25px; border-radius: 8px; border: 1px solid var(--border-color); grid-column: 1/-1;">
+                    <h3 style="margin-bottom:20px; font-size:18px;">Kadroya Oyuncu Ekle / Add Roster Player</h3>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 15px; margin-bottom: 20px;">
+                        <select id="playerTeamSelect" class="form-input" style="margin:0;"><option value="">Takım Seç</option></select>
+                        <select id="pRole" class="form-input" style="margin:0;">
+                            <option value="captain">Kaptan / Captain</option>
+                            <option value="player">Oyuncu / Player</option>
+                            <option value="sub">Yedek / Substitute</option>
+                        </select>
+                        <input type="text" id="pNickName" class="form-input" style="margin:0;" placeholder="Oyun İçi (IGN)">
+                        <input type="text" id="pRealName" class="form-input" style="margin:0;" placeholder="Gerçek İsim / Name">
+                        <input type="text" id="pRank" class="form-input" style="margin:0;" placeholder="Rank">
+                    </div>
+                    <button class="btn" style="width: 100%;" onclick="addPlayer()">Sisteme Kaydet / Save</button>
+                </div>
+
+                <!-- İÇERİK YÖNETİMİ VE SİLME PANELİ -->
+                <div style="background: rgba(0,0,0,0.3); padding: 25px; border-radius: 8px; border: 1px solid var(--border-color); grid-column: 1 / -1;">
+                    <h3 style="margin-bottom:15px; font-size:18px; color:#fff;"><i class="fa-solid fa-trash-can" style="color: var(--primary);"></i> İçerik Yönetimi ve Silme / Content Management</h3>
+                    <div class="grid" style="gap: 20px; grid-template-columns: 1.1fr 0.9fr;">
+                        
+                        <!-- Takımlar ve Oyuncular Listesi -->
+                        <div style="background: rgba(0,0,0,0.2); padding: 20px; border-radius: 6px; border: 1px solid var(--border-color);">
+                            <h4 style="color:#fff; font-size:14px; margin-bottom:15px; text-transform:uppercase; letter-spacing:0.5px;">Takımlar & Kadrolar / Teams & Rosters</h4>
+                            <div id="admin-teams-list" style="max-height: 250px; overflow-y:auto; font-size:13px; display:flex; flex-direction:column; gap:12px; padding-right:5px;">
+                                <!-- Dinamik olarak listelenecek -->
+                            </div>
+                        </div>
+
+                        <!-- Diğer Dinamik İçerikler Listesi -->
+                        <div style="background: rgba(0,0,0,0.2); padding: 20px; border-radius: 6px; border: 1px solid var(--border-color);">
+                            <h4 style="color:#fff; font-size:14px; margin-bottom:15px; text-transform:uppercase; letter-spacing:0.5px;">Duyuru, Turnuva & Alımlar / Others</h4>
+                            <div id="admin-others-list" style="max-height: 250px; overflow-y:auto; font-size:13px; display:flex; flex-direction:column; gap:12px; padding-right:5px;">
+                                <!-- Dinamik olarak listelenecek -->
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+            
+            <div style="text-align: right; margin-top: 30px;">
+                <button class="btn" style="background: transparent; border: 1px solid var(--primary); color: var(--primary); box-shadow: none;" onclick="clearAllData()">Sistemi Sıfırla / Clear All</button>
             </div>
         </div>
     </div>
 
-    <!-- Pürüzsüz statik JS -->
     <script src="script.js"></script>
 </body>
 </html>
