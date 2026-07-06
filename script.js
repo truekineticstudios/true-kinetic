@@ -163,123 +163,6 @@ function showToast(message, type = "info") {
 /* ==========================================================================
    4. DETAYLI RENDER SİSTEMLERİ (GÜNCELLEMELER, TURNUVALAR, KADRO BAŞVURULARI, OYUNCULAR)
    ========================================================================== */
-// Duyurular ve Güncellemeler (Blog Kartları)
-function renderServices(searchQuery = "") {
-    const grid = document.getElementById("updatesGrid");
-    if (!grid) return;
-    grid.innerHTML = "";
-    
-    if (!hubDatabase.updates || hubDatabase.updates.length === 0) {
-        grid.innerHTML = `<p style="color: var(--text-muted); text-align:center; width:100%; grid-column: 1/-1;">No updates found.</p>`;
-        return;
-    }
-
-    hubDatabase.updates.forEach((item, index) => {
-        const titleText = item.baslik[currentLang] || item.baslik.en || item.baslik;
-        const descText = item.desc[currentLang] || item.desc.en || item.desc;
-        const iconClass = item.icon || "fas fa-bullhorn";
-
-        if (titleText.toLowerCase().includes(searchQuery.toLowerCase()) || descText.toLowerCase().includes(searchQuery.toLowerCase())) {
-            const card = document.createElement("div");
-            card.className = "service-card";
-            card.innerHTML = `
-                <div class="card-icon"><i class="${iconClass}"></i></div>
-                <h3>${titleText}</h3>
-                <p>${descText}</p>
-            `;
-            grid.appendChild(card);
-        }
-    });
-}
-
-// Canlı Turnuvaları Ekrana Basma
-function renderActiveTournaments() {
-    const grid = document.getElementById("activeTournamentsGrid");
-    const adminList = document.getElementById("adminTournamentList");
-    if (grid) grid.innerHTML = "";
-    if (adminList) adminList.innerHTML = "";
-
-    if ((!hubDatabase.tournaments || hubDatabase.tournaments.length === 0) && grid) {
-        grid.innerHTML = `<p style="color: var(--text-muted); font-size:0.95rem; grid-column: 1/-1;">No active tournaments currently. Stay tuned!</p>`;
-    }
-
-    if (hubDatabase.tournaments) {
-        hubDatabase.tournaments.forEach((t, index) => {
-            if (grid) {
-                grid.innerHTML += `
-                    <div class="es-roster-card bs-theme" style="border-color: var(--purple-glow);">
-                        <div class="es-roster-bg" style="background: var(--purple-glow);"></div>
-                        <div class="es-roster-content">
-                            <div class="es-roster-head">
-                                <h3>${t.oyun ? t.oyun.toUpperCase() : "GAME"}</h3>
-                                <span class="pulse-tag" style="background:rgba(168,85,247,0.15); color:var(--purple-hover); border-color:rgba(168,85,247,0.3);">ACTIVE</span>
-                            </div>
-                            <h4 style="color:white; font-size:1.2rem; margin-bottom: 5px;">${t.baslik || "Tournament"}</h4>
-                            <p style="margin-bottom: 1.5rem; font-size:0.9rem;">🎁 <b>Reward:</b> ${t.odul || "TBD"} <br> 📅 <b>Date:</b> ${t.tarih || "TBD"}</p>
-                            <button class="es-action-btn" onclick="openEsportsModal('${t.baslik || "Tournament"}')">
-                                <span data-i18n="es_btn_apply">Apply Now</span> <i class="fas fa-chevron-right"></i>
-                            </button>
-                        </div>
-                    </div>
-                `;
-            }
-
-            if (adminList) {
-                adminList.innerHTML += `
-                    <li class="staff-list-item">
-                        <span><b>[${t.oyun.toUpperCase()}]</b> ${t.baslik}</span>
-                        <button class="remove-product-btn" onclick="deleteTournament(${index})"><i class="fas fa-trash"></i></button>
-                    </li>
-                `;
-            }
-        });
-    }
-}
-
-// Canlı Kadro Alımlarını Ekrana Basma
-function renderActiveRecruitments() {
-    const grid = document.getElementById("activeRecruitmentsGrid");
-    const adminList = document.getElementById("adminRecruitmentList");
-    if (grid) grid.innerHTML = "";
-    if (adminList) adminList.innerHTML = "";
-
-    if ((!hubDatabase.recruitments || hubDatabase.recruitments.length === 0) && grid) {
-        grid.innerHTML = `<p style="color: var(--text-muted); font-size:0.95rem;">No active recruitments currently.</p>`;
-    }
-
-    if (hubDatabase.recruitments) {
-        hubDatabase.recruitments.forEach((r, index) => {
-            const descText = r.desc[currentLang] || r.desc.en || r.desc;
-            if (grid) {
-                grid.innerHTML += `
-                    <div class="es-roster-card ${r.theme || 'software'}">
-                        <div class="es-roster-bg"></div>
-                        <div class="es-roster-content">
-                            <div class="es-roster-head">
-                                <h3>${r.oyun ? r.oyun.toUpperCase() : "GAME"}</h3>
-                                <span class="pulse-tag">RECRUITING</span>
-                            </div>
-                            <p>${descText}</p>
-                            <button class="es-action-btn" onclick="openEsportsModal('${r.oyun}')">
-                                <span data-i18n="es_btn_apply">Apply Now</span> <i class="fas fa-chevron-right"></i>
-                            </button>
-                        </div>
-                    </div>
-                `;
-            }
-
-            if (adminList) {
-                adminList.innerHTML += `
-                    <li class="staff-list-item">
-                        <span><b>[${r.oyun.toUpperCase()}]</b> alımı</span>
-                        <button class="remove-product-btn" onclick="deleteRecruitment(${index})"><i class="fas fa-trash"></i></button>
-                    </li>
-                `;
-            }
-        });
-    }
-}
-
 // 4.1 CANLI OYUNCU KADROLARINI RENDER ETME VE GRUPLAMA (DİNAMİK ROSTER)
 function renderActiveRosters() {
     const container = document.getElementById("activeRostersContainer");
@@ -302,26 +185,25 @@ function renderActiveRosters() {
         });
     }
 
-    // Grupları ekrana bas (Sitenin parlayan mor kartlarıyla uyumlu)
+    // Grupları ekrana bas (Yeni Roster Sınıflarıyla)
     Object.keys(groups).forEach(game => {
         if (container) {
             let playerHtml = "";
             groups[game].forEach(item => {
                 const p = item.player;
                 playerHtml += `
-                    <div class="step-card" style="padding: 1.5rem; flex: 1 1 220px; border-color: rgba(168, 85, 247, 0.2);">
-                        <div class="step-num" style="font-size: 3rem; top: -5px; right: 10px; opacity:0.12;">🎮</div>
-                        <h4 style="color: white; font-size: 1.3rem; margin-bottom: 5px;">${p.ad}</h4>
-                        <span class="role-badge r-esport" style="margin-bottom: 8px;">${p.rol}</span>
-                        <p style="color: var(--text-muted); font-size: 0.85rem; font-family: var(--font-mono); margin-top: 5px;">Age: ${p.yas}</p>
+                    <div class="player-card">
+                        <h4 class="player-name">${p.ad}</h4>
+                        <span class="player-role">${p.rol}</span>
+                        <span class="player-age">AGE: ${p.yas}</span>
                     </div>
                 `;
             });
 
             container.innerHTML += `
-                <div class="roster-game-group reveal-on-scroll active" style="background: rgba(255,255,255,0.01); padding: 25px; border-radius: 16px; border: 1px solid rgba(255,255,255,0.03);">
-                    <h3 style="font-family: var(--font-mono); font-size: 1.4rem; color: var(--purple-glow); margin-bottom: 20px; border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 10px;">${game}</h3>
-                    <div style="display: flex; flex-wrap: wrap; gap: 20px;">
+                <div class="roster-game-group reveal-on-scroll active">
+                    <h3>${game}</h3>
+                    <div class="roster-grid">
                         ${playerHtml}
                     </div>
                 </div>
