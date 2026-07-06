@@ -26,8 +26,9 @@
                 <span class="lang-btn active" id="btn-tr" onclick="setLanguage('tr')">TR</span>
                 <span class="lang-btn" id="btn-en" onclick="setLanguage('en')">EN</span>
             </div>
-            <a href="https://discord.gg/senindiscordlinkin" target="_blank" class="btn btn-outline" style="padding: 8px 18px; font-size:12px;" data-translate="btn_join">KATIL</a>
-            <i class="fa-brands fa-discord" onclick="window.open('https://discord.gg/senindiscordlinkin', '_blank')"></i>
+            <!-- Yukarıdaki KATIL butonu Discord adresinize yönlendirir -->
+            <a href="https://discord.gg/MExZDbyQkY" target="_blank" class="btn btn-outline" style="padding: 8px 18px; font-size:12px;" data-translate="btn_join">KATIL</a>
+            <i class="fa-brands fa-discord" onclick="window.open('https://discord.gg/MExZDbyQkY', '_blank')"></i>
             <i class="fa-solid fa-lock" onclick="openModal('adminAuthModal')"></i>
         </div>
     </header>
@@ -39,7 +40,10 @@
             <h1 data-translate="hero_title">Gerçek Potansiyelini <br><span style="color:var(--primary);">Kinetik Enerjiye</span> Çevir</h1>
             <p data-translate="hero_desc">True Kinetic E-Sports; rekabetçi ruhun, disiplinin ve profesyonelliğin bir araya geldiği bağımsız bir espor ekosistemidir. Amacımız, oyuncuların potansiyelini en üst düzeye çıkararak ulusal ve uluslararası arenalarda zirveyi hedeflemektir.</p>
             <div class="hero-buttons">
-                <button class="btn" onclick="openModal('applyModal')"><i class="fa-solid fa-bolt"></i> <span data-translate="btn_join_discord">Sunucuya Katıl</span></button>
+                <!-- Sunucuya Katıl Butonu doğrudan Discord adresinize yönlendirir -->
+                <a href="https://discord.gg/MExZDbyQkY" target="_blank" class="btn" style="text-decoration: none;">
+                    <i class="fa-brands fa-discord" style="font-size: 18px;"></i> <span data-translate="btn_join_discord">Sunucuya Katıl</span>
+                </a>
                 <button class="btn btn-outline" onclick="document.getElementById('teams').scrollIntoView({behavior: 'smooth'})" data-translate="btn_view_rosters">Kadroları İncele</button>
             </div>
         </div>
@@ -117,14 +121,13 @@
         </div>
     </div>
 
-    <!-- TURNUVA KURALLARI VE DETAY MODALI (Geliştirildi) -->
+    <!-- TURNUVA KURALLARI VE DETAY MODALI -->
     <div class="modal-overlay" id="tournamentRulesModal">
         <div class="modal-box" style="max-width: 580px;">
             <i class="fa-solid fa-xmark close-btn" onclick="closeModal('tournamentRulesModal')"></i>
             <h2 id="modal-tour-name" style="font-size: 1.8rem; margin-bottom: 15px;">Turnuva Adı</h2>
             <p id="modal-tour-title" style="color: var(--hover); font-weight:700; margin-bottom: 25px; text-transform: uppercase;" data-translate="rules_title_modal">TURNUVA DETAYLARI</p>
             
-            <!-- Tarihler & Ödüller Blokları -->
             <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 20px;">
                 <div style="background: rgba(255,255,255,0.02); padding: 15px; border-radius: 6px; border: 1px solid var(--border-color);">
                     <span style="font-size: 11px; font-weight: 700; color: var(--hover); text-transform: uppercase;" data-translate="label_dates">TARİHLER</span>
@@ -141,7 +144,6 @@
                 Kurallar yükleniyor...
             </div>
             
-            <!-- Turnuva Onay Kutucuğu ve Başvur Butonu -->
             <label style="display: flex; gap: 15px; cursor: pointer; align-items: center; margin-top: 15px; margin-bottom: 25px; font-weight: 500; font-size: 14px; color: var(--text-bright);">
                 <input type="checkbox" id="acceptTourRules" style="width: 20px; height: 20px; accent-color: var(--primary);">
                 <span data-translate="checkbox_tour_rules">Kuralları kabul ediyorum ve turnuvaya katılmak istiyorum.</span>
@@ -152,7 +154,7 @@
         </div>
     </div>
 
-    <!-- BAŞVURU KURALLARI MODALI (Takım ve Alım Başvurularında Ortak) -->
+    <!-- BAŞVURU KURALLARI MODALI -->
     <div class="modal-overlay" id="applyModal">
         <div class="modal-box">
             <i class="fa-solid fa-xmark close-btn" onclick="closeModal('applyModal')"></i>
@@ -166,7 +168,7 @@
                 <input type="checkbox" id="acceptRules" style="width: 20px; height: 20px; accent-color: var(--primary);">
                 <span data-translate="checkbox_rules">Tüm kuralları anladım ve sorumlulukları kabul ediyorum.</span>
             </label>
-            <button id="applyBtn" class="btn" style="width:100%; opacity:0.4; pointer-events:none;" onclick="window.location.href='https://discord.gg/senindiscordlinkin'">
+            <button id="applyBtn" class="btn" style="width:100%; opacity:0.4; pointer-events:none;" onclick="window.location.href='https://discord.gg/MExZDbyQkY'">
                 <i class="fa-brands fa-discord" style="font-size: 20px;"></i> <span data-translate="btn_discord_ticket">DISCORD TICKET OLUŞTUR</span>
             </button>
         </div>
@@ -197,7 +199,7 @@
                     <input type="text" id="webhookInput" class="form-input" style="margin:0;" placeholder="https://discord.com/api/webhooks/...">
                 </div>
 
-                <!-- TOPLULUK VERİLERİNİ GÜNCELLE -->
+                <!-- VERİ VE ÜST DUYURU GÜNCELLEME ALANI -->
                 <div style="background: rgba(0,0,0,0.3); padding: 25px; border-radius: 8px; border: 1px solid var(--border-color); grid-column: 1 / -1;">
                     <h3 style="margin-bottom:15px; font-size:18px; color:#fff;"><i class="fa-solid fa-chart-simple" style="color: var(--primary);"></i> Verileri & Üst Duyuruyu Güncelle</h3>
                     <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 15px;">
@@ -241,7 +243,7 @@
                     <button class="btn btn-outline" style="width: 100%;" onclick="addNews()">Yayınla / Publish</button>
                 </div>
 
-                <!-- Turnuva Ekle (Dates ve Prizes Input Alanları Eklendi) -->
+                <!-- Turnuva Ekle -->
                 <div style="background: rgba(0,0,0,0.2); padding: 25px; border-radius: 8px; border: 1px solid var(--border-color);">
                     <h3 style="margin-bottom:20px; font-size:18px;">Turnuva Ekle / Add Tournament</h3>
                     <input type="text" id="tournamentName_tr" class="form-input" placeholder="Turnuva Adı (TR)">
@@ -249,17 +251,17 @@
                     
                     <!-- Tarih Alanları -->
                     <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
-                        <input type="text" id="tournamentStartDate_tr" class="form-input" placeholder="Başlangıç Tarihi (TR) (Örn: 15 Tem)">
-                        <input type="text" id="tournamentStartDate_en" class="form-input" placeholder="Start Date (EN) (Örn: July 15)">
+                        <input type="text" id="tournamentStartDate_tr" class="form-input" placeholder="Başlangıç Tarihi (TR)">
+                        <input type="text" id="tournamentStartDate_en" class="form-input" placeholder="Start Date (EN)">
                     </div>
                     <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
-                        <input type="text" id="tournamentEndDate_tr" class="form-input" placeholder="Bitiş Tarihi (TR) (Örn: 20 Tem)">
-                        <input type="text" id="tournamentEndDate_en" class="form-input" placeholder="End Date (EN) (Örn: July 20)">
+                        <input type="text" id="tournamentEndDate_tr" class="form-input" placeholder="Bitiş Tarihi (TR)">
+                        <input type="text" id="tournamentEndDate_en" class="form-input" placeholder="End Date (EN)">
                     </div>
                     
-                    <!-- Ödül Alanları (Çok Satırlı Esnek Alan) -->
-                    <textarea id="tournamentPrizes_tr" class="form-input" style="height: 80px; resize: none;" placeholder="Ödüller (TR) (Örn:&#10;1. 5000TL&#10;İlk 10'a Özel Rol)"></textarea>
-                    <textarea id="tournamentPrizes_en" class="form-input" style="height: 80px; resize: none;" placeholder="Prizes (EN) (Örn:&#10;1st: $500&#10;Top 10: Special Role)"></textarea>
+                    <!-- Ödül Alanları -->
+                    <textarea id="tournamentPrizes_tr" class="form-input" style="height: 80px; resize: none;" placeholder="Ödüller (TR)"></textarea>
+                    <textarea id="tournamentPrizes_en" class="form-input" style="height: 80px; resize: none;" placeholder="Prizes (EN)"></textarea>
 
                     <textarea id="tournamentRules_tr" class="form-input" style="height: 100px; resize: none;" placeholder="Kurallar (TR)"></textarea>
                     <textarea id="tournamentRules_en" class="form-input" style="height: 100px; resize: none;" placeholder="Rules (EN)"></textarea>
