@@ -1,1 +1,641 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>True Kinetic | CommandCenter</title>
+    
+    <!-- Özel Fontlar ve İkonlar -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    
+    <!-- Üst klasördeki Universal CSS dosyasına bağlanır (Sıfır Kod Kalabalığı) -->
+    <link rel="stylesheet" href="../style.css">
+    
+    <style>
+        /* Sadece Admin Giriş Ekranına Özel Arka Plan Düzeltmesi */
+        body {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        /* Giriş yapıldıktan sonra tüm ekranı kaplayacak dashboard düzeni */
+        .dashboard-wrapper {
+            width: 100%;
+            max-width: 1100px;
+            display: none; /* Giriş yapılana kadar gizlenir */
+            animation: fadeIn 0.5s ease;
+        }
+    </style>
+</head>
+<body>
 
+    <!-- SİBER NEON ARKA PLAN ANİMASYONLARI -->
+    <div class="animated-bg-elements">
+        <div class="glow-orb orb-1"></div>
+        <div class="glow-orb orb-2"></div>
+        <div class="glow-orb orb-3"></div>
+    </div>
+
+    <!-- BİLDİRİM TOAST ALANI -->
+    <div id="toastContainer"></div>
+
+    <!-- 1. SİSTEM GİRİŞ PANELİ (Şifre Onay Ekranı) -->
+    <div id="adminAuthPanel" class="modal-content auth-modal-content" style="display: block; transform: scale(1); box-shadow: 0 25px 50px rgba(0,0,0,0.8); border-color: var(--purple-glow);">
+        <i class="fas fa-fingerprint auth-icon" style="filter: drop-shadow(0 0 10px var(--purple-glow));"></i>
+        <h2>System Authentication</h2>
+        <p style="color: var(--text-muted); font-size: 0.9rem; margin-top: 5px;">Enter secure key to access True Kinetic CommandCenter.</p>
+        <div style="margin-top: 1.5rem; text-align: left;">
+            <div class="password-field-wrapper">
+                <input type="password" id="adminPassInput" class="dashboard-input" placeholder="Enter secure key...">
+                <button type="button" class="password-toggle-btn" id="toggleAdminPass"><i class="far fa-eye"></i></button>
+            </div>
+        </div>
+        <button id="submitAdminLoginBtn" class="primary-btn" style="width: 100%; justify-content: center; margin-top: 1rem;"><i class="fas fa-unlock"></i> Authenticate Session</button>
+        <a href="../index.html" style="display: inline-block; margin-top: 15px; color: var(--text-muted); text-decoration: none; font-size: 0.85rem; transition: 0.3s;"><i class="fas fa-arrow-left"></i> Back to Homepage</a>
+    </div>
+
+    <!-- 2. CONTROL PANEL / COMMANDCENTER (Giriş Başarılıysa Açılır) -->
+    <div id="adminDashboardWrapper" class="dashboard-wrapper">
+        <div class="dashboard-content" style="box-shadow: 0 25px 50px rgba(0, 0, 0, 0.8);">
+            
+            <!-- Dashboard Başlık Alanı ve Çıkış Yap Butonu -->
+            <div class="dashboard-header" style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border-color); padding-bottom: 15px; margin-bottom: 20px;">
+                <div>
+                    <h2><i class="fas fa-toolbox" style="color: var(--purple-glow);"></i> True Kinetic Control Panel</h2>
+                    <p>Manage tournaments, write community updates, and open team applications instantly.</p>
+                </div>
+                <button id="adminLogoutBtn" class="primary-btn" style="background: var(--danger); font-size: 0.9rem; padding: 8px 15px; border-radius: 8px; box-shadow: none;"><i class="fas fa-sign-out-alt"></i> Log Out</button>
+            </div>
+
+            <!-- İstatistik Kartları Grid Alanı -->
+            <div class="dashboard-stats" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px;">
+                <div class="stat-card"><div class="stat-icon"><i class="fas fa-trophy"></i></div><div class="stat-info"><h4 id="statTotalTournaments">0</h4><span>Tournaments</span></div></div>
+                <div class="stat-card"><div class="stat-icon"><i class="fas fa-newspaper"></i></div><div class="stat-info"><h4 id="statTotalUpdates">0</h4><span>Updates & News</span></div></div>
+                <div class="stat-card"><div class="stat-icon"><i class="fas fa-user-plus"></i></div><div class="stat-info"><h4 id="statTotalRecruitments">0</h4><span>Applications</span></div></div>
+                <div class="stat-card"><div class="stat-icon"><i class="fas fa-users"></i></div><div class="stat-info"><h4 id="statTotalRoster">0</h4><span>Roster Members</span></div></div>
+            </div>
+
+            <!-- Sekme Seçici Butonlar -->
+            <div class="dashboard-tabs" style="margin-top: 2rem;">
+                <button class="tab-btn active" data-tab="tabAdminTournaments"><i class="fas fa-trophy"></i> Tournaments</button>
+                <button class="tab-btn" data-tab="tabAdminUpdates"><i class="fas fa-newspaper"></i> Updates & News</button>
+                <button class="tab-btn" data-tab="tabAdminRecruitments"><i class="fas fa-user-plus"></i> Recruitments</button>
+                <button class="tab-btn" data-tab="tabAdminRoster"><i class="fas fa-users"></i> Team Roster</button>
+                <button class="tab-btn" data-tab="tabAdminStaff"><i class="fas fa-database"></i> Database & Staff</button>
+            </div>
+
+            <!-- Sekme Gövdeleri (Tab Contents) -->
+            <div class="dashboard-body">
+                
+                <!-- Sekme 1: Turnuva Yönetimi -->
+                <div id="tabAdminTournaments" class="tab-content active">
+                    <div class="dashboard-grid-2">
+                        <div class="dashboard-section">
+                            <h3><i class="fas fa-plus"></i> Create Esports Tournament</h3>
+                            <div class="add-product-form" style="margin-top: 15px;">
+                                <input type="text" id="tourOyun" class="dashboard-input" placeholder="Game Name (e.g., Valorant)" required>
+                                <input type="text" id="tourBaslik" class="dashboard-input" placeholder="Tournament Title" required>
+                                <input type="text" id="tourOdul" class="dashboard-input" placeholder="Reward Pool (e.g., 5000 VP)" required>
+                                <input type="date" id="tourTarih" class="dashboard-input" required>
+                                <button id="addTournamentBtn" class="primary-btn dashboard-action-btn"><i class="fas fa-plus"></i> Launch Tournament</button>
+                            </div>
+                        </div>
+                        <div class="dashboard-section">
+                            <h3><i class="fas fa-list"></i> Active Tournaments</h3>
+                            <ul id="adminTournamentList" class="dashboard-staff-list" style="max-height: 400px; margin-top: 15px;"></ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sekme 2: Duyuru ve Güncelleme Yönetimi -->
+                <div id="tabAdminUpdates" class="tab-content">
+                    <div class="dashboard-grid-2">
+                        <div class="dashboard-section">
+                            <h3><i class="fas fa-plus"></i> Write Community Update</h3>
+                            <div class="add-product-form" style="margin-top: 15px;">
+                                <input type="text" id="upBaslikEn" class="dashboard-input" placeholder="Title (EN)" required>
+                                <input type="text" id="upBaslikTr" class="dashboard-input" placeholder="Başlık (TR)" required>
+                                <input type="text" id="upDescEn" class="dashboard-input" placeholder="Description (EN)" required>
+                                <input type="text" id="upDescTr" class="dashboard-input" placeholder="Açıklama (TR)" required>
+                                <input type="text" id="upIcon" class="dashboard-input" placeholder="FontAwesome Icon (e.g., fas fa-bullhorn)" required>
+                                <button id="addUpdateBtn" class="primary-btn dashboard-action-btn"><i class="fas fa-plus"></i> Post Update</button>
+                            </div>
+                        </div>
+                        <div class="dashboard-section">
+                            <h3><i class="fas fa-list"></i> Published Updates</h3>
+                            <ul id="adminUpdateList" class="dashboard-staff-list" style="max-height: 400px; margin-top: 15px;"></ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sekme 3: Kadro Başvuru Yönetimi -->
+                <div id="tabAdminRecruitments" class="tab-content">
+                    <div class="dashboard-grid-2">
+                        <div class="dashboard-section">
+                            <h3><i class="fas fa-plus"></i> Create New Recruitment</h3>
+                            <div class="add-product-form" style="margin-top: 15px;">
+                                <input type="text" id="recOyun" class="dashboard-input" placeholder="Game Name (e.g., CS2)" required />
+                                <div class="form-row-dual">
+                                    <input type="text" id="recDescEn" class="dashboard-input" placeholder="Reqs (EN)" required />
+                                    <input type="text" id="recDescTr" class="dashboard-input" placeholder="Gereksinimler (TR)" required />
+                                </div>
+                                <select id="recTheme" class="dashboard-select">
+                                    <option value="pubg-theme">Yellow Theme (PUBG)</option>
+                                    <option value="bs-theme">Red Theme (Blood Strike)</option>
+                                    <option value="software">Purple Theme (True Kinetic)</option>
+                                </select>
+                                <button id="addRecruitmentBtn" class="primary-btn dashboard-action-btn"><i class="fas fa-plus"></i> Open Recruitment</button>
+                            </div>
+                        </div>
+                        <div class="dashboard-section">
+                            <h3><i class="fas fa-trash-can"></i> Active Recruitments</h3>
+                            <ul id="adminRecruitmentList" class="dashboard-staff-list" style="max-height: 400px; margin-top: 15px;"></ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sekme 4: E-Spor Kadro Yönetimi -->
+                <div id="tabAdminRoster" class="tab-content">
+                    <div class="dashboard-grid-2">
+                        <div class="dashboard-section">
+                            <h3><i class="fas fa-user-plus"></i> Add Team Member</h3>
+                            <div class="add-product-form" style="margin-top: 15px;">
+                                <input type="text" id="memberOyun" class="dashboard-input" placeholder="Game (e.g., PUBG Mobile)" required>
+                                <input type="text" id="memberName" class="dashboard-input" placeholder="Player Nickname/Name" required>
+                                <input type="text" id="memberRol" class="dashboard-input" placeholder="Role (e.g., IGL, Sniper, Entry)" required>
+                                <input type="number" id="memberYas" class="dashboard-input" placeholder="Age" required>
+                                <button id="addRosterBtn" class="primary-btn dashboard-action-btn"><i class="fas fa-plus"></i> Add Player</button>
+                            </div>
+                        </div>
+                        <div class="dashboard-section">
+                            <h3><i class="fas fa-users"></i> Active Roster Members</h3>
+                            <ul id="adminRosterList" class="dashboard-staff-list" style="max-height: 400px; margin-top: 15px;"></ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sekme 5: Database & Staff -->
+                <div id="tabAdminStaff" class="tab-content">
+                    <div class="dashboard-grid-2">
+                        <div class="dashboard-section">
+                            <h3><i class="fas fa-users-gear"></i> Staff Verification List</h3>
+                            <div class="staff-manager-box" style="margin-top: 15px;">
+                                <div class="staff-add-row" style="display:flex; gap:10px; margin-bottom:15px;">
+                                    <input type="text" id="newStaffInput" class="dashboard-input" style="margin:0;" placeholder="Discord Username" />
+                                    <button id="addStaffBtn" class="primary-btn" style="padding: 0 20px;"><i class="fas fa-plus"></i></button>
+                                </div>
+                                <ul id="staffList" class="dashboard-staff-list" style="max-height: 250px"></ul>
+                            </div>
+                        </div>
+                        <div class="dashboard-section">
+                            <h3><i class="fas fa-server"></i> Sync Database (JSON)</h3>
+                            <p style="font-size:0.85rem; color:var(--text-muted); margin-bottom: 15px; margin-top: 10px;">Tüm sitenin (Turnuva, Duyuru, Kadrolar vb.) yerel veritabanını indirin ve GitHub'a yükleyin.</p>
+                            <div style="display:flex; gap:10px; margin-top:2rem;">
+                                <button id="exportDbBtn" class="primary-btn" style="flex:1; background: #2ecc71; color: #000;"><i class="fas fa-download"></i> Export DB</button>
+                                <input type="file" id="importDbFile" accept=".json" style="display:none;">
+                                <button id="importDbBtn" class="primary-btn" style="flex:1; background: #f39c12; color: #000;"><i class="fas fa-upload"></i> Import Backup</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- Yönetim Kodları ve Veritabanı Mantığı (Tamamen Statik / Çökme Korumalı) -->
+    <script>
+        // Giriş Anahtarı (Trimsiz düz metin eşleşmesi)
+        const ADMIN_PASSWORD = "TK-ADMINASTOR"; 
+
+        function verifyAdminPassword(inputPass) { 
+            if (!inputPass) return false;
+            const cleanedInput = inputPass.trim(); 
+            return cleanedInput === ADMIN_PASSWORD;
+        }
+
+        // Varsayılan Veritabanı Şablonu
+        const defaultDatabase = {
+            tournaments: [
+                { oyun: "Valorant", baslik: "TK Valorant Cup Season 1", odul: "5000 VP", tarih: "2026-07-20" }
+            ],
+            updates: [
+                { 
+                    baslik: { en: "TK Esports PUBG Mobile Roster Recruitment!", tr: "TK Esports PUBG Mobile Kadro Başvuruları!" },
+                    desc: { en: "We are officially starting recruitments for our brand-new competitive pubg mobile squad.", tr: "Yeni kuracağımız rekabetçi PUBG Mobile kadromuz için başvuruları resmen başlatıyoruz." },
+                    icon: "fas fa-bullhorn"
+                }
+            ],
+            recruitments: [
+                { oyun: "PUBG Mobile", desc: { en: "Faceit lvl 10, Age 18+, Active mic", tr: "Faceit Lvl 10, Yaş 18+, Aktif mikrofon" }, theme: "pubg-theme" },
+                { oyun: "Blood Strike", desc: { en: "Legend rank, Competitive coordination", tr: "Efsane rütbe, Rekabetçi koordinasyon" }, theme: "bs-theme" }
+            ],
+            roster: [
+                { oyun: "PUBG Mobile", ad: "neural_forge", rol: "IGL / Sniper", yas: "20" }
+            ]
+        };
+
+        // Yerel Değişkenler
+        let hubDatabase = JSON.parse(localStorage.getItem("kinetic_hub_db")) || defaultDatabase;
+        let officialStaff = JSON.parse(localStorage.getItem("kineticStaffDB")) || ["owmanxx", "neural_forge.", "someoneelsexd"];
+        let isLoggedInAdmin = localStorage.getItem("kinetic_admin_session") === "true";
+
+        // HTML Eleman Seçicileri
+        const submitAdminBtn = document.getElementById("submitAdminLoginBtn");
+        const toggleAdminPass = document.getElementById("toggleAdminPass");
+        const addTournamentBtn = document.getElementById("addTournamentBtn");
+        const addUpdateBtn = document.getElementById("addUpdateBtn");
+        const addRecruitmentBtn = document.getElementById("addRecruitmentBtn");
+        const addRosterBtn = document.getElementById("addRosterBtn");
+        const addStaffBtn = document.getElementById("addStaffBtn");
+        const exportDbBtn = document.getElementById("exportDbBtn");
+        const importDbBtn = document.getElementById("importDbBtn");
+        const importDbFile = document.getElementById("importDbFile");
+        const adminLogoutBtn = document.getElementById("adminLogoutBtn");
+
+        // Sayfa İlk Yüklendiğinde Oturum ve Veri Senkronizasyonu Kontrolü
+        document.addEventListener("DOMContentLoaded", () => {
+            fetchLatestDataFromGithub();
+            checkAuthSession();
+        });
+
+        // Üst Klasördeki database.json Dosyasını Çekme (Relative Path)
+        async function fetchLatestDataFromGithub() {
+            try {
+                const response = await fetch('../database.json?t=' + new Date().getTime());
+                if (response.ok) {
+                    const githubData = await response.json();
+                    // KORUMA: Oturum açıksa yerel belleği GitHub verisiyle ezme
+                    if (!isLoggedInAdmin) {
+                        hubDatabase = githubData;
+                        localStorage.setItem("kinetic_hub_db", JSON.stringify(hubDatabase));
+                    }
+                }
+            } catch (e) {
+                console.log("GitHub database.json çekilemedi, yerel bellek kullanılıyor.");
+            }
+            refreshAdminDashboardData();
+        }
+
+        /* Giriş ve Oturum Kontrolleri */
+        function checkAuthSession() {
+            const authPanel = document.getElementById("adminAuthPanel");
+            const dashWrapper = document.getElementById("adminDashboardWrapper");
+            if (isLoggedInAdmin) {
+                authPanel.style.display = "none";
+                dashWrapper.style.display = "block";
+                refreshAdminDashboardData();
+            } else {
+                authPanel.style.display = "block";
+                dashWrapper.style.display = "none";
+            }
+        }
+
+        // Şifre Göster/Gizle
+        if (toggleAdminPass) {
+            toggleAdminPass.addEventListener("click", () => {
+                const inp = document.getElementById("adminPassInput");
+                const icon = document.querySelector("#toggleAdminPass i");
+                if (inp.type === "password") { inp.type = "text"; icon.className = "far fa-eye-slash"; } 
+                else { inp.type = "password"; icon.className = "far fa-eye"; }
+            });
+        }
+
+        // Manuel Şifreli Giriş Butonu
+        if (submitAdminBtn) {
+            submitAdminBtn.addEventListener("click", () => {
+                const pass = document.getElementById("adminPassInput").value;
+                if (verifyAdminPassword(pass)) {
+                    isLoggedInAdmin = true;
+                    localStorage.setItem("kinetic_admin_session", "true");
+                    document.getElementById("adminPassInput").value = "";
+                    showToast("Authentication Successful! Access Granted.", "success");
+                    checkAuthSession();
+                } else {
+                    showToast("Invalid Security Key! Authentication Failed.", "error");
+                }
+            });
+        }
+
+        // Çıkış Yapma Butonu (Logout)
+        if (adminLogoutBtn) {
+            adminLogoutBtn.addEventListener("click", () => {
+                isLoggedInAdmin = false;
+                localStorage.removeItem("kinetic_admin_session");
+                showToast("Oturum kapatıldı.", "success");
+                checkAuthSession();
+            });
+        }
+
+        /* TOAST BİLDİRİM ARACI */
+        function showToast(message, type = "info") {
+            const container = document.getElementById("toastContainer");
+            if (!container) return;
+            const toast = document.createElement("div");
+            toast.className = `toast ${type}`;
+            let icon = type === "success" ? "fa-check-circle" : type === "error" ? "fa-exclamation-circle" : "fa-info-circle";
+            toast.innerHTML = `<i class="fas ${icon}"></i> <span>${message}</span>`;
+            container.appendChild(toast);
+            setTimeout(() => toast.classList.add("show"), 10);
+            setTimeout(() => { toast.classList.remove("show"); setTimeout(() => toast.remove(), 400); }, 3500);
+        }
+
+        /* --------------------------------------------------------------------------
+           ADMIN DASHBOARD İŞLEVLERİ (Ekleme/Silme/Export)
+           ------------------------------------------------------------------------- */
+        // Sekme Tıklama Olayları
+        const tabBtns = document.querySelectorAll(".tab-btn");
+        const tabContents = document.querySelectorAll(".tab-content");
+        tabBtns.forEach(btn => {
+            btn.addEventListener("click", () => {
+                tabBtns.forEach(b => b.classList.remove("active"));
+                tabContents.forEach(c => c.classList.remove("active"));
+                btn.classList.add("active");
+                document.getElementById(btn.getAttribute("data-tab")).classList.add("active");
+            });
+        });
+
+        function refreshAdminDashboardData() {
+            // İstatistik Kartlarını Güncelle
+            document.getElementById("statTotalTournaments").textContent = hubDatabase.tournaments ? hubDatabase.tournaments.length : 0;
+            document.getElementById("statTotalUpdates").textContent = hubDatabase.updates ? hubDatabase.updates.length : 0;
+            document.getElementById("statTotalRecruitments").textContent = hubDatabase.recruitments ? hubDatabase.recruitments.length : 0;
+            document.getElementById("statTotalRoster").textContent = hubDatabase.roster ? hubDatabase.roster.length : 0;
+            
+            loadAdminTournaments();
+            loadAdminUpdates();
+            loadAdminRecruitments();
+            loadAdminRoster();
+            loadStaffList();
+        }
+
+        // 1. Turnuvaları Listele
+        function loadAdminTournaments() {
+            const ul = document.getElementById("adminTournamentList");
+            if (!ul) return;
+            ul.innerHTML = "";
+            if (hubDatabase.tournaments) {
+                hubDatabase.tournaments.forEach((t, index) => {
+                    ul.innerHTML += `
+                        <li class="staff-list-item">
+                            <span><b>[${t.oyun.toUpperCase()}]</b> ${t.baslik}</span>
+                            <button class="remove-product-btn" onclick="deleteTournament(${index})"><i class="fas fa-trash"></i></button>
+                        </li>
+                    `;
+                });
+            }
+        }
+
+        // Turnuva Ekle
+        if (addTournamentBtn) {
+            addTournamentBtn.addEventListener("click", () => {
+                const oyun = document.getElementById("tourOyun").value.trim();
+                const baslik = document.getElementById("tourBaslik").value.trim();
+                const odul = document.getElementById("tourOdul").value.trim();
+                const tarih = document.getElementById("tourTarih").value;
+
+                if (!oyun || !baslik || !odul || !tarih) return showToast("Please fill all fields!", "error");
+
+                if (!hubDatabase.tournaments) hubDatabase.tournaments = [];
+                hubDatabase.tournaments.push({ oyun, baslik, odul, tarih });
+                localStorage.setItem("kinetic_hub_db", JSON.stringify(hubDatabase));
+                
+                showToast("Tournament launched locally! Export DB to apply.", "success");
+                document.getElementById("tourOyun").value = "";
+                document.getElementById("tourBaslik").value = "";
+                document.getElementById("tourOdul").value = "";
+                document.getElementById("tourTarih").value = "";
+                refreshAdminDashboardData();
+            });
+        }
+
+        window.deleteTournament = function(index) {
+            if (confirm("End and delete this tournament?")) {
+                hubDatabase.tournaments.splice(index, 1);
+                localStorage.setItem("kinetic_hub_db", JSON.stringify(hubDatabase));
+                showToast("Tournament deleted locally.", "info");
+                refreshAdminDashboardData();
+            }
+        };
+
+        // 2. Duyuru/Güncelleme Ekle/Sil
+        if (addUpdateBtn) {
+            addUpdateBtn.addEventListener("click", () => {
+                const baslikEn = document.getElementById("upBaslikEn").value.trim();
+                const baslikTr = document.getElementById("upBaslikTr").value.trim();
+                const descEn = document.getElementById("upDescEn").value.trim();
+                const descTr = document.getElementById("upDescTr").value.trim();
+                const icon = document.getElementById("upIcon").value.trim() || "fas fa-bullhorn";
+
+                if (!baslikEn || !baslikTr || !descEn || !descTr) return showToast("Please fill all update fields!", "error");
+
+                if (!hubDatabase.updates) hubDatabase.updates = [];
+                hubDatabase.updates.push({
+                    baslik: { en: baslikEn, tr: baslikTr },
+                    desc: { en: descEn, tr: descTr },
+                    icon: icon
+                });
+
+                localStorage.setItem("kinetic_hub_db", JSON.stringify(hubDatabase));
+                showToast("Update published locally! Export DB to apply.", "success");
+                
+                document.getElementById("upBaslikEn").value = "";
+                document.getElementById("upBaslikTr").value = "";
+                document.getElementById("upDescEn").value = "";
+                document.getElementById("upDescTr").value = "";
+                document.getElementById("upIcon").value = "";
+                refreshAdminDashboardData();
+            });
+        }
+
+        function loadAdminUpdates() {
+            const ul = document.getElementById("adminUpdateList");
+            if (!ul) return;
+            ul.innerHTML = "";
+            if (hubDatabase.updates) {
+                hubDatabase.updates.forEach((item, index) => {
+                    const title = item.baslik.en || item.baslik;
+                    ul.innerHTML += `<li class="staff-list-item"><span>${title}</span><button class="remove-product-btn" onclick="deleteUpdate(${index})"><i class="fas fa-trash"></i></button></li>`;
+                });
+            }
+        }
+
+        window.deleteUpdate = function(index) {
+            if (confirm("Delete this update?")) {
+                hubDatabase.updates.splice(index, 1);
+                localStorage.setItem("kinetic_hub_db", JSON.stringify(hubDatabase));
+                showToast("Update removed locally.", "info");
+                refreshAdminDashboardData();
+            }
+        };
+
+        // 3. Kadro Alımları Ekle/Sil
+        if (addRecruitmentBtn) {
+            addRecruitmentBtn.addEventListener("click", () => {
+                const oyun = document.getElementById("recOyun").value.trim();
+                const descEn = document.getElementById("recDescEn").value.trim();
+                const descTr = document.getElementById("recDescTr").value.trim();
+                const theme = document.getElementById("recTheme").value;
+
+                if (!oyun || !descEn || !descTr) return showToast("Please fill all recruitment fields!", "error");
+
+                if (!hubDatabase.recruitments) hubDatabase.recruitments = [];
+                hubDatabase.recruitments.push({ oyun, desc: { en: descEn, tr: descTr }, theme });
+
+                localStorage.setItem("kinetic_hub_db", JSON.stringify(hubDatabase));
+                showToast("Recruitment launched locally!", "success");
+                
+                document.getElementById("recOyun").value = "";
+                document.getElementById("recDescEn").value = "";
+                document.getElementById("recDescTr").value = "";
+                refreshAdminDashboardData();
+            });
+        }
+
+        function loadAdminRecruitments() {
+            const ul = document.getElementById("adminRecruitmentList");
+            if (!ul) return;
+            ul.innerHTML = "";
+            if (hubDatabase.recruitments) {
+                hubDatabase.recruitments.forEach((r, index) => {
+                    ul.innerHTML += `<li class="staff-list-item"><span><b>[${r.oyun.toUpperCase()}]</b> recruitment</span><button class="remove-product-btn" onclick="deleteRecruitment(${index})"><i class="fas fa-trash"></i></button></li>`;
+                });
+            }
+        }
+
+        window.deleteRecruitment = function(index) {
+            if (confirm("Close this recruitment?")) {
+                hubDatabase.recruitments.splice(index, 1);
+                localStorage.setItem("kinetic_hub_db", JSON.stringify(hubDatabase));
+                showToast("Recruitment closed locally.", "info");
+                refreshAdminDashboardData();
+            }
+        };
+
+        // 4. Kadro (Roster) Ekle/Sil
+        if (addRosterBtn) {
+            addRosterBtn.addEventListener("click", () => {
+                const rOyun = document.getElementById("memberOyun").value.trim();
+                const rAd = document.getElementById("memberName").value.trim();
+                const rRol = document.getElementById("memberRol").value.trim();
+                const rYas = document.getElementById("memberYas").value.trim();
+
+                if (!rOyun || !rAd || !rRol || !rYas) return showToast("Please fill all fields!", "error");
+
+                if (!hubDatabase.roster) hubDatabase.roster = [];
+                hubDatabase.roster.push({ oyun: rOyun, ad: rAd, rol: rRol, yas: rYas });
+
+                localStorage.setItem("kinetic_hub_db", JSON.stringify(hubDatabase));
+                showToast("Player added to roster locally!", "success");
+
+                document.getElementById("memberOyun").value = "";
+                document.getElementById("memberName").value = "";
+                document.getElementById("memberRol").value = "";
+                document.getElementById("memberYas").value = "";
+                refreshAdminDashboardData();
+            });
+        }
+
+        function loadAdminRoster() {
+            const ul = document.getElementById("adminRosterList");
+            if (!ul) return;
+            ul.innerHTML = "";
+            if (hubDatabase.roster) {
+                hubDatabase.roster.forEach((p, index) => {
+                    ul.innerHTML += `
+                        <li class="staff-list-item">
+                            <span><b>[${p.oyun.toUpperCase()}]</b> ${p.ad} (${p.rol})</span>
+                            <button class="remove-product-btn" onclick="deleteRosterMember(${index})"><i class="fas fa-trash"></i></button>
+                        </li>
+                    `;
+                });
+            }
+        }
+
+        window.deleteRosterMember = function(index) {
+            if (confirm("Remove player from roster?")) {
+                hubDatabase.roster.splice(index, 1);
+                localStorage.setItem("kinetic_hub_db", JSON.stringify(hubDatabase));
+                showToast("Player removed locally. Export DB to apply!", "info");
+                refreshAdminDashboardData();
+            }
+        };
+
+        // 5. Yetkili Listesi Ekle/Sil
+        function loadStaffList() {
+            const ul = document.getElementById("staffList");
+            if(!ul) return;
+            ul.innerHTML = "";
+            officialStaff.forEach((username, index) => {
+                ul.innerHTML += `<li class="staff-list-item"><span>@${username}</span><button class="remove-staff-btn" onclick="removeStaff(${index})"><i class="fas fa-user-minus"></i></button></li>`;
+            });
+        }
+
+        if (addStaffBtn) {
+            addStaffBtn.addEventListener("click", () => {
+                const input = document.getElementById("newStaffInput");
+                const val = input.value.trim().toLowerCase();
+                if (!val) return;
+                if (officialStaff.includes(val)) return showToast("User already in registry.", "error");
+
+                officialStaff.push(val);
+                localStorage.setItem("kineticStaffDB", JSON.stringify(officialStaff));
+                input.value = "";
+                refreshAdminDashboardData();
+                showToast("Staff registry updated locally.", "success");
+            });
+        }
+
+        window.removeStaff = function(index) {
+            if (confirm("Revoke staff verification?")) {
+                officialStaff.splice(index, 1);
+                localStorage.setItem("kineticStaffDB", JSON.stringify(officialStaff));
+                refreshAdminDashboardData();
+                showToast("Staff access revoked locally.", "info");
+            }
+        };
+
+        // 6. Veritabanı Dışa Aktar (Export DB)
+        if (exportDbBtn) {
+            exportDbBtn.addEventListener("click", () => {
+                const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(hubDatabase, null, 2));
+                const dlAnchorElem = document.createElement('a');
+                dlAnchorElem.setAttribute("href", dataStr);
+                dlAnchorElem.setAttribute("download", "database.json"); // Klasör dışındaki database.json'u güncelleyeceksin
+                document.body.appendChild(dlAnchorElem);
+                dlAnchorElem.click();
+                dlAnchorElem.remove();
+                showToast("database.json generated! Push to GitHub root to apply.", "success");
+            });
+        }
+
+        // Veritabanı Yedek Geri Yükle (Import Backup)
+        if (importDbBtn && importDbFile) {
+            importDbBtn.addEventListener("click", () => importDbFile.click());
+            importDbFile.addEventListener("change", (e) => {
+                const file = e.target.files[0];
+                if (!file) return;
+                const reader = new FileReader();
+                reader.onload = function(evt) {
+                    try {
+                        const importedData = JSON.parse(evt.target.result);
+                        if (typeof importedData === "object" && importedData !== null) {
+                            hubDatabase = importedData;
+                            localStorage.setItem("kinetic_hub_db", JSON.stringify(hubDatabase));
+                            showToast("Database restored successfully!", "success");
+                            refreshAdminDashboardData();
+                        } else { throw new Error("Invalid format"); }
+                    } catch (error) {
+                        showToast("Failed to import backup: corrupted JSON.", "error");
+                    }
+                };
+                reader.readAsText(file);
+                e.target.value = '';
+            });
+        }
+    </script>
+</body>
+</html>
