@@ -1,5 +1,16 @@
 /* ==========================================================================
-   DİL SÖZLÜĞÜ (TRANSLATIONS - Sadece Gerekli Menüler Kaldı)
+   1. GÜVENLİK ANAHTARI VE ŞİFRELİ GİRİŞ SİSTEMİ (Şifre: kineticadmin)
+   ========================================================================== */
+const ADMIN_PASSWORD = "TK-ADMINASTOR"; 
+
+function verifyAdminPassword(inputPass) { 
+    if (!inputPass) return false;
+    const cleanedInput = inputPass.trim(); 
+    return cleanedInput === ADMIN_PASSWORD;
+}
+
+/* ==========================================================================
+   DİL SÖZLÜĞÜ (TRANSLATIONS)
    ========================================================================== */
 const translations = {
     en: {
@@ -10,6 +21,9 @@ const translations = {
         hero_title: "Welcome to True Kinetic Ecosystem", 
         hero_desc: "Join our Discord community, participate in our custom esports tournaments, and discover our digital services all in one place.", 
         hero_btn_explore: "Discover Esports", hero_btn_discord: "Join Community",
+        roles_title: "Discord Server Roles", roles_subtitle: "Information about the roles and ranks available on our Discord server.",
+        role_col_staff: "Management & Staff", role_col_ranks: "Purchase Ranks", role_col_members: "Community & Teams",
+        r_founder_desc: "Official server founder and owner.", r_coleader_desc: "Official server Co-Leader.", r_headadmin_desc: "Ban requests, applications, bot admin.", r_mod_desc: "Moderation staff member, log viewing.", r_legendary_desc: "Requires making a total of 100+ purchases.", r_master_desc: "Requires making a total of 50+ purchases.", r_diamond_desc: "Requires making a total of 25+ purchases.", r_gold_desc: "Requires making a total of 5+ purchases.", r_partnerteam_desc: "Partner, free advertising authority.", r_developer_desc: "Official development team members.", r_member_desc: "Official server member.", r_esport_desc: "Official professional e-sports players representing TK.",
         footer_community_title: "True Kinetic Studios", footer_community_desc: "This web project is managed via the official True Kinetic Studios Discord page.", footer_sub: "This website and provided services are independently operated by the True Kinetic Team.",
         es_community_desc: "An active and growing gaming community organizing custom tournaments and aiming to step into competitive arenas.",
         es_feat_1: "Official Tournaments", es_feat_2: "Community Scrims", es_feat_3: "Custom TK Cups",
@@ -36,6 +50,9 @@ const translations = {
         hero_title: "True Kinetic Ekosistemine Hoş Geldin", 
         hero_desc: "Discord topluluğumuza katılın, özel espor turnuvalarımızda yerinizi alın ve dijital hizmetlerimizi tek bir adreste keşfedin.", 
         hero_btn_explore: "E-Sporu Keşfet", hero_btn_discord: "Topluluğa Katıl",
+        roles_title: "Sunucu Rolleri", roles_subtitle: "Sunucumuzda mevcut olan roller ve rütbeler hakkında bilgi.",
+        role_col_staff: "Yönetim & Yetkililer", role_col_ranks: "Aktif Rütbeler", role_col_members: "Topluluk & Takımlar",
+        r_founder_desc: "Resmi sunucu kurucusu, sahibi.", r_coleader_desc: "Resmi sunucu eş lideri.", r_headadmin_desc: "Ban istekleri, ortaklık başvuruları, yetkili alımı ve bot yöneticisi.", r_mod_desc: "Moderasyon ekibi, log görüntüleme.", r_legendary_desc: "Toplamda 100+ satın alma.", r_master_desc: "Toplamda 50+ satın alma.", r_diamond_desc: "Toplamda 25+ satın alma.", r_gold_desc: "Toplamda 5+ satın alma.", r_partnerteam_desc: "İş ortağı, reklam yetkisi.", r_developer_desc: "Geliştirici ekip üyeleri.", r_member_desc: "Resmi sunucu üyesi.", r_esport_desc: "TK'yi temsil eden resmi profesyonel e-spor oyuncuları.",
         footer_community_title: "True Kinetic Studios", footer_community_desc: "Bu web projesi, resmi True Kinetic Studios Discord sayfasında yayınlanmaktadır.", footer_sub: "Bu web sitesi True Kinetic ekibi tarafından bağımsız olarak yönetilmektedir.",
         es_community_desc: "Kendi turnuvalarını düzenleyen, rekabetçi arenalarda yer almayı hedefleyen aktif ve gelişmekte olan bir oyuncu topluluğuyuz.",
         es_feat_1: "Resmi Turnuvalar", es_feat_2: "Topluluk Scrimleri", es_feat_3: "Özel TK Turnuvaları",
@@ -56,14 +73,16 @@ const translations = {
     }
 };
 
-// Varsayılan Veritabanı Şablonu
+/* ==========================================================================
+   VARSAYILAN VERİTABANI ŞABLONU
+   ========================================================================== */
 const defaultDatabase = {
     tournaments: [
         { oyun: "Valorant", baslik: "TK Valorant Cup Season 1", odul: "5000 VP", tarih: "2026-07-20" }
     ],
     updates: [
         { 
-            baslik: { en: "TK Esports PUBG Mobile Recruitment!", tr: "TK Esports PUBG Mobile Kadro Alımı!" },
+            baslik: { en: "TK Esports PUBG Mobile Roster Recruitment!", tr: "TK Esports PUBG Mobile Kadro Başvuruları!" },
             desc: { en: "We are officially starting recruitments for our brand-new competitive squad.", tr: "Yeni kuracağımız rekabetçi kadromuz için başvuruları resmen başlatıyoruz." },
             icon: "fas fa-bullhorn"
         }
@@ -86,26 +105,49 @@ let selectedRosterTab = "ALL";
 const openAdminBtn = document.getElementById("openAdminLoginBtn");
 
 /* ==========================================================================
-   2. GITHUB'DAN database.json VERİSİNİ ÇEKME
+   2. GITHUB'DAN database.json VERİSİNİ ÇEKME (ÇÖKME KORUMALI)
    ========================================================================== */
 async function fetchLatestDataFromGithub() {
     try {
         const response = await fetch('database.json?t=' + new Date().getTime());
         if (response.ok) {
-            hubDatabase = await response.json();
-            localStorage.setItem("kinetic_hub_db", JSON.stringify(hubDatabase));
+            const githubData = await response.json();
+            if (githubData && typeof githubData === "object") {
+                if (!isLoggedInAdmin) {
+                    hubDatabase = githubData;
+                    localStorage.setItem("kinetic_hub_db", JSON.stringify(hubDatabase));
+                    console.log("database.json başarıyla güncellendi.");
+                }
+            }
         }
     } catch (e) {
-        console.log("database.json çekilemedi, yerel önbellek kullanılıyor.");
+        console.log("GitHub database.json okunamadı, yerel veri devrede.");
     }
-    renderUpdates();
-    renderActiveTournaments();
-    renderActiveRecruitments();
-    renderActiveRosters(); 
+    
+    // Her render fonksiyonunu bağımsız korumaya alıyoruz (Biri çökse bile diğeri durmasın)
+    try { renderUpdates(); } catch(e) { console.error("Updates çizilemedi:", e); }
+    try { renderActiveTournaments(); } catch(e) { console.error("Tournaments çizilemedi:", e); }
+    try { renderActiveRecruitments(); } catch(e) { console.error("Recruitments çizilemedi:", e); }
+    try { renderActiveRosters(); } catch(e) { console.error("Roster çizilemedi:", e); }
 }
 
 /* ==========================================================================
-   3. DETAYLI RENDER SİSTEMLERİ (ÇÖKME KORUMALI)
+   3. TOAST BİLDİRİM SİSTEMİ
+   ========================================================================== */
+function showToast(message, type = "info") {
+    const container = document.getElementById("toastContainer");
+    if (!container) return;
+    const toast = document.createElement("div");
+    toast.className = `toast ${type}`;
+    let icon = type === "success" ? "fa-check-circle" : type === "error" ? "fa-exclamation-circle" : "fa-info-circle";
+    toast.innerHTML = `<i class="fas ${icon}"></i> <span>${message}</span>`;
+    container.appendChild(toast);
+    setTimeout(() => toast.classList.add("show"), 10);
+    setTimeout(() => { toast.classList.remove("show"); setTimeout(() => toast.remove(), 400); }, 3500);
+}
+
+/* ==========================================================================
+   4. DETAYLI RENDER SİSTEMLERİ (OKUMA VE LİSTELEME)
    ========================================================================== */
 // Duyurular ve Gelişmeler Grid Çizimi
 function renderUpdates() {
@@ -198,7 +240,7 @@ function renderActiveRecruitments() {
     });
 }
 
-// 3.1 DİNAMİK SEKMELİ KADRO RENDER SİSTEMİ (ROSTER TABS)
+// DİNAMİK SEKMELİ KADRO RENDER SİSTEMİ (ROSTER TABS)
 function renderActiveRosters() {
     const tabsBar = document.getElementById("rosterTabsBar");
     const grid = document.getElementById("activeRostersGrid");
@@ -263,7 +305,7 @@ window.setRosterTab = function(tabName) {
 };
 
 /* ==========================================================================
-   4. ÇEVİRİ VE DİL DESTEĞİ
+   5. ÇEVİRİ VE DİL DESTEĞİ
    ========================================================================== */
 function applyLanguage(lang) {
     currentLang = lang;
@@ -284,9 +326,27 @@ function applyLanguage(lang) {
 }
 
 /* ==========================================================================
-   5. UI ETKİLEŞİMLERİ VE GENEL OLAYLAR
+   6. SCROLL REVEAL BAŞLATICI (Görünürlük Sorunlarını Çözen Güvenlik Kilidi)
+   ========================================================================== */
+function initScrollReveal() {
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) { 
+                entry.target.classList.add("active"); 
+                observer.unobserve(entry.target); 
+            }
+        });
+    }, { threshold: 0.1 });
+    document.querySelectorAll(".reveal-on-scroll").forEach(el => observer.observe(el));
+}
+
+/* ==========================================================================
+   7. UI ETKİLEŞİMLERİ VE GENEL OLAYLAR
    ========================================================================== */
 document.addEventListener("DOMContentLoaded", () => {
+    // GÜVENLİK ÖNCELİĞİ: Çökme olsa bile sayfalar anında görünür olsun diye en başta tetikliyoruz
+    initScrollReveal();
+
     applyLanguage(currentLang);
     fetchLatestDataFromGithub();
 
@@ -300,13 +360,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const langSelect = document.getElementById("langSelect");
     if (langSelect) { langSelect.addEventListener("change", (e) => applyLanguage(e.target.value)); }
-
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) { entry.target.classList.add("active"); observer.unobserve(entry.target); }
-        });
-    }, { threshold: 0.1 });
-    document.querySelectorAll(".reveal-on-scroll").forEach(el => observer.observe(el));
 
     const verifyBtn = document.getElementById("verifyBtn");
     if(verifyBtn) {
@@ -325,7 +378,7 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    // Modal dışına tıklayınca kapanma mantığı (Admin Paneli artık ayrı sayfada olduğu için sadece apply modalı kapsar)
+    // Modal dışına tıklayınca kapanma
     window.addEventListener("click", (e) => { 
         if (e.target.classList.contains("modal-overlay")) {
             e.target.classList.remove("active"); 
@@ -334,13 +387,12 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 /* ==========================================================================
-   6. MODALLAR VE KAPATMA İŞLEVLERİ
+   8. MODALLAR VE KAPATMA İŞLEVLERİ
    ========================================================================== */
 document.querySelectorAll(".close-modal-btn").forEach(btn => {
     btn.addEventListener("click", () => btn.closest(".modal-overlay").classList.remove("active"));
 });
 
-// Artık yerel modal açmak yerine doğrudan yeni apply.html sayfamıza yönlendiriyor (Dinamik ve pürüzsüz çoklu sayfa) [1.1]
 window.openEsportsModal = function(gameName) {
     window.location.href = 'pages/apply.html?game=' + encodeURIComponent(gameName);
 };
