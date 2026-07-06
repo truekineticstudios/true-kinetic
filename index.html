@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="tr">
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -11,7 +11,7 @@
     <meta property="og:description" content="Official True Kinetic Esports, community tournaments, and digital services hub." />
     <meta property="og:image" content="https://images.unsplash.com/photo-1614680376573-df3480f0c6ff?q=80&w=1200&auto=format&fit=crop" />
     <meta property="og:url" content="https://truekinetichub.com" />
-    <meta name="theme-color" content="#a855f7">
+    <meta name="theme-color" content="#bd5cfa">
 
     <!-- Özel Fontlar ve İkonlar -->
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;700;800&display=swap" rel="stylesheet">
@@ -22,7 +22,7 @@
 </head>
 <body>
 
-    <!-- ARKAPLAN ANİMASYONLARI -->
+    <!-- SİBER NEON ARKA PLAN ANİMASYONLARI (Canlı Renk Küreleri) -->
     <div class="animated-bg-elements">
         <div class="glow-orb orb-1"></div>
         <div class="glow-orb orb-2"></div>
@@ -64,11 +64,11 @@
                     </select>
                 </div>
 
-                <!-- Admin Giriş Butonu -->
-                <button id="openAdminLoginBtn" class="nav-admin-btn">
+                <!-- Bağımsız Admin Paneline Yönlendiren Buton (Güvenli ve İzole) -->
+                <a href="pages/admin.html" class="nav-admin-btn">
                     <i class="fas fa-user-shield"></i>
                     <span data-i18n="nav_admin">Admin</span>
-                </button>
+                </a>
 
                 <a href="https://discord.gg/tqsKHt6qSS" target="_blank" rel="noopener noreferrer" class="nav-discord-btn">
                     <i class="fab fa-discord"></i> Discord
@@ -77,12 +77,12 @@
         </div>
     </header>
 
-    <!-- HERO SECTION -->
+    <!-- HERO SECTION (Canlı Karşılama Alanı) -->
     <section id="home" class="hero">
         <div class="hero-content reveal-on-scroll">
             <span class="badge"><i class="fas fa-users"></i> Gaming & Esports Community</span>
             <h1 data-i18n="hero_title">Welcome to True Kinetic Ecosystem</h1>
-            <p data-i18n="hero_desc">Join our Discord community, participate in our custom esports tournaments, and discover our digital services all in one place.</p>
+            <p data-i18n="hero_desc">Join our Discord community, participate in our custom esports tournaments, and read our latest community updates all in one place.</p>
             <div class="hero-buttons">
                 <a href="#esports" class="primary-btn"><i class="fas fa-trophy"></i> <span data-i18n="hero_btn_explore">Discover Esports</span></a>
                 <a href="https://discord.gg/tqsKHt6qSS" target="_blank" rel="noopener noreferrer" class="secondary-btn">
@@ -92,14 +92,14 @@
         </div>
     </section>
 
-    <!-- TRUE KINETIC ESPORTS -->
+    <!-- TRUE KINETIC ESPORTS & KADRO BAŞVURULARI -->
     <section id="esports" class="esports-battle-section content-section">
         <div class="esports-battle-container reveal-on-scroll">
             
-            <!-- Sol Taraf: Dev Logo ve Topluluk Ruhu -->
+            <!-- Sol Sütun: Kulüp Ruhu (Parlayan Kupa) -->
             <div class="es-brand-side">
                 <div class="es-glow-ring">
-                    <i class="fas fa-trophy" style="font-size: 3.5rem; color: var(--purple-glow); filter: drop-shadow(0 0 10px var(--purple-glow));"></i>
+                    <i class="fas fa-trophy" style="font-size: 3.5rem; color: var(--purple-glow); filter: drop-shadow(0 0 12px var(--purple-glow));"></i>
                 </div>
                 <h2 class="es-hero-title">TRUE KINETIC <span>ESPORTS</span></h2>
                 <p class="es-hero-desc" data-i18n="es_community_desc">Kendi turnuvalarını düzenleyen, rekabetçi arenalarda yer almayı hedefleyen aktif ve gelişmekte olan bir oyuncu topluluğuyuz.</p>
@@ -110,61 +110,71 @@
                 </div>
             </div>
 
-            <!-- Sağ Taraf: Dinamik Kadro Başvuruları (Admin panelinden eklenenler buraya düşecek) -->
+            <!-- Sağ Sütun: Dinamik Kadro Başvuruları (Veritabanından Gelen Alımlar) -->
             <div class="es-roster-side">
-                <h3 style="font-family: var(--font-mono); font-size: 1.5rem; margin-bottom: 20px; color: white;"><i class="fas fa-users-gear"></i> ACTIVE RECRUITMENTS</h3>
+                <h3 style="font-family: var(--font-mono); font-size: 1.5rem; margin-bottom: 20px; color: white; display: flex; align-items: center; gap: 10px;">
+                    <i class="fas fa-users-gear" style="color: var(--neon-cyan);"></i> ACTIVE RECRUITMENTS
+                </h3>
                 <div id="activeRecruitmentsGrid" style="display: flex; flex-direction: column; gap: 20px;">
-                    <!-- Başvurular buraya dinamik dolacak -->
+                    <!-- Veritabanındaki alımlar buraya otomatik dolacak -->
                 </div>
             </div>
 
             <!-- DİNAMİK TURNUVA ALANI -->
             <div style="flex: 1 1 100%; margin-top: 50px;">
-                <h3 style="font-family: var(--font-mono); font-size: 1.8rem; margin-bottom: 20px; border-left: 4px solid var(--purple-glow); padding-left: 15px; color: white;">🏆 ACTIVE TOURNAMENTS</h3>
+                <h3 style="font-family: var(--font-mono); font-size: 1.8rem; margin-bottom: 25px; border-left: 4px solid var(--purple-glow); padding-left: 15px; color: white;">🏆 ACTIVE TOURNAMENTS</h3>
                 <div id="activeTournamentsGrid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 24px;">
-                    <!-- Turnuvalar buraya dinamik dolacak -->
+                    <!-- Veritabanındaki turnuvalar buraya otomatik dolacak -->
                 </div>
             </div>
 
         </div>
     </section>
 
-    <!-- ACTIVE ROSTERS SECTION (DİNAMİK OYUNCU KADROLARI ALANI) -->
-    <section id="rosters" class="content-section" style="background: rgba(168, 85, 247, 0.01); border-top: 1px solid rgba(255,255,255,0.01);">
+    <!-- ACTIVE ROSTERS SECTION (Dinamik ve Sekmeli Oyuncu Kadroları) -->
+    <section id="rosters" class="content-section" style="border-top: 1px solid rgba(255,255,255,0.03);">
         <div class="section-header reveal-on-scroll">
             <h2 class="section-title" data-i18n="roster_title">👥 Active Game Rosters</h2>
             <p class="section-subtitle" data-i18n="roster_subtitle">Our active competitive squads representing True Kinetic across various titles.</p>
         </div>
-        <div id="activeRostersContainer" style="max-width: 1200px; margin: 0 auto; display: flex; flex-direction: column; gap: 40px;">
-            <!-- Kadrolar buraya oyunlara göre gruplanarak dinamik dolacak -->
+
+        <!-- OYUN SEKMELERİ (Tasarımı Aşırı Sadeleştiren Tabs Bar) -->
+        <div class="filter-wrapper reveal-on-scroll" style="margin-bottom: 3rem;">
+            <div id="rosterTabsBar" class="filter-container">
+                <!-- Javascript veritabanındaki oyun isimlerine göre buraya otomatik butonlar üretecek -->
+            </div>
+        </div>
+
+        <!-- Oyuncu Kartları Grid Alanı -->
+        <div id="activeRostersGrid" style="max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 25px;">
+            <!-- Seçili sekmeye ait oyuncular buraya dinamik dolacak -->
         </div>
     </section>
 
-    <!-- E-PIN SATIŞ DUYURU BÖLÜMÜ -->
-    <section id="epin-announcement" class="content-section" style="background: rgba(168, 85, 247, 0.02); border-top: 1px solid rgba(255,255,255,0.01); border-bottom: 1px solid rgba(255,255,255,0.01);">
-        <div class="epin-banner reveal-on-scroll" style="max-width: 900px; margin: 0 auto; background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 24px; padding: 3rem; text-align: center; position: relative; overflow: hidden; box-shadow: 0 10px 30px rgba(168, 85, 247, 0.05); transition: var(--transition-smooth);">
-            <div class="es-roster-bg" style="background: var(--purple-glow); opacity: 0.1; width: 100%;"></div>
-            <div style="position: relative; z-index: 2;">
-                <i class="fas fa-gem" style="font-size: 3.5rem; color: var(--purple-glow); margin-bottom: 1.5rem; filter: drop-shadow(0 0 10px var(--purple-glow));"></i>
-                <h2 style="font-size: 2rem; color: var(--text-white); margin-bottom: 1rem; font-weight: 800;" data-i18n="epin_title">💎 E-Pin & Game Currencies</h2>
-                <p style="color: var(--text-muted); font-size: 1.05rem; line-height: 1.6; max-width: 700px; margin: 0 auto 2rem;" data-i18n="epin_desc">
-                    Although we have removed our website catalog, our safe and fast E-Pin (Valorant VP, PUBG Mobile UC, Steam Cüzdan vb.) sales are still actively running! You can easily place an order by opening a support ticket on our Discord server.
+    <!-- E-PIN SATIŞ DUYURU BÖLÜMÜ (Uçan Elmas Tasarımlı Banner) -->
+    <section id="epin-announcement" class="content-section">
+        <div class="epin-banner reveal-on-scroll">
+            <div class="epin-banner-content">
+                <i class="fas fa-gem"></i>
+                <h2 data-i18n="epin_title">💎 E-Pin & Game Currencies</h2>
+                <p data-i18n="epin_desc">
+                    Although we have removed our website catalog, our safe and fast E-Pin (Valorant VP, PUBG UC, Steam Wallet, etc.) sales are still actively running! You can easily place an order by opening a support ticket on our Discord server.
                 </p>
-                <a href="https://discord.gg/tqsKHt6qSS" target="_blank" rel="noopener noreferrer" class="primary-btn" style="padding: 14px 35px; font-size: 1.1rem;">
+                <a href="https://discord.gg/tqsKHt6qSS" target="_blank" rel="noopener noreferrer" class="primary-btn">
                     <i class="fab fa-discord"></i> <span data-i18n="epin_btn">Join Discord & Order Now</span>
                 </a>
             </div>
         </div>
     </section>
 
-    <!-- ANNOUNCEMENTS & UPDATES SECTION -->
+    <!-- ANNOUNCEMENTS & UPDATES SECTION (Haberler & Gelişmeler) -->
     <section id="updates" class="updates-section content-section">
         <div class="section-header reveal-on-scroll">
             <h2 class="section-title" data-i18n="nav_updates">Announcements & Updates</h2>
             <p class="section-subtitle">Stay up-to-date with our latest community developments, rosters, and news.</p>
         </div>
         <div id="updatesGrid" class="services-grid">
-            <!-- Gelişmeler ve blog duyuruları buraya dinamik dolacak -->
+            <!-- Gelişmeler buraya dinamik dolacak -->
         </div>
     </section>
 
@@ -263,167 +273,7 @@
     <!-- MODALLAR (POPUPS) -->
     <div id="toastContainer"></div>
 
-    <!-- 2. Admin Şifre Giriş Modalı -->
-    <div id="adminAuthModal" class="modal-overlay">
-        <div class="modal-content auth-modal-content">
-            <span class="close-modal-btn" id="closeAuthBtn">&times;</span>
-            <i class="fas fa-fingerprint auth-icon"></i>
-            <h2>System Authentication</h2>
-            <div style="margin-top: 1.5rem; text-align: left;">
-                <div class="password-field-wrapper">
-                    <input type="password" id="adminPassInput" class="dashboard-input" placeholder="Enter secure key...">
-                    <button type="button" class="password-toggle-btn" id="toggleAdminPass"><i class="far fa-eye"></i></button>
-                </div>
-            </div>
-            <button id="submitAdminLoginBtn" class="primary-btn" style="width: 100%; justify-content: center; margin-top: 1rem;"><i class="fas fa-unlock"></i> Authenticate Session</button>
-        </div>
-    </div>
-
-    <!-- 3. Admin Yönetim Paneli Modalı (Log Out Butonu ve Yeni Sekmeler Eklendi) -->
-    <div id="adminDashboard" class="modal-overlay">
-        <div class="dashboard-content">
-            <span class="close-modal-btn" onclick="document.getElementById('adminDashboard').classList.remove('active')">&times;</span>
-            
-            <div class="dashboard-header" style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border-color); padding-bottom: 15px; margin-bottom: 20px;">
-                <div>
-                    <h2><i class="fas fa-toolbox"></i> True Kinetic Control Panel</h2>
-                    <p>Manage tournaments, write community updates, and open team applications instantly.</p>
-                </div>
-                <button id="adminLogoutBtn" class="primary-btn" style="background: var(--danger); font-size: 0.9rem; padding: 8px 15px; border-radius: 8px; box-shadow: none;"><i class="fas fa-sign-out-alt"></i> Log Out</button>
-            </div>
-
-            <div class="dashboard-stats" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px;">
-                <div class="stat-card"><div class="stat-icon"><i class="fas fa-trophy"></i></div><div class="stat-info"><h4 id="statTotalTournaments">0</h4><span>Tournaments</span></div></div>
-                <div class="stat-card"><div class="stat-icon"><i class="fas fa-newspaper"></i></div><div class="stat-info"><h4 id="statTotalUpdates">0</h4><span>Updates & News</span></div></div>
-                <div class="stat-card"><div class="stat-icon"><i class="fas fa-user-plus"></i></div><div class="stat-info"><h4 id="statTotalRecruitments">0</h4><span>Applications</span></div></div>
-                <div class="stat-card"><div class="stat-icon"><i class="fas fa-users"></i></div><div class="stat-info"><h4 id="statTotalRoster">0</h4><span>Roster Members</span></div></div>
-            </div>
-
-            <div class="dashboard-tabs">
-                <button class="tab-btn active" data-tab="tabAdminTournaments"><i class="fas fa-trophy"></i> Tournaments</button>
-                <button class="tab-btn" data-tab="tabAdminUpdates"><i class="fas fa-newspaper"></i> Updates & News</button>
-                <button class="tab-btn" data-tab="tabAdminRecruitments"><i class="fas fa-user-plus"></i> Recruitments</button>
-                <button class="tab-btn" data-tab="tabAdminRoster"><i class="fas fa-users"></i> Team Roster</button>
-                <button class="tab-btn" data-tab="tabAdminStaff"><i class="fas fa-database"></i> Database & Staff</button>
-            </div>
-
-            <div class="dashboard-body">
-                <!-- Sekme 1: Turnuva Yönetimi -->
-                <div id="tabAdminTournaments" class="tab-content active">
-                    <div class="dashboard-grid-2">
-                        <div class="dashboard-section">
-                            <h3><i class="fas fa-plus"></i> Create Esports Tournament</h3>
-                            <div class="add-product-form">
-                                <input type="text" id="tourOyun" class="dashboard-input" placeholder="Game Name (e.g., Valorant)" required>
-                                <input type="text" id="tourBaslik" class="dashboard-input" placeholder="Tournament Title" required>
-                                <input type="text" id="tourOdul" class="dashboard-input" placeholder="Reward Pool (e.g., 5000 VP)" required>
-                                <input type="date" id="tourTarih" class="dashboard-input" required>
-                                <button id="addTournamentBtn" class="primary-btn dashboard-action-btn"><i class="fas fa-plus"></i> Launch Tournament</button>
-                            </div>
-                        </div>
-                        <div class="dashboard-section">
-                            <h3><i class="fas fa-list"></i> Active Tournaments</h3>
-                            <ul id="adminTournamentList" class="dashboard-staff-list" style="max-height: 400px"></ul>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Sekme 2: Duyuru ve Güncelleme Yönetimi -->
-                <div id="tabAdminUpdates" class="tab-content">
-                    <div class="dashboard-grid-2">
-                        <div class="dashboard-section">
-                            <h3><i class="fas fa-plus"></i> Write Community Update</h3>
-                            <div class="add-product-form">
-                                <input type="text" id="upBaslikEn" class="dashboard-input" placeholder="Title (EN)" required>
-                                <input type="text" id="upBaslikTr" class="dashboard-input" placeholder="Başlık (TR)" required>
-                                <input type="text" id="upDescEn" class="dashboard-input" placeholder="Description (EN)" required>
-                                <input type="text" id="upDescTr" class="dashboard-input" placeholder="Açıklama (TR)" required>
-                                <input type="text" id="upIcon" class="dashboard-input" placeholder="FontAwesome Icon (e.g., fas fa-bullhorn)" required>
-                                <button id="addUpdateBtn" class="primary-btn dashboard-action-btn"><i class="fas fa-plus"></i> Post Update</button>
-                            </div>
-                        </div>
-                        <div class="dashboard-section">
-                            <h3><i class="fas fa-list"></i> Published Updates</h3>
-                            <ul id="adminUpdateList" class="dashboard-staff-list" style="max-height: 400px"></ul>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Sekme 3: Kadro Başvuru Yönetimi -->
-                <div id="tabAdminRecruitments" class="tab-content">
-                    <div class="dashboard-grid-2">
-                        <div class="dashboard-section">
-                            <h3><i class="fas fa-plus"></i> Create New Recruitment</h3>
-                            <div class="add-product-form">
-                                <input type="text" id="recOyun" class="dashboard-input" placeholder="Game Name (e.g., CS2)" required />
-                                <div class="form-row-dual">
-                                    <input type="text" id="recDescEn" class="dashboard-input" placeholder="Reqs (EN)" required />
-                                    <input type="text" id="recDescTr" class="dashboard-input" placeholder="Gereksinimler (TR)" required />
-                                </div>
-                                <select id="recTheme" class="dashboard-select">
-                                    <option value="pubg-theme">Yellow Theme (PUBG)</option>
-                                    <option value="bs-theme">Red Theme (Blood Strike)</option>
-                                    <option value="software">Purple Theme (True Kinetic)</option>
-                                </select>
-                                <button id="addRecruitmentBtn" class="primary-btn dashboard-action-btn"><i class="fas fa-plus"></i> Open Recruitment</button>
-                            </div>
-                        </div>
-                        <div class="dashboard-section">
-                            <h3><i class="fas fa-trash-can"></i> Active Recruitments</h3>
-                            <ul id="adminRecruitmentList" class="dashboard-staff-list" style="max-height: 400px"></ul>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Sekme 4: E-Spor Kadro Yönetimi (YEPYENİ BÖLÜM!) -->
-                <div id="tabAdminRoster" class="tab-content">
-                    <div class="dashboard-grid-2">
-                        <div class="dashboard-section">
-                            <h3><i class="fas fa-user-plus"></i> Add Team Member</h3>
-                            <div class="add-product-form">
-                                <input type="text" id="memberOyun" class="dashboard-input" placeholder="Game (e.g., PUBG Mobile)" required>
-                                <input type="text" id="memberName" class="dashboard-input" placeholder="Player Nickname/Name" required>
-                                <input type="text" id="memberRol" class="dashboard-input" placeholder="Role (e.g., IGL, Sniper, Entry)" required>
-                                <input type="number" id="memberYas" class="dashboard-input" placeholder="Age" required>
-                                <button id="addRosterBtn" class="primary-btn dashboard-action-btn"><i class="fas fa-plus"></i> Add Player</button>
-                            </div>
-                        </div>
-                        <div class="dashboard-section">
-                            <h3><i class="fas fa-users"></i> Active Roster Members</h3>
-                            <ul id="adminRosterList" class="dashboard-staff-list" style="max-height: 400px"></ul>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Sekme 5: Database & Staff -->
-                <div id="tabAdminStaff" class="tab-content">
-                    <div class="dashboard-grid-2">
-                        <div class="dashboard-section">
-                            <h3><i class="fas fa-users-gear"></i> Staff Verification List</h3>
-                            <div class="staff-manager-box">
-                                <div class="staff-add-row" style="display:flex; gap:10px; margin-bottom:15px;">
-                                    <input type="text" id="newStaffInput" class="dashboard-input" style="margin:0;" placeholder="Discord Username" />
-                                    <button id="addStaffBtn" class="primary-btn" style="padding: 0 20px;"><i class="fas fa-plus"></i></button>
-                                </div>
-                                <ul id="staffList" class="dashboard-staff-list" style="max-height: 250px"></ul>
-                            </div>
-                        </div>
-                        <div class="dashboard-section">
-                            <h3><i class="fas fa-server"></i> Sync Database (JSON)</h3>
-                            <p style="font-size:0.85rem; color:var(--text-muted); margin-bottom: 15px;">Tüm sitenin (Turnuva, Duyuru, Kadrolar vb.) yerel veritabanını indirin ve GitHub'a yükleyin.</p>
-                            <div style="display:flex; gap:10px; margin-top:2rem;">
-                                <button id="exportDbBtn" class="primary-btn" style="flex:1; background: #2ecc71; color: #000;"><i class="fas fa-download"></i> Export DB</button>
-                                <input type="file" id="importDbFile" accept=".json" style="display:none;">
-                                <button id="importDbBtn" class="primary-btn" style="flex:1; background: #f39c12; color: #000;"><i class="fas fa-upload"></i> Import Backup</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- 4. E-Spor Başvuru Kuralları Modalı -->
+    <!-- E-Spor Başvuru Kuralları Modalı -->
     <div id="esportsApplyModal" class="modal-overlay">
         <div class="modal-content esports-modal-content">
             <span class="close-modal-btn" onclick="document.getElementById('esportsApplyModal').classList.remove('active')">&times;</span>
