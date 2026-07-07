@@ -79,6 +79,13 @@
                     "rank": "Mythical Honor"
                 }
             ]
+        },
+        {
+            "name_tr": "TK Valorant Premier Lig",
+            "name_en": "TK Valorant Premier League",
+            "game_tr": "Valorant",
+            "game_en": "Valorant",
+            "roster": []
         }
     ],
     "tournaments": [],
