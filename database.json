@@ -1,166 +1,164 @@
 {
-    "news": [
-        {
-            "title_tr": "Blood Strike Türkiye 2026 Zafer Kupası 🏆",
-            "title_en": "Turkish Allowed",
-            "content_tr": "Blood Strike Türkiye´nin organize etmiş olduğu zafer kupası turnuvası için takım alımlarımız başlamıştır!",
-            "content_en": "Turkish Allowed"
-        },
-        {
-            "title_tr": "ALIMLAR BAŞLADI!",
-            "title_en": "RECRUITMENTS STARTED!",
-            "content_tr": "True Kinetic ekipleri için alımlar başladı! Hemen katılmak üzere ekip alım bölümüne göz atın!",
-            "content_en": "Recruitments have started for True Kinetic teams! Check out our recruitment section to join now!"
-        }
-    ],
-    "teams": [
-        {
-            "name_tr": "ONEX",
-            "name_en": "ONEX",
-            "game_tr": "Blood Strike MENA & EU",
-            "game_en": "Blood Strike MENA & EU",
-            "roster": [
-                {
-                    "role": "captain",
-                    "nickname": "owmanxx",
-                    "realname": "Salih",
-                    "rank": "Legend 3"
-                },
-                {
-                    "role": "player",
-                    "nickname": "ursinhopapao",
-                    "realname": "Yusuf",
-                    "rank": "Legend 4"
-                },
-                {
-                    "role": "sub",
-                    "nickname": "UmtTcn",
-                    "realname": "Umut",
-                    "rank": "Silver I"
-                },
-                {
-                    "role": "sub",
-                    "nickname": "S2G_HAMZA",
-                    "realname": "Hamza",
-                    "rank": "Gold IV"
-                }
-            ]
-        },
-        {
-            "name_tr": "REG",
-            "name_en": "REG",
-            "game_tr": "PUBG Mobil",
-            "game_en": "PUBG Mobile",
-            "roster": [
-                {
-                    "role": "captain",
-                    "nickname": "REG|VØRTEX",
-                    "realname": "Hamza",
-                    "rank": "Ace 2"
-                },
-                {
-                    "role": "player",
-                    "nickname": "TheConquiror",
-                    "realname": "Umut",
-                    "rank": "Gold 3"
-                }
-            ]
-        },
-        {
-            "name_tr": "CRAYZ ESPOR",
-            "name_en": "CRAYZ ESPORTS",
-            "game_tr": "Mobile Legends: Bang Bang",
-            "game_en": "Mobile Legends: Bang Bang",
-            "roster": [
-                {
-                    "role": "captain",
-                    "nickname": "ÇILGINÇLGyt",
-                    "realname": "Efe",
-                    "rank": "Epic III"
-                },
-                {
-                    "role": "player",
-                    "nickname": "v_lenin_tandr",
-                    "realname": "Salih",
-                    "rank": "Epic V"
-                },
-                {
-                    "role": "player",
-                    "nickname": "Eminkral2",
-                    "realname": "Mehmet Emin",
-                    "rank": "Mythical Honor"
-                }
-            ]
-        },
-        {
-            "name_tr": "TK Valorant Premier Lig",
-            "name_en": "TK Valorant Premier League",
-            "game_tr": "Valorant",
-            "game_en": "Valorant",
-            "roster": []
-        }
-    ],
-    "tournaments": [
-        {
-            "name_tr": "BLOOD STRIKE 2026 Türkiye ZAFER KUPASI",
-            "name_en": "BLOOD STRIKE 2026 Türkiye VICTORY CUP",
-            "start_date_tr": "11 Temmuz",
-            "start_date_en": "July 11",
-            "end_date_tr": "12 Temmuz",
-            "end_date_en": "July 12",
-            "prizes_tr": "6,000 Oyun İçi Para Brimi Ödülü",
-            "prizes_en": "6,000 In-Game Currency Reward",
-            "rules_tr": "* 👥 Kontenjan: 8 Takım\n* 🎮 Takım Kadrosu: 4 Oyuncu + 1 Yedek\n* 🏅 Takımlar, oyuncuların oyun içi derecelerine göre belirlenecektir.\n* 💻📱 Platform sınırlaması yoktur. (PC, Mobil veya Karma takımlar katılabilir.)\n* 👑 Başvurular yalnızca takım kaptanı tarafından yapılabilir.\n* ❗ Kayıt tamamlandıktan sonra kadro değişikliği yapılamaz.",
-            "rules_en": "* 👥 Capacity: 8 Teams\n* 🎮 Team Roster: 4 Players + 1 Substitute\n* 🏅 Teams will be determined based on the players' in-game ranks.\n* 💻📱 No platform restrictions. (PC, Mobile, or mixed teams may participate.)\n* 👑 Applications can only be submitted by the team captain.\n* ❗ Roster changes cannot be made after registration is complete."
-        }
-    ],
-    "recruitments": [
-        {
-            "name_tr": "Valorant Takım Alımı",
-            "name_en": "Valorant Team Recruitment",
-            "requiresLicense": false
-        },
-        {
-            "name_tr": "PUBG Mobile REG Takım Alımı",
-            "name_en": "PUBG Mobile REG Team Recruitment",
-            "requiresLicense": false
-        },
-        {
-            "name_tr": "Blood Strike ONEX Takım Alımı",
-            "name_en": "Blood Strike ONEX Team Recruitment",
-            "requiresLicense": false
-        },
-        {
-            "name_tr": "Mobile Legends: Bang Bang CRAYZ Takım Alımı",
-            "name_en": "Mobile Legends: Bang Bang CRAYZ Team Recruitment",
-            "requiresLicense": false
-        },
-        {
-            "name_tr": "Brawl Stars Takım Alımı",
-            "name_en": "Brawl Stars Team Recruitment",
-            "requiresLicense": false
-        },
-        {
-            "name_tr": "Brawl Stars Aşamalı Oyuncu Espor Takım Alımı",
-            "name_en": "Brawl Stars Ranked Player Esports Team Recruitment",
-            "requiresLicense": true
-        },
-        {
-            "name_tr": "BLOOD STRIKE 2026 TÜRKİYE ZAFER KUPASI",
-            "name_en": "BLOOD STRIKE 2026 TÜRKİYE ZAFER KUPASI",
-            "requiresLicense": false
-        }
-    ],
-    "stats": {
-        "teams_tr": "3 Aktif Takım",
-        "teams_en": "3 Active Teams",
-        "players_tr": "1 Lisanslı Oyuncu, 5 Lisanssız Oyuncu",
-        "players_en": "1 Licensed Player, 5 Unlicensed Players",
-        "support_tr": "7/24 Discord Destek",
-        "support_en": "24/7 Discord Support",
-        "events_tr": "Aktif Turnuvalar - Aktif Turnuva Bulunamadı",
-        "events_en": "Active Tournaments - No active tournament found"
-    },
-    "topBanner_tr": "TRUE KINETİC ESPORTS TURNUVA MERKEZİ'NE HOŞ GELDİNİZ! TAKIMLARIMIZA OYUNCU ALIMI BAŞLADI!",
-    "topBanner_en": "WELCOME TO TRUE KINETIC ESPORTS TOURNAMENT CENTER! PLAYER RECRUITMENT FOR OUR TEAMS HAS STARTED!"
+   "news":[
+      {
+         "title_tr":"Blood Strike Türkiye 2026 Zafer Kupası 🏆",
+         "title_en":"Turkish Allowed",
+         "content_tr":"Blood Strike Türkiye´nin organize etmiş olduğu zafer kupası turnuvası için takım alımlarımız başlamıştır!",
+         "content_en":"Turkish Allowed"
+      },
+      {
+         "title_tr":"ALIMLAR BAŞLADI!",
+         "title_en":"RECRUITMENTS STARTED!",
+         "content_tr":"True Kinetic ekipleri için alımlar başladı! Hemen katılmak üzere ekip alım bölümüne göz atın!",
+         "content_en":"Recruitments have started for True Kinetic teams! Check out our recruitment section to join now!"
+      }
+   ],
+   "teams":[
+      {
+         "name_tr":"ONEX",
+         "name_en":"ONEX",
+         "game_tr":"Blood Strike MENA & EU",
+         "game_en":"Blood Strike MENA & EU",
+         "roster":[
+            {
+               "role":"captain",
+               "nickname":"owmanxx",
+               "realname":"Salih",
+               "rank":"Legend IV"
+            },
+            {
+               "role":"player",
+               "nickname":"ursinhopapo",
+               "realname":"Yusuf",
+               "rank":"Legend IV"
+            },
+            {
+               "role":"player",
+               "nickname":"Coffy2008",
+               "realname":"567767778239",
+               "rank":"Legend III"
+            },
+            {
+               "role":"player",
+               "nickname":"AREX",
+               "realname":"568843027519",
+               "rank":"Master II"
+            },
+            {
+               "role":"sub",
+               "nickname":"Hasan655",
+               "realname":"Hasan Berat",
+               "rank":"Platinum III"
+            }
+         ]
+      },
+      {
+         "name_tr":"REG",
+         "name_en":"REG",
+         "game_tr":"PUBG Mobil",
+         "game_en":"PUBG Mobile",
+         "roster":[
+            {
+               "role":"captain",
+               "nickname":"REG|VØRTEX",
+               "realname":"Hamza",
+               "rank":"Ace 2"
+            },
+            {
+               "role":"player",
+               "nickname":"TheConquiror",
+               "realname":"Umut",
+               "rank":"Gold 3"
+            }
+         ]
+      },
+      {
+         "name_tr":"CRAYZ ESPOR",
+         "name_en":"CRAYZ ESPORTS",
+         "game_tr":"Mobile Legends: Bang Bang",
+         "game_en":"Mobile Legends: Bang Bang",
+         "roster":[
+            {
+               "role":"captain",
+               "nickname":"ÇILGINÇLGyt",
+               "realname":"Efe",
+               "rank":"Epic III"
+            },
+            {
+               "role":"player",
+               "nickname":"v_lenin_tandr",
+               "realname":"Salih",
+               "rank":"Epic V"
+            },
+            {
+               "role":"player",
+               "nickname":"Eminkral2",
+               "realname":"Mehmet Emin",
+               "rank":"Mythical Honor"
+            }
+         ]
+      },
+      {
+         "name_tr":"TK Valorant Premier Lig",
+         "name_en":"TK Valorant Premier League",
+         "game_tr":"Valorant",
+         "game_en":"Valorant",
+         "roster":[
+            
+         ]
+      }
+   ],
+   "tournaments":[
+      {
+         "name_tr":"BLOOD STRIKE 2026 Türkiye ZAFER KUPASI",
+         "name_en":"BLOOD STRIKE 2026 Türkiye VICTORY CUP",
+         "start_date_tr":"11 Temmuz",
+         "start_date_en":"July 11",
+         "end_date_tr":"12 Temmuz",
+         "end_date_en":"July 12",
+         "prizes_tr":"6,000 Oyun İçi Para Brimi Ödülü",
+         "prizes_en":"6,000 In-Game Currency Reward",
+         "rules_tr":"* 👥 Kontenjan: 8 Takım\n* 🎮 Takım Kadrosu: 4 Oyuncu + 1 Yedek\n* 🏅 Takımlar, oyuncuların oyun içi derecelerine göre belirlenecektir.\n* 💻📱 Platform sınırlaması yoktur. (PC, Mobil veya Karma takımlar katılabilir.)\n* 👑 Başvurular yalnızca takım kaptanı tarafından yapılabilir.\n* ❗ Kayıt tamamlandıktan sonra kadro değişikliği yapılamaz.",
+         "rules_en":"* 👥 Capacity: 8 Teams\n* 🎮 Team Roster: 4 Players + 1 Substitute\n* 🏅 Teams will be determined based on the players' in-game ranks.\n* 💻📱 No platform restrictions. (PC, Mobile, or mixed teams may participate.)\n* 👑 Applications can only be submitted by the team captain.\n* ❗ Roster changes cannot be made after registration is complete."
+      }
+   ],
+   "recruitments":[
+      {
+         "name_tr":"Valorant Takım Alımı",
+         "name_en":"Valorant Team Recruitment",
+         "requiresLicense":false
+      },
+      {
+         "name_tr":"PUBG Mobile REG Takım Alımı",
+         "name_en":"PUBG Mobile REG Team Recruitment",
+         "requiresLicense":false
+      },
+      {
+         "name_tr":"Mobile Legends: Bang Bang CRAYZ Takım Alımı",
+         "name_en":"Mobile Legends: Bang Bang CRAYZ Team Recruitment",
+         "requiresLicense":false
+      },
+      {
+         "name_tr":"Brawl Stars Takım Alımı",
+         "name_en":"Brawl Stars Team Recruitment",
+         "requiresLicense":false
+      },
+      {
+         "name_tr":"Brawl Stars Aşamalı Oyuncu Espor Takım Alımı",
+         "name_en":"Brawl Stars Ranked Player Esports Team Recruitment",
+         "requiresLicense":true
+      }
+   ],
+   "stats":{
+      "teams_tr":"3 Aktif Takım",
+      "teams_en":"3 Active Teams",
+      "players_tr":"1 Lisanslı Oyuncu, 5 Lisanssız Oyuncu",
+      "players_en":"1 Licensed Player, 5 Unlicensed Players",
+      "support_tr":"7/24 Discord Destek",
+      "support_en":"24/7 Discord Support",
+      "events_tr":"Aktif Turnuvalar - Aktif Turnuva Bulunamadı",
+      "events_en":"Active Tournaments - No active tournament found"
+   },
+   "topBanner_tr":"TRUE KINETİC ESPORTS TURNUVA MERKEZİ'NE HOŞ GELDİNİZ! TAKIMLARIMIZA OYUNCU ALIMI BAŞLADI!",
+   "topBanner_en":"WELCOME TO TRUE KINETIC ESPORTS TOURNAMENT CENTER! PLAYER RECRUITMENT FOR OUR TEAMS HAS STARTED!"
 }
