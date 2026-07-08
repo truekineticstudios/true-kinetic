@@ -1,22 +1,16 @@
 {
     "news": [
         {
-            "title_tr": "TAKIMLAR KURULUYOR!",
-            "title_en": "TEAMS ARE FORMING!",
-            "content_tr": "Salih [Kurucu], kulüp dışında ekipler kurma sürecini resmen başlattı!",
-            "content_en": "Salih [Founder] has officially started the process of forming teams outside the club!"
-        },
+            "title_tr": "Blood Strike Türkiye 2026 Zafer Kupası 🏆",
+            "title_en": "Turkish Allowed",
+            "content_tr": "Blood Strike Türkiye´nin organize etmiş olduğu zafer kupası turnuvası için takım alımlarımız başlamıştır!",
+            "content_en": "Turkish Allowed"
+        },        
         {
             "title_tr": "ALIMLAR BAŞLADI!",
             "title_en": "RECRUITMENTS STARTED!",
             "content_tr": "True Kinetic ekipleri için alımlar başladı! Hemen katılmak üzere ekip alım bölümüne göz atın!",
             "content_en": "Recruitments have started for True Kinetic teams! Check out our recruitment section to join now!"
-        },
-        {
-            "title_tr": "Blood Strike Türkiye 2026 Zafer Kupası 🏆",
-            "title_en": "Turkish Allowed",
-            "content_tr": "Blood Strike Türkiye´nin organize etmiş olduğu zafer kupası turnuvası için takım alımlarımız başlamıştır!",
-            "content_en": "Turkish Allowed"
         }
     ],
     "teams": [
