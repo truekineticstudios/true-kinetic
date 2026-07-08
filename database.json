@@ -5,7 +5,7 @@
             "title_en": "Turkish Allowed",
             "content_tr": "Blood Strike Türkiye´nin organize etmiş olduğu zafer kupası turnuvası için takım alımlarımız başlamıştır!",
             "content_en": "Turkish Allowed"
-        },        
+        },
         {
             "title_tr": "ALIMLAR BAŞLADI!",
             "title_en": "RECRUITMENTS STARTED!",
@@ -31,6 +31,18 @@
                     "nickname": "ursinhopapao",
                     "realname": "Yusuf",
                     "rank": "Legend 4"
+                },
+                {
+                    "role": "sub",
+                    "nickname": "UmtTcn",
+                    "realname": "Umut",
+                    "rank": "Silver I"
+                },
+                {
+                    "role": "sub",
+                    "nickname": "S2G_HAMZA",
+                    "realname": "Hamza",
+                    "rank": "Gold IV"
                 }
             ]
         },
@@ -129,12 +141,12 @@
     "stats": {
         "teams_tr": "3 Aktif Takım",
         "teams_en": "3 Active Teams",
-        "players_tr": "1 Lisanslı Oyuncu, 3 Lisanssız Oyuncu",
-        "players_en": "1 Licensed Player, 3 Unlicensed Players",
+        "players_tr": "1 Lisanslı Oyuncu, 5 Lisanssız Oyuncu",
+        "players_en": "1 Licensed Player, 5 Unlicensed Players",
         "support_tr": "7/24 Discord Destek",
         "support_en": "24/7 Discord Support",
-        "events_tr": "Aktif Turnuvalar",
-        "events_en": "Active Tournaments"
+        "events_tr": "Aktif Turnuvalar - Aktif Turnuva Bulunamadı",
+        "events_en": "Active Tournaments - No active tournament found"
     },
     "topBanner_tr": "TRUE KINETİC ESPORTS TURNUVA MERKEZİ'NE HOŞ GELDİNİZ! TAKIMLARIMIZA OYUNCU ALIMI BAŞLADI!",
     "topBanner_en": "WELCOME TO TRUE KINETIC ESPORTS TOURNAMENT CENTER! PLAYER RECRUITMENT FOR OUR TEAMS HAS STARTED!"
