@@ -100,7 +100,20 @@
             "roster": []
         }
     ],
-    "tournaments": [],
+    "tournaments": [
+        {
+            "name_tr": "BLOOD STRIKE 2026 Türkiye ZAFER KUPASI",
+            "name_en": "BLOOD STRIKE 2026 Türkiye VICTORY CUP",
+            "start_date_tr": "11 Temmuz",
+            "start_date_en": "July 11",
+            "end_date_tr": "12 Temmuz",
+            "end_date_en": "July 12",
+            "prizes_tr": "6,000 Oyun İçi Para Brimi Ödülü",
+            "prizes_en": "6,000 In-Game Currency Reward",
+            "rules_tr": "* 👥 Kontenjan: 8 Takım\n* 🎮 Takım Kadrosu: 4 Oyuncu + 1 Yedek\n* 🏅 Takımlar, oyuncuların oyun içi derecelerine göre belirlenecektir.\n* 💻📱 Platform sınırlaması yoktur. (PC, Mobil veya Karma takımlar katılabilir.)\n* 👑 Başvurular yalnızca takım kaptanı tarafından yapılabilir.\n* ❗ Kayıt tamamlandıktan sonra kadro değişikliği yapılamaz.",
+            "rules_en": "* 👥 Capacity: 8 Teams\n* 🎮 Team Roster: 4 Players + 1 Substitute\n* 🏅 Teams will be determined based on the players' in-game ranks.\n* 💻📱 No platform restrictions. (PC, Mobile, or mixed teams may participate.)\n* 👑 Applications can only be submitted by the team captain.\n* ❗ Roster changes cannot be made after registration is complete."
+        }
+    ],
     "recruitments": [
         {
             "name_tr": "Valorant Takım Alımı",
