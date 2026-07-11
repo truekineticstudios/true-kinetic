@@ -1,16 +1,10 @@
 {
     "news": [
         {
-            "title_tr": "Blood Strike Türkiye 2026 Zafer Kupası 🏆",
-            "title_en": "Turkish Allowed",
-            "content_tr": "Blood Strike Türkiye´nin organize etmiş olduğu zafer kupası turnuvası için takım alımlarımız başlamıştır!",
-            "content_en": "Turkish Allowed"
-        },
-        {
-            "title_tr": "ALIMLAR BAŞLADI!",
-            "title_en": "RECRUITMENTS STARTED!",
-            "content_tr": "True Kinetic ekipleri için alımlar başladı! Hemen katılmak üzere ekip alım bölümüne göz atın!",
-            "content_en": "Recruitments have started for True Kinetic teams! Check out our recruitment section to join now!"
+            "title_tr": "Blood Strike Türkiye Strike Kupası Sonuçları",
+            "title_en": "Blood Strike Türkiye Strike Cup Results",
+            "content_tr": "İlk turnuva, ilk büyük tecrübe. Turkey Strike Kupası'nda sahadan 3-0 mağlup ayrılsak da ONEX olarak hedeflerimizden sapmış değiliz. Hatalarımızdan ders çıkarıp, eksiklerimizi kapatarak bir sonraki mücadeleye çok daha hazır başlayacağız. Takipte kalın.",
+            "content_en": "Our first tournament, our first major experience. Although we left the Turkey Strike Cup with a 3–0 defeat, we at ONEX remain committed to our goals. We will learn from our mistakes, address our shortcomings, and step into the next challenge much better prepared. Stay tuned."
         }
     ],
     "teams": [
@@ -43,13 +37,7 @@
                     "nickname": "S2G_Hamza",
                     "realname": "Hamza",
                     "rank": "Gold IV"
-                },
-                {
-                    "role": "sub",
-                    "nickname": "UmtTnc",
-                    "realname": "Umut",
-                    "rank": "Silver IV"
-                },
+                }
             ]
         },
         {
@@ -106,20 +94,7 @@
             "roster": []
         }
     ],
-    "tournaments": [
-        {
-            "name_tr": "BLOOD STRIKE 2026 Türkiye ZAFER KUPASI",
-            "name_en": "BLOOD STRIKE 2026 Türkiye VICTORY CUP",
-            "start_date_tr": "11 Temmuz",
-            "start_date_en": "July 11",
-            "end_date_tr": "12 Temmuz",
-            "end_date_en": "July 12",
-            "prizes_tr": "6,000 Oyun İçi Para Brimi Ödülü",
-            "prizes_en": "6,000 In-Game Currency Reward",
-            "rules_tr": "* 👥 Kontenjan: 8 Takım\n* 🎮 Takım Kadrosu: 4 Oyuncu + 1 Yedek\n* 🏅 Takımlar, oyuncuların oyun içi derecelerine göre belirlenecektir.\n* 💻📱 Platform sınırlaması yoktur. (PC, Mobil veya Karma takımlar katılabilir.)\n* 👑 Başvurular yalnızca takım kaptanı tarafından yapılabilir.\n* ❗ Kayıt tamamlandıktan sonra kadro değişikliği yapılamaz.",
-            "rules_en": "* 👥 Capacity: 8 Teams\n* 🎮 Team Roster: 4 Players + 1 Substitute\n* 🏅 Teams will be determined based on the players' in-game ranks.\n* 💻📱 No platform restrictions. (PC, Mobile, or mixed teams may participate.)\n* 👑 Applications can only be submitted by the team captain.\n* ❗ Roster changes cannot be made after registration is complete."
-        }
-    ],
+    "tournaments": [],
     "recruitments": [
         {
             "name_tr": "Valorant Takım Alımı",
@@ -154,8 +129,8 @@
         "players_en": "1 Licensed Player, 5 Unlicensed Players",
         "support_tr": "7/24 Discord Destek",
         "support_en": "24/7 Discord Support",
-        "events_tr": "Aktif Turnuvalar - Türkiye Zafer Kupası Blood Strike",
-        "events_en": "Active Tournaments - Türkiye Victory Cup Blood Strike"
+        "events_tr": "Aktif Turnuva Bulunmamaktadır",
+        "events_en": "No Active Tournaments"
     },
     "topBanner_tr": "TRUE KINETİC ESPORTS TURNUVA MERKEZİ'NE HOŞ GELDİNİZ! TAKIMLARIMIZA OYUNCU ALIMI BAŞLADI!",
     "topBanner_en": "WELCOME TO TRUE KINETIC ESPORTS TOURNAMENT CENTER! PLAYER RECRUITMENT FOR OUR TEAMS HAS STARTED!"
