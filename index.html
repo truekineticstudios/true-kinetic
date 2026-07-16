@@ -3,332 +3,924 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>True Kinetic ESPORT</title>
-    <link rel="stylesheet" href="style.css">
+    <title>SİSTEM ÇEVRİMDIŞI | True Kinetic E-Sports</title>
+
+    <!-- Preconnect & Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700;800&family=Orbitron:wght@500;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        /* ==========================================================================
+           ROOT & DEĞİŞKENLER (VARIABLES)
+           ========================================================================== */
+        :root {
+            /* Renk Paleti */
+            --bg-base: #030407;
+            --bg-surface: rgba(10, 12, 20, 0.75);
+            --bg-panel: rgba(16, 18, 30, 0.6);
+            --border-primary: rgba(99, 102, 241, 0.3);
+            --border-secondary: rgba(255, 255, 255, 0.05);
+            
+            --brand-main: #6366F1; /* Indigo */
+            --brand-alt: #A855F7; /* Purple */
+            --brand-glow: rgba(99, 102, 241, 0.5);
+            
+            --text-base: #94A3B8;
+            --text-bright: #F8FAFC;
+            --text-terminal: #10B981; /* Terminal Yeşili */
+            --text-warning: #F59E0B;
+            --text-error: #EF4444;
+
+            /* Tipografi */
+            --font-ui: 'Chakra Petch', sans-serif;
+            --font-display: 'Orbitron', sans-serif;
+            --font-code: 'JetBrains Mono', monospace;
+
+            /* Efektler */
+            --glass-blur: blur(16px) saturate(180%);
+            --transition-smooth: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            --scanline-color: rgba(255, 255, 255, 0.02);
+        }
+
+        /* ==========================================================================
+           RESET & BASE STYLES
+           ========================================================================== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            user-select: none;
+        }
+
+        body {
+            background-color: var(--bg-base);
+            color: var(--text-base);
+            font-family: var(--font-ui);
+            min-height: 100vh;
+            overflow: hidden; /* Canvas ve scanlines için kaydırma kapatıldı */
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* ==========================================================================
+           ARKA PLAN EFEKTLERİ (BACKGROUND FX)
+           ========================================================================== */
+        /* 1. Etkileşimli Canvas Partikülleri */
+        #particle-canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            opacity: 0.6;
+        }
+
+        /* 2. CRT Ekran Tarama Çizgileri (Scanlines) */
+        .scanlines {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: linear-gradient(to bottom, transparent 50%, var(--scanline-color) 51%);
+            background-size: 100% 4px;
+            z-index: 999;
+            pointer-events: none;
+        }
+
+        /* 3. Ekran Köşe Karartması (Vignette) */
+        .vignette {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: radial-gradient(circle at center, transparent 40%, rgba(3, 4, 7, 0.9) 100%);
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        /* 4. Neon Parlamalar */
+        .glow-orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(120px);
+            z-index: 0;
+            pointer-events: none;
+            opacity: 0.5;
+        }
+        .glow-orb.top-right {
+            top: -10%;
+            right: -10%;
+            width: 700px;
+            height: 700px;
+            background: var(--brand-main);
+        }
+        .glow-orb.bottom-left {
+            bottom: -20%;
+            left: -10%;
+            width: 600px;
+            height: 600px;
+            background: var(--brand-alt);
+        }
+
+        /* ==========================================================================
+           ANA YAPI (LAYOUT GRID)
+           ========================================================================== */
+        .core-wrapper {
+            position: relative;
+            z-index: 10;
+            width: 95%;
+            max-width: 1600px;
+            height: 90vh;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            animation: bootUp 2s ease-out forwards;
+        }
+
+        @keyframes bootUp {
+            0% { opacity: 0; transform: scale(0.95) translateY(20px); filter: blur(10px); }
+            100% { opacity: 1; transform: scale(1) translateY(0); filter: blur(0); }
+        }
+
+        /* --- ÜST BİLGİ ÇUBUĞU (HEADER HUD) --- */
+        .hud-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: var(--bg-surface);
+            backdrop-filter: var(--glass-blur);
+            -webkit-backdrop-filter: var(--glass-blur);
+            border: 1px solid var(--border-secondary);
+            border-bottom: 2px solid var(--brand-main);
+            padding: 15px 30px;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+
+        .logo-box {
+            display: flex;
+            flex-direction: column;
+        }
+        .logo-title {
+            font-family: var(--font-display);
+            font-size: 26px;
+            font-weight: 900;
+            letter-spacing: 2px;
+            color: var(--text-bright);
+            text-transform: uppercase;
+        }
+        .logo-title span {
+            background: linear-gradient(90deg, var(--brand-main), var(--brand-alt));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .logo-subtitle {
+            font-family: var(--font-code);
+            font-size: 10px;
+            color: var(--text-warning);
+            letter-spacing: 4px;
+            margin-top: 2px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        .blink-dot {
+            width: 6px;
+            height: 6px;
+            background: var(--text-warning);
+            border-radius: 50%;
+            animation: blink 1s infinite;
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; box-shadow: 0 0 8px var(--text-warning); }
+            50% { opacity: 0.2; box-shadow: none; }
+        }
+
+        .hud-metrics {
+            display: flex;
+            gap: 30px;
+        }
+        .metric {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            font-family: var(--font-code);
+        }
+        .metric-lbl {
+            font-size: 10px;
+            color: var(--text-base);
+            letter-spacing: 1px;
+        }
+        .metric-val {
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--text-terminal);
+            text-shadow: 0 0 10px rgba(16, 185, 129, 0.4);
+        }
+
+        .lang-switcher {
+            display: flex;
+            gap: 5px;
+            background: rgba(0,0,0,0.5);
+            padding: 4px;
+            border-radius: 6px;
+            border: 1px solid var(--border-secondary);
+        }
+        .lang-btn {
+            font-family: var(--font-display);
+            font-size: 12px;
+            font-weight: 700;
+            padding: 6px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            color: var(--text-base);
+            transition: var(--transition-smooth);
+        }
+        .lang-btn.active, .lang-btn:hover {
+            background: var(--brand-main);
+            color: #fff;
+            box-shadow: 0 0 15px var(--brand-glow);
+        }
+
+        /* --- İÇERİK IZGARASI (MAIN GRID) --- */
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: 1fr 1.2fr;
+            gap: 20px;
+            flex-grow: 1;
+            height: calc(100% - 90px);
+        }
+
+        /* PANELLER GENEL */
+        .glass-panel {
+            background: var(--bg-panel);
+            backdrop-filter: var(--glass-blur);
+            -webkit-backdrop-filter: var(--glass-blur);
+            border: 1px solid var(--border-secondary);
+            border-radius: 12px;
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            overflow: hidden;
+            box-shadow: inset 0 0 20px rgba(0,0,0,0.5), 0 20px 40px rgba(0,0,0,0.4);
+        }
+
+        /* Dekoratif Köşeler (Cyberpunk UI Corners) */
+        .glass-panel::before, .glass-panel::after {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            border: 2px solid var(--brand-main);
+            opacity: 0.5;
+            pointer-events: none;
+        }
+        .glass-panel::before { top: 10px; left: 10px; border-right: none; border-bottom: none; }
+        .glass-panel::after { bottom: 10px; right: 10px; border-left: none; border-top: none; }
+
+        /* ==========================================================================
+           SOL SÜTUN: DUYURU VE DURUM (INFO COLUMN)
+           ========================================================================== */
+        .info-col {
+            justify-content: center;
+        }
+
+        .status-box {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            background: rgba(239, 68, 68, 0.1);
+            border: 1px solid rgba(239, 68, 68, 0.3);
+            padding: 8px 20px;
+            border-radius: 50px;
+            margin-bottom: 30px;
+        }
+        .status-box i { color: var(--text-error); font-size: 16px; animation: pulseError 2s infinite; }
+        .status-text {
+            font-family: var(--font-display);
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--text-error);
+            letter-spacing: 2px;
+        }
+
+        @keyframes pulseError {
+            0% { text-shadow: 0 0 5px var(--text-error); transform: scale(1); }
+            50% { text-shadow: 0 0 20px var(--text-error); transform: scale(1.2); }
+            100% { text-shadow: 0 0 5px var(--text-error); transform: scale(1); }
+        }
+
+        .main-heading {
+            font-family: var(--font-display);
+            font-size: 3.5rem;
+            font-weight: 900;
+            line-height: 1.1;
+            color: var(--text-bright);
+            text-transform: uppercase;
+            margin-bottom: 25px;
+            position: relative;
+        }
+        .main-heading span {
+            display: block;
+            color: var(--brand-main);
+            text-shadow: 0 0 20px var(--brand-glow);
+        }
+
+        .main-desc {
+            font-size: 16px;
+            line-height: 1.8;
+            color: var(--text-base);
+            margin-bottom: 40px;
+            max-width: 90%;
+            border-left: 3px solid var(--brand-alt);
+            padding-left: 20px;
+            background: linear-gradient(90deg, rgba(168,85,247,0.05) 0%, transparent 100%);
+        }
+
+        .progress-container {
+            width: 100%;
+            max-width: 400px;
+            background: rgba(0,0,0,0.5);
+            border: 1px solid var(--border-secondary);
+            border-radius: 6px;
+            height: 30px;
+            position: relative;
+            overflow: hidden;
+        }
+        .progress-bar {
+            height: 100%;
+            width: 0%;
+            background: repeating-linear-gradient(
+                45deg,
+                var(--brand-main),
+                var(--brand-main) 10px,
+                var(--brand-alt) 10px,
+                var(--brand-alt) 20px
+            );
+            background-size: 28px 28px;
+            animation: moveStripes 1s linear infinite, fillProgress 15s ease-in-out forwards;
+            box-shadow: 0 0 15px var(--brand-glow);
+        }
+        .progress-lbl {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-family: var(--font-code);
+            font-size: 12px;
+            font-weight: 700;
+            color: #fff;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.8);
+            mix-blend-mode: difference;
+        }
+
+        @keyframes moveStripes {
+            0% { background-position: 0 0; }
+            100% { background-position: 28px 0; }
+        }
+        @keyframes fillProgress {
+            0% { width: 0%; }
+            10% { width: 15%; }
+            30% { width: 22%; }
+            50% { width: 68%; }
+            70% { width: 71%; }
+            90% { width: 94%; }
+            100% { width: 99%; } /* Asla %100 olmaz, hacker klişesi */
+        }
+
+        /* ==========================================================================
+           SAĞ SÜTUN: TERMINAL VE ANALİZ MODÜLÜ (TERMINAL COLUMN)
+           ========================================================================== */
+        .terminal-col {
+            padding: 0; /* İçerik sıfıra sıfır oturacak */
+            display: flex;
+            flex-direction: column;
+            border-top: 4px solid var(--brand-main);
+        }
+
+        /* Terminal Başlık Sütunu */
+        .terminal-header {
+            background: rgba(0,0,0,0.6);
+            padding: 15px 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--border-secondary);
+        }
+        .term-title {
+            font-family: var(--font-code);
+            font-size: 14px;
+            color: var(--text-bright);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .term-title i { color: var(--brand-alt); }
+        .term-actions {
+            display: flex;
+            gap: 8px;
+        }
+        .term-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            opacity: 0.7;
+        }
+        .td-red { background: #EF4444; }
+        .td-yel { background: #F59E0B; }
+        .td-grn { background: #10B981; }
+
+        /* Terminal Kod Akışı Alanı */
+        .terminal-body {
+            flex-grow: 1;
+            background: rgba(4, 5, 8, 0.85);
+            padding: 25px;
+            font-family: var(--font-code);
+            font-size: 13px;
+            line-height: 1.6;
+            color: var(--text-terminal);
+            overflow-y: auto;
+            position: relative;
+        }
+        
+        /* Özel Kaydırma Çubuğu Terminal İçin */
+        .terminal-body::-webkit-scrollbar { width: 6px; }
+        .terminal-body::-webkit-scrollbar-track { background: transparent; }
+        .terminal-body::-webkit-scrollbar-thumb { background: rgba(16, 185, 129, 0.3); border-radius: 10px; }
+        .terminal-body::-webkit-scrollbar-thumb:hover { background: var(--text-terminal); }
+
+        /* Yazı Efektleri Sınıfları */
+        .log-line { margin-bottom: 6px; word-wrap: break-word; }
+        .log-time { color: var(--text-muted); margin-right: 10px; }
+        .log-sys { color: var(--brand-main); font-weight: bold; margin-right: 10px; }
+        .log-warn { color: var(--text-warning); font-weight: bold; margin-right: 10px; }
+        .log-err { color: var(--text-error); font-weight: bold; margin-right: 10px; }
+        .log-ok { color: var(--text-terminal); font-weight: bold; margin-right: 10px; }
+        
+        .cursor {
+            display: inline-block;
+            width: 8px;
+            height: 15px;
+            background: var(--text-terminal);
+            vertical-align: middle;
+            animation: blink-cursor 0.8s step-end infinite;
+            margin-left: 5px;
+        }
+        @keyframes blink-cursor {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+
+        /* ==========================================================================
+           RESPONSIVE TASARIM (MEDİA QUERIES)
+           ========================================================================== */
+        @media (max-width: 1100px) {
+            .dashboard-grid {
+                grid-template-columns: 1fr;
+                overflow-y: auto;
+                height: auto;
+            }
+            .core-wrapper {
+                height: auto;
+                margin-top: 20px;
+                margin-bottom: 20px;
+            }
+            .terminal-col {
+                min-height: 400px;
+            }
+            .main-heading { font-size: 2.5rem; }
+            body { overflow-y: auto; }
+            #particle-canvas { position: fixed; }
+        }
+
+        @media (max-width: 600px) {
+            .hud-header { flex-direction: column; gap: 15px; }
+            .hud-metrics { width: 100%; justify-content: space-between; }
+            .lang-switcher { position: relative; top: 0; right: 0; margin-bottom: 15px; width: fit-content;}
+            .glass-panel { padding: 25px; }
+            .main-heading { font-size: 2rem; }
+        }
+    </style>
 </head>
 <body>
 
-    <div class="top-bar" id="dynamic-top-bar">
-        Yükleniyor... / Loading...
-    </div>
+    <!-- 1. Arka Plan Partikül Motoru Render Alanı -->
+    <canvas id="particle-canvas"></canvas>
 
-    <header>
-        <div class="logo" onclick="window.scrollTo(0,0)">
-            <span>TRUE KINETIC</span><span> E-SPORTS</span>
-        </div>
-        <nav>
-            <a href="#teams" data-translate="nav_teams">Takımlar</a>
-            <a href="#tournaments" data-translate="nav_services">Hizmetler</a>
-            <a href="#stats-section" data-translate="stats_title">Topluluk Verileri</a>
-        </nav>
-        <div class="nav-icons">
-            <div class="lang-switcher">
-                <span class="lang-btn active" id="btn-tr" onclick="setLanguage('tr')">TR</span>
-                <span class="lang-btn" id="btn-en" onclick="setLanguage('en')">EN</span>
-            </div>
-            <a href="https://discord.gg/MExZDbyQkY" target="_blank" class="btn btn-outline" style="padding: 8px 18px; font-size:12px;" data-translate="btn_join">KATIL</a>
-            <i class="fa-brands fa-discord" onclick="window.open('https://discord.gg/MExZDbyQkY', '_blank')"></i>
-            <i class="fa-solid fa-lock" onclick="openModal('adminAuthModal')"></i>
-        </div>
-    </header>
+    <!-- 2. CRT Scanlines ve Vignette Efektleri -->
+    <div class="scanlines"></div>
+    <div class="vignette"></div>
 
-    <!-- HERO SECTION -->
-    <section class="hero fade-up">
-        <div class="hero-content">
-            <div class="hero-badge" data-translate="hero_badge">Bağımsız Topluluk Merkezi</div>
-            <h1 data-translate="hero_title">Gerçek Potansiyelini <br><span style="color:var(--primary);'>Kinetik Enerjiye</span> Çevir</h1>
-            <p data-translate="hero_desc">True Kinetic E-Sports; rekabetçi ruhun, disiplinin ve profesyonelliğin bir araya geldiği bağımsız bir espor ekosistemidir. Amacımız, oyuncuların potansiyelini en üst düzeye çıkararak ulusal ve uluslararası arenalarda zirveyi hedeflemektir.</p>
-            <div class="hero-buttons">
-                <button class="btn" onclick="openModal('applyModal')"><i class="fa-solid fa-bolt"></i> <span data-translate="btn_join_discord">Sunucuya Katıl</span></button>
-                <button class="btn btn-outline" onclick="document.getElementById('teams').scrollIntoView({behavior: 'smooth'})" data-translate="btn_view_rosters">Kadroları İncele</button>
-            </div>
-        </div>
+    <!-- 3. Neon Orb Işımaları -->
+    <div class="glow-orb top-right"></div>
+    <div class="glow-orb bottom-left"></div>
+
+    <!-- 4. Ana UI Konteyneri -->
+    <div class="core-wrapper">
         
-        <!-- Sağ Sütun: Sistem Duyuruları (Haberler) Paneli -->
-        <div class="hero-visual">
-            <div class="news-panel">
-                <h3 data-translate="sec_news_title">Sistem Duyuruları</h3>
-                <div class="news-feed" id="hero-news-feed">
-                    <!-- Dinamik haber akışı script.js tarafından buraya yazılır -->
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- TAKIMLAR SECTIONS -->
-    <section id="teams" class="section">
-        <div class="section-header fade-up">
-            <h2 data-translate="sec_teams_title">Aktif Kadrolar</h2>
-            <p data-translate="sec_teams_desc">True Kinetic bünyesinde mücadele eden resmi ve topluluk takımlarımız.</p>
-        </div>
-        <div class="grid" id="teams-container"></div>
-    </section>
-
-    <!-- TURNUVALAR VE AKTİF ALIMLAR -->
-    <section id="tournaments" class="section">
-        <div class="section-header fade-up">
-            <h2 data-translate="sec_events_title">Etkinlik ve Aktif Alımlar</h2>
-            <p data-translate="sec_events_desc">Topluluk turnuvaları ve aktif alım süreçleri.</p>
-        </div>
-        <div class="grid" style="grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));">
-            <div id="tournaments-container" class="fade-up info-box-glass"></div>
-            <div id="recruitments-container" class="fade-up info-box-glass"></div>
-        </div>
-    </section>
-
-    <!-- TOPLULUK VERİLERİ -->
-    <section id="stats-section" class="section">
-        <div class="section-header fade-up">
-            <h2 data-translate="stats_title">Topluluk Verileri</h2>
-            <p data-translate="stats_desc">True Kinetic bünyesindeki büyüme ve aktif oyuncu istatistikleri.</p>
-        </div>
-        <div class="grid" id="stats-container" style="grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 25px;">
-            <!-- Dinamik veriler script.js ile buraya yazılır -->
-        </div>
-    </section>
-
-    <footer>
-        <div class="logo" style="font-size: 18px;"><span>TRUE KINETIC</span><span> E-SPORTS</span></div>
-        <p data-translate="footer_text">© 2026 True Kinetic Esport Topluluğu.</p>
-    </footer>
-
-    <!-- ================= MODALS ================= -->
-
-    <!-- TAKIM DETAY MODALI -->
-    <div class="modal-overlay" id="teamModal">
-        <div class="modal-box" style="max-width: 800px;">
-            <i class="fa-solid fa-xmark close-btn" onclick="closeModal('teamModal')"></i>
-            <h2 id="modal-team-name" style="font-size: 2.2rem; margin-bottom: 5px;">Takım Adı</h2>
-            <p id="modal-team-game" style="color: var(--hover); font-weight:600; margin-bottom: 25px; text-transform: uppercase;">Oyun</p>
-            <table>
-                <thead>
-                    <tr>
-                        <th data-translate="tbl_role">Rol</th>
-                        <th data-translate="tbl_ign">Oyun İçi (IGN)</th>
-                        <th data-translate="tbl_name">Ad Soyad</th>
-                        <th data-translate="tbl_rank">Derece</th>
-                    </tr>
-                </thead>
-                <tbody id="modal-roster-body"></tbody>
-            </table>
-            <button class="btn" style="width: 100%; margin-top: 30px;" onclick="closeModal('teamModal'); openModal('applyModal');">
-                <i class="fa-solid fa-file-signature"></i> <span data-translate="btn_apply_team">Takıma Başvur</span>
-            </button>
-        </div>
-    </div>
-
-    <!-- TURNUVA KURALLARI VE DETAY MODALI -->
-    <div class="modal-overlay" id="tournamentRulesModal">
-        <div class="modal-box" style="max-width: 580px;">
-            <i class="fa-solid fa-xmark close-btn" onclick="closeModal('tournamentRulesModal')"></i>
-            <h2 id="modal-tour-name" style="font-size: 1.8rem; margin-bottom: 15px;">Turnuva Adı</h2>
-            <p id="modal-tour-title" style="color: var(--hover); font-weight:700; margin-bottom: 25px; text-transform: uppercase;" data-translate="rules_title_modal">TURNUVA DETAYLARI</p>
-            
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 20px;">
-                <div style="background: rgba(255,255,255,0.02); padding: 15px; border-radius: 6px; border: 1px solid var(--border-color);">
-                    <span style="font-size: 11px; font-weight: 700; color: var(--hover); text-transform: uppercase;" data-translate="label_dates">TARİHLER</span>
-                    <p id="modal-tour-dates" style="font-size: 13px; color: var(--text-bright); margin-top: 5px; font-weight: 600;">-</p>
-                </div>
-                <div style="background: rgba(255,255,255,0.02); padding: 15px; border-radius: 6px; border: 1px solid var(--border-color);">
-                    <span style="font-size: 11px; font-weight: 700; color: var(--primary); text-transform: uppercase;" data-translate="label_prizes">ÖDÜLLER</span>
-                    <p id="modal-tour-prizes" style="font-size: 13px; color: var(--text-bright); margin-top: 5px; font-weight: 600; white-space: pre-line; line-height: 1.5;">-</p>
+        <!-- ÜST HUD (Header) -->
+        <header class="hud-header">
+            <div class="logo-box">
+                <div class="logo-title"><span>TRUE KINETIC</span> E-SPORTS</div>
+                <div class="logo-subtitle">
+                    <div class="blink-dot"></div>
+                    <span id="txt-sys-status">SİSTEM ÇEKİRDEĞİ ÇEVRİMDIŞI</span>
                 </div>
             </div>
 
-            <span style="font-size: 11px; font-weight: 700; color: rgba(255,255,255,0.4); text-transform: uppercase; display: block; margin-bottom: 8px;" data-translate="label_rules">KURALLAR</span>
-            <div id="modal-tour-rules-body" style="background: rgba(0,0,0,0.4); padding: 20px; border-radius: 8px; line-height: 1.8; color: var(--text-muted); font-size: 14px; white-space: pre-line; max-height: 200px; overflow-y: auto; margin-bottom: 20px;">
-                Kurallar yükleniyor...
+            <div class="hud-metrics">
+                <div class="metric">
+                    <span class="metric-lbl">CORE TEMP</span>
+                    <span class="metric-val" id="val-temp">42°C</span>
+                </div>
+                <div class="metric">
+                    <span class="metric-lbl">DB_PING</span>
+                    <span class="metric-val" id="val-ping">12ms</span>
+                </div>
+                <div class="metric">
+                    <span class="metric-lbl">NETWORK</span>
+                    <span class="metric-val" id="val-net">SECURE</span>
+                </div>
             </div>
             
-            <label style="display: flex; gap: 15px; cursor: pointer; align-items: center; margin-top: 15px; margin-bottom: 25px; font-weight: 500; font-size: 14px; color: var(--text-bright);">
-                <input type="checkbox" id="acceptTourRules" style="width: 20px; height: 20px; accent-color: var(--primary);">
-                <span data-translate="checkbox_tour_rules">Kuralları kabul ediyorum ve turnuvaya katılmak istiyorum.</span>
-            </label>
-            <button id="tourApplyBtn" class="btn" style="width:100%; opacity:0.4; pointer-events:none;" onclick="applyToTournament()">
-                <i class="fa-solid fa-trophy"></i> <span data-translate="btn_apply">Başvur</span>
-            </button>
-        </div>
-    </div>
-
-    <!-- BAŞVURU KURALLARI MODALI -->
-    <div class="modal-overlay" id="applyModal">
-        <div class="modal-box">
-            <i class="fa-solid fa-xmark close-btn" onclick="closeModal('applyModal')"></i>
-            <h2 style="font-size: 2rem; margin-bottom: 25px;"><span data-translate="rules_title_1">Başvuru</span> <span style="color:var(--primary);" data-translate="rules_title_2">Kuralları</span></h2>
-            <div style="background: rgba(0,0,0,0.4); padding: 25px; border-radius: 8px; margin-bottom: 30px; border-left: 3px solid var(--primary); line-height: 1.8;">
-                <p><strong data-translate="rule_1_num">1.</strong> <span data-translate="rule_1">Toksik davranışlar ve 3. parti yazılımlar kesinlikle yasaktır.</span></p>
-                <p><strong data-translate="rule_2_num">2.</strong> <span data-translate="rule_2">Antrenman ve maçlara mazeretsiz katılım sağlamamak uzaklaştırma sebebidir.</span></p>
-                <p><strong data-translate="rule_3_num">3.</strong> <span data-translate="rule_3">Tüm başvuru ve mülakat süreçleri Discord "Destek" sistemi üzerinden yürütülür.</span></p>
+            <!-- Dil Değiştirici -->
+            <div class="lang-switcher">
+                <div class="lang-btn active" id="btn-tr" onclick="setLang('tr')">TR</div>
+                <div class="lang-btn" id="btn-en" onclick="setLang('en')">EN</div>
             </div>
-            <label style="display: flex; gap: 15px; cursor: pointer; align-items: center; margin-bottom: 30px; font-weight: 500; font-size: 14px;">
-                <input type="checkbox" id="acceptRules" style="width: 20px; height: 20px; accent-color: var(--primary);">
-                <span data-translate="checkbox_rules">Tüm kuralları anladım ve sorumlulukları kabul ediyorum.</span>
-            </label>
-            <button id="applyBtn" class="btn" style="width:100%; opacity:0.4; pointer-events:none;" onclick="window.location.href='https://discord.gg/MExZDbyQkY'">
-                <i class="fa-brands fa-discord" style="font-size: 20px;"></i> <span data-translate="btn_discord_ticket">DISCORD TICKET OLUŞTUR</span>
-            </button>
-        </div>
-    </div>
+        </header>
 
-    <!-- ADMIN AUTH -->
-    <div class="modal-overlay" id="adminAuthModal">
-        <div class="modal-box" style="max-width: 450px;">
-            <i class="fa-solid fa-xmark close-btn" onclick="closeModal('adminAuthModal')"></i>
-            <h2 style="margin-bottom: 10px;" data-translate="admin_auth_title">Sistem Doğrulama</h2>
-            <p style="font-size:14px; margin-bottom:30px; color:rgba(255,255,255,0.6);" data-translate="admin_auth_desc">Lütfen yönetici şifrenizi giriniz.</p>
-            <input type="password" id="adminPassword" class="form-input" placeholder="••••••••">
-            <button class="btn" style="width:100%;" onclick="checkAdminPassword()" data-translate="admin_auth_btn">Oturum Aç</button>
-        </div>
-    </div>
-
-    <!-- ADMIN PANEL -->
-    <div class="modal-overlay" id="adminPanelModal">
-        <div class="modal-box" style="max-width: 950px;">
-            <i class="fa-solid fa-xmark close-btn" onclick="closeModal('adminPanelModal'); location.reload();"></i>
-            <h2 style="margin-bottom: 30px;">Kontrol <span style="color:var(--hover);">Merkezi (Bilingual)</span></h2>
+        <!-- MERKEZİ IZGARA -->
+        <main class="dashboard-grid">
             
-            <div class="grid" style="gap: 25px; grid-template-columns: 1fr 1fr;">
+            <!-- SOL SÜTUN: Açıklama ve İlerleme -->
+            <section class="glass-panel info-col">
+                <div class="status-box">
+                    <i class="fa-solid fa-triangle-exclamation"></i>
+                    <span class="status-text" id="txt-badge">KRİTİK BAKIM PROTOKOLÜ</span>
+                </div>
+
+                <h1 class="main-heading" id="txt-title">
+                    Gelişmiş Altyapı<br>
+                    <span>Yükleniyor</span>
+                </h1>
+
+                <p class="main-desc" id="txt-desc">
+                    True Kinetic E-Sports; arenalara çok daha agresif, organize ve profesyonel bir yazılım mimarisiyle dönmek için tüm sunucu bağlantılarını geçici olarak kesti. Veritabanı senkronizasyonları, güvenlik duvarları ve çift dilli espor modülleri şu anda arka planda çekirdeğe işleniyor.
+                </p>
+
+                <div class="progress-container">
+                    <div class="progress-bar"></div>
+                    <span class="progress-lbl" id="txt-progress">SİSTEM GERİ YÜKLEMESİ: %99</span>
+                </div>
+            </section>
+
+            <!-- SAĞ SÜTUN: Canlı Terminal Simülasyonu -->
+            <section class="glass-panel terminal-col">
+                <div class="terminal-header">
+                    <div class="term-title">
+                        <i class="fa-solid fa-terminal"></i>
+                        <span id="txt-term-title">TK_BETA_TERMINAL_v2.0</span>
+                    </div>
+                    <div class="term-actions">
+                        <div class="term-dot td-red"></div>
+                        <div class="term-dot td-yel"></div>
+                        <div class="term-dot td-grn"></div>
+                    </div>
+                </div>
+                <div class="terminal-body" id="terminal-output">
+                    <!-- JS Tarafından Doldurulacak -->
+                </div>
+            </section>
+
+        </main>
+    </div>
+
+    <!-- ==========================================================================
+         JAVASCRIPT MOTORU (PARTİCÜLLER, TERMİNAL VE ÇEVİRİ)
+         ========================================================================== -->
+    <script>
+        // ----------------------------------------------------------------------
+        // 1. ÇOKLU DİL SÖZLÜĞÜ (I18N) VE TERMİNAL DİZİLERİ
+        // ----------------------------------------------------------------------
+        const langData = {
+            tr: {
+                sysStatus: "SİSTEM ÇEKİRDEĞİ ÇEVRİMDIŞI",
+                badge: "KRİTİK BAKIM PROTOKOLÜ",
+                title: "Gelişmiş Altyapı<br><span>Yükleniyor</span>",
+                desc: "True Kinetic E-Sports; arenalara çok daha agresif, organize ve profesyonel bir yazılım mimarisiyle dönmek için tüm sunucu bağlantılarını geçici olarak kesti. Veritabanı senkronizasyonları, güvenlik duvarları ve çift dilli espor modülleri şu anda arka planda çekirdeğe işleniyor.",
+                progress: "SİSTEM YENİDEN BAŞLATILIYOR...",
+                termTitle: "TK_ÇEKİRDEK_TERMİNAL_v2.0",
                 
-                <!-- Webhook Ayarları -->
-                <div style="background: rgba(0,0,0,0.3); padding: 25px; border-radius: 8px; border: 1px solid var(--border-color); grid-column: 1 / -1;">
-                    <h3 style="margin-bottom:15px; font-size:18px; color:#fff;"><i class="fa-brands fa-discord" style="color: #5865F2;"></i> Discord Webhook Ayarı</h3>
-                    <input type="text" id="webhookInput" class="form-input" style="margin:0;" placeholder="https://discord.com/api/webhooks/...">
-                </div>
+                // Terminal Çıktıları (Simülasyon İçin Uzun Dizi)
+                logs: [
+                    { type: 'sys', msg: "True Kinetic Ana Çekirdeği başlatılıyor..." },
+                    { type: 'ok', msg: "Bellek modülleri doğrulandı: 64TB ECC RAM aktif." },
+                    { type: 'sys', msg: "Eski veritabanı kalıntıları temizleniyor..." },
+                    { type: 'ok', msg: "Temizlik başarılı. 0 bayt çöp veri." },
+                    { type: 'warn', msg: "Ağ geçidinde gecikme saptandı. Rotalama yeniden hesaplanıyor..." },
+                    { type: 'ok', msg: "Yeni rota oluşturuldu. Gecikme 12ms değerine sabitlendi." },
+                    { type: 'sys', msg: "Discord Webhook bağlantıları test ediliyor..." },
+                    { type: 'ok', msg: "Webhook API bağlantısı güvenli. Uçtan uca şifreleme aktif." },
+                    { type: 'sys', msg: "Çift dilli (Bilingual) dil dosyaları derleniyor..." },
+                    { type: 'ok', msg: "Dil dosyaları indekslendi (TR_tr, EN_us)." },
+                    { type: 'sys', msg: "Espor Takım ve Kadro modülleri yükleniyor..." },
+                    { type: 'warn', msg: "Kadro veritabanı kilitli. Yönetici erişimi bekleniyor." },
+                    { type: 'ok', msg: "Yetkilendirme onaylandı. Kadrolar senkronize edildi." },
+                    { type: 'sys', msg: "Siber güvenlik protokolleri devreye alınıyor (WAF, DDoS Kalkanı)..." },
+                    { type: 'ok', msg: "Güvenlik duvarı %100 kapasiteyle çalışıyor." },
+                    { type: 'sys', msg: "Özel Turnuva ve Ödül modülleri entegre ediliyor..." },
+                    { type: 'ok', msg: "Turnuva ağaçları ve kural setleri hafızaya yazıldı." },
+                    { type: 'sys', msg: "Canlı arayüz (UI) derleme işlemi başlatıldı..." },
+                    { type: 'err', msg: "HATA: Kritik CSS dosyası bulunamadı. Geri yükleme başlatılıyor." },
+                    { type: 'ok', msg: "Geri yükleme tamamlandı. Arayüz kararlı." },
+                    { type: 'warn', msg: "Sistem manuel müdahale bekliyor. Admin bekleniyor..." },
+                    { type: 'sys', msg: "Tüm çekirdek servisler uyku moduna (Standby) alınıyor." },
+                    { type: 'ok', msg: "SİSTEM HAZIR. Yayın emri bekleniyor." }
+                ]
+            },
+            en: {
+                sysStatus: "SYSTEM CORE OFFLINE",
+                badge: "CRITICAL MAINTENANCE PROTOCOL",
+                title: "Advanced Infrastructure<br><span>Deploying</span>",
+                desc: "True Kinetic E-Sports has temporarily severed all server connections to return to the arenas with a much more aggressive, organized, and professional software architecture. Database syncs, firewalls, and bilingual esports modules are currently being integrated into the core.",
+                progress: "SYSTEM REBOOT IN PROGRESS...",
+                termTitle: "TK_CORE_TERMINAL_v2.0",
+                
+                logs: [
+                    { type: 'sys', msg: "Initiating True Kinetic Main Core..." },
+                    { type: 'ok', msg: "Memory modules verified: 64TB ECC RAM active." },
+                    { type: 'sys', msg: "Purging legacy database remnants..." },
+                    { type: 'ok', msg: "Purge successful. 0 bytes of junk data." },
+                    { type: 'warn', msg: "Gateway latency detected. Recalculating routes..." },
+                    { type: 'ok', msg: "New route established. Latency stabilized at 12ms." },
+                    { type: 'sys', msg: "Testing Discord Webhook connections..." },
+                    { type: 'ok', msg: "Webhook API secure. End-to-end encryption active." },
+                    { type: 'sys', msg: "Compiling bilingual language packs..." },
+                    { type: 'ok', msg: "Language packs indexed (TR_tr, EN_us)." },
+                    { type: 'sys', msg: "Loading Esports Team and Roster modules..." },
+                    { type: 'warn', msg: "Roster database locked. Awaiting admin clearance." },
+                    { type: 'ok', msg: "Authorization granted. Rosters synchronized." },
+                    { type: 'sys', msg: "Deploying cyber security protocols (WAF, DDoS Shield)..." },
+                    { type: 'ok', msg: "Firewall operational at 100% capacity." },
+                    { type: 'sys', msg: "Integrating Custom Tournament and Prize modules..." },
+                    { type: 'ok', msg: "Tournament brackets and rule sets written to memory." },
+                    { type: 'sys', msg: "Live UI compilation started..." },
+                    { type: 'err', msg: "ERROR: Critical CSS file missing. Initiating fallback." },
+                    { type: 'ok', msg: "Fallback complete. Interface stable." },
+                    { type: 'warn', msg: "System awaiting manual intervention. Waiting for Admin..." },
+                    { type: 'sys', msg: "Putting all core services into Standby mode." },
+                    { type: 'ok', msg: "SYSTEM READY. Awaiting launch command." }
+                ]
+            }
+        };
 
-                <!-- VERİ VE ÜST DUYURU GÜNCELLEME ALANI -->
-                <div style="background: rgba(0,0,0,0.3); padding: 25px; border-radius: 8px; border: 1px solid var(--border-color); grid-column: 1 / -1;">
-                    <h3 style="margin-bottom:15px; font-size:18px; color:#fff;"><i class="fa-solid fa-chart-simple" style="color: var(--primary);"></i> Verileri & Üst Duyuruyu Güncelle</h3>
-                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 15px;">
-                        <div>
-                            <p style="color: #fff; font-size:12px; margin-bottom: 6px;">Türkçe Değerler (TR)</p>
-                            <input type="text" id="statTeamsInput_tr" class="form-input" placeholder="Aktif Takım (TR)">
-                            <input type="text" id="statPlayersInput_tr" class="form-input" placeholder="Lisanslı Oyuncu (TR)">
-                            <input type="text" id="statSupportInput_tr" class="form-input" placeholder="Discord Destek (TR)">
-                            <input type="text" id="statEventsInput_tr" class="form-input" placeholder="Turnuva Bilgisi (TR)">
-                            <input type="text" id="topBarInput_tr" class="form-input" style="border-color: var(--primary);" placeholder="Kayan Üst Duyuru Bandı Metni (TR)">
-                        </div>
-                        <div>
-                            <p style="color: #fff; font-size:12px; margin-bottom: 6px;">English Values (EN)</p>
-                            <input type="text" id="statTeamsInput_en" class="form-input" placeholder="Active Teams (EN)">
-                            <input type="text" id="statPlayersInput_en" class="form-input" placeholder="Licensed Players (EN)">
-                            <input type="text" id="statSupportInput_en" class="form-input" placeholder="Discord Support (EN)">
-                            <input type="text" id="statEventsInput_en" class="form-input" placeholder="Tournament Info (EN)">
-                            <input type="text" id="topBarInput_en" class="form-input" style="border-color: var(--hover);" placeholder="Top Sliding Announcement Text (EN)">
-                        </div>
-                    </div>
-                    <button class="btn" style="width: 100%;" onclick="saveStats()">Verileri Kaydet / Save Stats</button>
-                </div>
+        let currentLang = 'tr';
+        
+        // ----------------------------------------------------------------------
+        // 2. DİL DEĞİŞTİRME MANTIĞI
+        // ----------------------------------------------------------------------
+        function setLang(lang) {
+            currentLang = lang;
+            const t = langData[lang];
 
-                <!-- Takım Kur -->
-                <div style="background: rgba(0,0,0,0.2); padding: 25px; border-radius: 8px; border: 1px solid var(--border-color);">
-                    <h3 style="margin-bottom:20px; font-size:18px;">Takım Kur / Create Team</h3>
-                    <input type="text" id="teamName_tr" class="form-input" placeholder="Takım Adı (TR)">
-                    <input type="text" id="teamName_en" class="form-input" placeholder="Team Name (EN)">
-                    <input type="text" id="teamGame_tr" class="form-input" placeholder="Oyun (TR)">
-                    <input type="text" id="teamGame_en" class="form-input" placeholder="Game (EN)">
-                    <button class="btn btn-outline" style="width: 100%;" onclick="createTeam()">Oluştur / Create</button>
-                </div>
+            // Statik metinleri değiştir
+            document.getElementById('txt-sys-status').innerText = t.sysStatus;
+            document.getElementById('txt-badge').innerText = t.badge;
+            document.getElementById('txt-title').innerHTML = t.title;
+            document.getElementById('txt-desc').innerText = t.desc;
+            document.getElementById('txt-progress').innerText = t.progress;
+            document.getElementById('txt-term-title').innerText = t.termTitle;
 
-                <!-- Haber Yayınla -->
-                <div style="background: rgba(0,0,0,0.2); padding: 25px; border-radius: 8px; border: 1px solid var(--border-color);">
-                    <h3 style="margin-bottom:20px; font-size:18px;">Haber Yayınla / Publish News</h3>
-                    <input type="text" id="newsTitle_tr" class="form-input" placeholder="Başlık (TR)">
-                    <input type="text" id="newsTitle_en" class="form-input" placeholder="Title (EN)">
-                    <input type="text" id="newsContent_tr" class="form-input" placeholder="İçerik (TR)">
-                    <input type="text" id="newsContent_en" class="form-input" placeholder="Content (EN)">
-                    <button class="btn btn-outline" style="width: 100%;" onclick="addNews()">Yayınla / Publish</button>
-                </div>
+            // Buton aktiflik sınıfları
+            document.getElementById('btn-tr').classList.toggle('active', lang === 'tr');
+            document.getElementById('btn-en').classList.toggle('active', lang === 'en');
 
-                <!-- Turnuva Ekle -->
-                <div style="background: rgba(0,0,0,0.2); padding: 25px; border-radius: 8px; border: 1px solid var(--border-color);">
-                    <h3 style="margin-bottom:20px; font-size:18px;">Turnuva Ekle / Add Tournament</h3>
-                    <input type="text" id="tournamentName_tr" class="form-input" placeholder="Turnuva Adı (TR)">
-                    <input type="text" id="tournamentName_en" class="form-input" placeholder="Tournament Name (EN)">
-                    
-                    <!-- Tarih Alanları -->
-                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
-                        <input type="text" id="tournamentStartDate_tr" class="form-input" placeholder="Başlangıç Tarihi (TR)">
-                        <input type="text" id="tournamentStartDate_en" class="form-input" placeholder="Start Date (EN)">
-                    </div>
-                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
-                        <input type="text" id="tournamentEndDate_tr" class="form-input" placeholder="Bitiş Tarihi (TR)">
-                        <input type="text" id="tournamentEndDate_en" class="form-input" placeholder="End Date (EN)">
-                    </div>
-                    
-                    <!-- Ödül Alanları -->
-                    <textarea id="tournamentPrizes_tr" class="form-input" style="height: 80px; resize: none;" placeholder="Ödüller (TR)"></textarea>
-                    <textarea id="tournamentPrizes_en" class="form-input" style="height: 80px; resize: none;" placeholder="Prizes (EN)"></textarea>
+            // Terminali sıfırla ve yeni dilde başlat
+            startTerminalSimulation();
+        }
 
-                    <textarea id="tournamentRules_tr" class="form-input" style="height: 100px; resize: none;" placeholder="Kurallar (TR)"></textarea>
-                    <textarea id="tournamentRules_en" class="form-input" style="height: 100px; resize: none;" placeholder="Rules (EN)"></textarea>
-                    <button class="btn btn-outline" style="width: 100%;" onclick="createTournament()">Ekle / Add</button>
-                </div>
-
-                <!-- Aktif Alım Ekle -->
-                <div style="background: rgba(0,0,0,0.2); padding: 25px; border-radius: 8px; border: 1px solid var(--border-color);">
-                    <h3 style="margin-bottom:20px; font-size:18px;">Aktif Alım Ekle / Add Recruitment</h3>
-                    <input type="text" id="recruitmentName_tr" class="form-input" placeholder="Pozisyon (TR)">
-                    <input type="text" id="recruitmentName_en" class="form-input" placeholder="Position (EN)">
-                    <label style="display: flex; gap: 10px; cursor: pointer; align-items: center; margin-bottom: 20px; color: #fff; font-size: 14px;">
-                        <input type="checkbox" id="recruitmentLicense" style="width: 18px; height: 18px; accent-color: var(--primary);">
-                        Lisans Gerektirir / Requires License
-                    </label>
-                    <button class="btn btn-outline" style="width: 100%;" onclick="createRecruitment()">Ekle / Add</button>
-                </div>
-
-                <!-- Oyuncu Ekle -->
-                <div style="background: rgba(0,0,0,0.2); padding: 25px; border-radius: 8px; border: 1px solid var(--border-color); grid-column: 1/-1;">
-                    <h3 style="margin-bottom:20px; font-size:18px;">Kadroya Oyuncu Ekle / Add Roster Player</h3>
-                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 15px; margin-bottom: 20px;">
-                        <select id="playerTeamSelect" class="form-input" style="margin:0;"><option value="">Takım Seç</option></select>
-                        <select id="pRole" class="form-input" style="margin:0;">
-                            <option value="captain">Kaptan / Captain</option>
-                            <option value="player">Oyuncu / Player</option>
-                            <option value="sub">Yedek / Substitute</option>
-                        </select>
-                        <input type="text" id="pNickName" class="form-input" style="margin:0;" placeholder="Oyun İçi (IGN)">
-                        <input type="text" id="pRealName" class="form-input" style="margin:0;" placeholder="Gerçek İsim / Name">
-                        <input type="text" id="pRank" class="form-input" style="margin:0;" placeholder="Rank">
-                    </div>
-                    <button class="btn" style="width: 100%;" onclick="addPlayer()">Sisteme Kaydet / Save</button>
-                </div>
-
-                <!-- İÇERİK YÖNETİMİ VE SİLME PANELİ -->
-                <div style="background: rgba(0,0,0,0.3); padding: 25px; border-radius: 8px; border: 1px solid var(--border-color); grid-column: 1 / -1;">
-                    <h3 style="margin-bottom:15px; font-size:18px; color:#fff;"><i class="fa-solid fa-trash-can" style="color: var(--primary);"></i> İçerik Yönetimi ve Silme / Content Management</h3>
-                    <div class="grid" style="gap: 20px; grid-template-columns: 1.1fr 0.9fr;">
-                        
-                        <!-- Takımlar ve Oyuncular Listesi -->
-                        <div style="background: rgba(0,0,0,0.2); padding: 20px; border-radius: 6px; border: 1px solid var(--border-color);">
-                            <h4 style="color:#fff; font-size:14px; margin-bottom:15px; text-transform:uppercase; letter-spacing:0.5px;">Takımlar & Kadrolar / Teams & Rosters</h4>
-                            <div id="admin-teams-list" style="max-height: 250px; overflow-y:auto; font-size:13px; display:flex; flex-direction:column; gap:12px; padding-right:5px;">
-                                <!-- Dinamik olarak listelenecek -->
-                            </div>
-                        </div>
-
-                        <!-- Diğer Dinamik İçerikler Listesi -->
-                        <div style="background: rgba(0,0,0,0.2); padding: 20px; border-radius: 6px; border: 1px solid var(--border-color);">
-                            <h4 style="color:#fff; font-size:14px; margin-bottom:15px; text-transform:uppercase; letter-spacing:0.5px;">Duyuru, Turnuva & Alımlar / Others</h4>
-                            <div id="admin-others-list" style="max-height: 250px; overflow-y:auto; font-size:13px; display:flex; flex-direction:column; gap:12px; padding-right:5px;">
-                                <!-- Dinamik olarak listelenecek -->
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-
-            </div>
+        // ----------------------------------------------------------------------
+        // 3. GELİŞMİŞ TERMİNAL SİMÜLATÖRÜ (TYPING EFFECT)
+        // ----------------------------------------------------------------------
+        let terminalTimeout;
+        
+        function startTerminalSimulation() {
+            clearTimeout(terminalTimeout);
+            const outputDiv = document.getElementById('terminal-output');
+            outputDiv.innerHTML = ''; // Temizle
             
-            <div style="text-align: right; margin-top: 30px;">
-                <!-- database.json İndirme Butonu (Yeni Eklendi) -->
-                <button class="btn" style="background: var(--hover); margin-right: 10px;" onclick="downloadDatabase()">
-                    <i class="fa-solid fa-download"></i> database.json İndir / Download
-                </button>
-                <button class="btn" style="background: transparent; border: 1px solid var(--primary); color: var(--primary); box-shadow: none;" onclick="clearAllData()">Sistemi Sıfırla / Clear All</button>
-            </div>
-        </div>
-    </div>
+            const logs = langData[currentLang].logs;
+            let currentLine = 0;
 
-    <script src="script.js"></script>
+            function padZero(num) { return num < 10 ? '0' + num : num; }
+            function getTimeString() {
+                const now = new Date();
+                return `[${padZero(now.getHours())}:${padZero(now.getMinutes())}:${padZero(now.getSeconds())}.${padZero(Math.floor(now.getMilliseconds()/10))}]`;
+            }
+
+            function getTag(type) {
+                switch(type) {
+                    case 'sys': return `<span class="log-sys">[SYS]</span>`;
+                    case 'warn': return `<span class="log-warn">[WARN]</span>`;
+                    case 'err': return `<span class="log-err">[FAIL]</span>`;
+                    case 'ok': return `<span class="log-ok">[OK]</span>`;
+                    default: return `<span>[INFO]</span>`;
+                }
+            }
+
+            function printNextLine() {
+                if (currentLine >= logs.length) {
+                    // Simülasyon bittiğinde yanıp sönen imleci bırak
+                    outputDiv.innerHTML += `<div class="log-line"><span class="cursor"></span></div>`;
+                    outputDiv.scrollTop = outputDiv.scrollHeight;
+                    return;
+                }
+
+                const log = logs[currentLine];
+                const timeStr = `<span class="log-time">${getTimeString()}</span>`;
+                const tagStr = getTag(log.type);
+                
+                // Div oluştur ve ekle
+                const lineDiv = document.createElement('div');
+                lineDiv.className = 'log-line';
+                lineDiv.innerHTML = `${timeStr} ${tagStr} ${log.msg}`;
+                
+                // Varsa eski imleci bul ve sil
+                const oldCursor = outputDiv.querySelector('.cursor');
+                if (oldCursor) oldCursor.remove();
+
+                outputDiv.appendChild(lineDiv);
+                
+                // Aşağıya kaydır
+                outputDiv.scrollTop = outputDiv.scrollHeight;
+
+                currentLine++;
+
+                // Rastgele gecikme süresi (Hacker / Terminal efekti için)
+                // Hatalarda daha uzun bekler
+                let delay = Math.random() * 400 + 100;
+                if (log.type === 'err') delay += 1000;
+                if (log.type === 'sys') delay += 300;
+
+                terminalTimeout = setTimeout(printNextLine, delay);
+            }
+
+            // İlk satırı yazmaya başla
+            terminalTimeout = setTimeout(printNextLine, 500);
+        }
+
+        // ----------------------------------------------------------------------
+        // 4. CANLI FAKE METRİK GÜNCELLEYİCİ
+        // ----------------------------------------------------------------------
+        setInterval(() => {
+            // Ping (8ms - 25ms arası)
+            const ping = Math.floor(Math.random() * 17) + 8;
+            document.getElementById('val-ping').innerText = ping + "ms";
+
+            // Temp (38°C - 46°C arası)
+            const temp = Math.floor(Math.random() * 8) + 38;
+            document.getElementById('val-temp').innerText = temp + "°C";
+            
+            // Network arasıra SCANNING olur
+            const netEl = document.getElementById('val-net');
+            if(Math.random() > 0.8) {
+                netEl.innerText = "SCANNING...";
+                netEl.style.color = "var(--text-warning)";
+            } else {
+                netEl.innerText = "SECURE";
+                netEl.style.color = "var(--text-terminal)";
+            }
+        }, 2000);
+
+        // ----------------------------------------------------------------------
+        // 5. CANVAS PARTİCLE MOTORU (AĞ/NETWORK EFEKTİ)
+        // ----------------------------------------------------------------------
+        const canvas = document.getElementById('particle-canvas');
+        const ctx = canvas.getContext('2d');
+        
+        let particles = [];
+        const particleCount = 100; // Ekranda dolaşacak nokta sayısı
+        const connectionDistance = 120; // Çizgi çizilecek maksimum mesafe
+        
+        // Fare etkileşimi için
+        let mouse = { x: null, y: null, radius: 150 };
+
+        window.addEventListener('mousemove', function(e) {
+            mouse.x = e.x;
+            mouse.y = e.y;
+        });
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+
+        class Particle {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.size = Math.random() * 2 + 1;
+                this.baseX = this.x;
+                this.baseY = this.y;
+                this.density = (Math.random() * 30) + 1;
+                // Rastgele hız vektörleri
+                this.velocityX = (Math.random() * 1) - 0.5;
+                this.velocityY = (Math.random() * 1) - 0.5;
+                // Renk seçimi (Indigo veya Purple arası)
+                this.color = Math.random() > 0.5 ? 'rgba(99, 102, 241, 0.7)' : 'rgba(168, 85, 247, 0.7)';
+            }
+
+            draw() {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fillStyle = this.color;
+                ctx.fill();
+            }
+
+            update() {
+                // Fareden Kaçma Mantığı (Dodging)
+                let dx = mouse.x - this.x;
+                let dy = mouse.y - this.y;
+                let distance = Math.sqrt(dx * dx + dy * dy);
+                let forceDirectionX = dx / distance;
+                let forceDirectionY = dy / distance;
+                let maxDistance = mouse.radius;
+                let force = (maxDistance - distance) / maxDistance;
+                let directionX = forceDirectionX * force * this.density;
+                let directionY = forceDirectionY * force * this.density;
+
+                if (distance < mouse.radius) {
+                    this.x -= directionX;
+                    this.y -= directionY;
+                } else {
+                    // Serbest hareket
+                    this.x += this.velocityX;
+                    this.y += this.velocityY;
+                }
+
+                // Sınırlardan sekme
+                if(this.x < 0 || this.x > canvas.width) this.velocityX = -this.velocityX;
+                if(this.y < 0 || this.y > canvas.height) this.velocityY = -this.velocityY;
+
+                this.draw();
+            }
+        }
+
+        function initParticles() {
+            particles = [];
+            for (let i = 0; i < particleCount; i++) {
+                particles.push(new Particle());
+            }
+        }
+
+        function connectParticles() {
+            let opacityValue = 1;
+            for (let a = 0; a < particles.length; a++) {
+                for (let b = a; b < particles.length; b++) {
+                    let dx = particles[a].x - particles[b].x;
+                    let dy = particles[a].y - particles[b].y;
+                    let distance = Math.sqrt(dx * dx + dy * dy);
+
+                    if (distance < connectionDistance) {
+                        opacityValue = 1 - (distance / connectionDistance);
+                        ctx.strokeStyle = `rgba(99, 102, 241, ${opacityValue * 0.3})`;
+                        ctx.lineWidth = 1;
+                        ctx.beginPath();
+                        ctx.moveTo(particles[a].x, particles[a].y);
+                        ctx.lineTo(particles[b].x, particles[b].y);
+                        ctx.stroke();
+                    }
+                }
+            }
+        }
+
+        function animateCanvas() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            for (let i = 0; i < particles.length; i++) {
+                particles[i].update();
+            }
+            connectParticles();
+            requestAnimationFrame(animateCanvas);
+        }
+
+        // Başlangıç tetiklemeleri
+        initParticles();
+        animateCanvas();
+        setLang(currentLang); // Terminali ve metinleri başlat
+
+    </script>
 </body>
 </html>
